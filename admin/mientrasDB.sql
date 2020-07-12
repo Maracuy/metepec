@@ -1,0 +1,41 @@
+DROP TABLE IF EXISTS wordpress;
+
+
+CREATE TABLE wordpress{
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    origen VARCHAR(10),
+    programa VARCHAR(5),
+    paquete_captura VARCHAR(10),
+    marca VARCHAR(2),
+    cs VARCHAR(2),
+    cn VARCHAR(2),
+    pg_2020_1 VARCHAR(2),
+    pg_2020_2 VARCHAR(2),
+    pg_2020_3 VARCHAR(2),
+    pg_2020_4 VARCHAR(2),
+    pg_2020_5 VARCHAR(2),
+    pg_2020_6 VARCHAR(2),
+    id_pad VARCHAR(10),
+    tarjeta VARCHAR(10),
+    ap_paterno VARCHAR(30),
+    ap_materno VARCHAR(30),
+    nombre VARCHAR(30),
+    edad VARCHAR(10),
+    genero VARCHAR(2),
+    curp VARCHAR(30),
+    cve_elector VARCHAR(30),
+    celular VARCHAR(15),
+    r VARCHAR(30),
+    local VARCHAR(30),
+    r5 VARCHAR(30),
+    r6 VARCHAR(30),
+    cp VARCHAR(30),
+    localidad VARCHAR(30),
+    colonia VARCHAR(30),
+    calle VARCHAR(30),
+    mz VARCHAR(30),
+    lote VARCHAR(30),
+    ext VARCHAR(10),
+    in_t VARCHAR(10)
+}ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
