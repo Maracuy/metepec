@@ -215,8 +215,8 @@
         </div>
 
         <div class="form-group col-md-2">
-            <label for="vulnerable">Parentesco</label>
-            <select class="form-control" id="parentesco">
+            <label for="parentesco">Parentesco</label>
+            <select class="form-control" id="parentesco" name="parentesco">
             <option value="">Ninguno</option>
             <option value="padre">Padre</option>
             <option value="hijo">Hijo</option>

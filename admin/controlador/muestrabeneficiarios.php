@@ -1,4 +1,5 @@
 
+<div class="espaciadormio" style="height: 50px;"></div>
 
 
 <h3>Beneficiarios:</h3>
@@ -51,8 +52,8 @@
           <td>
           <form method="POST" action="controlador/ajustes/ajustes_mysql.php">
 
-          <button type="submit" value="Enviar este formulario" formmethod="POST" class="btn btn-primary" id="detalles_beneficiario" name="detalles_beneficiario">Registrar Nuevo Origen</button>
-            <i class='fas fa-info-circle ml-3'></i>
+          <button type="submit" formmethod="POST" class="btn btn-link ml-2" id="detalles_beneficiario" name="detalles_beneficiario">
+            <i class='fas fa-info-circle'></i>
           </button>
           
           </td>

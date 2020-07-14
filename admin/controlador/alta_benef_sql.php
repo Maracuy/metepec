@@ -18,13 +18,14 @@ function alta_auxiliar($con){
     $apellido_p_aux = $_POST['apellido_p_auxiliar'];
     $apellido_m_aux = $_POST['apellido_m_auxiliar'];
     $telefono_auxiliar = $_POST['telefono_auxiliar'];
+    $parentesco = $_POST['parentesco'];
     $id_del_beneficiario = $beneficiario['id_beneficiario'];
     
-    $sql_agregar_beneficiario = 'INSERT INTO auxiliares VALUES (NULL, ?, ?, ?, ?, ?)';
+    $sql_agregar_beneficiario = 'INSERT INTO auxiliares VALUES (NULL, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar_beneficiario = $con->prepare($sql_agregar_beneficiario);
 
     try{
-        $sentencia_agregar_beneficiario->execute(array($nombres_aux, $apellido_p_aux, $apellido_m_aux, $telefono_auxiliar, $id_del_beneficiario,));
+        $sentencia_agregar_beneficiario->execute(array($nombres_aux, $apellido_p_aux, $apellido_m_aux, $telefono_auxiliar, $id_del_beneficiario, $parentesco));
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  

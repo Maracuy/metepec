@@ -4,14 +4,14 @@
     </div>
     
     <div class="menu">
-        <a href="../admin/index.php" class="d-block text-light p-3"> <i class="fas fa-home"></i> Inicio </a>
+        <a href="../admin/index.php" class="d-block text-light p-3"> <i class="fas fa-home mr-2"></i> Inicio </a>
 
 
         <a href="../admin/beneficiarios.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Beneficiarios </a>
 
         <?php 
         if ($_SESSION['user']['nivel'] == "Admin" || $_SESSION['user']['nivel'] == "Super Admin"){
-            echo "<a href='../admin/empleados.php' class='d-block text-light p-3'> <i class='fas fa-briefcase mr-2'></i> Empleados </a>";
+            echo "<a href='../admin/empleados.php' class='d-block text-light p-3'> <i class='fas fa-user-friends mr-2'></i> Empleados </a>";
         }
         else{
             echo"";
@@ -20,7 +20,15 @@
         
         <a href="../admin/documentos.php" class="d-block text-light p-3"> <i class="far fa-file mr-2"></i> Documentos </a>
         <a href="../admin/glosario.php" class="d-block text-light p-3"> <i class="fas fa-spell-check mr-2"></i> Glosario </a>
-        <a href="../admin/ajustes.php" class="d-block text-light p-3"> <i class="fas fa-tools mr-2"></i> Ajustes </a>
+
+        <?php 
+        if ($_SESSION['user']['nivel'] == "Admin" || $_SESSION['user']['nivel'] == "Super Admin"){
+            echo '<a href="../admin/ajustes.php" class="d-block text-light p-3"> <i class="fas fa-tools mr-2"></i> Ajustes </a>';
+        }
+        else{
+            echo"";
+        }
+        ?>
 
     </div>
 </div>
