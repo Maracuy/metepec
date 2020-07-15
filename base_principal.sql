@@ -231,7 +231,7 @@ DROP TABLE IF EXISTS procesos;
 CREATE TABLE IF NOT EXISTS procesos(
   id_procesos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_beneficiario INT NOT NULL,
-  id_
+  id_alta INT NOT NULL,
   fecha_listado DATE,
   fecha_enviado DATE,
   respuesta TEXT,
