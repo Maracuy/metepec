@@ -196,7 +196,6 @@ CREATE TABLE IF NOT EXISTS auxiliares(
 
 
 DROP TABLE IF EXISTS altas;
-
 CREATE TABLE IF NOT EXISTS altas(
   id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_beneficiario INT NOT NULL,
@@ -210,24 +209,18 @@ CREATE TABLE IF NOT EXISTS altas(
   visto_por_responsable BOOLEAN,
   estatus ENUM('open', 'close'),
   id_empleado_capt INT NOT NULL,
-  id_servidor_publico INT,
-  fecha_listado DATETIME,
-  fecha_enviado DATETIME,
   exito BOOLEAN,
-  f_estimacion_activacion DATE,
   id_pagos INT,
   CONSTRAINT fk_altas_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
   CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
   CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas(id_programas) ON DELETE CASCADE,
   CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
-  CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
-  CONSTRAINT fk_alta_servidor_publico FOREIGN KEY (id_servidor_publico) REFERENCES servidores_publicos(id) ON DELETE CASCADE
+  CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
 DROP TABLE IF EXISTS procesos;
-
 CREATE TABLE IF NOT EXISTS procesos(
   id_procesos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_beneficiario INT NOT NULL,
@@ -245,14 +238,13 @@ CREATE TABLE IF NOT EXISTS procesos(
   fecha_estimada_programacion DATE,
   stado_pago INT,
   reporte TEXT,
-
-  CONSTRAINT fk_provesos_servidorp FOREIGN KEY id_servidor_publico REFERENCES servidores_publicos(id)
+  CONSTRAINT fk_procesos_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
+  CONSTRAINT fk_procesos_altas FOREIGN KEY (id_alta) REFERENCES altas(id_alta),
+  CONSTRAINT fk_procesos_servidor FOREIGN KEY (id_servidor_publico) REFERENCES servidores_publicos(id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-
 DROP TABLE IF EXISTS pagos_adulto_mayor;
-
 CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   year_on_curse VARCHAR(4),
@@ -269,5 +261,5 @@ CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
   bim_6 INT,
   fecha_de_pago_bim_6 DATE,
   id_beneficiario INT NOT NULL,
-  CONTRAINT fk_pagos_programa FOREIGN KEY (id) REFERENCES altas(id_pagos)
+  CONSTRAINT fk_pagos_programa FOREIGN KEY (id) REFERENCES altas(id_alta)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
