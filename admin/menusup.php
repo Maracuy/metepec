@@ -8,6 +8,20 @@
         <button class="btn position-absolute btn-search" type="submit"><i class="fas fa-search"></i></button>
       </form>
 
+
+<!--Aqui esta el menu que muestra las notificaciones-->
+      <div class="dropdown ml-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Tareas <span class="badge badge-light">9</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Mis tareas</a>
+          <a class="dropdown-item" href="crea_tareas.php">Nueva tarea</a>
+          <a class="dropdown-item" href="#">Archivadas</a>
+        </div>
+      </div>
+
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">

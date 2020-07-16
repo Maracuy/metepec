@@ -27,8 +27,8 @@
       foreach ($resultado as $dato): ?>
     
         <?php
-          if(isset($dato['id_colonia'])){
-            $colonia = $dato['id_colonia'];
+          if(($dato['id_colonia'] != "1")){
+            $la_colonia = $dato['id_colonia'];
             $sql_query = $con->prepare("SELECT nombre_colonia FROM colonias WHERE id=?");
             $sql_query->execute(array($colonia));
             $la_colonia = $sql_query->fetch(); 
@@ -45,7 +45,7 @@
 
           <td> <?php echo $dato['telefono'] ?></td>
           
-          <td><?php echo $la_colonia['nombre_colonia'] ?></td>
+          <td><?php echo $la_colonia?></td>
           
           <td> Status </td>
 

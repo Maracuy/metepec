@@ -237,3 +237,6 @@
   
 </form>
 
+
+<?php $conn=null?>
+<?php mysqli_close($mysqli)?>
