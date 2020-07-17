@@ -122,6 +122,7 @@ DROP TABLE IF EXISTS beneficiarios ;
 CREATE TABLE IF NOT EXISTS beneficiarios (
   id_beneficiario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   fecha_captura DATETIME NOT NULL,
+  nombre_c VARCHAR(255) NOT NULL,
   nombres VARCHAR(45) NOT NULL,
   apellido_p VARCHAR(45) NOT NULL,
   apellido_m VARCHAR(45) NOT NULL,

@@ -42,7 +42,7 @@
 
     <label>Buscar beneficiario:</label>
     <input type="text" name="articulo" id="articulo" class="form-control input-lg" autocomplete="off"
-           placeholder="Articulo Buscar"/>
+           placeholder="Beneficiario a Buscar"/>
 </div>
 <script>
     $(document).ready(function () {

@@ -34,10 +34,15 @@ function alta_auxiliar($con){
 }
 
 function alta_beneficiario($con){
+    
+        if(isset($_POST['nombres']) and isset($_POST['apellido_p']) and isset($_POST['apellido_m'])){
+            $nombre_c = $_POST['nombres'] . " " . $_POST['apellido_p'] . " " . $_POST['apellido_m'];
+        }
         
     $nombres = $_POST['nombres'];
     $apellido_p = $_POST['apellido_p'];
     $apellido_m = $_POST['apellido_m'];
+
     $vulnerable = $_POST['vulnerable'];
     $genero = $_POST['genero'];
     $curp = $_POST['curp'];
@@ -76,12 +81,12 @@ function alta_beneficiario($con){
     $promueve = $_POST['promueve'];
 
 
-    $sql_agregar = 'INSERT INTO beneficiarios (id_beneficiario, fecha_captura, nombres, apellido_p, apellido_m, vulnerable, genero, curp, tipo_identificacion, numero_identificacion, telefono, email, whats, fech_nacimiento, nivel, dir_calle, dir_numero, dir_numero_int, id_colonia, otra_colonia, municipio, dir_referencia, solicitud_basico, id_empleado, id_medio_contacto, id_origenes, id_promotores) 
-    VALUES (NULL, CURRENT_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    $sql_agregar = 'INSERT INTO beneficiarios (id_beneficiario, fecha_captura, nombre_c, nombres, apellido_p, apellido_m, vulnerable, genero, curp, tipo_identificacion, numero_identificacion, telefono, email, whats, fech_nacimiento, nivel, dir_calle, dir_numero, dir_numero_int, id_colonia, otra_colonia, municipio, dir_referencia, solicitud_basico, id_empleado, id_medio_contacto, id_origenes, id_promotores) 
+    VALUES (NULL, CURRENT_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar = $con->prepare($sql_agregar);
 
     try{
-        $sentencia_agregar->execute(array($nombres, $apellido_p, $apellido_m, $vulnerable, $genero, $curp, $tipo_identificacion, $numero_identificacion, $telefono, $email, $whats, $fech_nacimiento, $nivel, $calle, $numero, $numero_int, $colonia, $otra_colonia, $municipio, $referencia, $solicitud_basico, $id_empleado, $medio, $origen, $promueve));
+        $sentencia_agregar->execute(array($nombre_c, $nombres, $apellido_p, $apellido_m, $vulnerable, $genero, $curp, $tipo_identificacion, $numero_identificacion, $telefono, $email, $whats, $fech_nacimiento, $nivel, $calle, $numero, $numero_int, $colonia, $otra_colonia, $municipio, $referencia, $solicitud_basico, $id_empleado, $medio, $origen, $promueve));
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
