@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS empleados (
   PRIMARY KEY (id_empleado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","1990-03-17","7224531128", "Super Admin", "170390", "ggs,webmaster@metepec.work", "Creador del Sistema");
-
+INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","1990-03-17","7224531128", "Super Admin", "7224531128", "ggs,webmaster@metepec.work", "Creador del Sistema");
+INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
 
 
 DROP TABLE IF EXISTS programas;
@@ -38,9 +38,10 @@ CREATE TABLE IF NOT EXISTS programas(
 DROP TABLE IF EXISTS departamentos;
 
 CREATE TABLE IF NOT EXISTS departamentos(
-  id_departamento INT NOT NULL AUTO_INCREMENT,
+  id_departamento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
-  PRIMARY KEY (id_departamento)
+  abreviaruta VARCHAR(45) NOT NULL,
+  descripcion VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -107,78 +108,6 @@ CREATE TABLE IF NOT EXISTS servidores_publicos(
 
 
 
-DROP TABLE IF EXISTS colonias;
-
-CREATE TABLE IF NOT EXISTS colonias(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nombre_colonia VARCHAR(100) NOT NULL,
-  municipio VARCHAR(50)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO colonias (id, nombre_colonia, municipio) VALUES (NULL, 'Sin colonia', 'Sin municipio');
-
-
-
-DROP TABLE IF EXISTS beneficiarios ;
-CREATE TABLE IF NOT EXISTS beneficiarios (
-  id_beneficiario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  fecha_captura DATETIME NOT NULL,
-  nombre_c VARCHAR(255) NOT NULL,
-  nombres VARCHAR(45) NOT NULL,
-  apellido_p VARCHAR(45) NOT NULL,
-  apellido_m VARCHAR(45) NOT NULL,
-  vulnerable VARCHAR(2) NULL DEFAULT NULL,
-  genero VARCHAR(1) NULL DEFAULT NULL,
-  curp VARCHAR(20) NULL DEFAULT NULL,
-  tipo_identificacion VARCHAR(20) NULL DEFAULT NULL,
-  numero_identificacion VARCHAR(50) NULL DEFAULT NULL,
-  telefono VARCHAR(10) NULL DEFAULT NULL,
-  email VARCHAR(50) NULL DEFAULT NULL,
-  whats VARCHAR(2) NULL DEFAULT NULL,
-  fech_nacimiento DATE NULL DEFAULT NULL,
-  nivel VARCHAR(2) NULL DEFAULT NULL,
-  dir_calle VARCHAR(45) NULL DEFAULT NULL,
-  dir_numero VARCHAR(5) NULL DEFAULT NULL,
-  dir_numero_int VARCHAR(5) NULL DEFAULT NULL,
-  id_colonia INT NULL DEFAULT NULL,
-  otra_colonia VARCHAR(50) NULL DEFAULT NULL,
-  municipio VARCHAR(45) NULL DEFAULT NULL,
-  dir_referencia VARCHAR(255) NULL DEFAULT NULL,
-  estado_civil VARCHAR(45) NULL DEFAULT NULL,
-  num_hijos VARCHAR(45) NULL DEFAULT NULL,
-  ocupacion VARCHAR(45) NULL DEFAULT NULL,
-  pensionado VARCHAR(45) NULL DEFAULT NULL,
-  enfermedades_cron VARCHAR(45) NULL DEFAULT NULL,
-  solicitud_basico VARCHAR(255) NULL DEFAULT NULL,
-  id_empleado INT NULL DEFAULT NULL,
-  id_medio_contacto INT NULL DEFAULT NULL,
-  id_origenes INT NULL DEFAULT NULL,
-  id_promotores INT NULL DEFAULT NULL,
-  clave_electoral VARCHAR(45) NULL DEFAULT NULL,
-  zona_electoral VARCHAR(45) NULL DEFAULT NULL,
-  seccion_electoral VARCHAR(45) NULL DEFAULT NULL,
-  participo_eleccion VARCHAR(45) NULL DEFAULT NULL,
-  posicion VARCHAR(45) NULL DEFAULT NULL,
-  asisitio VARCHAR(45) NULL DEFAULT NULL,
-  afiliacion VARCHAR(45) NULL DEFAULT NULL,
-  nivel_satisfaccion VARCHAR(45) NULL DEFAULT NULL,
-  CONSTRAINT fk_beneficiarios_empleados FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado)
-    ON DELETE CASCADE ,
-  CONSTRAINT fk_beneficiarios_origen FOREIGN KEY (id_origenes) REFERENCES origenes (id)
-    ON DELETE CASCADE ,
-  CONSTRAINT fk_beneficiarios_promotores FOREIGN KEY (id_promotores) REFERENCES promotores(id)
-    ON DELETE CASCADE ,
-  CONSTRAINT fk_beneficiario_medio FOREIGN KEY (id_medio_contacto) REFERENCES medio_contacto (id)
-    ON DELETE CASCADE ,
-  CONSTRAINT fk_beneficiarios_colonias FOREIGN KEY (id_colonia) REFERENCES colonias (id)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_unicode_ci;
-
-
-
-
-
 DROP TABLE IF EXISTS auxiliares;
 
 CREATE TABLE IF NOT EXISTS auxiliares(
@@ -194,30 +123,6 @@ CREATE TABLE IF NOT EXISTS auxiliares(
   )ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8
   COLLATE = utf8_unicode_ci;
-
-
-DROP TABLE IF EXISTS altas;
-CREATE TABLE IF NOT EXISTS altas(
-  id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  id_beneficiario INT NOT NULL,
-  fecha_activacion DATETIME NOT NULL,
-  id_tarjeta VARCHAR(10),
-  id_padron VARCHAR(10),
-  forma_de_pago VARCHAR(20),
-  id_departamento INT NULL,
-  id_programa INT NULL,
-  id_responsable INT NOT NULL,
-  visto_por_responsable BOOLEAN,
-  estatus ENUM('open', 'close'),
-  id_empleado_capt INT NOT NULL,
-  exito BOOLEAN,
-  id_pagos INT,
-  CONSTRAINT fk_altas_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas(id_programas) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
-  CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -247,8 +152,10 @@ CREATE TABLE IF NOT EXISTS procesos(
 
 DROP TABLE IF EXISTS pagos_adulto_mayor;
 CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_pagos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  forma_de_pago VARCHAR(15),
   year_on_curse VARCHAR(4),
+  id_alta INT NOT NULL,
   bim_1 INT,
   fecha_de_pago_bim_1 DATE,
   bim_2 INT,
@@ -261,6 +168,7 @@ CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
   fecha_de_pago_bim_5 DATE,
   bim_6 INT,
   fecha_de_pago_bim_6 DATE,
-  id_beneficiario INT NOT NULL,
-  CONSTRAINT fk_pagos_programa FOREIGN KEY (id) REFERENCES altas(id_alta)
+  CONSTRAINT fk_pagos_programa FOREIGN KEY (id_alta) REFERENCES altas(id_alta) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
