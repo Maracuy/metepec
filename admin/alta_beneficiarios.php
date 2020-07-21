@@ -28,8 +28,15 @@ require_once '../conection/conexioni.php';
 
 
 
-            <?php include_once 'controlador/alta_benef_step_one.php'?>
-        
+    <?php 
+    
+        if (empty($_GET)) {
+            include_once 'controlador/alta_benef_step_one.php';
+        }
+        elseif (isset($_GET)){
+            include 'controlador/modifica_beneficiario.php';
+        }
+    ?>
 
 
         

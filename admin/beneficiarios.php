@@ -7,7 +7,7 @@ if (empty($_SESSION['user'])){
 }
 require_once '../conection/conexion.php';
 require_once '../conection/conexioni.php';
-$sql_query = $con->prepare("SELECT * FROM beneficiarios ORDER BY fecha_captura DESC");
+$sql_query = $con->prepare("SELECT * FROM beneficiarios ORDER BY id_beneficiario ASC");
 $sql_query->execute();
 $resultado = $sql_query->fetchALL();
 

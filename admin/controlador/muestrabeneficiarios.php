@@ -15,7 +15,7 @@
       <th scope="col">Estatus</th>
       <th scope="col">Detalles</th>
       <th scope="col">Programa</th>
-      <th scope="col">Eliminar</th>
+      <th scope="col">Proceso</th>
       
 
     </tr>
@@ -29,13 +29,14 @@
         <?php
           if(($dato['id_colonia'] != "1")){
             $la_colonia = $dato['id_colonia'];
-            $sql_query = $con->prepare("SELECT nombre_colonia FROM colonias WHERE id=?");
-            $sql_query->execute(array($colonia));
-            $la_colonia = $sql_query->fetch(); 
+            $sql_query_colonias = $con->prepare("SELECT id, nombre_colonia FROM colonias WHERE id=?");
+            $sql_query_colonias->execute(array($la_colonia));
+            $nombre_colonia = $sql_query_colonias->fetch();
+            $colonia=$nombre_colonia["nombre_colonia"];
 
         }
           elseif(isset($dato['otra_colonia'])){
-            $la_colonia = $dato['otra_colonia'];} ?>
+            $colonia = $dato['otra_colonia'];} ?>
       
         <tr>
 
@@ -45,26 +46,28 @@
 
           <td> <?php echo $dato['telefono'] ?></td>
           
-          <td><?php echo $la_colonia?></td>
+          <td><?php echo $colonia?></td>
           
           <td> Status </td>
 
           <td>
-          <form method="POST" action="controlador/ajustes/ajustes_mysql.php">
-
-          <button type="submit" formmethod="POST" class="btn btn-link ml-2" id="detalles_beneficiario" name="detalles_beneficiario">
-            <i class='fas fa-info-circle'></i>
-          </button>
+            <a href="alta_beneficiarios.php?id=<?php echo $dato['id_beneficiario']?>">
+              <i class='fas fa-info-circle ml-3'></i>
+            </a>
           
           </td>
         
 
           <td>No pertenece</td>
+
+
+          <td><button type="button" class="btn btn-<?php echo "secondary"?> btn-sm">Cerrado</button>
+</td>
+
           </form>
         </tr>
 
       <?php
-      include 'controlador/modal_beneficiarios.php'; 
       endforeach;
       ?>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
