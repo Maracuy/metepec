@@ -172,3 +172,17 @@ CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+
+
+DROP TABLE IF EXISTS tareas;
+CREATE TABLE IF NOT EXISTS tareas(
+  id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_empleado_crea_tarea INT NOT NULL,
+  id_empleado_asigna_tarea INT NOT NULL,
+  tarea_titulo VARCHAR(255),
+  tarea_descr TEXT,
+  fecha_limite DATE,
+  id_beneficiario INT,
+  
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -7,6 +7,11 @@ if (empty($_SESSION['user'])){
 }
 require_once '../conection/conexion.php';
 require_once '../conection/conexioni.php';
+/*
+$sql_query = $con->prepare("SELECT * FROM tareas");
+$sql_query->execute();
+$resultado = $sql_query->fetchALL();
+*/
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +34,13 @@ require_once '../conection/conexioni.php';
 
 
 
-    <?php include 'controlador/muestra_tareas.php' ?>
+    <?php 
+    if($_GET['tipo']=="edita"){
+    include 'controlador/edita_auxiliar.php';
+    } elseif($_GET['tipo']== "nuevo"){  
+    include 'controlador/alta_auxiliar.php';
+    }
+    ?>
 
 
 

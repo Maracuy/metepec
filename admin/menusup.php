@@ -15,9 +15,9 @@
           Tareas <span class="badge badge-light">9</span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Mis tareas</a>
+          <a class="dropdown-item" href="index.php">Mis tareas</a>
           <a class="dropdown-item" href="crea_tareas.php">Nueva tarea</a>
-          <a class="dropdown-item" href="#">Archivadas</a>
+          <a class="dropdown-item" href="realizadas.php">Realizadas</a>
         </div>
       </div>
 

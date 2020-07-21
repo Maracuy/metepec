@@ -9,7 +9,7 @@
 
 ?>
 
-
+<input type="hidden" id="id_beneficiario" name="id_beneficiario" value="<?php echo $id?>">
 
 <h4>Editar Beneficiario</h4>
     <div class="form-row">
@@ -220,13 +220,51 @@
         <label for="enfermedades_cron">Enfermedades Cronicas</label>
         <input type="text" value="<?php echo $editable['enfermedades_cron']?>" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
     </div>
- 
-   
-   
-     
-   
 
 </div>
+
+<br>
+
+<div class="form-row">
+
+        <div class="form-group col-md-1">
+            <label for="zona_electoral">Zona Electoral</label>
+            <input type="text" value="<?php echo $editable['zona_electoral']?>" class="form-control" id="zona_electoral" name="zona_electoral">
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="seccion_electoral">Sec. Electoral</label>
+            <input type="text" value="<?php echo $editable['seccion_electoral']?>" class="form-control" id="seccion_electoral" name="seccion_electoral">
+        </div>   
+
+        <div class="form-group col-md-2">
+            <label for="participo_eleccion">Participo Eleccion</label>
+            <input type="text" value="<?php echo $editable['participo_eleccion']?>" class="form-control" id="participo_eleccion" name="participo_eleccion">
+        </div> 
+
+        <div class="form-group col-md-2">
+            <label for="posicion">Posicion</label>
+            <input type="text" value="<?php echo $editable['posicion']?>" class="form-control" id="posicion" name="posicion">
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="asisitio">Asistio</label>
+            <input type="text" value="<?php echo $editable['asisitio']?>" class="form-control" id="asisitio" name="asisitio">
+        </div>   
+
+        <div class="form-group col-md-2">
+            <label for="afiliacion">Afiliacion</label>
+            <input type="text" value="<?php echo $editable['afiliacion']?>" class="form-control" id="afiliacion" name="afiliacion">
+        </div>   
+
+        <div class="form-group col-md-2">
+            <label for="observaciones">Observaciones</label>
+            <textarea type="text" value="<?php echo $editable['observaciones']?>" class="form-control" id="observaciones" name="observaciones"> </textarea>
+        </div>   
+
+
+    </div>
+
 
 
 
@@ -321,93 +359,69 @@ $sql_query->execute(array($id));
 $no_auxiliares = $sql_query->fetch();
 
 
-if($no_auxiliares >= 1){
+
+
+if($no_auxiliares['total'] >= 1): 
+
     $sql_query = $con->prepare("SELECT * FROM auxiliares WHERE id_beneficiario = ?");
     $sql_query->execute(array($id));
     $auxiliares = $sql_query->fetchAll();
-}
+    echo "<h4>Auxiliares Registrados:</h4>";
 
-if($no_auxiliares >= 1): ?>
+?>
 
-<h4>Auxiliares Registrados:</h4>
+
+
     
     <?php foreach($auxiliares as $auxiliar): ?>
         <div class="form-row">
 
             <div class="form-group col-md-2">
-                <label for="nombres_auxiliar">Nombre(s) de Auxiliar</label>
-                <input type="text" value="<?php echo $auxiliar['nombres_auxiliar']?>" class="form-control" id="nombres_auxiliar" name="nombres_auxiliar">
+                <label for="nombres_auxiliar">Nombre(s) de Auxiliar</label> <br>
+                <?php echo $auxiliar['nombres_auxiliar']?>
             </div>
 
             <div class="form-group col-md-2">
-                <label for="apellido_p_auxiliar">Apellido Paterno de Aux</label>
-                <input type="text" value="<?php echo $auxiliar['apellido_p_auxiliar']?>" class="form-control" id="apellido_p_auxiliar" name="apellido_p_auxiliar">
+                <label for="apellido_p_auxiliar">Apellido Paterno de Aux</label><br>
+                <?php echo $auxiliar['apellido_p_auxiliar']?>
             </div>
 
             <div class="form-group col-md-2">
-                <label for="apellido_m_auxiliar">Apellido Materno de Aux</label>
-                <input type="text" value="<?php echo $auxiliar['apellido_m_auxiliar']?>" class="form-control" id="apellido_m_auxiliar" name="apellido_m_auxiliar">
+                <label for="apellido_m_auxiliar">Apellido Materno de Aux</label><br>
+                <?php echo $auxiliar['apellido_m_auxiliar']?>
             </div>
 
             <div class="form-group col-md-2">
-                <label for="telefono_auxiliar">Telefono de Aux</label>
-                <input type="text" value="<?php echo $auxiliar['telefono_auxiliar']?>" class="form-control" id="telefono_auxiliar" name="telefono_auxiliar">
+                <label for="telefono_auxiliar">Telefono de Aux</label><br>
+                <?php echo $auxiliar['telefono_auxiliar']?>
             </div>
 
             <div class="form-group col-md-2">
-                <label for="parentesco">Parentesco</label>
-                <select class="form-control" id="parentesco" name="parentesco">
+                <label for="parentesco">Parentesco</label><br>
+                
                     <?php if($auxiliar['parentesco'] == "") echo "<option value=''> No seleccionado </option>"; ?>
-                    <option <?php if ($auxiliar['parentesco'] == "ninguno" ) echo 'selected' ; ?> value="">Ninguno</option>
-                    <option <?php if ($auxiliar['parentesco'] == "padre" ) echo 'selected' ; ?> value="padre">Padre</option>
-                    <option <?php if ($auxiliar['parentesco'] == "hijo" ) echo 'selected' ; ?> value="hijo">Hijo</option>
-                    <option <?php if ($auxiliar['parentesco'] == "hermano" ) echo 'selected' ; ?> value="hermano">Hermano</option>
-                    <option <?php if ($auxiliar['parentesco'] == "nieto" ) echo 'selected' ; ?> value="nieto">Nieto</option>
-                    <option <?php if ($auxiliar['parentesco'] == "otro" ) echo 'selected' ; ?> value="otro">Otro</option>
-                </select>
+                    <?php echo $auxiliar['parentesco']?>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="parentesco">Editar</label><br>
+                
+                <a href="auxiliar.php?id=<?php echo $auxiliar['id_auxiliar']?>&tipo=edita"> <i class="far fa-edit"></i></a>
             </div>
 
         </div>
     <?php endforeach;?>
-<?php endif; ?>
+<?php endif;
+if($no_auxiliares['total'] == 0){
+    echo "<h4> No cuenta con Auxiliares</h4>";
+}
+?>
 
-    <h5>Registrar Otro Auxiliar</h5>
-    <div class="form-row">
 
-        <div class="form-group col-md-2">
-            <label for="nombres_auxiliar">Nombre(s) de Auxiliar</label>
-            <input type="text" class="form-control" id="nombres_auxiliar" name="nombres_auxiliar">
-        </div>
+<a href="auxiliar.php?id=<?php echo $id."&tipo=nuevo" ?>"><img src="img/registrar_nuevo.png" alt="Registrar nuevo" srcset=""></a>
+    
 
-        <div class="form-group col-md-2">
-            <label for="apellido_p_auxiliar">Apellido Paterno de Aux</label>
-            <input type="text" class="form-control" id="apellido_p_auxiliar" name="apellido_p_auxiliar">
-        </div>
-
-        <div class="form-group col-md-2">
-            <label for="apellido_m_auxiliar">Apellido Materno de Aux</label>
-            <input type="text" class="form-control" id="apellido_m_auxiliar" name="apellido_m_auxiliar">
-        </div>
-
-        <div class="form-group col-md-2">
-            <label for="telefono_auxiliar">Telefono de Aux</label>
-            <input type="text" class="form-control" id="telefono_auxiliar" name="telefono_auxiliar">
-        </div>
-
-        <div class="form-group col-md-2">
-            <label for="parentesco">Parentesco</label>
-            <select class="form-control" id="parentesco" name="parentesco">
-            <option value="">Ninguno</option>
-            <option value="padre">Padre</option>
-            <option value="hijo">Hijo</option>
-            <option value="hermano">Hermano</option>
-            <option value="nieto">Nieto</option>
-            <option value="otro">Otro</option>
-            </select>
-        </div>
-
-    </div>
-
+<div class="espaciadormio" style="height: 50px;"></div>
 
 
 <br>

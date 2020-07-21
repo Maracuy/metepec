@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS beneficiarios (
   posicion VARCHAR(45) NULL DEFAULT NULL,
   asisitio VARCHAR(45) NULL DEFAULT NULL,
   afiliacion VARCHAR(45) NULL DEFAULT NULL,
-  nivel_satisfaccion VARCHAR(45) NULL DEFAULT NULL,
+  observaciones TEXT NULL DEFAULT NULL,
   CONSTRAINT fk_beneficiarios_empleados FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado)
     ON DELETE CASCADE ,
   CONSTRAINT fk_beneficiarios_origen FOREIGN KEY (id_origenes) REFERENCES origenes (id)
