@@ -46,8 +46,7 @@
         <div class="form-group col-md-1">
             <label for="nivel">Nivel</label>
             <select class="form-control" id="nivel" name="nivel">
-            <?php 
-                if($editable['nivel'] == "") echo "<option value=''> No seleccionado </option>"; ?>
+            <?php if($editable['nivel'] == "") echo "<option value=''> No seleccionado </option>"; ?>
             <option <?php if ($editable['nivel'] == "0" ) echo 'selected' ; ?> value="">0</option>
             <option <?php if ($editable['nivel'] == "1" ) echo 'selected' ; ?> value="1">1</option>
             <option <?php if ($editable['nivel'] == "2" ) echo 'selected' ; ?> value="2">2</option>
