@@ -10,8 +10,6 @@ if($_POST){
   $tarea_descripcion = $_POST['tarea']['descripcion'];
   $tarea_responsable = $_POST['tarea']['responsable'];
   $tarea_fecha_limite = $_POST['tarea']['fecha_limite'];
-
-
 }
 
 

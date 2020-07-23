@@ -19,7 +19,14 @@ require_once '../conection/conexioni.php';
     <script src="https://kit.fontawesome.com/d0baa1aa63.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+<style>
+/*tr:hover { background: gray; }*/
+td a { 
+    display: block;
+    text-decoration: none !important;
+}
+</style>
+    
 </head>
 <body>
 

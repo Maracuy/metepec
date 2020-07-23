@@ -6,6 +6,7 @@ if($_POST){
   $tarea_responsable = $_POST['tarea']['responsable'];
   $tarea_fecha_limite = $_POST['tarea']['fecha_limite'];
   $tarea_beneficiario_id = $_POST['tarea']['id_beneficiario'];
+  echo $tarea_descripcion;
 }
 
 
@@ -24,7 +25,7 @@ if($_POST){
             
 
             <div class="mt-3">
-                <textarea class="form-control col-md-7" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_descripcion . '"' : "" ?> id="tarea[descripcion]" name="tarea[descripcion]" placeholder="Descripción de la Tarea"></textarea>
+                <textarea class="form-control col-md-7" id="tarea[descripcion]" name="tarea[descripcion]" placeholder="Descripción de la Tarea"> <?php echo $echotitulo = ($_POST) ? $tarea_descripcion . '"' : "" ?></textarea>
             </div>
 
             <br>
