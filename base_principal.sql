@@ -125,6 +125,67 @@ CREATE TABLE IF NOT EXISTS auxiliares(
   COLLATE = utf8_unicode_ci;
 
 
+DROP TABLE IF EXISTS beneficiarios ;
+CREATE TABLE IF NOT EXISTS beneficiarios (
+  id_beneficiario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fecha_captura DATETIME NULL,
+  nombre_c VARCHAR(255) NOT NULL,
+  nombres VARCHAR(45) NOT NULL,
+  apellido_p VARCHAR(45) NOT NULL,
+  apellido_m VARCHAR(45) NOT NULL,
+  vulnerable VARCHAR(2) NULL DEFAULT NULL,
+  genero VARCHAR(100) NULL DEFAULT NULL,
+  curp VARCHAR(20) NULL DEFAULT NULL,
+  tipo_identificacion VARCHAR(20) NULL DEFAULT NULL,
+  numero_identificacion VARCHAR(50) NULL DEFAULT NULL,
+  telefono VARCHAR(10) NULL DEFAULT NULL,
+  email VARCHAR(50) NULL DEFAULT NULL,
+  whats VARCHAR(2) NULL DEFAULT NULL,
+  fecha_nacimiento DATE NULL DEFAULT NULL,
+  nivel VARCHAR(2) NULL DEFAULT NULL,
+  estado_civil VARCHAR(10) NULL DEFAULT NULL,
+  num_hijos VARCHAR(10) NULL DEFAULT NULL,
+  ocupacion VARCHAR(100) NULL DEFAULT NULL,
+  pensionado VARCHAR(10) NULL DEFAULT NULL,
+  enfermedades_cron VARCHAR(10) NULL DEFAULT NULL,
+  cp VARCHAR(10) NULL DEFAULT NULL,
+  dir_calle VARCHAR(45) NULL DEFAULT NULL,
+  dir_numero VARCHAR(50) NULL DEFAULT NULL,
+  dir_numero_int VARCHAR(50) NULL DEFAULT NULL,
+  id_colonia INT NULL DEFAULT NULL,
+  otra_colonia VARCHAR(50) NULL DEFAULT NULL,
+  municipio VARCHAR(45) NULL DEFAULT NULL,
+  manzana VARCHAR(255) NULL DEFAULT NULL,
+  lote VARCHAR(255) NULL DEFAULT NULL,
+  dir_referencia VARCHAR(255) NULL DEFAULT NULL,
+  id_empleado INT NULL DEFAULT NULL,
+  id_medio_contacto INT NULL DEFAULT NULL,
+  id_origenes INT NULL DEFAULT NULL,
+  id_promotores INT NULL DEFAULT NULL,
+  zona_electoral VARCHAR(45) NULL DEFAULT NULL,
+  seccion_electoral VARCHAR(45) NULL DEFAULT NULL,
+  participo_eleccion VARCHAR(45) NULL DEFAULT NULL,
+  posicion VARCHAR(45) NULL DEFAULT NULL,
+  asisitio VARCHAR(45) NULL DEFAULT NULL,
+  afiliacion VARCHAR(45) NULL DEFAULT NULL,
+  observaciones TEXT NULL DEFAULT NULL,
+  CONSTRAINT fk_beneficiarios_empleados FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado)
+    ON DELETE CASCADE ,
+  CONSTRAINT fk_beneficiarios_origen FOREIGN KEY (id_origenes) REFERENCES origenes (id)
+    ON DELETE CASCADE ,
+  CONSTRAINT fk_beneficiarios_promotores FOREIGN KEY (id_promotores) REFERENCES promotores(id)
+    ON DELETE CASCADE ,
+  CONSTRAINT fk_beneficiario_medio FOREIGN KEY (id_medio_contacto) REFERENCES medio_contacto (id)
+    ON DELETE CASCADE ,
+  CONSTRAINT fk_beneficiarios_colonias FOREIGN KEY (id_colonia) REFERENCES colonias (id)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+
+
 
 DROP TABLE IF EXISTS procesos;
 CREATE TABLE IF NOT EXISTS procesos(
