@@ -11,7 +11,30 @@
 
 <input type="hidden" id="id_beneficiario" name="id_beneficiario" value="<?php echo $id?>">
 
-<h4>Editar Beneficiario</h4>
+<div class="espaciadormio" style="height: 20px;"></div>
+
+
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <h4>Editar Beneficiario</h4>
+        </div>
+
+        <div class="form-group col-md-5">
+            <a href="beneficiarios.php" class="btn btn-danger"> <i class="far fa-times-circle"></i>  Salir sin guardar </a>
+        </div>
+
+        <div class="form-group col-md-3">
+            <a  href="programas.php?id=<?php echo $id ?>" class="btn btn-success"> <i class="fas fa-hands-helping"></i> Programas y proceso </a>
+        </div>
+    </div>
+
+
+
+    <div class="espaciadormio" style="height: 30px;"></div>
+
+
+
     <div class="form-row">
 
         <div class="form-group col-md-2">
@@ -417,7 +440,7 @@ if($no_auxiliares['total'] == 0){
 ?>
 
 
-<a href="auxiliar.php?id=<?php echo $id."&tipo=nuevo" ?>"><img src="img/registrar_nuevo.png" alt="Registrar nuevo" srcset=""></a>
+<a href="auxiliar.php?id=<?php echo $id."&tipo=nuevo" ?>" class="btn btn-success"> <i class="fas fa-user-friends"></i> Registrar nuevo Auxiliar </a>
     
 
 <div class="espaciadormio" style="height: 50px;"></div>
