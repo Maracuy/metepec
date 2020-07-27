@@ -6,7 +6,6 @@ if($_POST){
   $tarea_responsable = $_POST['tarea']['responsable'];
   $tarea_fecha_limite = $_POST['tarea']['fecha_limite'];
   $tarea_beneficiario_id = $_POST['tarea']['id_beneficiario'];
-  echo $tarea_descripcion;
 }
 
 
@@ -21,7 +20,7 @@ if($_POST){
 
         <div class="form-group">
 
-            <input class="form-control col-md-7" type="text" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_titulo . '"' : "" ?> name="tarea[titulo]" id="tarea[titulo]" placeholder="Cosas por hacer" >
+            <input class="form-control col-md-7" required type="text" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_titulo . '"' : "" ?> name="tarea[titulo]" id="tarea[titulo]" placeholder="Cosas por hacer" >
             
 
             <div class="mt-3">
@@ -56,7 +55,7 @@ if($_POST){
 
                 <div class="form-group col-md-2">
                     <label for="tarea[fecha_limite]">Fecha Limite</label>
-                    <input type="date" value="2020-01-01" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_fecha_limite. '"' : "" ?> class="form-control" id="tarea[fecha_limite]" name="tarea[fecha_limite]">
+                    <input type="date" value="<?php echo date("Y-m-d") ?>" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_fecha_limite. '"' : "" ?> class="form-control" id="tarea[fecha_limite]" name="tarea[fecha_limite]">
                 </div>
             </div>
 

@@ -3,8 +3,7 @@
 }
 
 a:link, a:visited, a:hover {
-    color: black !important;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 body{

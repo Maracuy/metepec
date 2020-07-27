@@ -244,5 +244,6 @@ CREATE TABLE IF NOT EXISTS tareas(
   tarea_descripcion TEXT,
   fecha_limite DATE,
   id_beneficiario INT,
+  aceptada INT,
   realizada INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
