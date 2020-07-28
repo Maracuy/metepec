@@ -40,6 +40,7 @@ if (empty($_SESSION['user'])){
 <br>
 <?php
 if($tarea['id_beneficiario'] != 0){
+    echo "Beneficiario";
     echo '<a href="alta_beneficiarios.php?id='. $id_beneficiario . '" target="_blank">';
     echo "<h6> Beneficiario: " . '"' . $beneficiario['id_beneficiario'] . '"' . " " . $beneficiario['nombres'] . " " . $beneficiario['apellido_p'] . " " . $beneficiario['apellido_m'] . " <i class='fas fa-info-circle'></i> Ver mas </h6>";
     echo '</a>';
@@ -61,8 +62,18 @@ if($tarea['id_beneficiario'] != 0){
     <h4>Esta tarea ah sido marcada como realizada </h4>
 <?php endif;?>
 
-
-
+Esta tarea fue creada por: <br>
+<?php echo $tarea['usuario']?>
+<br>
+<br>
+Fue creada el dia:<br>
+<?php echo $tarea['creada_date']?>
+<br>
+<br>
+La fecha limite es en: <br>
+<?php echo $tarea['dias'] . "dias" ?>
+<br>
+<br>
 
 
 

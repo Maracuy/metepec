@@ -83,7 +83,7 @@
       <th scope="col">Asignada a</th>
       <th scope="col">Titulo</th>
       <th scope="col">Fecha Limite</th>
-      <th scope="col">Realizada</th>
+      <th scope="col">Estatus</th>
       <th scope="col">Archivar</th>
     </tr>
   </thead>

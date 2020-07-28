@@ -38,8 +38,8 @@
             ?>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Perfil</a>
-            <a class="dropdown-item" href="#">Mensajes</a>
+            <a class="dropdown-item" href="mi_perfil.php">Perfil</a>
+            <a class="dropdown-item" href="mensajes.php">Mensajes</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="../cerrar.php">Cerrar Sesión</a>
           </div>
