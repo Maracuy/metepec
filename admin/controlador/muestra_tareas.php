@@ -55,7 +55,7 @@
         <tr>
            
             <td> <a href=""> <?php echo $tarea['usuario'] ?> </a></td>
-            <td> <?php echo substr($tarea['tarea_titulo'], 20)?></td>
+            <td> <?php echo substr($tarea['tarea_titulo'],0, 20)?></td>
             <td> <?php echo $fechas = ($tarea['dias'] < 0 ? "Vencida hace " . -$tarea['dias'] . " dias"  : "Vence en " . $tarea['dias'] . " dias") ?></td>
 
               <?php $tarea_aceptada = ($tarea['aceptada'] == 0) ? "danger" : "success"; ?>
@@ -93,7 +93,7 @@
     <?php foreach($yo_asigno as $asigno):?>
         <tr> 
             <td> <a href=""> <?php echo $asigno['usuario'] ?> </a></td>
-            <td> <?php echo substr($asigno['tarea_titulo'], 20)?></td>
+            <td> <?php echo substr($asigno['tarea_titulo'],0, 20)?></td>
             <td> <?php echo $fechas = ($asigno['dias'] < 0 ? "Vencida hace " . -$asigno['dias'] . " dias"  : "Vence en " . $asigno['dias'] . " dias") ?></td>
 
               <?php $tarea_aceptada = ($asigno['aceptada'] == 0) ? "danger" : "success"; ?>

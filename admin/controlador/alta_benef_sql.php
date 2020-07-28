@@ -6,6 +6,8 @@ if (empty($_SESSION['user'])){
 }
 require_once '../../conection/conexion.php';
 
+
+
 $id_del_beneficiario = $_POST['id_beneficiario'];
 
 $nombres = $_POST['nombres'];

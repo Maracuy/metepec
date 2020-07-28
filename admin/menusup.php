@@ -1,3 +1,9 @@
+<?php 
+    $myuser = $_SESSION['user']['id_empleado'];
+    $sql_notif = $con->prepare('SELECT COUNT(id_tarea) FROM tareas WHERE id_empleado_asigna_tarea =? AND tareas.realizada = 0 AND tareas.aceptada = 0');
+    $sql_notif->execute(array($myuser));
+    $total = $sql_notif->fetch();
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <div class="container">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,12 +18,12 @@
 <!--Aqui esta el menu que muestra las notificaciones-->
       <div class="dropdown ml-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Tareas <span class="badge badge-light">9</span>
+          Tareas <span class="badge badge-light"><?php echo $total['0']?></span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="index.php">Mis tareas</a>
           <a class="dropdown-item" href="crea_tareas.php">Nueva tarea</a>
-          <a class="dropdown-item" href="realizadas.php">Realizadas</a>
+          <a class="dropdown-item" href="tareas_archivadas.php">Realizadas</a>
         </div>
       </div>
 

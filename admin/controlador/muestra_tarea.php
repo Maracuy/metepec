@@ -7,9 +7,15 @@ if (empty($_SESSION['user'])){
     $id_tarea = $_GET['id'];
 
     $myuser = $_SESSION['user']['id_empleado'];
-    $sql_query = $con->prepare('SELECT *, empleados.usuario, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, empleados WHERE tareas.id_empleado_asigna_tarea = empleados.id_empleado AND id_empleado_asigna_tarea =? AND tareas.id_tarea = ?');
-    $sql_query->execute(array($myuser, $id_tarea));
+
+    $sql_query = $con->prepare('SELECT *, empleados.usuario, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, empleados WHERE tareas.id_empleado_asigna_tarea = empleados.id_empleado AND tareas.id_tarea = ?');
+    $sql_query->execute(array( $id_tarea));
     $tarea = $sql_query->fetch();
+    if(empty($tarea)){
+        echo "La tarea no existe";
+        die();
+    }
+
     $id_beneficiario = $tarea['id_beneficiario'];
 
     $sql_query = $con->prepare('SELECT beneficiarios.id_beneficiario, beneficiarios.nombres, beneficiarios.apellido_p, beneficiarios.apellido_m FROM beneficiarios WHERE id_beneficiario = ?');
