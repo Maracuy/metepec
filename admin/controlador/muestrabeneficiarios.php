@@ -65,9 +65,9 @@ $resultado = $sql_query->fetchALL();
 
           <td>
             <?php if($dato['abreviatura'] == "" ): ?>
-                <a href="auxiliar.php?id=<?php echo $dato['id_beneficiario'] ?>" class="btn btn-danger"> Inscribir </a>
+                <a href="programas.php?id=<?php echo $dato['id_beneficiario'] ?>" class="btn btn-danger"> Inscribir </a>
             <?php endif; if($dato['abreviatura'] != "" ){
-                echo "<a href='' class='btn btn-success'>" . $dato['abreviatura'] . "</a>";
+                echo '<a href="programas.php?id=' . $dato['id_beneficiario'] .'" class="btn btn-success">' . $dato['abreviatura'] . "</a>";
               }?>
           </td>
 
