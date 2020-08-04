@@ -10,6 +10,7 @@
 ?>
 
 <input type="hidden" id="id_beneficiario" name="id_beneficiario" value="<?php echo $id?>">
+<input type="hidden" name="fecha_captura" value="<?php echo $editable['fecha_captura']?>">
 
 <div class="espaciadormio" style="height: 20px;"></div>
 
@@ -98,18 +99,6 @@
         <div class="form-group col-md-2">
             <label for="curp">Curp</label>
             <input type="text" value="<?php echo $editable['curp']?>" class="form-control" id="curp" name="curp">
-        </div>
-
-        <div class="form-group col-md-2">
-            <label for="tipo_identificacion">Identificacion</label>
-            <select class="form-control" id="tipo_identificacion" name="tipo_identificacion">
-            <?php if($editable['tipo_identificacion'] == "") echo "<option value=''> No seleccionado </option>"; ?>
-            <option <?php if ($editable['genero'] == "ine" ) echo 'selected' ; ?> value="ine">INE</option>
-            <option <?php if ($editable['genero'] == "ife" ) echo 'selected' ; ?> value="ife">IFE</option>
-            <option <?php if ($editable['genero'] == "pasaporte" ) echo 'selected' ; ?> value="pasaporte">Pasaporte</option>
-            <option <?php if ($editable['genero'] == "licencia" ) echo 'selected' ; ?> value="licencia">Licencia Conducir</option>
-            <option <?php if ($editable['genero'] == "otro" ) echo 'selected' ; ?> value="otro">Otro</option>
-            </select>
         </div>
 
         <div class="form-group col-md-2">

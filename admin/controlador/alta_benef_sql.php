@@ -6,60 +6,66 @@ if (empty($_SESSION['user'])){
 }
 require_once '../../conection/conexion.php';
 
+$beneficiario = array();
 
+$beneficiario[0] = ($_POST['id_beneficiario'] == "") ? NULL : $_POST['id_beneficiario'];
+$beneficiario[0] = intval($beneficiario[0]);
+$beneficiario[1] = ($_POST['fecha_captura']) ? $_POST['fecha_captura'] : date('Y-m-d h:i:s');
+$beneficiario[3] = $_POST['nombres'];
+$beneficiario[4] = $_POST['apellido_p'];
+$beneficiario[5] = $_POST['apellido_m'];
+$beneficiario[2] = $beneficiario[3] . " " . $beneficiario[4] . " " . $beneficiario[5];
 
-$id_del_beneficiario = $_POST['id_beneficiario'];
+$beneficiario[6] = $_POST['vulnerable'];
+$beneficiario[7] = $_POST['genero'];
+$beneficiario[8] = $_POST['curp'];
+$beneficiario[9] = $_POST['numero_identificacion'];
+$beneficiario[10] = $_POST['telefono'];
+$beneficiario[11] = $_POST['email'];
+$beneficiario[12] = $_POST['whats'];
 
-$nombres = $_POST['nombres'];
-$apellido_p = $_POST['apellido_p'];
-$apellido_m = $_POST['apellido_m'];
-$nombre_c = $nombres . " " . $apellido_p . " " . $apellido_m;
+$beneficiario[13] = $_POST['fecha_nacimiento'];
 
-$vulnerable = $_POST['vulnerable'];
-$genero = $_POST['genero'];
-$curp = $_POST['curp'];
-$tipo_identificacion = $_POST['tipo_identificacion'];
-$numero_identificacion = $_POST['numero_identificacion'];
-$telefono = $_POST['telefono'];
-$email = $_POST['email'];
-$whats = $_POST['whats'];
+$beneficiario[14] = $_POST['nivel'];
 
-$fecha_nacimiento = $_POST['fecha_nacimiento'];
+$beneficiario[15] = $_POST['estado_civil'];
+$beneficiario[16] = $_POST['num_hijos'];
+$beneficiario[17] = $_POST['ocupacion'];
+$beneficiario[18] = $_POST['pensionado'];
+$beneficiario[19] = $_POST['enfermedades_cron'];
+$beneficiario[20] = $_POST['cp'];
 
-$nivel = $_POST['nivel'];
+$beneficiario[21] = $_POST['dir_calle'];
+$beneficiario[22] = $_POST['dir_numero'];
+$beneficiario[23] = $_POST['dir_numero_int'];
+$beneficiario[24] = $_POST['id_colonia'];
+$beneficiario[24] = intval($beneficiario[24]);
 
-$estado_civil = $_POST['estado_civil'];
-$num_hijos = $_POST['num_hijos'];
-$ocupacion = $_POST['ocupacion'];
-$pensionado = $_POST['pensionado'];
-$enfermedades_cron = $_POST['enfermedades_cron'];
-$cp = $_POST['cp'];
+$beneficiario[25] = (isset($_POST['otra_colonia'])) ? $_POST['otra_colonia'] : NULL;
+$beneficiario[26] = "Metepec";
+$beneficiario[27] = $_POST['manzana'];
+$beneficiario[28] = $_POST['lote'];
+$beneficiario[29] = $_POST['dir_referencia'];
 
-$calle = $_POST['dir_calle'];
-$numero = $_POST['dir_numero'];
-$numero_int = $_POST['dir_numero_int'];
-$id_colonia = $_POST['id_colonia'];
-$otra_colonia = (isset($_POST['otra_colonia'])) ? $_POST['otra_colonia'] : NULL;
-$municipio = "Metepec";
-$manzana = $_POST['manzana'];
-$lote = $_POST['lote'];
-$dir_referencia = $_POST['dir_referencia'];
+$beneficiario[30] = $_SESSION['user']['id_empleado'];
+$beneficiario[30] = intval($beneficiario[30]);
 
-$id_empleado = $_SESSION['user']['id_empleado'];
+$beneficiario[31] = $_POST['medio'];
+$beneficiario[31] = intval($beneficiario[31]);
 
-$medio = $_POST['medio'];
-$origen = $_POST['origen'];
-$promueve = $_POST['promueve'];
+$beneficiario[32] = $_POST['origen'];
+$beneficiario[32] = intval($beneficiario[32]);
+$beneficiario[33] = $_POST['promueve'];
+$beneficiario[33] = intval($beneficiario[33]);
 
-$zona_electoral = $_POST['zona_electoral'];
-$seccion_electoral = $_POST['seccion_electoral'];
-$participo_eleccion = $_POST['participo_eleccion'];
-$posicion = $_POST['posicion'];
-$asisitio = $_POST['asisitio'];
-$afiliacion = $_POST['afiliacion'];
+$beneficiario[34] = $_POST['zona_electoral'];
+$beneficiario[35] = $_POST['seccion_electoral'];
+$beneficiario[36] = $_POST['participo_eleccion'];
+$beneficiario[37] = $_POST['posicion'];
+$beneficiario[38] = $_POST['asisitio'];
+$beneficiario[39] = $_POST['afiliacion'];
 
-$observaciones = $_POST['observaciones'];
-
+$beneficiario[40] = $_POST['observaciones'];
 
 
 
@@ -91,14 +97,15 @@ function alta_auxiliar($con){
     
 }
 
-function alta_beneficiario($con){
+function alta_beneficiario($con, $beneficiario){
+
  
-    $sql_agregar = 'INSERT INTO beneficiarios (id_beneficiario, fecha_captura, nombre_c, nombres, apellido_p, apellido_m, vulnerable, genero, curp, tipo_identificacion, numero_identificacion, telefono, email, whats, fech_nacimiento, nivel, dir_calle, dir_numero, dir_numero_int, id_colonia, otra_colonia, municipio, dir_referencia, solicitud_basico, id_empleado, id_medio_contacto, id_origenes, id_promotores) 
-    VALUES (NULL, CURRENT_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    $sql_agregar = 'INSERT INTO beneficiarios VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar = $con->prepare($sql_agregar);
 
     try{
-        $sentencia_agregar->execute(array($nombre_c, $nombres, $apellido_p, $apellido_m, $vulnerable, $genero, $curp, $tipo_identificacion, $numero_identificacion, $telefono, $email, $whats, $fech_nacimiento, $nivel, $calle, $numero, $numero_int, $colonia, $otra_colonia, $municipio, $referencia, $solicitud_basico, $id_empleado, $medio, $origen, $promueve));
+        $sentencia_agregar->execute($beneficiario);
+        echo "Se pudo";
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
@@ -106,71 +113,28 @@ function alta_beneficiario($con){
 }
 
 
-function actualizar($con){
+function actualizar($con, $beneficiario){
 
-    $id_del_beneficiario = $_POST['id_beneficiario'];
-    
+    $id = $beneficiario[0];
+    $beneficiario = array_slice($beneficiario, 2);
+    echo var_dump($beneficiario);
+    $beneficiario2 = array();
+    $array_num = count($beneficiario);
+    for ($i = 0; $i < $array_num; ++$i){
+        array_push($beneficiario2,$beneficiario[$i]);
+    }
 
-    $nombres = $_POST['nombres'];
-    $apellido_p = $_POST['apellido_p'];
-    $apellido_m = $_POST['apellido_m'];
-    $nombre_c = $nombres . " " . $apellido_p . " " . $apellido_m;
-
-    $vulnerable = $_POST['vulnerable'];
-    $genero = $_POST['genero'];
-    $curp = $_POST['curp'];
-    $tipo_identificacion = $_POST['tipo_identificacion'];
-    $numero_identificacion = $_POST['numero_identificacion'];
-    $telefono = $_POST['telefono'];
-    $email = $_POST['email'];
-    $whats = $_POST['whats'];
-
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
-
-    $nivel = $_POST['nivel'];
-
-    $estado_civil = $_POST['estado_civil'];
-    $num_hijos = $_POST['num_hijos'];
-    $ocupacion = $_POST['ocupacion'];
-    $pensionado = $_POST['pensionado'];
-    $enfermedades_cron = $_POST['enfermedades_cron'];
-    $cp = $_POST['cp'];
-
-    $dir_calle = $_POST['dir_calle'];
-    $dir_numero = $_POST['dir_numero'];
-    $dir_numero_int = $_POST['dir_numero_int'];
-    $id_colonia = $_POST['id_colonia'];
-    $otra_colonia = (isset($_POST['otra_colonia'])) ? $_POST['otra_colonia'] : NULL;
-    $municipio = "Metepec";
-    $manzana = $_POST['manzana'];
-    $lote = $_POST['lote'];
-    $dir_referencia = $_POST['dir_referencia'];
-
-    $id_empleado = $_SESSION['user']['id_empleado'];
-
-    $medio = $_POST['medio'];
-    $origen = $_POST['origen'];
-    $promueve = $_POST['promueve'];
-
-    $zona_electoral = $_POST['zona_electoral'];
-    $seccion_electoral = $_POST['seccion_electoral'];
-    $participo_eleccion = $_POST['participo_eleccion'];
-    $posicion = $_POST['posicion'];
-    $asisitio = $_POST['asisitio'];
-    $afiliacion = $_POST['afiliacion'];
-
-    $observaciones = $_POST['observaciones'];
+    echo var_dump($beneficiario2);
 
 
-
-
-
-    $sql_editar = "UPDATE beneficiarios SET nombres=?, apellido_p=?, apellido_m=?, vulnerable=?, genero=?, curp=?, tipo_identificacion=?, numero_identificacion=?, telefono=?, email=?, whats=?, fecha_nacimiento=?, nivel=?, estado_civil=?, num_hijos=?, ocupacion=?, pensionado=?, enfermedades_cron=?, cp=?, dir_calle=?, dir_numero=?, dir_numero_int=?, id_colonia=?, otra_colonia=?, manzana=?, lote=?, dir_referencia=?, id_empleado=?, id_medio_contacto=?, id_origenes=?, id_promotores=?, zona_electoral=?, seccion_electoral=?, participo_eleccion=?, posicion=?, asisitio=?, afiliacion=?, observaciones=?
-    WHERE id_beneficiario = ?";
+    $sql_editar = "UPDATE beneficiarios SET 
+    nombres=?, apellido_p=?, apellido_m=?, nombre_c=?, vulnerable=?, genero=?, curp=?, numero_identificacion=?, telefono=?, email=?, whats=?, fecha_nacimiento=?, nivel=?, estado_civil=?, num_hijos=?, ocupacion=?, pensionado=?, enfermedades_cron=?, cp=?, dir_calle=?, dir_numero=?, dir_numero_int=?, id_colonia=?, otra_colonia=?, municipio=? manzana=?, lote=?, dir_referencia=?, id_empleado=?, id_medio_contacto=?, id_origenes=?, id_promotores=?, zona_electoral=?, seccion_electoral=?, participo_eleccion=?, posicion=?, asisitio=?, afiliacion=?, observaciones=? WHERE id_beneficiario=$id";
     $sentencia_agregar = $con->prepare($sql_editar);
 
+    $sentencia_agregar->execute($beneficiario2);
+
     try{
-        $sentencia_agregar->execute(array($nombres, $apellido_p, $apellido_m, $vulnerable, $genero, $curp, $tipo_identificacion, $numero_identificacion, $telefono, $email, $whats, $fecha_nacimiento, $nivel, $estado_civil, $num_hijos, $ocupacion, $pensionado, $enfermedades_cron, $cp, $dir_calle, $dir_numero, $dir_numero_int, $id_colonia, $otra_colonia, $manzana, $lote, $dir_referencia, $id_empleado, $medio, $origen, $promueve, $zona_electoral, $seccion_electoral, $participo_eleccion, $posicion, $asisitio, $afiliacion, $observaciones, $id_del_beneficiario));
+        echo "Si lo actualizo";
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
@@ -182,7 +146,7 @@ function actualizar($con){
 
 
 if(array_key_exists("guardar_salir",$_POST)){
-    alta_beneficiario($con);
+    alta_beneficiario($con, $beneficiario);
     if(isset($_POST['nombres_auxiliar'])){
         alta_auxiliar($con);
     }
@@ -190,11 +154,9 @@ if(array_key_exists("guardar_salir",$_POST)){
 }
 
 if(array_key_exists("actualizar",$_POST)){
-    actualizar($con);
+    actualizar($con, $beneficiario);
 }
 
 
  
 ?>
-
-

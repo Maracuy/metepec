@@ -1,7 +1,7 @@
     <form method="POST" action="controlador/alta_benef_sql.php">
     <h4>Alta de beneficiarios</h4>
         <div class="form-row">
-
+            <input type="hidden" name="id_beneficiario" value="">
             <div class="form-group col-md-2">
                 <label for="nombres">Nombre(s)*</label>
                 <input type="text" class="form-control" id="nombres" name="nombres" autofocus required>
@@ -63,17 +63,6 @@
             </div>
 
             <div class="form-group col-md-2">
-                <label for="tipo_identificacion">Identificacion</label>
-                <select class="form-control" id="tipo_identificacion" name="tipo_identificacion">
-                <option value="ine">INE</option>
-                <option value="ife">IFE</option>
-                <option value="pasaporte">Pasaporte</option>
-                <option value="licencia">Licencia Conducir</option>
-                <option value="otro">Otro</option>
-                </select>
-            </div>
-
-            <div class="form-group col-md-2">
                 <label for="numero_identificacion">Numero de Identificación</label>
                 <input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion">
             </div>
@@ -125,7 +114,7 @@
 
             <div class="form-group col-md-2">
                 <label for="id_colonia">Colonia</label>
-                <select id="id_colonia" name="colid_coloniaoid_coloniania" class="form-control">
+                <select id="id_colonia" name="id_colonia" class="form-control">
                     <?php
                     $query = $mysqli -> query ("SELECT * FROM colonias");
                     while ($valores = mysqli_fetch_array($query)) {
