@@ -3,7 +3,8 @@ if (empty($_SESSION['user'])){
     echo "no estas registrado";
     die();
 }
-$consulta = "SELECT b.id_beneficiario, b.nombres, b.apellido_p , b.apellido_m, b.id_colonia, b.otra_colonia, b.telefono, p.abreviatura, p.nombre, c.nombre_colonia FROM beneficiarios b, altas a, programas p, colonias c WHERE a.id_beneficiario=b.id_beneficiario AND a.id_programa=p.id_programas GROUP BY b.id_beneficiario";
+
+$consulta = "SELECT b.id_beneficiario, b.nombres, b.apellido_p, b.apellido_m, b.id_colonia, b.otra_colonia, b.telefono, p.abreviatura, p.nombre, c.nombre_colonia, a.id_alta, a.id_beneficiario FROM beneficiarios b, programas p, colonias c, altas a WHERE b.id_beneficiario = a.id_beneficiario AND b.id_colonia = c.id AND a.id_programa = p.id_programas GROUP BY b.id_beneficiario ORDER BY b.id_beneficiario DESC";
 $sql_query = $con->prepare($consulta);
 $sql_query->execute();
 $resultado = $sql_query->fetchALL();
@@ -37,11 +38,12 @@ $resultado = $sql_query->fetchALL();
       foreach ($resultado as $dato): ?>
     
         <?php
-          if(($dato['id_colonia'] == "1")){
-            $colonia = $dato['otra_colonia'];
+          if(($dato['otra_colonia'] == "")){
+            $colonia = $dato['nombre_colonia'];
         }
           else{
-            $colonia = $dato['nombre_colonia'];} ?>
+            $colonia = $dato['otra_colonia'];} 
+            ?>
       
         <tr>
 
@@ -64,9 +66,9 @@ $resultado = $sql_query->fetchALL();
         
 
           <td>
-            <?php if($dato['abreviatura'] == "" ): ?>
+            <?php if($dato['abreviatura'] == "SPRM" ): ?>
                 <a href="programas.php?id=<?php echo $dato['id_beneficiario'] ?>" class="btn btn-danger"> Inscribir </a>
-            <?php endif; if($dato['abreviatura'] != "" ){
+            <?php endif; if($dato['abreviatura'] != "SPRM" ){
                 echo '<a href="programas.php?id=' . $dato['id_beneficiario'] .'" class="btn btn-success">' . $dato['abreviatura'] . "</a>";
               }?>
           </td>

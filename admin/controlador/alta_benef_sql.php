@@ -93,19 +93,43 @@ function alta_auxiliar($con){
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
-
-    
 }
+
+
+
+function altas($con, $last_id_beneficiario, $id_capturista){
+
+    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?, NULL)';
+    $sentencia_agregar = $con->prepare($sql_agregar);
+
+    try{
+        $sentencia_agregar->execute(array($last_id_beneficiario, $id_capturista));
+    }catch(Exception $e){
+        echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+    }  
+
+}
+
+
 
 function alta_beneficiario($con, $beneficiario){
 
+    $id_capturista = $beneficiario[30];
  
     $sql_agregar = 'INSERT INTO beneficiarios VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar = $con->prepare($sql_agregar);
 
+    
+
     try{
         $sentencia_agregar->execute($beneficiario);
-        echo "Se pudo";
+        $sql_alta = 'SELECT LAST_INSERT_ID()';
+        $sentencia_alta = $con->prepare($sql_alta);
+        $last_id_beneficiario = $sentencia_alta->execute();
+        echo $last_id_beneficiario;
+        die();
+        
+        altas($con, $last_id_beneficiario, $id_capturista);
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
@@ -117,24 +141,11 @@ function actualizar($con, $beneficiario){
 
     $id = $beneficiario[0];
     $beneficiario = array_slice($beneficiario, 2);
-    echo var_dump($beneficiario);
-    $beneficiario2 = array();
-    $array_num = count($beneficiario);
-    for ($i = 0; $i < $array_num; ++$i){
-        array_push($beneficiario2,$beneficiario[$i]);
-    }
-
-    echo var_dump($beneficiario2);
-
-
-    $sql_editar = "UPDATE beneficiarios SET 
-    nombres=?, apellido_p=?, apellido_m=?, nombre_c=?, vulnerable=?, genero=?, curp=?, numero_identificacion=?, telefono=?, email=?, whats=?, fecha_nacimiento=?, nivel=?, estado_civil=?, num_hijos=?, ocupacion=?, pensionado=?, enfermedades_cron=?, cp=?, dir_calle=?, dir_numero=?, dir_numero_int=?, id_colonia=?, otra_colonia=?, municipio=? manzana=?, lote=?, dir_referencia=?, id_empleado=?, id_medio_contacto=?, id_origenes=?, id_promotores=?, zona_electoral=?, seccion_electoral=?, participo_eleccion=?, posicion=?, asisitio=?, afiliacion=?, observaciones=? WHERE id_beneficiario=$id";
+    $sql_editar = "UPDATE beneficiarios SET nombres=?, apellido_p=?, apellido_m=?, nombre_c=?, vulnerable=?, genero=?, curp=?, numero_identificacion=?, telefono=?, email=?, whats=?, fecha_nacimiento=?, nivel=?, estado_civil=?, num_hijos=?, ocupacion=?, pensionado=?, enfermedades_cron=?, cp=?, dir_calle=?, dir_numero=?, dir_numero_int=?, id_colonia=?, otra_colonia=?, municipio=?, manzana=?, lote=?, dir_referencia=?, id_empleado=?, id_medio_contacto=?, id_origenes=?, id_promotores=?, zona_electoral=?, seccion_electoral=?, participo_eleccion=?, posicion=?, asisitio=?, afiliacion=?, observaciones=? WHERE id_beneficiario=$id";
     $sentencia_agregar = $con->prepare($sql_editar);
-
-    $sentencia_agregar->execute($beneficiario2);
-
+       
     try{
-        echo "Si lo actualizo";
+        $sentencia_agregar->execute($beneficiario);
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
@@ -155,6 +166,7 @@ if(array_key_exists("guardar_salir",$_POST)){
 
 if(array_key_exists("actualizar",$_POST)){
     actualizar($con, $beneficiario);
+    header("Location: ../beneficiarios");
 }
 
 
