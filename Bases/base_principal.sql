@@ -233,6 +233,27 @@ CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+DROP TABLE IF EXISTS altas;
+CREATE TABLE IF NOT EXISTS altas(
+  id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_beneficiario INT NOT NULL,
+  fecha_activacion DATETIME DEFAULT NULL,
+  id_tarjeta VARCHAR(10),
+  id_padron VARCHAR(10),
+  forma_de_pago VARCHAR(20),  -- Eliminar este campo --
+  id_departamento INT NULL,
+  id_programa INT NULL,
+  id_responsable INT NOT NULL,
+  visto_por_responsable INT,
+  id_empleado_capt INT NOT NULL,
+  exito BOOLEAN,
+  CONSTRAINT fk_altas_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
+  CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
+  CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas(id_programas) ON DELETE CASCADE,
+  CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
+  CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 DROP TABLE IF EXISTS tareas;

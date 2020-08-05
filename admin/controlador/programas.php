@@ -11,6 +11,12 @@ $id_beneficiario = $_GET['id'];
 }
 
 
+$sql_pagos= "SELECT * FROM pagos_adulto_mayor p, altas a WHERE a.id_beneficiario = $id_beneficiario AND  p.id_alta=a.id_alta GROUP BY a.id_alta;";
+$consulta_pagos = $con->prepare($sql_pagos);
+$consulta_pagos->execute();
+$result_pagos = $consulta_pagos->fetchAll();
+
+
 $sql_altas= "SELECT a.id_alta, a.id_beneficiario, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b WHERE a.id_beneficiario = $id_beneficiario AND p.id_programas=a.id_programa GROUP BY a.id_alta;";
 $consulta_altas = $con->prepare($sql_altas);
 $consulta_altas->execute();
@@ -21,22 +27,53 @@ if($result_altas[0]['id_programas'] != 1){
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id del programa</th>
-                <th scope="col">Nombre</th>
+                <th scope="col">Nombre Programa</th>
                 <th scope="col">Abreviatura</th>
                 <th scope="col">Pagos</th>
-                <th scope="col">Pagos</th>
+                <th scope="col">Registrar Pago</th>
+                <th scope="col">Sacar</th>
             </tr>
         </thead>
     <?php foreach($result_altas as $alta): ?>
 
         <tbody>
             <tr>
-                <th> <?php echo $alta['id_programas'] ?> </th>
                 <td> <?php echo $alta['nombre'] ?> </td>
                 <td> <?php echo $alta['abreviatura'] ?> </td>
-                <td> <?php echo $alta['nombre'] ?> </td>
-                <td> <?php echo '<i class="fas fa-hand-holding-usd"></i>' ?> </td>
+                <td> <?php
+                    foreach($result_pagos as $pagos):
+                        if($pagos["bim_1"]){
+                            echo "B1   " ;
+                        } 
+                        if($pagos["bim_2"]){
+                            echo ", B2  " ;
+                        } 
+                        if($pagos["bim_3"]){
+                            echo ", B3  " ;
+                        }
+                        if($pagos["bim_4"]){
+                            echo ", B4  " ;
+                        }
+                        if($pagos["bim_5"]){
+                            echo ", B5  " ;
+                        }
+                        if($pagos["bim_6"]){
+                            echo ", B6  " ;
+                        }
+                ?>
+                <br>
+                    <a href="detalles_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-success btn-sm mt-1"> Detalles pagos </a>
+                    <?php endforeach; ?>
+                </td>
+                <td>
+                    <?php if($pagos['']): ?>
+                        <a href="registro_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-primary">Registrar Pagos</a>
+                    <?php endif; ?>
+                    <?php if(!$pagos[]): ?>
+                        <a href="registro_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-primary">Nuevos Pagos</a>
+                    <?php endif; ?>
+                </td>
+                <td> <?php echo '<i class="fas fa-sign-out-alt"></i>' ?> </td>
 
             </tr>
         
