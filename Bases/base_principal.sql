@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS metepec;
 CREATE DATABASE IF NOT EXISTS metepec;
-USE metepec ;
+USE metepec;
 
 
 DROP TABLE IF EXISTS empleados ;
@@ -107,24 +107,6 @@ CREATE TABLE IF NOT EXISTS servidores_publicos(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-
-DROP TABLE IF EXISTS auxiliares;
-
-CREATE TABLE IF NOT EXISTS auxiliares(
-  id_auxiliar INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nombres_auxiliar VARCHAR(45) NOT NULL,
-  apellido_p_auxiliar VARCHAR(45) NULL,
-  apellido_m_auxiliar VARCHAR(45) NULL,
-  telefono_auxiliar VARCHAR(20) NULL DEFAULT NULL,
-  id_beneficiario INT NOT NULL,
-  parentesco VARCHAR(45) NULL,
-  CONSTRAINT fk_auxiliar_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario)
-    ON DELETE CASCADE
-  )ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8
-  COLLATE = utf8_unicode_ci;
-
-
 DROP TABLE IF EXISTS beneficiarios ;
 CREATE TABLE IF NOT EXISTS beneficiarios (
   id_beneficiario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -185,6 +167,71 @@ COLLATE = utf8_unicode_ci;
 
 
 
+DROP TABLE IF EXISTS auxiliares;
+
+CREATE TABLE IF NOT EXISTS auxiliares(
+  id_auxiliar INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombres_auxiliar VARCHAR(45) NOT NULL,
+  apellido_p_auxiliar VARCHAR(45) NULL,
+  apellido_m_auxiliar VARCHAR(45) NULL,
+  telefono_auxiliar VARCHAR(20) NULL DEFAULT NULL,
+  id_beneficiario INT NOT NULL,
+  parentesco VARCHAR(45) NULL,
+  CONSTRAINT fk_auxiliar_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario)
+    ON DELETE CASCADE
+  )ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS pagos_adulto_mayor;
+CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
+  id_pagos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  forma_de_pago VARCHAR(15),
+  year_on_curse VARCHAR(4),
+  id_alta INT NOT NULL,
+  bim_1 INT,
+  fecha_de_pago_bim_1 DATE,
+  bim_2 INT,
+  fecha_de_pago_bim_2 DATE,
+  bim_3 INT,
+  fecha_de_pago_bim_3 DATE,
+  bim_4 INT,
+  fecha_de_pago_bim_4 DATE,
+  bim_5 INT,
+  fecha_de_pago_bim_5 DATE,
+  bim_6 INT,
+  fecha_de_pago_bim_6 DATE,
+  CONSTRAINT fk_pagos_programa FOREIGN KEY (id_alta) REFERENCES altas(id_alta) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS altas;
+CREATE TABLE IF NOT EXISTS altas(
+  id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_beneficiario INT NOT NULL,
+  fecha_activacion DATETIME DEFAULT NULL,
+  id_tarjeta VARCHAR(10),
+  id_padron VARCHAR(10),
+  forma_de_pago VARCHAR(20),  -- Eliminar este campo --
+  id_departamento INT NULL,
+  id_programa INT NULL,
+  id_responsable INT NOT NULL,
+  visto_por_responsable INT,
+  id_empleado_capt INT NOT NULL,
+  exito BOOLEAN,
+  CONSTRAINT fk_altas_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
+  CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
+  CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas(id_programas) ON DELETE CASCADE,
+  CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
+  CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
 
 
 DROP TABLE IF EXISTS procesos;
@@ -210,49 +257,6 @@ CREATE TABLE IF NOT EXISTS procesos(
   CONSTRAINT fk_procesos_servidor FOREIGN KEY (id_servidor_publico) REFERENCES servidores_publicos(id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
-DROP TABLE IF EXISTS pagos_adulto_mayor;
-CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
-  id_pagos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  forma_de_pago VARCHAR(15),
-  year_on_curse VARCHAR(4),
-  id_alta INT NOT NULL,
-  bim_1 INT,
-  fecha_de_pago_bim_1 DATE,
-  bim_2 INT,
-  fecha_de_pago_bim_2 DATE,
-  bim_3 INT,
-  fecha_de_pago_bim_3 DATE,
-  bim_4 INT,
-  fecha_de_pago_bim_4 DATE,
-  bim_5 INT,
-  fecha_de_pago_bim_5 DATE,
-  bim_6 INT,
-  fecha_de_pago_bim_6 DATE,
-  CONSTRAINT fk_pagos_programa FOREIGN KEY (id_alta) REFERENCES altas(id_alta) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-DROP TABLE IF EXISTS altas;
-CREATE TABLE IF NOT EXISTS altas(
-  id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  id_beneficiario INT NOT NULL,
-  fecha_activacion DATETIME DEFAULT NULL,
-  id_tarjeta VARCHAR(10),
-  id_padron VARCHAR(10),
-  forma_de_pago VARCHAR(20),  -- Eliminar este campo --
-  id_departamento INT NULL,
-  id_programa INT NULL,
-  id_responsable INT NOT NULL,
-  visto_por_responsable INT,
-  id_empleado_capt INT NOT NULL,
-  exito BOOLEAN,
-  CONSTRAINT fk_altas_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas(id_programas) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
-  CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 

@@ -31,7 +31,14 @@
 <div class="espaciadormio" style="height: 20px;"></div>
 
 
+<!-- Aqui vamos a ver las tareas SI las tenemos-->
 
+<?php 
+if(empty($tareas)){
+  echo "<br><h4>Actualmente no cuentas con tareas pendientes</h4>";
+}
+if(!empty($tareas)):
+  ?>
 
 <h5>Tareas para mi</h5>
 
@@ -67,13 +74,18 @@
   </tbody>
 </table>
 
-
+        <?php endif; ?>
 
 
 <div class="espaciadormio" style="height: 50px;"></div>
 
 
-
+<?php 
+if(empty($yo_asigno)){
+  echo "<br><h4>Todas tus tareas creadas se han realizado</h4>";
+}
+if(!empty($yo_asigno)):
+  ?>
 
 <h5>Tareas asignadas</h5>
 
@@ -100,7 +112,7 @@
             <td> <a href="muestra_tarea.php?id=<?php echo $asigno['id_tarea']?>" class="btn btn-<?php echo $tarea_aceptada?>"> <?php echo $echo_tarea_aceptada = ($asigno['aceptada'] == 0) ? "No vista" : "Vista"; ?> </a> </td>
 
             <td> 
-                <?php if($tarea['realizada'] == 0): ?>
+                <?php if($asigno['realizada'] == 0): ?>
                 <form method="post" action="controlador/realizar_tarea_sql.php">
                   <input type="hidden" value="<?php echo $asigno['id_tarea'] ?>" name="id_tarea">
                   <button type="submit" formmethod="POST" class="btn btn-primary" id="index_realizada" name="index_realizada">Realizada</button>
@@ -113,3 +125,5 @@
     
   </tbody>
 </table>
+
+<?php endif; ?>

@@ -69,7 +69,7 @@ if($result_altas[0]['id_programas'] != 1){
                     <?php if($pagos['']): ?>
                         <a href="registro_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-primary">Registrar Pagos</a>
                     <?php endif; ?>
-                    <?php if(!$pagos[]): ?>
+                    <?php if(!$pagos['']): ?>
                         <a href="registro_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-primary">Nuevos Pagos</a>
                     <?php endif; ?>
                 </td>
