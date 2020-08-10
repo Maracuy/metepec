@@ -27,7 +27,7 @@ require_once '../conection/conexioni.php';
 
 
 
-        <a href="../admin/alta_beneficiarios.php"><button type="button" class="btn btn-primary btn-lg">Nuevo Beneficiario</button></a>
+        <a href="../admin/alta_beneficiarios.php"><button type="button" class="btn btn-primary btn-lg mt-3">Nuevo Beneficiario</button></a>
 
 
         <?php include 'controlador/muestrabeneficiarios.php'?>
