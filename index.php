@@ -32,7 +32,7 @@ header("Location: admin/index.php");
                 <input type="password" name="password" placeholder="Contraseña">
             </div>
             <input type="submit" value="Entrar" class="button">
-            <p>Al entrar, aceptas todas nuestras Condiciones de uso y Politica de Privacidad</p>
+            <p>Al entrar, aceptas todas nuestras Condiciones de uso corporal consensuado y privado</p>
         </div>
     </form>
 
