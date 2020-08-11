@@ -17,13 +17,13 @@ $consulta_pagos->execute();
 $result_pagos = $consulta_pagos->fetchAll();
 
 
-$sql_altas= "SELECT a.id_alta, a.id_beneficiario, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b WHERE a.id_beneficiario = $id_beneficiario AND p.id_programas=a.id_programa GROUP BY a.id_alta;";
+$sql_altas= "SELECT a.id_alta, a.id_beneficiario, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b WHERE a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programas=a.id_programa GROUP BY a.id_alta;";
 $consulta_altas = $con->prepare($sql_altas);
-$consulta_altas->execute();
+$consulta_altas->execute(array($id_beneficiario, $id_beneficiario));
 $result_altas = $consulta_altas->fetchAll();
 
 if($result_altas[0]['id_programas'] != 1){
-   echo  "<br><h3>" . $result_altas[0]['nombres'] . " " . $result_altas[0]['apellido_p'] . " " . $result_altas[0]['apellido_m'] ." pertenece a:</h3> <br> " ?>
+   echo  "<br><h3>El beneficiario " . $result_altas[0]['nombres'] . " " . $result_altas[0]['apellido_p'] ." pertenece a:</h3> <br> " ?>
     <table class="table">
         <thead>
             <tr>
@@ -41,6 +41,7 @@ if($result_altas[0]['id_programas'] != 1){
                 <td> <?php echo $alta['nombre'] ?> </td>
                 <td> <?php echo $alta['abreviatura'] ?> </td>
                 <td> <?php
+                if($result_pagos):
                     foreach($result_pagos as $pagos):
                         if($pagos["bim_1"]){
                             echo "B1   " ;
@@ -60,18 +61,22 @@ if($result_altas[0]['id_programas'] != 1){
                         if($pagos["bim_6"]){
                             echo ", B6  " ;
                         }
-                ?>
+                    ?>
                 <br>
                     <a href="detalles_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-success btn-sm mt-1"> Detalles pagos </a>
-                    <?php endforeach; ?>
+                    <?php endforeach;
+                    endif; ?>
+
                 </td>
                 <td>
-                    <?php if($pagos['']): ?>
-                        <a href="registro_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-primary">Registrar Pagos</a>
-                    <?php endif; ?>
-                    <?php if(!$pagos['']): ?>
-                        <a href="registro_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-primary">Nuevos Pagos</a>
-                    <?php endif; ?>
+                    <?php
+                    if(empty($result_pagos)){
+                        $pagando = $alta['id_alta'];
+                    }else{
+                        $pagando = $result_pagos['id_pagos'];
+                    }
+                    ?>
+                        <a href="registro_pagos.php?id=<?php echo $pagando ?>" class="btn btn-primary">Registrar Pagos</a>
                 </td>
                 <td> <?php echo '<i class="fas fa-sign-out-alt"></i>' ?> </td>
 
