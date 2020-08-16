@@ -103,8 +103,10 @@ CREATE TABLE IF NOT EXISTS servidores_publicos(
   apellido_p VARCHAR(30),
   apellido_m VARCHAR(30),
   id_puesto INT,
-  CONSTRAINT fk_servidorpublico_puestospublicos FOREIGN KEY (id) REFERENCES puestos_publicos(id)
+  CONSTRAINT fk_servidorpublico_puestospublicos FOREIGN KEY (id_puesto) REFERENCES puestos_publicos(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocido" ,1);
 
 
 DROP TABLE IF EXISTS beneficiarios ;
@@ -214,8 +216,8 @@ CREATE TABLE IF NOT EXISTS altas(
   id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_beneficiario INT NOT NULL,
   fecha_activacion DATETIME DEFAULT NULL,
-  id_tarjeta VARCHAR(10),
-  id_padron VARCHAR(10),
+  tarjeta VARCHAR(12),
+  padron VARCHAR(10),
   forma_de_pago VARCHAR(20),  -- Eliminar este campo --
   id_departamento INT NULL,
   id_programa INT NULL,
@@ -249,8 +251,8 @@ CREATE TABLE IF NOT EXISTS procesos(
   id_servidor_publico INT,
   fecha_real_visita DATE,
   ingreso_al_sistema INT,
-  fecha_estimada_programacion DATE,
-  stado_pago INT,
+  fecha_estimada_activacion DATE,
+  estado_pago INT,
   reporte TEXT,
   CONSTRAINT fk_procesos_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
   CONSTRAINT fk_procesos_altas FOREIGN KEY (id_alta) REFERENCES altas(id_alta),

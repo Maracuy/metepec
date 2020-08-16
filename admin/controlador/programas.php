@@ -22,6 +22,8 @@ $consulta_altas = $con->prepare($sql_altas);
 $consulta_altas->execute(array($id_beneficiario, $id_beneficiario));
 $result_altas = $consulta_altas->fetchAll();
 
+echo "<br>";
+
 if($result_altas[0]['id_programas'] != 1){
    echo  "<br><h3>El beneficiario " . $result_altas[0]['nombres'] . " " . $result_altas[0]['apellido_p'] ." pertenece a:</h3> <br> " ?>
     <table class="table">
@@ -90,6 +92,8 @@ echo "</table>";}else{
    echo  "<h4>" . $result_altas[0]['nombres'] . " " . $result_altas[0]['apellido_p'] . " " . $result_altas[0]['apellido_m'] ." no pertenece a ningun programa</h4>";
 }
 
+echo '<div class="dropdown-divider mt-5"></div>';
+
 echo "<br><h5> Inscribir a un programa nuevo: </h5>";
 
 $sql_programas = "SELECT * FROM programas";
@@ -100,10 +104,10 @@ $result_programas = $consulta_programas->fetchAll();
 echo "<br>";
 
 foreach($result_programas as $programa): 
-    if($programa['abreviatura'] != "SPRM"): ?>
+    if($programa['id_programas'] != "1"): ?>
 
     <div class="alert btn alert-primary col-md-6" role="alert">
-        <a href="proceso.php"> Inscribir al programa <?php echo $programa['nombre'] ?></a>
+        <a href="proceso.php?id_programa=<?php echo $programa['id_programas'] . '&id_beneficiario='. $id_beneficiario?>"> Inscribir al programa <?php echo $programa['nombre'] ?></a>
     </div>
 
     <?php endif;

@@ -10,7 +10,7 @@ $beneficiario = array();
 
 $beneficiario[0] = ($_POST['id_beneficiario'] == "") ? NULL : $_POST['id_beneficiario'];
 $beneficiario[0] = intval($beneficiario[0]);
-$beneficiario[1] = ($_POST['fecha_captura']) ? $_POST['fecha_captura'] : date('Y-m-d h:i:s');
+$beneficiario[1] = (isset($_POST['fecha_captura'])) ? $_POST['fecha_captura'] : date('Y-m-d h:i:s');
 $beneficiario[3] = $_POST['nombres'];
 $beneficiario[4] = $_POST['apellido_p'];
 $beneficiario[5] = $_POST['apellido_m'];
@@ -99,11 +99,17 @@ function alta_auxiliar($con){
 
 function altas($con, $last_id_beneficiario, $id_capturista){
 
-    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?, NULL)';
+    settype($last_id_beneficiario[0], 'int'); 
+
+    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, "00-00-0000", NULL, NULL, NULL, 1, 1, ?, NULL, ?, NULL)';
     $sentencia_agregar = $con->prepare($sql_agregar);
 
+    $id=$last_id_beneficiario[0];
+
+
     try{
-        $sentencia_agregar->execute(array($last_id_beneficiario, $id_capturista));
+        $sentencia_agregar->execute(array($id, $id_capturista, $id_capturista));
+        return 0;
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
@@ -123,11 +129,10 @@ function alta_beneficiario($con, $beneficiario){
 
     try{
         $sentencia_agregar->execute($beneficiario);
-        $sql_alta = 'SELECT LAST_INSERT_ID()';
-        $sentencia_alta = $con->prepare($sql_alta);
-        $last_id_beneficiario = $sentencia_alta->execute();
-        echo $last_id_beneficiario;
-        die();
+        $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');
+        $sentencia_alta->execute();
+        $last_id_beneficiario = $sentencia_alta->fetch();
+
         
         altas($con, $last_id_beneficiario, $id_capturista);
     }catch(Exception $e){
@@ -158,7 +163,7 @@ function actualizar($con, $beneficiario){
 
 if(array_key_exists("guardar_salir",$_POST)){
     alta_beneficiario($con, $beneficiario);
-    if(isset($_POST['nombres_auxiliar'])){
+    if(($_POST['nombres_auxiliar'] !="")){
         alta_auxiliar($con);
     }
     header("Location: ../beneficiarios");
