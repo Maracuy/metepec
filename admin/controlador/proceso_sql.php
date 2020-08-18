@@ -1,8 +1,19 @@
 <?php
+session_start();
+include_once '../../conection/conexion.php';
 
 if($_POST){
 
-    $fecha_listado = ($_POST['fecha_listado'] != "") ? $_POST['fecha_listado'] : "00-00-0000";
+    $id_alta = $_POST['id_alta'];
+    $id_beneficiario = $_POST['id_beneficiario'];
+    $id_proceso = $_POST['id_proceso'];
+    $capturista = $_SESSION['user']['id_empleado'];
+    $id_programa = $_POST['id_programa'];
+
+
+
+
+    $fecha_listado = ($_POST['fecha_listado'] != "") ? $_POST['fecha_listado'] : NULL;
     $fecha_enviado = ($_POST['fecha_enviado'] != "") ? $_POST['fecha_enviado'] : "00-00-0000";
     $respuesta = (isset($_POST['respuesta'])) ? $_POST['respuesta'] : NULL;
     $se_informa_beneficiario = (isset($_POST['se_informa_beneficiario'])) ? $_POST['se_informa_beneficiario'] : NULL;
@@ -39,8 +50,17 @@ if($_POST){
     }
 
 
-function checa_alta1($con, $id_beneficiario){
+function actualizaProceso($con, $id_proceso, $proceso){
+    $proceso = array_slice($proceso,3);
 
+    $sql_update = "UPDATE procesos SET fecha_listado=?, fecha_enviado=?, respuesta=?, se_informa_beneficiario=?, fecha_de_informe=?, fecha_solicitud_visita=?, fecha_programa_visita=?, id_servidor_publico=?, fecha_real_visita=?, ingreso_al_sistema=?, fecha_estimada_activacion=?, estado_pago=?, reporte=?";
+    $consulta_update=$con->prepare($sql_update);
+    $consulta_update->execute($proceso);
+    
+
+}
+
+function checa_alta1($con, $id_beneficiario){
     $sql_checa = $con->prepare('SELECT id_alta FROM altas WHERE id_beneficiario =? AND id_programa = 1');
     $sql_checa->execute(array($id_beneficiario));
     $id_alta = $sql_checa->fetch();
@@ -52,10 +72,7 @@ function checa_alta1($con, $id_beneficiario){
         $sql_elimina->execute(array($id_alta));
     }else{
         echo "no existe el 1";
-}
-
-
- 
+    } 
 }
 
 function creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_responsable){
@@ -82,8 +99,6 @@ function creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_respons
     }catch(Exception $e){
         echo 'Excepcion capturada:' . $e->getMessage();}
 
-    
-
     $sql_last_alta = 'SELECT LAST_INSERT_ID()';
     $sentencia_last_alta = $con->prepare($sql_last_alta);
     $sentencia_last_alta->execute();
@@ -91,19 +106,13 @@ function creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_respons
     $last_alta = array_map('intval', $last_alta);
     $last_alta = $last_alta[0];
     return $last_alta;
-    
-
 }
 
 
-
-
-function nuevo_proceso($con, $proceso, $id_alta){
-    
+function nuevo_proceso($con, $proceso, $id_alta){    
     $proceso[10] = 1;
     $proceso[2] = $id_alta;
 
-    
     $agregar_nuevo_proceso = 'INSERT INTO procesos VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar_nuevo_proceso = $con->prepare($agregar_nuevo_proceso);
     
@@ -131,12 +140,15 @@ if(array_key_exists("nuevo",$_POST)){
     $id_alta = creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_responsable);
     $id_proceso = nuevo_proceso($con, $proceso, $id_alta);
 
-
-    $url = "proceso.php?id_programa=" . $id_programa . "&id_beneficiario=" . $id_beneficiario . "&id_alta=" . $id_alta . "&id_proceso=" . $id_proceso ;
-    header("Refresh:0; url=$url");
-
+    die();
+    $url = "../proceso.php?id_programa=" . $id_programa . "&id_beneficiario=" . $id_beneficiario . "&id_alta=" . $id_alta . "&id_proceso=" . $id_proceso ;
+    header("Location: $url");
 }
 
+
+if(array_key_exists("actualizar",$_POST)){
+    actualizarProceso($con, $id_proceso);
+}
 
 // <i class="fas fa-user-check"></i>
 ?>

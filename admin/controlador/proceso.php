@@ -16,16 +16,21 @@ if(isset($_GET['id_beneficiario'])){
 
 if(isset($_GET['id_programa'])){
     $id_programa = $_GET['id_programa'];
+
+    $sql_query = $con->prepare('SELECT * FROM programas WHERE id_programas =?');
+    $sql_query->execute(array($id_programa));
+    $existe_programa = $sql_query->fetch();
 }
 
 if(isset($_GET['id_proceso'])){
-    $id_programa = $_GET['id_proceso'];
+    $id_proceso = $_GET['id_proceso'];
     
-    $sql_query = $con->prepare('SELECT * FROM programas WHERE id_procesos =?');
-    $sql_query->execute(array($id_programa));
-    $tarea = $sql_query->fetch();
+    $sql_query_proceso = $con->prepare('SELECT * FROM procesos WHERE id_procesos =?');
+    $sql_query_proceso->execute(array($id_proceso));
+    $existe_proceso = $sql_query_proceso->fetch();
+}else{
+    $id_proceso = NULL;}
 
-}
 
 if(isset($_GET['id_alta'])){
     $id_alta = $_GET['id_alta'];
@@ -33,7 +38,6 @@ if(isset($_GET['id_alta'])){
     $id_alta = NULL;
 }
 
-$capturista = $_SESSION['user']['id_empleado'];
 
 ?>
 
@@ -41,8 +45,13 @@ $capturista = $_SESSION['user']['id_empleado'];
 
 
 
-<form method="post">
+<form method="POST" action="controlador/proceso_sql.php">
 
+
+    <input type="hidden" name="id_beneficiario" value="<?php echo $id_beneficiario ?>">
+    <input type="hidden" name="id_proceso" value="<?php echo $id_proceso ?>">
+    <input type="hidden" name="id_alta" value="<?php echo $id_alta ?>">
+    <input type="hidden" name="id_programa" value="<?php echo $id_programa ?>">
 
 
 
@@ -51,24 +60,62 @@ $capturista = $_SESSION['user']['id_empleado'];
 
     <div class="form-group col-md-2">
         <label for="fecha_listado">Fecha de Listado</label>
-        <input type="date" class="form-control" id="fecha_listado" name="fecha_listado">
+        <?php 
+        if(isset($existe_proceso['fecha_listado']) && $existe_proceso['fecha_listado'] != "00-00-0000"){
+            echo "<br>" . $existe_proceso['fecha_listado'];
+            echo '<input type="hidden" name="fecha_listado" value="'.$existe_proceso['fecha_listado'].'">';
+
+        }else{
+            echo '<input type="date" class="form-control" id="fecha_listado" name="fecha_listado">';
+        }
+        ?>
     </div>
 
 
     <div class="form-group col-md-2">
         <label for="fecha_listado">Fecha de Enviado</label>
-        <input type="date" class="form-control" id="fecha_enviado" name="fecha_enviado">
+        <?php 
+        if(isset($existe_proceso['fecha_enviado']) && $existe_proceso['fecha_listado'] != "0000-00-00"){
+            echo "<br>" . $existe_proceso['fecha_enviado'];
+            echo '<input type="hidden" name="fecha_enviado" value="'.$existe_proceso['fecha_enviado'].'">';
+
+        }else{
+            echo '<input type="date" class="form-control" id="fecha_enviado" name="fecha_enviado">';
+        }
+        ?>
     </div>
 
 
     <div class="form-group col-md-2">
         <label for="respuesta">Respuesta recibida</label>
-        <input type="text" class="form-control" name="respuesta" id="respuesta">
+        <?php 
+        if(isset($existe_proceso['respuesta'])){
+            echo "<br>" . $existe_proceso['respuesta'];
+            echo '<input type="hidden" name="respuesta" value="'.$existe_proceso['respuesta'].'">';
+
+        }else{
+            echo '<input type="text" class="form-control" id="respuesta" name="respuesta">';
+        }
+        ?>
+
     </div>
 
     <div class="form-group col-md-2">
         <label for="se_informa_beneficiario">Se informó al beneficiario?</label>
+        <?php 
+        if(isset($existe_proceso['se_informa_beneficiario'])){
+            if($existe_proceso['se_informa_beneficiario'] == 1){
+                echo "Beneficiario Informado";
+
+            }
+
+        }
+        
+        
+        ?>
+
         <select class="form-control" id="se_informa_beneficiario" name="se_informa_beneficiario">
+            <option value="0">No Definir</option>
             <option value="0">No</option>
             <option value="1">Si</option>
         </select>
@@ -161,10 +208,12 @@ $capturista = $_SESSION['user']['id_empleado'];
 
 <br>
 
-<button class="btn btn-primary" type="submit" name="nuevo" id="nuevo">Guardar registro</button>
-
+<?php
+if(isset($existe_proceso)){
+    echo '<button class="btn btn-primary" type="submit" name="actualizar" id="nuevo">Actualizar registro</button>';
+}else{
+    echo '<button class="btn btn-primary" type="submit" name="nuevo" id="nuevo">Guardar registro</button>';
+}
+?>
 
 </form>
-
-
-<?php include 'proceso_sql.php' ?>

@@ -25,7 +25,7 @@ header("Location: admin/index.php");
         <div class="contenedor">
             <div class="input-contenedor">
                 <i class="fas fa-user icon"></i>
-                <input type="text" name="usuario" placeholder="Usuario">
+                <input type="text" autofocus name="usuario" placeholder="Usuario">
             </div>
             <div class="input-contenedor">
                 <i class="fas fa-key icon"></i>
