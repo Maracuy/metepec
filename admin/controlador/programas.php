@@ -28,7 +28,7 @@ $consulta_altas->execute(array($id_beneficiario, $id_beneficiario));
 $result_altas = $consulta_altas->fetchAll();
 
 
-$sql_en_proceso= "SELECT a.id_alta, a.id_beneficiario, a.exito, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b WHERE a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programas=a.id_programa AND a.exito=0 AND p.id_programas !=1 GROUP BY a.id_alta;";
+$sql_en_proceso= "SELECT procesos.id_procesos, a.id_alta, a.id_beneficiario, a.exito, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b, procesos WHERE procesos.id_alta = a.id_alta AND a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programas=a.id_programa AND a.exito=0 AND p.id_programas !=1 GROUP BY a.id_alta;";
 $consulta_en_proceso = $con->prepare($sql_en_proceso);
 $consulta_en_proceso->execute(array($id_beneficiario, $id_beneficiario));
 $result_en_proceso = $consulta_en_proceso->fetchAll();
@@ -54,7 +54,7 @@ if($result_en_proceso){
              <tr>
                  <td> <?php echo $proceso['nombre'] ?> </td>
                  <td> <?php echo $proceso['abreviatura'] ?> </td>
-                 <td> ver progreso </td>
+                 <td> <a href="proceso.php?id_proceso=<?php echo $proceso['id_procesos']?>&id_beneficiario=<?php echo $id_beneficiario ?>" class="btn btn-primary">Ver progreso</a> </td>
  
              </tr>
          
@@ -149,7 +149,7 @@ echo '<div class="dropdown-divider mt-5"></div>';
 
 echo "<br><h5> Inscribir a un programa nuevo: </h5>";
 
-$sql_programas = "SELECT id_programas, nombre, altas.id_alta FROM programas JOIN altas ON programas.id_programas != altas.id_programa WHERE altas.id_beneficiario = ? GROUP BY id_programa";
+$sql_programas = "SELECT p.id_programas, p.nombre, a.id_alta FROM programas p JOIN altas a ON p.id_programas != a.id_programa WHERE a.id_beneficiario = ? AND p.id_programas != 1 GROUP BY p.id_programas";
 $consulta_programas = $con->prepare($sql_programas);
 $consulta_programas->execute(array($id_beneficiario));
 $result_programas = $consulta_programas->fetchAll();

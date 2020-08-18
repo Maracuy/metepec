@@ -50,13 +50,14 @@ if($_POST){
     }
 
 
-function actualizaProceso($con, $id_proceso, $proceso){
+function actualizarProceso($con, $id_proceso, $proceso){
     $proceso = array_slice($proceso,3);
 
     $sql_update = "UPDATE procesos SET fecha_listado=?, fecha_enviado=?, respuesta=?, se_informa_beneficiario=?, fecha_de_informe=?, fecha_solicitud_visita=?, fecha_programa_visita=?, id_servidor_publico=?, fecha_real_visita=?, ingreso_al_sistema=?, fecha_estimada_activacion=?, estado_pago=?, reporte=?";
     $consulta_update=$con->prepare($sql_update);
     $consulta_update->execute($proceso);
     
+
 
 }
 
@@ -147,7 +148,7 @@ if(array_key_exists("nuevo",$_POST)){
 
 
 if(array_key_exists("actualizar",$_POST)){
-    actualizarProceso($con, $id_proceso);
+    actualizarProceso($con, $id_proceso, $proceso);
 }
 
 // <i class="fas fa-user-check"></i>

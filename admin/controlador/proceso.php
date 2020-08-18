@@ -10,7 +10,7 @@ if(!isset($_GET['id_proceso']) and !isset($_GET['id_beneficiario']) and !isset($
     die();
 }
 
-if(isset($_GET['id_beneficiario'])){
+if($_GET['id_beneficiario']){
     $id_beneficiario = $_GET['id_beneficiario'];
 }
 
@@ -20,6 +20,8 @@ if(isset($_GET['id_programa'])){
     $sql_query = $con->prepare('SELECT * FROM programas WHERE id_programas =?');
     $sql_query->execute(array($id_programa));
     $existe_programa = $sql_query->fetch();
+}else{
+    $id_programa = "";
 }
 
 if(isset($_GET['id_proceso'])){
