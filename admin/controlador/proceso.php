@@ -91,10 +91,9 @@ if(isset($_GET['id_alta'])){
     <div class="form-group col-md-2">
         <label for="respuesta">Respuesta recibida</label>
         <?php 
-        if(isset($existe_proceso['respuesta'])){
-            echo "<br>" . $existe_proceso['respuesta'];
+        if(isset($existe_proceso['respuesta']) && ($existe_proceso['respuesta'] =! 1)){
             echo '<input type="hidden" name="respuesta" value="'.$existe_proceso['respuesta'].'">';
-
+            echo "<br>" . $existe_proceso['respuesta'];
         }else{
             echo '<input type="text" class="form-control" id="respuesta" name="respuesta">';
         }
@@ -107,25 +106,33 @@ if(isset($_GET['id_alta'])){
         <?php 
         if(isset($existe_proceso['se_informa_beneficiario'])){
             if($existe_proceso['se_informa_beneficiario'] == 1){
-                echo "Beneficiario Informado";
+                echo "Beneficiario Informado";}
+                echo '<input type="hidden" name="se_informa_beneficiario" value="'.$existe_proceso['se_informa_beneficiario'].'">';
 
-            }
-
-        }
-        
-        
-        ?>
-
+            if($existe_proceso['se_informa_beneficiario'] == 0){
+                echo "Beneficiario NO Informado";}
+        }else{?>
         <select class="form-control" id="se_informa_beneficiario" name="se_informa_beneficiario">
-            <option value="0">No Definir</option>
+            <option value="">Aun no</option>
             <option value="0">No</option>
             <option value="1">Si</option>
-        </select>
+        </select> <?php }?>
     </div>
+
 
     <div class="form-group col-md-2">
         <label for="fecha_de_informe">Fecha de informe</label>
-        <input type="date" class="form-control" id="fecha_de_informe" name="fecha_de_informe">
+        <?php
+        if(isset($existe_proceso['fecha_de_informe'])){
+            if($existe_proceso['se_informa_beneficiario'] != 0){
+                echo "<br>" . $existe_proceso['fecha_de_informe'];
+                echo '<input type="hidden" name="fecha_de_informe" value="'.$existe_proceso['fecha_de_informe'].'">';
+
+            }else{
+                echo "<br>Sin fecha"; }
+            }else{
+                echo '<input type="date" class="form-control" id="fecha_de_informe" name="fecha_de_informe">'; 
+            }?>
     </div>
 </div>
 
@@ -135,6 +142,10 @@ if(isset($_GET['id_alta'])){
 
     <div class="form-group col-md-2">
         <label for="fecha_solicitud_visita">Fecha Solicitud Visita</label>
+        <?php
+        if(isset($existe_proceso['fecha_solicitud_visita'])){
+            echo $existe_proceso['fecha_solicitud_visita'];
+        }?>
         <input type="date" class="form-control" id="fecha_solicitud_visita" name="fecha_solicitud_visita">
     </div>
 

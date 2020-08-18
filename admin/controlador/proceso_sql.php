@@ -14,15 +14,15 @@ if($_POST){
 
 
     $fecha_listado = ($_POST['fecha_listado'] != "") ? $_POST['fecha_listado'] : NULL;
-    $fecha_enviado = ($_POST['fecha_enviado'] != "") ? $_POST['fecha_enviado'] : "00-00-0000";
+    $fecha_enviado = ($_POST['fecha_enviado'] != "") ? $_POST['fecha_enviado'] : NULL;
     $respuesta = (isset($_POST['respuesta'])) ? $_POST['respuesta'] : NULL;
     $se_informa_beneficiario = (isset($_POST['se_informa_beneficiario'])) ? $_POST['se_informa_beneficiario'] : NULL;
-    $fecha_de_informe = ($_POST['fecha_de_informe'] != "") ? $_POST['fecha_de_informe'] : "00-00-0000";
-    $fecha_solicitud_visita = ($_POST['fecha_solicitud_visita'] != "") ? $_POST['fecha_solicitud_visita'] : "00-00-0000";
-    $fecha_programa_visita = ($_POST['fecha_programa_visita'] != "") ? $_POST['fecha_programa_visita'] : "00-00-0000";
+    $fecha_de_informe = ($_POST['fecha_de_informe'] != "") ? $_POST['fecha_de_informe'] : NULL;
+    $fecha_solicitud_visita = ($_POST['fecha_solicitud_visita'] != "") ? $_POST['fecha_solicitud_visita'] : NULL;
+    $fecha_programa_visita = ($_POST['fecha_programa_visita'] != "") ? $_POST['fecha_programa_visita'] : NULL;
     $id_servidor_publico = (isset($_POST['id_servidor_publico'])) ? $_POST['id_servidor_publico'] : NULL;
-    $fecha_real_visita = ($_POST['fecha_real_visita'] != "") ? $_POST['fecha_real_visita'] : "00-00-0000";
-    $ingreso_al_sistema = ($_POST['ingreso_al_sistema'] != "") ? $_POST['ingreso_al_sistema'] : "00-00-0000";
+    $fecha_real_visita = ($_POST['fecha_real_visita'] != "") ? $_POST['fecha_real_visita'] : NULL;
+    $ingreso_al_sistema = ($_POST['ingreso_al_sistema'] != "") ? $_POST['ingreso_al_sistema'] : NULL;
     $fecha_estimada_activacion = ($_POST['fecha_estimada_activacion'] != "") ? $_POST['fecha_estimada_activacion'] : NULL;
     $estado_pago = (isset($_POST['estado_pago'])) ? $_POST['estado_pago'] : NULL;
     $reporte = (isset($_POST['reporte'])) ? $_POST['reporte'] : NULL;
@@ -52,10 +52,16 @@ if($_POST){
 
 function actualizarProceso($con, $id_proceso, $proceso){
     $proceso = array_slice($proceso,3);
+    array_push($proceso, $id_proceso);
 
-    $sql_update = "UPDATE procesos SET fecha_listado=?, fecha_enviado=?, respuesta=?, se_informa_beneficiario=?, fecha_de_informe=?, fecha_solicitud_visita=?, fecha_programa_visita=?, id_servidor_publico=?, fecha_real_visita=?, ingreso_al_sistema=?, fecha_estimada_activacion=?, estado_pago=?, reporte=?";
+    $sql_update = "UPDATE procesos SET fecha_listado=?, fecha_enviado=?, respuesta=?, se_informa_beneficiario=?, fecha_de_informe=?, fecha_solicitud_visita=?, fecha_programa_visita=?, id_servidor_publico=?, fecha_real_visita=?, ingreso_al_sistema=?, fecha_estimada_activacion=?, estado_pago=?, reporte=? WHERE id_procesos =?";
     $consulta_update=$con->prepare($sql_update);
-    $consulta_update->execute($proceso);
+
+    try{
+        $consulta_update->execute($proceso);
+    }catch(Exception $e){
+        echo 'Excepcion capturada:' . $e->getMessage();
+    }
     
 
 
