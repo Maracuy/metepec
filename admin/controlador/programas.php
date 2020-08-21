@@ -54,7 +54,7 @@ if($result_en_proceso){
              <tr>
                  <td> <?php echo $proceso['nombre'] ?> </td>
                  <td> <?php echo $proceso['abreviatura'] ?> </td>
-                 <td> <a href="proceso.php?id_proceso=<?php echo $proceso['id_procesos']?>&id_beneficiario=<?php echo $id_beneficiario ?>" class="btn btn-primary">Ver progreso</a> </td>
+                 <td> <a href="proceso.php?id_proceso=<?php echo $proceso['id_procesos']?>&id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $proceso['id_alta']?>" class="btn btn-primary">Ver progreso</a> </td>
  
              </tr>
          

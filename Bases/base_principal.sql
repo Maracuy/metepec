@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS empleados (
   PRIMARY KEY (id_empleado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO empleados VALUES(NULL, "NULL", "Sin", "Responsable", "Aun","0000-00-00","0000000000", "Usuario", "123456", "sin_email@metepec.work", "Sin responsable");
 INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","1990-03-17","7224531128", "Super Admin", "170390", "ggs,webmaster@metepec.work", "Creador del Sistema");
 INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
 
