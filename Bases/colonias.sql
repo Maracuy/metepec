@@ -1,12 +1,3 @@
-DROP TABLE IF EXISTS colonias;
-CREATE TABLE IF NOT EXISTS colonias(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nombre_colonia VARCHAR(100) NOT NULL,
-  municipio VARCHAR(50)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO colonias (id, nombre_colonia, municipio) VALUES (NULL, 'Sin colonia', 'Sin municipio');
-
 INSERT INTO colonias (nombre_colonia,municipio) VALUES ('BARRIO DE COAXUSTENCO','Metepec');
 INSERT INTO colonias (nombre_colonia,municipio) VALUES ('BARRIO DE SAN MATEO','Metepec');
 INSERT INTO colonias (nombre_colonia,municipio) VALUES ('BARRIO DE SAN MIGUEL','Metepec');

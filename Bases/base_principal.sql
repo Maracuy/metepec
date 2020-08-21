@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS programas(
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO programas VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
+
 
 
 DROP TABLE IF EXISTS departamentos;
@@ -83,6 +85,15 @@ CREATE TABLE IF NOT EXISTS promotores(
 INSERT INTO promotores (id, nombre, abreviatura, descripcion) VALUES (NULL, 'Promotor Pendiente', 'pend', 'Se usa cuando se desconoce el Promotor');
 
 
+
+DROP TABLE IF EXISTS colonias;
+CREATE TABLE IF NOT EXISTS colonias(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre_colonia VARCHAR(100) NOT NULL,
+  municipio VARCHAR(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO colonias (id, nombre_colonia, municipio) VALUES (NULL, 'Sin colonia', 'Sin municipio');
 
 
 DROP TABLE IF EXISTS puestos_publicos;
