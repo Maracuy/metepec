@@ -9,7 +9,7 @@ require_once '../../conection/conexion.php';
 $beneficiario = array();
 
 $beneficiario[0] = ($_POST['id_beneficiario'] == "") ? NULL : $_POST['id_beneficiario'];
-$beneficiario[0] = intval($beneficiario[0]);
+$beneficiario[0] = ($beneficiario[0] != NULL) ? intval($beneficiario[0]) : NULL ;
 $beneficiario[1] = (isset($_POST['fecha_captura'])) ? $_POST['fecha_captura'] : date('Y-m-d h:i:s');
 $beneficiario[3] = $_POST['nombres'];
 $beneficiario[4] = $_POST['apellido_p'];
@@ -101,12 +101,13 @@ function altas($con, $last_id_beneficiario, $id_capturista){
 
     settype($last_id_beneficiario[0], 'int'); 
 
-    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, "00-00-0000", NULL, NULL, NULL, 1, 1, ?, NULL, ?, NULL)';
+    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, NULL, NULL, NULL, NULL, 1, 1, ?, NULL, ?, NULL)';
     $sentencia_agregar = $con->prepare($sql_agregar);
 
     $id=$last_id_beneficiario[0];
 
-
+    
+    
     try{
         $sentencia_agregar->execute(array($id, $id_capturista, $id_capturista));
         return 0;
@@ -123,16 +124,13 @@ function alta_beneficiario($con, $beneficiario){
     $id_capturista = $beneficiario[30];
  
     $sql_agregar = 'INSERT INTO beneficiarios VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    $sentencia_agregar = $con->prepare($sql_agregar);
-
+    $sentencia_agregar = $con->prepare($sql_agregar);    
     
-
     try{
         $sentencia_agregar->execute($beneficiario);
         $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');
         $sentencia_alta->execute();
         $last_id_beneficiario = $sentencia_alta->fetch();
-
         
         altas($con, $last_id_beneficiario, $id_capturista);
     }catch(Exception $e){
@@ -166,7 +164,7 @@ if(array_key_exists("guardar_salir",$_POST)){
     if(($_POST['nombres_auxiliar'] !="")){
         alta_auxiliar($con);
     }
-    header("Location: ../beneficiarios");
+    header("Location: ../beneficiarios.php");
 }
 
 if(array_key_exists("actualizar",$_POST)){

@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS servidores_publicos(
 INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocido" ,1);
 
 
-DROP TABLE IF EXISTS beneficiarios ;
+DROP TABLE IF EXISTS beneficiarios;
 CREATE TABLE IF NOT EXISTS beneficiarios (
   id_beneficiario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   fecha_captura DATETIME NULL,
@@ -132,14 +132,13 @@ CREATE TABLE IF NOT EXISTS beneficiarios (
   vulnerable VARCHAR(2) NULL DEFAULT NULL,
   genero VARCHAR(100) NULL DEFAULT NULL,
   curp VARCHAR(20) NULL DEFAULT NULL,
-  tipo_identificacion VARCHAR(20) NULL DEFAULT NULL,
   numero_identificacion VARCHAR(50) NULL DEFAULT NULL,
   telefono VARCHAR(10) NULL DEFAULT NULL,
   email VARCHAR(50) NULL DEFAULT NULL,
   whats VARCHAR(2) NULL DEFAULT NULL,
   fecha_nacimiento DATE NULL DEFAULT NULL,
   nivel VARCHAR(2) NULL DEFAULT NULL,
-  estado_civil VARCHAR(10) NULL DEFAULT NULL,
+  estado_civil VARCHAR(50) NULL DEFAULT NULL,
   num_hijos VARCHAR(10) NULL DEFAULT NULL,
   ocupacion VARCHAR(100) NULL DEFAULT NULL,
   pensionado VARCHAR(10) NULL DEFAULT NULL,
