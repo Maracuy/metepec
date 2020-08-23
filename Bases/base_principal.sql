@@ -278,6 +278,7 @@ CREATE TABLE IF NOT EXISTS tareas(
   id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_empleado_crea_tarea INT NOT NULL,
   id_empleado_asigna_tarea INT NOT NULL,
+  creada_date DATE,
   tarea_titulo VARCHAR(255),
   tarea_descripcion TEXT,
   fecha_limite DATE,
