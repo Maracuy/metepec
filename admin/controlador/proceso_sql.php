@@ -10,9 +10,6 @@ if($_POST){
     $capturista = $_SESSION['user']['id_empleado'];
     $id_programa = $_POST['id_programa'];
 
-
-
-
     $fecha_listado = ($_POST['fecha_listado'] != "") ? $_POST['fecha_listado'] : NULL;
     $fecha_enviado = ($_POST['fecha_enviado'] != "") ? $_POST['fecha_enviado'] : NULL;
     $respuesta = (isset($_POST['respuesta'])) ? $_POST['respuesta'] : NULL;
