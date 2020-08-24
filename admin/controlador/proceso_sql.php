@@ -4,7 +4,10 @@ include_once '../../conection/conexion.php';
 
 if($_POST){
 
-    $id_alta = $_POST['id_alta'];
+    $id_responsable = ($_POST['id_responsable'] =! "") ? $_POST['id_responsable'] : NULL;
+
+    $id_alta = (isset($_POST['id_alta']) && $_POST['id_alta'] != "") ? $_POST['id_alta'] : NULL ;
+
     $id_beneficiario = $_POST['id_beneficiario'];
     $id_proceso = $_POST['id_proceso'];
     $capturista = $_SESSION['user']['id_empleado'];
@@ -13,18 +16,20 @@ if($_POST){
     $fecha_listado = ($_POST['fecha_listado'] != "") ? $_POST['fecha_listado'] : NULL;
     $fecha_enviado = ($_POST['fecha_enviado'] != "") ? $_POST['fecha_enviado'] : NULL;
     $respuesta = (isset($_POST['respuesta'])) ? $_POST['respuesta'] : NULL;
-    $se_informa_beneficiario = (isset($_POST['se_informa_beneficiario'])) ? $_POST['se_informa_beneficiario'] : NULL;
+    $se_informa_beneficiario = (isset($_POST['se_informa_beneficiario']) && $_POST['se_informa_beneficiario'] != "") ? $_POST['se_informa_beneficiario'] : NULL;
     $fecha_de_informe = ($_POST['fecha_de_informe'] != "") ? $_POST['fecha_de_informe'] : NULL;
     $fecha_solicitud_visita = ($_POST['fecha_solicitud_visita'] != "") ? $_POST['fecha_solicitud_visita'] : NULL;
     $fecha_programa_visita = ($_POST['fecha_programa_visita'] != "") ? $_POST['fecha_programa_visita'] : NULL;
-    $id_servidor_publico = (isset($_POST['id_servidor_publico'])) ? $_POST['id_servidor_publico'] : NULL;
+    $id_servidor_publico = (isset($_POST['id_servidor_publico'])) ? $_POST['id_servidor_publico'] : 1;
     $fecha_real_visita = ($_POST['fecha_real_visita'] != "") ? $_POST['fecha_real_visita'] : NULL;
     $ingreso_al_sistema = ($_POST['ingreso_al_sistema'] != "") ? $_POST['ingreso_al_sistema'] : NULL;
     $fecha_estimada_activacion = ($_POST['fecha_estimada_activacion'] != "") ? $_POST['fecha_estimada_activacion'] : NULL;
-    $estado_pago = (isset($_POST['estado_pago'])) ? $_POST['estado_pago'] : NULL;
-    $reporte = (isset($_POST['reporte'])) ? $_POST['reporte'] : NULL;
+    $estado_pago = (isset($_POST['estado_pago']) && $_POST['estado_pago'] != "") ? $_POST['estado_pago'] : NULL;
+    $reporte = (isset($_POST['reporte']) &&  $_POST['reporte'] != "") ? nl2br($_POST['reporte']) : NULL;
 
-    $id_responsable = (isset($_POST['id_responsable'])) ? $_POST['id_responsable'] : NULL;
+    echo var_dump($id_responsable);
+
+    die();
 
     $proceso = array(
         NULL,
@@ -46,6 +51,16 @@ if($_POST){
 
     }
 
+
+function regResponsable($con, $id_responsable, $id_alta){
+
+    $sql_responsable = 'UPDATE altas SET id_responsable=? WHERE id_alta=? ';
+    $sentencia_alta_responsable = $con->prepare($sql_responsable);
+    
+    $sentencia_alta_responsable->execute(array($id_responsable, $id_alta));
+    
+    return 0;
+}
 
 function actualizarProceso($con, $id_proceso, $proceso){
     $proceso = array_slice($proceso,3);
@@ -75,7 +90,7 @@ function checa_alta1($con, $id_beneficiario){
         $sql_elimina = $con->prepare('DELETE FROM altas WHERE id_alta = ?');
         $sql_elimina->execute(array($id_alta));
     }else{
-        echo "no existe el 1";
+        return 0;
     } 
 }
 
@@ -122,13 +137,14 @@ function nuevo_proceso($con, $proceso, $id_alta){
     
     try{        
         $sentencia_agregar_nuevo_proceso->execute($proceso);
-
+    
         $sql_last_proceso = 'SELECT LAST_INSERT_ID()';
         $sentencia_last_proceso = $con->prepare($sql_last_proceso);
         $sentencia_last_proceso->execute();
         $last_proceso = $sentencia_last_proceso->fetch();
         $last_proceso = array_map('intval', $last_proceso);
         $last_proceso = $last_proceso[0];
+
         return $last_proceso;
 
 
@@ -144,7 +160,10 @@ if(array_key_exists("nuevo",$_POST)){
     $id_alta = creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_responsable);
     $id_proceso = nuevo_proceso($con, $proceso, $id_alta);
 
-    die();
+    if( !empty($id_responsable)){
+        regResponsable($con, $id_responsable, $id_alta);
+    }
+
     $url = "../proceso.php?id_programa=" . $id_programa . "&id_beneficiario=" . $id_beneficiario . "&id_alta=" . $id_alta . "&id_proceso=" . $id_proceso ;
     header("Location: $url");
 }
@@ -152,6 +171,13 @@ if(array_key_exists("nuevo",$_POST)){
 
 if(array_key_exists("actualizar",$_POST)){
     actualizarProceso($con, $id_proceso, $proceso);
+    
+    if( !empty($id_responsable)){
+        regResponsable($con, $id_responsable, $id_alta);
+    }
+    
+    header("Location: ../programas.php?id=$id_beneficiario");
+
 }
 
 // <i class="fas fa-user-check"></i>

@@ -146,17 +146,19 @@ if(isset($_GET['id_alta'])){
         <?php
         if(isset($existe_proceso['fecha_solicitud_visita'])){
             echo "<br>" . $existe_proceso['fecha_solicitud_visita'];
-            echo '<input type="hidden" class="form-control" id="fecha_solicitud_visita" name="fecha_solicitud_visita">'; 
+            echo '<input type="hidden" class="form-control" value="' . $existe_proceso['fecha_solicitud_visita'] . '" id="fecha_solicitud_visita" name="fecha_solicitud_visita">'; 
+        } else{
+            echo '<input type="date" class="form-control" id="fecha_solicitud_visita" name="fecha_solicitud_visita">';
         }?>
-        <input type="date" class="form-control" id="fecha_solicitud_visita" name="fecha_solicitud_visita">
     </div>
+
 
     <div class="form-group col-md-2">
         <label for="fecha_programa_visita">Fecha programa Visita</label>
         <?php
         if(isset($existe_proceso['fecha_programa_visita']) && $existe_proceso['fecha_programa_visita'] != ""){
             echo "<br>" . $existe_proceso['fecha_programa_visita'];
-            echo '<input type="hidden" class="form-control" id="fecha_programa_visita" name="fecha_programa_visita">';
+            echo '<input type="hidden" class="form-control" value="' . $existe_proceso['fecha_programa_visita'] . '" id="fecha_programa_visita" name="fecha_programa_visita">';
         }else{
         echo '<input type="date" class="form-control" id="fecha_programa_visita" name="fecha_programa_visita">';
         }
@@ -169,7 +171,7 @@ if(isset($_GET['id_alta'])){
             <?php 
             if(isset($existe_proceso['id_servidor_publico']) && $existe_proceso['id_servidor_publico'] != 1){
                 echo "<br>" . $existe_proceso['id_servidor_publico'];
-                echo '<input type="hidden" class="form-control" id="id_servidor_publico" name="id_servidor_publico">';
+                echo '<input type="hidden" class="form-control" value="' . $existe_proceso['id_servidor_publico'] . '" id="id_servidor_publico" name="id_servidor_publico">';
             }else{
                 $query = $mysqli -> query ("SELECT * FROM servidores_publicos");
                 while ($valores = mysqli_fetch_array($query)) {
@@ -182,7 +184,7 @@ if(isset($_GET['id_alta'])){
         <?php 
         if(isset($existe_proceso['fecha_real_visita']) && $existe_proceso['fecha_real_visita'] != ""){
             echo "<br>" . $existe_proceso['fecha_real_visita'];
-            echo '<input type="hidden" class="form-control" id="fecha_real_visita" name="fecha_real_visita">';
+            echo '<input type="hidden" class="form-control" value="' . $existe_proceso['fecha_real_visita'] . '" id="fecha_real_visita" name="fecha_real_visita">';
         }else{
             echo '<input type="date" class="form-control" id="fecha_real_visita" name="fecha_real_visita">';
         }
@@ -199,8 +201,12 @@ if(isset($_GET['id_alta'])){
         <label for="ingreso_al_sistema">Ingreso al sistema?</label>
         <?php
         if(isset($existe_proceso['ingreso_al_sistema']) && $existe_proceso['ingreso_al_sistema'] != ""){
-            echo "<br>" . $existe_proceso['ingreso_al_sistema'];
-            echo '<input type="hidden" class="form-control" id="ingreso_al_sistema" name="ingreso_al_sistema">';
+            if($existe_proceso['ingreso_al_sistema'] == 1){
+                echo "<br>Si";
+            }else{
+                echo "<br>No";
+            }
+            echo '<input type="hidden" class="form-control" value="' . $existe_proceso['ingreso_al_sistema'] . '" id="ingreso_al_sistema" name="ingreso_al_sistema">';
         }else{?>
         <select class="form-control" id="ingreso_al_sistema" name="ingreso_al_sistema">
             <option value="">No definido</option>
@@ -214,18 +220,23 @@ if(isset($_GET['id_alta'])){
         <?php 
         if(isset($existe_proceso['fecha_estimada_activacion']) && $existe_proceso['fecha_estimada_activacion'] != ""){
             echo "<br>" . $existe_proceso['fecha_estimada_activacion'];
-            echo '<input type="hidden" class="form-control" id="fecha_estimada_activacion" name="fecha_estimada_activacion">';
+            echo '<input type="hidden" value class="form-control" value="' . $existe_proceso['fecha_estimada_activacion'] . '" id="fecha_estimada_activacion" name="fecha_estimada_activacion">';
         }else{
             echo '<input type="date" class="form-control" id="fecha_estimada_activacion" name="fecha_estimada_activacion">';
         }?>
     </div>
 
+
     <div class="form-group col-md-2">
         <label for="estado_pago">Pagando?</label>
         <?php 
         if(isset($existe_proceso['estado_pago']) && $existe_proceso['estado_pago'] != ""){
-            echo "<br>" . $existe_proceso['estado_pago'];
-            echo '<input type="hidden" class="form-control" id="estado_pago" name="estado_pago">';
+            if($existe_proceso['estado_pago'] ==1){
+                echo "<br>Si";
+            }else{
+                echo "<br>No";
+            }
+            echo '<input type="hidden" class="form-control" value="' . $existe_proceso['estado_pago'] . '" id="estado_pago" name="estado_pago">';
         }else{ ?>
             <select class="form-control" id="estado_pago" name="estado_pago">
             <option value="">Sin Especificar</option>
@@ -233,8 +244,6 @@ if(isset($_GET['id_alta'])){
             <option value="1">Si</option>
         </select>
         <?php } ?>
-       
-        
     </div>
 
     <div class="col-md-2">
@@ -242,14 +251,16 @@ if(isset($_GET['id_alta'])){
         <?php 
         if(isset($alta['id_responsable']) && $alta['id_responsable'] != 1){
             echo "<br>(" . $alta['usuario'] . ") " . $alta['nombres'] . " " . $alta['apellido_p'];
-            echo '<input type="hidden" class="form-control" id="id_empleado" name="id_empleado">';
+            echo '<input type="hidden" class="form-control" value="' . $alta['id_responsable'] . '" id="id_empleado" name="id_empleado">';
             }else{
-                echo '<select id="id_empleado" name="id_empleado" class="form-control">';
-                $query = $mysqli -> query ("SELECT id_empleado, usuario FROM empleados");
-                while ($valores = mysqli_fetch_array($query)) {
-                    echo '<option value="'.$valores['id_empleado'].'">'.$valores['usuario'] . '</option>'; }
-        echo "</select>";
-        } ?>
+                echo '<select id="id_responsable" name="id_responsable" class="form-control">';
+                echo '<option value=""> Sin responsable </option>';
+                $query=$mysqli->query("SELECT id_empleado, usuario FROM empleados WHERE id_empleado != 1");
+                while ($valores = mysqli_fetch_array($query)): ?>
+                    <option value="<?php echo $valores['id_empleado']?>"> <?php echo $valores['usuario'] ?></option>
+                <?php endwhile;
+             }?>
+        </select>
     </div>
 
 
@@ -261,7 +272,14 @@ if(isset($_GET['id_alta'])){
 
     <div class="col-md-7">
         <label for="reporte">Reporte</label>
-        <textarea class="form-control col-md-7" id="reporte" name="reporte" placeholder="Descripción de la Tarea"> </textarea>
+        <?php
+        if(isset($existe_proceso['reporte']) && $existe_proceso['reporte'] != ""){
+            echo "<br>" . $existe_proceso['reporte'];
+            echo '<input type="hidden" name="reporte" id="reporte" value="' . $existe_proceso['reporte'] . '">';
+        }else{
+            echo '<textarea class="form-control col-md-7" id="reporte" name="reporte" placeholder="Descripción de la Tarea"> </textarea>';
+        }
+        ?>
     </div>
 
 </div>
@@ -270,10 +288,14 @@ if(isset($_GET['id_alta'])){
 
 <?php
 if(isset($existe_proceso)){
-    echo '<button class="btn btn-primary" type="submit" name="actualizar" id="nuevo">Actualizar registro</button>';
+    echo '<button class="btn btn-primary mr-3 ml-5 mt-3 " type="submit" name="actualizar" id="nuevo">Actualizar registro</button>';
 }else{
-    echo '<button class="btn btn-primary" type="submit" name="nuevo" id="nuevo">Guardar registro</button>';
+    echo '<button class="btn btn-primary mr-3 ml-5 mt-3 " type="submit" name="nuevo" id="nuevo">Guardar registro</button>';
 }
 ?>
+<button class="btn btn-success ml-5 mt-3 mr-3" type="submit" name="exito" id="exito"> ¡FUNCIONÓ! Se ha registrado</button>
+
+<button class="btn btn-danger ml-5 mt-3 mr-3" type="submit" name="repetir" id="repetir"> No funciono, REPETIR</button>
+
 
 </form>

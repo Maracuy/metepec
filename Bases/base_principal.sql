@@ -105,6 +105,8 @@ CREATE TABLE IF NOT EXISTS puestos_publicos(
   abreviatura VARCHAR(10)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO puestos_publicos VALUES (NULL, "Sin Puesto", "SIN");
+
 
 
 DROP TABLE IF EXISTS servidores_publicos;
@@ -265,6 +267,7 @@ CREATE TABLE IF NOT EXISTS procesos(
   fecha_estimada_activacion DATE,
   estado_pago INT,
   reporte TEXT,
+  exito INT,
   CONSTRAINT fk_procesos_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
   CONSTRAINT fk_procesos_altas FOREIGN KEY (id_alta) REFERENCES altas(id_alta),
   CONSTRAINT fk_procesos_servidor FOREIGN KEY (id_servidor_publico) REFERENCES servidores_publicos(id) ON DELETE CASCADE
