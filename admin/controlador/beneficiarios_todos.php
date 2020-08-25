@@ -1,28 +1,12 @@
 <?php 
-require_once '../../conection/conexion.php';
-require_once '../../conection/conexioni.php';
-$sql_query = $con->prepare("SELECT * FROM beneficiarios ORDER BY id_beneficiario ASC");
+$sql_query = $con->prepare("SELECT * FROM beneficiarios WHERE id_beneficiario > 2876 ORDER BY id_beneficiario ASC");
 $sql_query->execute();
 $beneficiarios = $sql_query->fetchALL();
-
-if($_POST){
-  $tarea_titulo = $_POST['tarea']['titulo'];
-  $tarea_descripcion = $_POST['tarea']['descripcion'];
-  $tarea_responsable = $_POST['tarea']['responsable'];
-  $tarea_fecha_limite = $_POST['tarea']['fecha_limite'];
-}
-
-
 ?>
 
+<table class="table table-striped" id="myTable">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por nombre">
 
-<div class="espaciadormio" style="height: 50px;"></div>
-
-
-<h3>Beneficiarios:</h3>
-
-
-<table class="table table-striped">
   <thead>
     <tr>
 
@@ -61,9 +45,7 @@ if($_POST){
             $sql_query_colonias->execute(array($la_colonia));
             $nombre_colonia = $sql_query_colonias->fetch();
             $colonia=$nombre_colonia["nombre_colonia"];
-
-        }
-          elseif(isset($dato['otra_colonia'])){
+        }elseif(isset($dato['otra_colonia'])){
             $colonia = $dato['otra_colonia'];} ?>
       
         <tr>
@@ -106,4 +88,28 @@ if($_POST){
       endforeach;
       ?>      
   </tbody>
+
+  <script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 </table>

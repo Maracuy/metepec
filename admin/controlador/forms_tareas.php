@@ -28,20 +28,42 @@ if($_POST){
             </div>
 
             <br>
-                    
-            <div class="form-row">
-                <div class="form-group col-md-1">
-                    <label for="tarea[beneficiario_id]">Beneficiario ID</label>
-                    <input type="number" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_beneficiario_id . '"' : "" ?> class="form-control" id="tarea[beneficiario_id]" name="tarea[beneficiario_id]">
-                </div>
+<!-- Aqui comienza el modal -->
+           
 
-                <div class="form-group col-md-3">
-                    <label for="fech_nacimiento">Buscar</label>
-                    <br>
-                    <button class="btn btn-primary" type="submit" name="buscar_beneficiario" id="buscar_beneficiario"><i class="fas fa-search"></i> Buscar Beneficiario</button>
-                </div>
-            </div>
 
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Seleccionar Beneficiario</button>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Busca y selecciona al beneficiario relacionado con la tarea</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <?php include 'beneficiarios_todos.php' ?>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Aqui termina el modal -->
             <div class="form-row">
 
                 <div class="col-md-3">
