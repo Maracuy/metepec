@@ -1,3 +1,10 @@
+<?php 
+include_once 'conection/conexion.php';
+
+$base = $con->prepare("SELECT id_empleado FROM empleados");
+$base->execute();
+$data = $base->fetchAll();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,16 +20,36 @@
   <body>
     <h1>Hello, world!</h1>
 
-    <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
+
+
+
+<?php if(isset($data)):?>
+
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <?php foreach($data as $dato):
+            $i = 1;?>
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne<?php echo $dato['id_empleado'] ?>" aria-expanded="true" aria-controls="collapseOne">
+                        Intento No. <?php echo $i ?>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne<?php echo $dato['id_empleado'] ?>"" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <?php echo $dato['id_empleado']; ?>
+                </div>
+            </div>
+        <?php $i++;
+        endforeach ?>
+    </div>
 </div>
+<?php endif?>
+
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

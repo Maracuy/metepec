@@ -370,7 +370,7 @@
     <br>
 
         <button class="btn btn-primary" type="submit" name="guardar_salir" id="guardar_salir"> <i class="far fa-save mr-2"></i>  Guardar y Salir</button>
-        <button class="btn btn-primary" type="submit" name="continuar" id="continuar" value="Siguiente"> <i class="fas fa-forward mr-2"></i> Inscribir a un Programa</button>
+        <button class="btn btn-primary" type="submit" name="inscribir" id="inscribir" > <i class="fas fa-forward mr-2"></i> Inscribir a un Programa</button>
         
     
     </form>

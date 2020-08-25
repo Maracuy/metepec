@@ -4,7 +4,7 @@ include_once '../../conection/conexion.php';
 
 if($_POST){
 
-    $id_responsable = ($_POST['id_responsable'] =! "") ? $_POST['id_responsable'] : NULL;
+    $id_responsable = (($_POST['id_responsable'] != '') && $_POST['id_responsable'] != 1) ? intval($_POST['id_responsable']) : 1;
 
     $id_alta = (isset($_POST['id_alta']) && $_POST['id_alta'] != "") ? $_POST['id_alta'] : NULL ;
 
@@ -27,9 +27,6 @@ if($_POST){
     $estado_pago = (isset($_POST['estado_pago']) && $_POST['estado_pago'] != "") ? $_POST['estado_pago'] : NULL;
     $reporte = (isset($_POST['reporte']) &&  $_POST['reporte'] != "") ? nl2br($_POST['reporte']) : NULL;
 
-    echo var_dump($id_responsable);
-
-    die();
 
     $proceso = array(
         NULL,
@@ -48,7 +45,6 @@ if($_POST){
         $fecha_estimada_activacion,
         $estado_pago,
         $reporte);
-
     }
 
 
@@ -56,7 +52,6 @@ function regResponsable($con, $id_responsable, $id_alta){
 
     $sql_responsable = 'UPDATE altas SET id_responsable=? WHERE id_alta=? ';
     $sentencia_alta_responsable = $con->prepare($sql_responsable);
-    
     $sentencia_alta_responsable->execute(array($id_responsable, $id_alta));
     
     return 0;
@@ -72,11 +67,8 @@ function actualizarProceso($con, $id_proceso, $proceso){
     try{
         $consulta_update->execute($proceso);
     }catch(Exception $e){
-        echo 'Excepcion capturada:' . $e->getMessage();
+        echo 'Algo salio mal con la captura' . $e->getMessage();
     }
-    
-
-
 }
 
 function checa_alta1($con, $id_beneficiario){
@@ -89,6 +81,7 @@ function checa_alta1($con, $id_beneficiario){
 
         $sql_elimina = $con->prepare('DELETE FROM altas WHERE id_alta = ?');
         $sql_elimina->execute(array($id_alta));
+        return 1;
     }else{
         return 0;
     } 
@@ -115,16 +108,15 @@ function creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_respons
     $sentencia_agregar_nueva_alta = $con->prepare($agregar_nueva_alta);
     try{
         $sentencia_agregar_nueva_alta->execute($alta);
+        $sql_last_alta = 'SELECT LAST_INSERT_ID()';
+        $sentencia_last_alta = $con->prepare($sql_last_alta);
+        $sentencia_last_alta->execute();
+        $last_alta = $sentencia_last_alta->fetch();
+        $last_alta = intval($last_alta[0]);
+        return $last_alta;
     }catch(Exception $e){
-        echo 'Excepcion capturada:' . $e->getMessage();}
-
-    $sql_last_alta = 'SELECT LAST_INSERT_ID()';
-    $sentencia_last_alta = $con->prepare($sql_last_alta);
-    $sentencia_last_alta->execute();
-    $last_alta = $sentencia_last_alta->fetch();
-    $last_alta = array_map('intval', $last_alta);
-    $last_alta = $last_alta[0];
-    return $last_alta;
+        echo 'algo salio mal con la alta nueva:' . $e->getMessage();}
+        die();    
 }
 
 
@@ -142,30 +134,40 @@ function nuevo_proceso($con, $proceso, $id_alta){
         $sentencia_last_proceso = $con->prepare($sql_last_proceso);
         $sentencia_last_proceso->execute();
         $last_proceso = $sentencia_last_proceso->fetch();
-        $last_proceso = array_map('intval', $last_proceso);
-        $last_proceso = $last_proceso[0];
+        $last_proceso = intval($last_proceso[0]);
 
         return $last_proceso;
 
 
 
     }catch(Exception $e){
-        echo 'Excepcion capturada:' . $e->getMessage();
+        echo 'Algo salio mal con el registro de proceso:' . $e->getMessage();
+        die();
     }
 }
 
 
+function exito($con, $id_alta){
+    $sql_exito = $con->prepare("UPDATE altas SET exito = 1 WHERE id_alta =?");
+    $sql_exito->execute(array($id_alta));
+}
+
+
 if(array_key_exists("nuevo",$_POST)){
-    checa_alta1($con, $id_beneficiario);
-    $id_alta = creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_responsable);
+    
+    checa_alta1($con, $id_beneficiario); //Verifica y elimina la famosa alta 1
+    
+    if(!$id_alta){
+        $id_alta = creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_responsable);
+    }
+    
     $id_proceso = nuevo_proceso($con, $proceso, $id_alta);
 
-    if( !empty($id_responsable)){
+    if($id_responsable != 1){
         regResponsable($con, $id_responsable, $id_alta);
     }
 
-    $url = "../proceso.php?id_programa=" . $id_programa . "&id_beneficiario=" . $id_beneficiario . "&id_alta=" . $id_alta . "&id_proceso=" . $id_proceso ;
-    header("Location: $url");
+    header("Location: ../programas.php?id=$id_beneficiario");
 }
 
 
@@ -177,8 +179,21 @@ if(array_key_exists("actualizar",$_POST)){
     }
     
     header("Location: ../programas.php?id=$id_beneficiario");
-
 }
 
-// <i class="fas fa-user-check"></i>
+if(array_key_exists("exito",$_POST)){
+    actualizarProceso($con, $id_proceso, $proceso);
+    
+    if( !empty($id_responsable)){
+        regResponsable($con, $id_responsable, $id_alta);
+    }
+    
+    exito($con, $id_alta);
+    
+    header("Location: ../programas.php?id=$id_beneficiario");
+}
+
+
+
+
 ?>

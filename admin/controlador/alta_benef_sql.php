@@ -67,6 +67,9 @@ $beneficiario[39] = $_POST['afiliacion'];
 
 $beneficiario[40] = $_POST['observaciones'];
 
+$id_capturista = $beneficiario[30];
+
+
 
 
 
@@ -97,22 +100,19 @@ function alta_auxiliar($con){
 
 
 
-function altas($con, $last_id_beneficiario, $id_capturista){
+function altas($con, $id_beneficiario, $id_capturista){
 
-    settype($last_id_beneficiario[0], 'int'); 
+    
 
     $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, NULL, NULL, NULL, NULL, 1, 1, ?, NULL, ?, NULL)';
     $sentencia_agregar = $con->prepare($sql_agregar);
-
-    $id=$last_id_beneficiario[0];
-
-    
     
     try{
-        $sentencia_agregar->execute(array($id, $id_capturista, $id_capturista));
+        $sentencia_agregar->execute(array($id_beneficiario, $id_capturista, $id_capturista));
         return 0;
     }catch(Exception $e){
-        echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        echo 'Error en el alta: ',  $e->getMessage(), "\n";
+        die();
     }  
 
 }
@@ -120,8 +120,6 @@ function altas($con, $last_id_beneficiario, $id_capturista){
 
 
 function alta_beneficiario($con, $beneficiario){
-
-    $id_capturista = $beneficiario[30];
  
     $sql_agregar = 'INSERT INTO beneficiarios VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar = $con->prepare($sql_agregar);    
@@ -131,8 +129,8 @@ function alta_beneficiario($con, $beneficiario){
         $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');
         $sentencia_alta->execute();
         $last_id_beneficiario = $sentencia_alta->fetch();
-        
-        altas($con, $last_id_beneficiario, $id_capturista);
+        $id_beneficiario = intval($last_id_beneficiario[0]);
+        return $id_beneficiario;
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
@@ -152,15 +150,15 @@ function actualizar($con, $beneficiario){
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
     }  
-
-
 }
 
 
 
 
 if(array_key_exists("guardar_salir",$_POST)){
-    alta_beneficiario($con, $beneficiario);
+    $id_beneficiario = alta_beneficiario($con, $beneficiario);
+    altas($con, $id_beneficiario, $id_capturista);
+
     if(($_POST['nombres_auxiliar'] !="")){
         alta_auxiliar($con);
     }
@@ -172,6 +170,13 @@ if(array_key_exists("actualizar",$_POST)){
     header("Location: ../beneficiarios");
 }
 
-
+if(array_key_exists("inscribir",$_POST)){
+    $id_beneficiario = alta_beneficiario($con, $beneficiario);
+    altas($con, $id_beneficiario, $id_capturista);
+    if(($_POST['nombres_auxiliar'] !="")){
+        alta_auxiliar($con);
+    }
+    header("Location: ../programas.php?id=$id_beneficiario");
+}
  
 ?>
