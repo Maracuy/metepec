@@ -18,36 +18,76 @@ $data = $base->fetchAll();
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+  <?php
 
+header('Content-Type: text/plain; charset=utf-8');
 
+try {
+   
+    // Undefined | Multiple Files | $_FILES Corruption Attack
+    // If this request falls under any of them, treat it invalid.
+    if (
+        !isset($_FILES['upfile']['error']) ||
+        is_array($_FILES['upfile']['error'])
+    ) {
+        throw new RuntimeException('Invalid parameters.');
+    }
 
+    // Check $_FILES['upfile']['error'] value.
+    switch ($_FILES['upfile']['error']) {
+        case UPLOAD_ERR_OK:
+            break;
+        case UPLOAD_ERR_NO_FILE:
+            throw new RuntimeException('No file sent.');
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            throw new RuntimeException('Exceeded filesize limit.');
+        default:
+            throw new RuntimeException('Unknown errors.');
+    }
 
-<?php if(isset($data)):?>
+    // You should also check filesize here.
+    if ($_FILES['upfile']['size'] > 1000000) {
+        throw new RuntimeException('Exceeded filesize limit.');
+    }
 
-<div class="accordion" id="accordionExample">
-    <div class="card">
-        <?php foreach($data as $dato):
-            $i = 1;?>
-            <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne<?php echo $dato['id_empleado'] ?>" aria-expanded="true" aria-controls="collapseOne">
-                        Intento No. <?php echo $i ?>
-                    </button>
-                </h2>
-            </div>
+    // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+    // Check MIME Type by yourself.
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    if (false === $ext = array_search(
+        $finfo->file($_FILES['upfile']['tmp_name']),
+        array(
+            'jpg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+        ),
+        true
+    )) {
+        throw new RuntimeException('Invalid file format.');
+    }
 
-            <div id="collapseOne<?php echo $dato['id_empleado'] ?>"" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                    <?php echo $dato['id_empleado']; ?>
-                </div>
-            </div>
-        <?php $i++;
-        endforeach ?>
-    </div>
-</div>
-<?php endif?>
+    // You should name it uniquely.
+    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
+    // On this example, obtain safe unique name from its binary data.
+    if (!move_uploaded_file(
+        $_FILES['upfile']['tmp_name'],
+        sprintf('./uploads/%s.%s',
+            sha1_file($_FILES['upfile']['tmp_name']),
+            $ext
+        )
+    )) {
+        throw new RuntimeException('Failed to move uploaded file.');
+    }
 
+    echo 'File is uploaded successfully.';
+
+} catch (RuntimeException $e) {
+
+    echo $e->getMessage();
+
+}
+
+?>
 
 
 

@@ -35,7 +35,7 @@ if($_POST){
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Seleccionar Beneficiario</button>
-
+<br>
 <!-- Modal -->
 <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -58,16 +58,15 @@ if($_POST){
   </div>
 </div>
 
-
-
-
-
-
 <!-- Aqui termina el modal -->
-            <div class="form-row">
 
+
+
+              <br>
+
+            <div class="form-row">
                 <div class="col-md-3">
-                    <label for="medio">Responsable</label>
+                    <label for="medio">  Responsable</label>
                     <select id="tarea[responsable]" name="tarea[responsable]" class="form-control">
                         <?php $query = $mysqli -> query ("SELECT * FROM empleados");
                         while ($valores = mysqli_fetch_array($query)) {

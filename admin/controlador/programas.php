@@ -16,10 +16,10 @@ $consulta_beneficiario->execute();
 $beneficiario = $consulta_beneficiario->fetch();
 
 
-$sql_pagos= "SELECT * FROM pagos_adulto_mayor p, altas a WHERE a.id_beneficiario = $id_beneficiario AND  p.id_alta=a.id_alta GROUP BY a.id_alta;";
+$sql_pagos= "SELECT * FROM pagos_adulto_mayor p, altas a WHERE a.id_beneficiario = $id_beneficiario AND p.id_alta = a.id_alta GROUP BY p.id_pagos;";
 $consulta_pagos = $con->prepare($sql_pagos);
 $consulta_pagos->execute();
-$result_pagos = $consulta_pagos->fetchAll();
+$result_pagos = $consulta_pagos->fetchAll(); // Pagos
 
 
 $sql_altas= "SELECT a.id_alta, a.id_beneficiario, a.exito, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b WHERE a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programas=a.id_programa AND a.exito=1 AND p.id_programas !=1 GROUP BY a.id_alta;";
@@ -94,8 +94,9 @@ if($result_altas){
                 <td> <?php
                 if($result_pagos):
                     foreach($result_pagos as $pagos):
+                        echo $pagos["year_on_curse"];
                         if($pagos["bim_1"]){
-                            echo "B1   " ;
+                            echo "B1 " ;
                         } 
                         if($pagos["bim_2"]){
                             echo ", B2  " ;
@@ -127,7 +128,7 @@ if($result_altas){
                         $pagando = $result_pagos['id_pagos'];
                     }
                     ?>
-                        <a href="registro_pagos.php?id=<?php echo $pagando ?>" class="btn btn-primary">Registrar Pagos</a>
+                        <a href="registro_pagos.php?id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $pagando ?>" class="btn btn-primary">Registrar Pagos</a>
                 </td>
                 <td> <?php echo '<i class="fas fa-sign-out-alt"></i>' ?> </td>
 

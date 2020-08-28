@@ -1,5 +1,5 @@
 <?php 
-$sql_query = $con->prepare("SELECT * FROM beneficiarios WHERE id_beneficiario > 2876 ORDER BY id_beneficiario ASC");
+$sql_query = $con->prepare("SELECT * FROM beneficiarios ORDER BY id_beneficiario ASC");
 $sql_query->execute();
 $beneficiarios = $sql_query->fetchALL();
 ?>

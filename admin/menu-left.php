@@ -6,6 +6,7 @@
     <div class="menu">
         <a href="../admin/index.php" class="d-block text-light p-3"> <i class="fas fa-home mr-2"></i> Inicio </a>
 
+        <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-file-alt mr-2"></i> Reportes </a>
 
         <a href="../admin/beneficiarios.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Beneficiarios </a>
 

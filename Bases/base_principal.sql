@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS empleados (
   PRIMARY KEY (id_empleado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO empleados VALUES(NULL, "NULL", "Sin", "Responsable", "Aun","0000-00-00","0000000000", "Usuario", "123456", "sin_email@metepec.work", "Sin responsable");
+INSERT INTO empleados VALUES(NULL, "NULO", "Sin", "Responsable", "Aun", "1990-03-17",NULL, "Usuario", "123456", "sin_email@metepec.work", "Sin responsable");
 INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","1990-03-17","7224531128", "Super Admin", "170390", "ggs,webmaster@metepec.work", "Creador del Sistema");
 INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
 
@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS departamentos(
   abreviaruta VARCHAR(45) NOT NULL,
   descripcion VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO departamentos VALUES(NULL, "Sin Depto.", "SnDP", "Se usa por defecto o cuando no se conoce el departaento");
 
 
 
@@ -95,6 +96,7 @@ CREATE TABLE IF NOT EXISTS colonias(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO colonias (id, nombre_colonia, municipio) VALUES (NULL, 'Sin colonia', 'Sin municipio');
+
 
 
 DROP TABLE IF EXISTS puestos_publicos;
@@ -200,30 +202,6 @@ CREATE TABLE IF NOT EXISTS auxiliares(
 
 
 
-DROP TABLE IF EXISTS pagos_adulto_mayor;
-CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
-  id_pagos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  forma_de_pago VARCHAR(15),
-  year_on_curse VARCHAR(4),
-  id_alta INT NOT NULL,
-  bim_1 INT,
-  fecha_de_pago_bim_1 DATE,
-  bim_2 INT,
-  fecha_de_pago_bim_2 DATE,
-  bim_3 INT,
-  fecha_de_pago_bim_3 DATE,
-  bim_4 INT,
-  fecha_de_pago_bim_4 DATE,
-  bim_5 INT,
-  fecha_de_pago_bim_5 DATE,
-  bim_6 INT,
-  fecha_de_pago_bim_6 DATE,
-  CONSTRAINT fk_pagos_programa FOREIGN KEY (id_alta) REFERENCES altas(id_alta) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-
 DROP TABLE IF EXISTS altas;
 CREATE TABLE IF NOT EXISTS altas(
   id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -231,7 +209,6 @@ CREATE TABLE IF NOT EXISTS altas(
   fecha_activacion DATETIME DEFAULT NULL,
   tarjeta VARCHAR(12),
   padron VARCHAR(10),
-  forma_de_pago VARCHAR(20),  -- Eliminar este campo --
   id_departamento INT NULL,
   id_programa INT NULL,
   id_responsable INT NOT NULL,
@@ -245,6 +222,23 @@ CREATE TABLE IF NOT EXISTS altas(
   CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+
+
+DROP TABLE IF EXISTS pagos_adulto_mayor;
+CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
+  id_pagos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  forma_de_pago VARCHAR(15),
+  year_on_curse VARCHAR(4),
+  id_alta INT NOT NULL,
+  fecha_de_pago_bim_1 DATE,
+  fecha_de_pago_bim_2 DATE,
+  fecha_de_pago_bim_3 DATE,
+  fecha_de_pago_bim_4 DATE,
+  fecha_de_pago_bim_5 DATE,
+  fecha_de_pago_bim_6 DATE,
+  CONSTRAINT fk_pagos_programa FOREIGN KEY (id_alta) REFERENCES altas(id_alta) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -267,7 +261,6 @@ CREATE TABLE IF NOT EXISTS procesos(
   fecha_estimada_activacion DATE,
   estado_pago INT,
   reporte TEXT,
-  exito INT,
   CONSTRAINT fk_procesos_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
   CONSTRAINT fk_procesos_altas FOREIGN KEY (id_alta) REFERENCES altas(id_alta),
   CONSTRAINT fk_procesos_servidor FOREIGN KEY (id_servidor_publico) REFERENCES servidores_publicos(id) ON DELETE CASCADE

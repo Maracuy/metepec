@@ -20,7 +20,12 @@ require_once '../conection/conexioni.php';
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    
+    <style>
+        img.img_perfil{
+            height: 200px;
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
 
@@ -29,7 +34,7 @@ require_once '../conection/conexioni.php';
 
 
 
-
+    <?php include 'controlador/mi_perfil.php' ?>
         
 
 
