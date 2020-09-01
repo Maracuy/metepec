@@ -11,7 +11,7 @@ if($_GET['id_beneficiario'] && $_GET['id_alta']){
     die();
 }
 
-$sql_pagos = "SELECT *, a.id_alta FROM pagos_adulto_mayor p, altas a WHERE a.id_alta = ?";
+$sql_pagos = "SELECT *, a.id_alta FROM pagos_adulto_mayor p, altas a WHERE a.id_alta = ? AND p.id_alta = a.id_alta";
 $consulta_pagos = $con->prepare($sql_pagos);
 $consulta_pagos->execute(array($id_alta));
 $result_pagos = $consulta_pagos->fetchAll();
@@ -77,7 +77,10 @@ endif;
 if(!$result_pagos):
     echo "<h4>" . ucwords($beneficiario['nombres']) . " " . ucwords($beneficiario['apellido_p']) . " no tiene pagos registrados</h4>"; ?>
 
-    <form action="registro_pagos_sql.php" method="post">
+    <form action="controlador/registro_pagos_sql.php" method="post">
+
+    <input type="hidden" name="id_alta" value="<?php echo $id_alta?>">
+    <input type="hidden" name="id_beneficiario" value="<?php echo $id_beneficiario?>">
             
         <div class="form-row">
             <div class="form-group col-md-2">
@@ -135,7 +138,7 @@ if(!$result_pagos):
 
         </div>
 
-        <button class="btn btn-primary" type="submit" name="registrar" id="registrar"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>
+        <button class="btn btn-primary" type="submit" name="registro_nuevo_pago" id="registro_nuevo_pago"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>
 
 
     </form>

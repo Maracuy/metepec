@@ -7,9 +7,10 @@
 
 <?php 
 
-$ruta_archivo = "../admin/img/empleados/ strtolower($empleado['usuario']). "/" . strtolower($empleado['usuario'])";
+$ruta_archivo = "../admin/img/empleados/" . strtolower($empleado['usuario']). "/" . strtolower($empleado['usuario']);
 
 ?>
+
 <img src="../admin/img/empleados/<?php echo strtolower($empleado['usuario']). "/" . strtolower($empleado['usuario'])?>.jpg" alt="imagen" class="img_perfil">
 
 
