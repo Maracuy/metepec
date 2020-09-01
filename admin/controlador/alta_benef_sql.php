@@ -94,7 +94,7 @@ function alta_auxiliar($con){
     try{
         $sentencia_agregar_beneficiario->execute(array($nombres_aux, $apellido_p_aux, $apellido_m_aux, $telefono_auxiliar, $id_del_beneficiario, $parentesco));
     }catch(Exception $e){
-        echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        echo 'Error al crear el auxiliar ',  $e->getMessage(), "\n";
     }  
 }
 
@@ -104,11 +104,11 @@ function altas($con, $id_beneficiario, $id_capturista){
 
     
 
-    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, NULL, NULL, NULL, NULL, 1, 1, ?, NULL, ?, NULL)';
+    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, NULL, NULL, NULL, NULL, 1, 1, NULL, ?, NULL)';
     $sentencia_agregar = $con->prepare($sql_agregar);
     
-    try{
-        $sentencia_agregar->execute(array($id_beneficiario, $id_capturista, $id_capturista));
+    try{  
+        $sentencia_agregar->execute(array($id_beneficiario, $id_capturista));
         return 0;
     }catch(Exception $e){
         echo 'Error en el alta: ',  $e->getMessage(), "\n";
