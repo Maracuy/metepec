@@ -6,7 +6,11 @@ if(!$_POST){
     die();
 }
 
+
+
+
 if($_POST){
+    $id_beneficiario = $_POST['id_beneficiario'];
     $id_pagos = (isset($_POST['id_pagos']) && $_POST['id_pagos'] != "") ? $_POST['id_pagos']  : NULL;
     $forma_de_pago = (isset($_POST['id_paforma_de_pagogos']) && $_POST['forma_de_pago'] != "") ? $_POST['forma_de_pago']  : NULL;
     $year_on_curse = (isset($_POST['year_on_curse']) && $_POST['year_on_curse'] != "") ? $_POST['year_on_curse']  : NULL;
@@ -30,7 +34,6 @@ if($_POST){
         $fecha_de_pago_bim_5,
         $fecha_de_pago_bim_6
     );
-
 }
 
 function registrarPago($con, $pago){

@@ -95,22 +95,22 @@ if($result_altas){
                 if($result_pagos):
                     foreach($result_pagos as $pagos):
                         echo $pagos["year_on_curse"];
-                        if($pagos["bim_1"]){
+                        if($pagos["fecha_de_pago_bim_1"]){
                             echo "B1 " ;
                         } 
-                        if($pagos["bim_2"]){
+                        if($pagos["fecha_de_pago_bim_2"]){
                             echo ", B2  " ;
                         } 
-                        if($pagos["bim_3"]){
+                        if($pagos["fecha_de_pago_bim_3"]){
                             echo ", B3  " ;
                         }
-                        if($pagos["bim_4"]){
+                        if($pagos["fecha_de_pago_bim_4"]){
                             echo ", B4  " ;
                         }
-                        if($pagos["bim_5"]){
+                        if($pagos["fecha_de_pago_bim_5"]){
                             echo ", B5  " ;
                         }
-                        if($pagos["bim_6"]){
+                        if($pagos["fecha_de_pago_bim_6"]){
                             echo ", B6  " ;
                         }
                     ?>

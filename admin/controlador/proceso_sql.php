@@ -95,7 +95,6 @@ function creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_respons
         NULL,
         NULL,
         NULL,
-        NULL,
         1,
         $id_programa,
         $id_responsable,
@@ -104,7 +103,7 @@ function creaAlta($con, $capturista, $id_beneficiario, $id_programa, $id_respons
         0
     );
     
-    $agregar_nueva_alta = 'INSERT INTO altas VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    $agregar_nueva_alta = 'INSERT INTO altas VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar_nueva_alta = $con->prepare($agregar_nueva_alta);
     try{
         $sentencia_agregar_nueva_alta->execute($alta);

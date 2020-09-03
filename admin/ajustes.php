@@ -32,6 +32,7 @@ require_once '../conection/conexioni.php';
             <?php include 'controlador/ajustes/origenes.php'?>
             <?php include 'controlador/ajustes/medios.php'?>
             <?php include 'controlador/ajustes/promotores.php'?>
+            <?php include 'controlador/ajustes/programas.php'?>
         
         
             
