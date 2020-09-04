@@ -23,7 +23,6 @@ $consuta_beneficiario->execute(array($id_beneficiario));
 $beneficiario = $consuta_beneficiario->fetch();
 
 
-
 if($result_pagos):
     foreach($result_pagos as $pago):?>
         <table class="table">
@@ -70,79 +69,104 @@ if($result_pagos):
         </table>
 <?php
     endforeach;
-endif;
+endif;?>
 
 
 
-if(!$result_pagos):
-    echo "<h4>" . ucwords($beneficiario['nombres']) . " " . ucwords($beneficiario['apellido_p']) . " no tiene pagos registrados</h4>"; ?>
 
-    <form action="controlador/registro_pagos_sql.php" method="post">
+<form action="controlador/registro_pagos_sql.php" method="post">
 
-    <input type="hidden" name="id_alta" value="<?php echo $id_alta?>">
-    <input type="hidden" name="id_beneficiario" value="<?php echo $id_beneficiario?>">
-            
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="year">Año</label>
-                <select class="form-control" id="year" name="year">
-                    <option value="">Elegir año</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                </select>
-            </div>
+<input type="hidden" name="id_alta" value="<?php echo $id_alta?>">
+<input type="hidden" name="id_beneficiario" value="<?php echo $id_beneficiario?>">
+        
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="year">Año</label>
+            <select class="form-control" id="year" name="year">
+                <option value="">Elegir año</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
+        </div>
+        
+        <div class="form-group col-md-2">
+            <label for="forma_de_pago">Forma de pago</label>
+            <select class="form-control" id="forma_de_pago" name="forma_de_pago" onchange="showDiv('hidden_div', this)">
+                <option value="0">Elegir una</option>
+                <option value="2">Efectivo</option>
+                <option value="1">Tarjeta</option>
+            </select>
         </div>
 
-
-        <div class="form-row">
-
-            <div class="form-group col-md-2">
-                <label for="bim_1">Bimestre 1</label>
-                <input class="form-control" type="date" name="bim_1" id="bim_1">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="bim_2">Bimestre 2</label>
-                <input class="form-control" type="date" name="bim_2" id="bim_2">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="bim_3">Bimestre 3</label>
-                <input class="form-control" type="date" name="bim_3" id="bim_3">
-            </div>
-
+        <div class="form-group col-md-2" id="hidden_div">
+            <label for="tarjeta">No. de Tarjeta</label>
+            <input class="form-control" type="text" name="tarjeta" id="tarjeta">
         </div>
 
+    </div>
 
-        <div class="form-row">
 
-            <div class="form-group col-md-2">
-                <label for="bim_4">Bimestre 4</label>
-                <input class="form-control" type="date" name="bim_4" id="bim_4">
-            </div>
+    <div class="form-row">
 
-            <div class="form-group col-md-2">
-                <label for="bim_5">Bimestre 5</label>
-                <input class="form-control" type="date" name="bim_5" id="bim_5">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="bim_6">Bimestre 6</label>
-                <input class="form-control" type="date" name="bim_6" id="bim_6">
-            </div>
-
+        <div class="form-group col-md-2">
+            <label for="bim_1">Bimestre 1</label>
+            <input class="form-control" type="date" name="bim_1" id="bim_1">
         </div>
 
-        <button class="btn btn-primary" type="submit" name="registro_nuevo_pago" id="registro_nuevo_pago"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>
+        <div class="form-group col-md-2">
+            <label for="bim_2">Bimestre 2</label>
+            <input class="form-control" type="date" name="bim_2" id="bim_2">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="bim_3">Bimestre 3</label>
+            <input class="form-control" type="date" name="bim_3" id="bim_3">
+        </div>
+
+    </div>
 
 
-    </form>
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            <label for="bim_4">Bimestre 4</label>
+            <input class="form-control" type="date" name="bim_4" id="bim_4">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="bim_5">Bimestre 5</label>
+            <input class="form-control" type="date" name="bim_5" id="bim_5">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="bim_6">Bimestre 6</label>
+            <input class="form-control" type="date" name="bim_6" id="bim_6">
+        </div>
+
+    </div>
+
+    <button class="btn btn-primary" type="submit" name="registro_nuevo_pago" id="registro_nuevo_pago"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>
+
+
+</form>
 
 
 
-<?php endif ?>
+<script>
+function showDiv(divId, element)
+{
+    document.getElementById(divId).style.display = element.value == 1 ? 'block' : 'none';
+}
+
+</script>
+
+<style>
+#hidden_div {
+    display: none;
+}
+</style>
