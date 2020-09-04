@@ -238,6 +238,7 @@ CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
   fecha_de_pago_bim_4 DATE,
   fecha_de_pago_bim_5 DATE,
   fecha_de_pago_bim_6 DATE,
+  exito INT,
   CONSTRAINT fk_pagos_programa FOREIGN KEY (id_alta) REFERENCES altas(id_alta) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

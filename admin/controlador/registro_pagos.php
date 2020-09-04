@@ -11,10 +11,16 @@ if($_GET['id_beneficiario'] && $_GET['id_alta']){
     die();
 }
 
-$sql_pagos = "SELECT *, a.id_alta FROM pagos_adulto_mayor p, altas a WHERE a.id_alta = ? AND p.id_alta = a.id_alta";
+$sql_pagos = "SELECT *, a.id_alta FROM pagos_adulto_mayor p, altas a WHERE a.id_alta = ? AND p.id_alta = a.id_alta AND p.exito = 1";
 $consulta_pagos = $con->prepare($sql_pagos);
 $consulta_pagos->execute(array($id_alta));
-$result_pagos = $consulta_pagos->fetchAll();
+$result_pagos_viejos = $consulta_pagos->fetchAll();
+
+
+$sql_pagos = "SELECT *, a.id_alta FROM pagos_adulto_mayor p, altas a WHERE a.id_alta = ? AND p.id_alta = a.id_alta AND p.exito = 0";
+$consulta_pagos = $con->prepare($sql_pagos);
+$consulta_pagos->execute(array($id_alta));
+$result_pago_activo = $consulta_pagos->fetch();
 
 
 $sql_beneficiario = "SELECT id_beneficiario, nombres, apellido_p, apellido_m FROM beneficiarios WHERE id_beneficiario = ?";
@@ -23,9 +29,8 @@ $consuta_beneficiario->execute(array($id_beneficiario));
 $beneficiario = $consuta_beneficiario->fetch();
 
 
-
-if($result_pagos):
-    foreach($result_pagos as $pago):?>
+if($result_pagos_viejos):
+    foreach($result_pagos_viejos as $pago):?>
         <table class="table">
             <thead>
                 <tr>
@@ -42,28 +47,28 @@ if($result_pagos):
                 <tr>
                 <th scope="row"><?php echo $pago['year_on_curse']?></th>
                 <td><?php 
-                    if(isset($pago['bim_1']) && $pago['bim_1'] != ""){
-                        echo $pago['bim_1'];
+                    if(isset($pago['fecha_de_pago_bim_1']) && $pago['fecha_de_pago_bim_1'] != ""){
+                        echo $pago['fecha_de_pago_bim_1'];
                     }?></td>
                 <td><?php 
-                    if(isset($pago['bim_2']) && $pago['bim_2'] != ""){
-                        echo $pago['bim_2'];
+                    if(isset($pago['fecha_de_pago_bim_2']) && $pago['fecha_de_pago_bim_2'] != ""){
+                        echo $pago['fecha_de_pago_bim_2'];
                     }?></td>
                 <td><?php 
-                    if(isset($pago['bim_3']) && $pago['bim_3'] != ""){
-                        echo $pago['bim_3'];
+                    if(isset($pago['fecha_de_pago_bim_3']) && $pago['fecha_de_pago_bim_3'] != ""){
+                        echo $pago['fecha_de_pago_bim_3'];
                     }?></td>
                 <td><?php 
-                    if(isset($pago['bim_4']) && $pago['bim_4'] != ""){
-                        echo $pago['bim_4'];
+                    if(isset($pago['fecha_de_pago_bim_4']) && $pago['fecha_de_pago_bim_4'] != ""){
+                        echo $pago['fecha_de_pago_bim_4'];
                     }?></td>
                 <td><?php 
-                    if(isset($pago['bim_5']) && $pago['bim_5'] != ""){
-                        echo $pago['bim_5'];
+                    if(isset($pago['fecha_de_pago_bim_5']) && $pago['fecha_de_pago_bim_5'] != ""){
+                        echo $pago['fecha_de_pago_bim_5'];
                     }?></td>
                 <td><?php 
-                    if(isset($pago['bim_6']) && $pago['bim_6'] != ""){
-                        echo $pago['bim_6'];
+                    if(isset($pago['fecha_de_pago_bim_6']) && $pago['fecha_de_pago_bim_6'] != ""){
+                        echo $pago['fecha_de_pago_bim_6'];
                     }?></td>
                 </tr>
             </tbody>
@@ -74,36 +79,53 @@ endif;
 
 
 
-if(!$result_pagos):
+if($result_pago_activo || !$result_pagos_viejos):
     echo "<h4>" . ucwords($beneficiario['nombres']) . " " . ucwords($beneficiario['apellido_p']) . " no tiene pagos registrados</h4>"; ?>
 
     <form action="controlador/registro_pagos_sql.php" method="post">
+        <?php if(isset($result_pago_activo)){
+            echo '<input type="hidden" name="id_pagos" value="' . $id_alta .'">';
+        } ?>
+        <input type="hidden" name="id_alta" value="<?php echo $id_alta?>">
+        <input type="hidden" name="id_beneficiario" value="<?php echo $id_beneficiario?>">
 
-    <input type="hidden" name="id_alta" value="<?php echo $id_alta?>">
-    <input type="hidden" name="id_beneficiario" value="<?php echo $id_beneficiario?>">
-            
         <div class="form-row">
             <div class="form-group col-md-2">
-                <label for="year">Año</label>
-                <select class="form-control" id="year" name="year">
+        
+            <?php
+            if(isset($result_pago_activo['year_on_curse']) && $result_pago_activo['year_on_curse'] != ""){
+                echo $result_pago_activo['year_on_curse'];
+                echo '<input type="hidden" name="year_on_curse" value="' . $result_pago_activo['year_on_curse'] . '">';
+            }?>
+            <?php
+            if(!isset($result_pago_activo)): ?>
+                <label for="year_on_curse">Año</label>
+                <select class="form-control" id="year_on_curse" name="year_on_curse">
                     <option value="">Elegir año</option>
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
                 </select>
+            <?php endif ?>
             </div>
         </div>
+
+            
 
 
         <div class="form-row">
 
             <div class="form-group col-md-2">
                 <label for="fecha_de_pago_bim_1">Bimestre 1</label>
+
+                <?php if(isset($result_pago_activo['fecha_de_pago_bim_1']) && $result_pago_activo['fecha_de_pago_bim_1'] != ""){
+                    echo $result_pago_activo['fecha_de_pago_bim_1'];
+                    echo '<input type="hidden" name="fecha_de_pago_bim_1" value="' . $result_pago_activo['fecha_de_pago_bim_1'] . '">';
+
+                }else{?>
                 <input class="form-control" type="date" name="fecha_de_pago_bim_1" id="fecha_de_pago_bim_1">
+                <?php }?>
             </div>
 
             <div class="form-group col-md-2">
@@ -138,7 +160,13 @@ if(!$result_pagos):
 
         </div>
 
-        <button class="btn btn-primary" type="submit" name="registro_nuevo_pago" id="registro_nuevo_pago"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>
+        <?php
+        if(isset($result_pago_activo)){
+        echo '<button class="btn btn-primary" type="submit" name="actualizar_pago" id="actualizar_pago"> <i class="far fa-save mr-2"></i>  Actualizar Pagos</button>';
+        }else{
+            echo '<button class="btn btn-primary" type="submit" name="registro_nuevo_pago" id="registro_nuevo_pago"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>';
+        }?>
+        
 
 
     </form>
