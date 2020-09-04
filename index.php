@@ -29,7 +29,7 @@ header("Location: admin/index.php");
             </div>
             <div class="input-contenedor">
                 <i class="fas fa-key icon"></i>
-                <input type="password" name="password" placeholder="Contraseña">
+                <input type="password" name="password" placeholder="Contraceña">
             </div>
             <input type="submit" value="Entrar" class="button">
             <p>Al entrar, aceptas todas nuestras Condiciones de uso corporal consensuado y privado</p>
