@@ -111,6 +111,7 @@ endif;?>
     </div>
 
 
+<<<<<<< HEAD
     <div class="form-row">
 
         <div class="form-group col-md-2">
@@ -122,6 +123,22 @@ endif;?>
             <label for="bim_2">Bimestre 2</label>
             <input class="form-control" type="date" name="bim_2" id="bim_2">
         </div>
+=======
+            <div class="form-group col-md-2">
+                <label for="fecha_de_pago_bim_1">Bimestre 1</label>
+                <input class="form-control" type="date" name="fecha_de_pago_bim_1" id="fecha_de_pago_bim_1">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="fecha_de_pago_bim_2">Bimestre 2</label>
+                <input class="form-control" type="date" name="fecha_de_pago_bim_2" id="fecha_de_pago_bim_2">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="fecha_de_pago_bim_3">Bimestre 3</label>
+                <input class="form-control" type="date" name="fecha_de_pago_bim_3" id="fecha_de_pago_bim_3">
+            </div>
+>>>>>>> origin/master
 
         <div class="form-group col-md-2">
             <label for="bim_3">Bimestre 3</label>
@@ -131,6 +148,7 @@ endif;?>
     </div>
 
 
+<<<<<<< HEAD
     <div class="form-row">
 
         <div class="form-group col-md-2">
@@ -142,6 +160,22 @@ endif;?>
             <label for="bim_5">Bimestre 5</label>
             <input class="form-control" type="date" name="bim_5" id="bim_5">
         </div>
+=======
+            <div class="form-group col-md-2">
+                <label for="fecha_de_pago_bim_4">Bimestre 4</label>
+                <input class="form-control" type="date" name="fecha_de_pago_bim_4" id="fecha_de_pago_bim_4">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="fecha_de_pago_bim_5">Bimestre 5</label>
+                <input class="form-control" type="date" name="fecha_de_pago_bim_5" id="fecha_de_pago_bim_5">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="fecha_de_pago_bim_6">Bimestre 6</label>
+                <input class="form-control" type="date" name="fecha_de_pago_bim_6" id="fecha_de_pago_bim_6">
+            </div>
+>>>>>>> origin/master
 
         <div class="form-group col-md-2">
             <label for="bim_6">Bimestre 6</label>

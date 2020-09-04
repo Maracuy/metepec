@@ -82,3 +82,31 @@ if(array_key_exists("guardar_promotor",$_POST)){
         echo 'Excepcion capturada:' . $e->getMessage();
     }
 }
+
+
+if(array_key_exists("guardar_programa",$_POST)){
+    $nombre_programa = $_POST['nombre_programa'];
+    $abreviatura_programa = $_POST['abreviatura_programa'];
+    $nivel_programa = $_POST['nivel_programa'];
+    $descripcion_programa = $_POST['descripcion_programa'];
+
+    $sql_programa = "INSERT INTO programas VALUES(NULL, ?, ?, ?, ?)";
+    $sentencia_programas = $con->prepare($sql_programa);
+
+    try{
+        $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $nivel_programa, $descripcion_programa));
+        header('Location:/admin/ajustes.php');
+    }catch(Exception $e){
+        echo 'Falló al agregar programa:' . $e->getMessage();
+    }
+}
+
+
+
+if($_GET){
+    if($_GET['id_programa']){
+        $id_programa = $_GET['id_programa'];
+        $sentencia_programas = $con->prepare('DELETE FROM programas WHERE id_programas = ?');
+        $sentencia_programas->execute(array($id_programa));
+    }
+}

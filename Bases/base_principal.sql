@@ -31,10 +31,11 @@ CREATE TABLE IF NOT EXISTS programas(
   id_programas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
   abreviatura VARCHAR(10),
+  nivel VARCHAR(255),
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO programas VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
+INSERT INTO programas VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
 
 
 
