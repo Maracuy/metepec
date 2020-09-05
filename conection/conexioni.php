@@ -1,6 +1,6 @@
 <?php
 $server = "localhost"; 
-$usuario = "en_linux";
+$usuario = "root";
 $password = "";
 $database = "metepec";
 

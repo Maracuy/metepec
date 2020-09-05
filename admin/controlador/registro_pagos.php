@@ -114,63 +114,95 @@ if($result_pago_activo || !$result_pagos_viejos):
             
 
 
-        <div class="form-row">
-
-            <div class="form-group col-md-2">
-                <label for="fecha_de_pago_bim_1">Bimestre 1</label>
-
-                <?php if(isset($result_pago_activo['fecha_de_pago_bim_1']) && $result_pago_activo['fecha_de_pago_bim_1'] != ""){
-                    echo $result_pago_activo['fecha_de_pago_bim_1'];
-                    echo '<input type="hidden" name="fecha_de_pago_bim_1" value="' . $result_pago_activo['fecha_de_pago_bim_1'] . '">';
-
-                }else{?>
-                <input class="form-control" type="date" name="fecha_de_pago_bim_1" id="fecha_de_pago_bim_1">
-                <?php }?>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="fecha_de_pago_bim_2">Bimestre 2</label>
-                <input class="form-control" type="date" name="fecha_de_pago_bim_2" id="fecha_de_pago_bim_2">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="fecha_de_pago_bim_3">Bimestre 3</label>
-                <input class="form-control" type="date" name="fecha_de_pago_bim_3" id="fecha_de_pago_bim_3">
-            </div>
-
-        </div>
-
-
-        <div class="form-row">
-
-            <div class="form-group col-md-2">
-                <label for="fecha_de_pago_bim_4">Bimestre 4</label>
-                <input class="form-control" type="date" name="fecha_de_pago_bim_4" id="fecha_de_pago_bim_4">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="fecha_de_pago_bim_5">Bimestre 5</label>
-                <input class="form-control" type="date" name="fecha_de_pago_bim_5" id="fecha_de_pago_bim_5">
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="fecha_de_pago_bim_6">Bimestre 6</label>
-                <input class="form-control" type="date" name="fecha_de_pago_bim_6" id="fecha_de_pago_bim_6">
-            </div>
-
-        </div>
-
-        <?php
-        if(isset($result_pago_activo)){
-        echo '<button class="btn btn-primary" type="submit" name="actualizar_pago" id="actualizar_pago"> <i class="far fa-save mr-2"></i>  Actualizar Pagos</button>';
-        }else{
-            echo '<button class="btn btn-primary" type="submit" name="registro_nuevo_pago" id="registro_nuevo_pago"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>';
-        }?>
+<input type="hidden" name="id_alta" value="<?php echo $id_alta?>">
+<input type="hidden" name="id_beneficiario" value="<?php echo $id_beneficiario?>">
         
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="year">Año</label>
+            <select class="form-control" id="year" name="year">
+                <option value="">Elegir año</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
+        </div>
+        
+        <div class="form-group col-md-2">
+            <label for="forma_de_pago">Forma de pago</label>
+            <select class="form-control" id="forma_de_pago" name="forma_de_pago" onchange="showDiv('hidden_div', this)">
+                <option value="0">Elegir una</option>
+                <option value="2">Efectivo</option>
+                <option value="1">Tarjeta</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-2" id="hidden_div">
+            <label for="tarjeta">No. de Tarjeta</label>
+            <input class="form-control" type="text" name="tarjeta" id="tarjeta">
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            <label for="fecha_de_pago_bim_1">Bimestre 1</label>
+            <input class="form-control" type="date" name="fecha_de_pago_bim_1" id="fecha_de_pago_bim_1">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="fecha_de_pago_bim_2">Bimestre 2</label>
+            <input class="form-control" type="date" name="fecha_de_pago_bim_2" id="fecha_de_pago_bim_2">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="fecha_de_pago_bim_3">Bimestre 3</label>
+            <input class="form-control" type="date" name="fecha_de_pago_bim_3" id="fecha_de_pago_bim_3">
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            <label for="fecha_de_pago_bim_4">Bimestre 4</label>
+            <input class="form-control" type="date" name="fecha_de_pago_bim_4" id="fecha_de_pago_bim_4">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="fecha_de_pago_bim_5">Bimestre 5</label>
+            <input class="form-control" type="date" name="fecha_de_pago_bim_5" id="fecha_de_pago_bim_5">
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="fecha_de_pago_bim_6">Bimestre 6</label>
+            <input class="form-control" type="date" name="fecha_de_pago_bim_6" id="fecha_de_pago_bim_6">
+        </div>
+
+    </div>
+
+    <button class="btn btn-primary" type="submit" name="registro_nuevo_pago" id="registro_nuevo_pago"> <i class="far fa-save mr-2"></i>  Registrar Pagos</button>
 
 
-    </form>
+</form>
 
 
 
-<?php endif ?>
+<script>
+function showDiv(divId, element)
+{
+    document.getElementById(divId).style.display = element.value == 1 ? 'block' : 'none';
+}
+
+</script>
+
+<style>
+#hidden_div {
+    display: none;
+}
+</style>

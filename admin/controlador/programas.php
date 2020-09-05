@@ -120,7 +120,19 @@ if($result_altas){
 
                 </td>
                 <td>
+<<<<<<< HEAD
                         <a href="registro_pagos.php?id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $alta['id_alta'] ?>" class="btn btn-primary">Registrar Pagos</a>
+=======
+                    <?php
+                    if(empty($result_pagos)){
+                        $pagando = $alta['id_alta'];
+                    }else{
+                        echo var_dump($result_pagos['id_pagos']);
+                        $pagando = $result_pagos['id_pagos'];
+                    }
+                    ?>
+                        <a href="registro_pagos.php?id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $pagando ?>" class="btn btn-primary">Registrar Pagos</a>
+>>>>>>> origin/master
                 </td>
                 <td> <?php echo '<i class="fas fa-sign-out-alt"></i>' ?> </td>
 

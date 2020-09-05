@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS programas(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO programas VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+INSERT INTO programas VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal", "Programa Federal de Apoyo al Adulto Mayor");
 
 
 

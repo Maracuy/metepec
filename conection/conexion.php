@@ -1,6 +1,6 @@
 <?php
-$conect = 'mysql:host=127.0.0.1;dbname=metepec;charset=utf8';
-$username = 'en_linux';
+$conect = 'mysql:host=localhost;dbname=metepec;charset=utf8';
+$username = 'root';
 $dbpass = '';
 
 try {
