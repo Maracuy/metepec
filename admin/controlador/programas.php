@@ -16,7 +16,7 @@ $consulta_beneficiario->execute();
 $beneficiario = $consulta_beneficiario->fetch();
 
 
-$sql_pagos= "SELECT * FROM pagos_adulto_mayor p, altas a WHERE a.id_beneficiario = $id_beneficiario AND p.id_alta = a.id_alta GROUP BY p.id_pagos;";
+$sql_pagos= "SELECT * FROM pagos_adulto_mayor p, altas a WHERE a.id_beneficiario = $id_beneficiario AND p.id_alta = a.id_alta GROUP BY p.id_pagos";
 $consulta_pagos = $con->prepare($sql_pagos);
 $consulta_pagos->execute();
 $result_pagos = $consulta_pagos->fetchAll(); // Pagos
@@ -114,13 +114,15 @@ if($result_altas){
                             echo ", B6  " ;
                         }
                     ?>
-                <br>
                     <a href="detalles_pagos.php?id=<?php echo $pagos['id_pagos'] ?>" class="btn btn-success btn-sm mt-1"> Detalles pagos </a>
                     <?php endforeach;
                     endif; ?>
 
                 </td>
                 <td>
+<<<<<<< HEAD
+                        <a href="registro_pagos.php?id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $alta['id_alta'] ?>" class="btn btn-primary">Registrar Pagos</a>
+=======
                     <?php
                     if(empty($result_pagos)){
                         $pagando = $alta['id_alta'];
@@ -130,6 +132,7 @@ if($result_altas){
                     }
                     ?>
                         <a href="registro_pagos.php?id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $pagando ?>" class="btn btn-primary">Registrar Pagos</a>
+>>>>>>> origin/master
                 </td>
                 <td> <?php echo '<i class="fas fa-sign-out-alt"></i>' ?> </td>
 
