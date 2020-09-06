@@ -167,7 +167,7 @@ if(array_key_exists("guardar_salir",$_POST)){
 
 if(array_key_exists("actualizar",$_POST)){
     actualizar($con, $beneficiario);
-    header("Location: ../beneficiarios");
+    header("Location: ../beneficiarios.php");
 }
 
 if(array_key_exists("inscribir",$_POST)){

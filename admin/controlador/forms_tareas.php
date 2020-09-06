@@ -14,7 +14,7 @@ if($_POST){
 
 
 <div class="container-fluid">
-    <h4>Nueva tarea</h4>
+    <h4>NUEVA</h4>
     <br>
     <form action="controlador/tareasql.php" method="post">
 
@@ -66,7 +66,7 @@ if($_POST){
 
             <div class="form-row">
                 <div class="col-md-3">
-                    <label for="medio">  Responsable</label>
+                    <label for="medio">  RESPONS</label>
                     <select id="tarea[responsable]" name="tarea[responsable]" class="form-control">
                         <?php $query = $mysqli -> query ("SELECT * FROM empleados");
                         while ($valores = mysqli_fetch_array($query)) {
@@ -75,7 +75,7 @@ if($_POST){
                 </div>
 
                 <div class="form-group col-md-2">
-                    <label for="tarea[fecha_limite]">Fecha Limite</label>
+                    <label for="tarea[fecha_limite]">F. LIMITE</label>
                     <input type="date" value="<?php echo date("Y-m-d") ?>" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_fecha_limite. '"' : "" ?> class="form-control" id="tarea[fecha_limite]" name="tarea[fecha_limite]">
                 </div>
             </div>
