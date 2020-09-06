@@ -25,8 +25,9 @@ $resultado = $sql_query->fetchALL();
       <th scope="col">Telefono</th>
       <th scope="col">Estatus</th>
       <th scope="col">Detalles</th>
-      <th scope="col">Programa</th>
-      <th scope="col">Proceso</th>
+      <th scope="col">Programa Mun</th>
+      <th scope="col">Programa Est</th>
+      <th scope="col">Programa Fed</th>
       
 
     </tr>
@@ -66,16 +67,28 @@ $resultado = $sql_query->fetchALL();
         
 
           <td>
-            <?php if($dato['id_programas'] == 1 ): ?>
+            <?php if($dato['id_programas_mun'] == 1 ): ?>
                 <a href="programas.php?id=<?php echo $dato['id_beneficiario'] ?>" class="btn btn-danger"> Inscribir </a>
-            <?php endif; if($dato['id_programas'] != 1 ){
+            <?php endif; if($dato['id_programas_mun'] != 1 ){
                 echo '<a href="programas.php?id=' . $dato['id_beneficiario'] .'" class="btn btn-success">' . $dato['abreviatura'] . "</a>";
               }?>
           </td>
 
 
-          <td><button type="button" class="btn btn-<?php echo "secondary"?> btn-sm">Cerrado</button>
-</td>
+          <td>
+            <?php if($dato['id_programas_mun'] == 1 ): ?>
+                <a href="programas.php?id=<?php echo $dato['id_beneficiario'] ?>" class="btn btn-danger"> Inscribir </a>
+            <?php endif; if($dato['id_programas_mun'] != 1 ){
+                echo '<a href="programas.php?id=' . $dato['id_beneficiario'] .'" class="btn btn-success">' . $dato['abreviatura'] . "</a>";
+              }?>
+          </td>
+          <td>
+            <?php if($dato['id_programas_mun'] == 1 ): ?>
+                <a href="programas.php?id=<?php echo $dato['id_beneficiario'] ?>" class="btn btn-danger"> Inscribir </a>
+            <?php endif; if($dato['id_programas_mun'] != 1 ){
+                echo '<a href="programas.php?id=' . $dato['id_beneficiario'] .'" class="btn btn-success">' . $dato['abreviatura'] . "</a>";
+              }?>
+          </td>
 
           </form>
         </tr>

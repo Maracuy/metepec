@@ -25,18 +25,45 @@ INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","199
 INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
 
 
-DROP TABLE IF EXISTS programas;
+DROP TABLE IF EXISTS programas_municipales;
 
-CREATE TABLE IF NOT EXISTS programas(
-  id_programas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS programas_municipales(
+  id_programas_mun INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
   abreviatura VARCHAR(10),
-  nivel VARCHAR(255),
+  duracion_estimada INT,
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO programas VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
-INSERT INTO programas VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal", "Programa Federal de Apoyo al Adulto Mayor");
+INSERT INTO programas_municipales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+
+
+
+DROP TABLE IF EXISTS programas_estatales;
+
+CREATE TABLE IF NOT EXISTS programas_estatales(
+  id_programas_est INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(45) NOT NULL,
+  abreviatura VARCHAR(10),
+  duracion_estimada INT,
+  descripcion TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO programas_estatales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+
+
+DROP TABLE IF EXISTS programas_federales;
+
+CREATE TABLE IF NOT EXISTS programas_federales(
+  id_programas_fed INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(45) NOT NULL,
+  abreviatura VARCHAR(10),
+  duracion_estimada INT,
+  descripcion TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO programas_federales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+INSERT INTO programas_federales VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal", "Programa Federal de Apoyo al Adulto Mayor");
 
 
 
