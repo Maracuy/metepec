@@ -16,6 +16,7 @@ $resultado_programas = $sql_programas->fetchALL();
         <th scope="col">Nombre</th>
         <th scope="col">Abreviatura</th>
         <th scope="col">Nivel</th>
+        <th scope="col">Activo?</th>
         <th scope="col">Descripción</th>
         <th scope="col">Eliminar</th>
 
@@ -31,6 +32,8 @@ $resultado_programas = $sql_programas->fetchALL();
                 <td>  <?php echo $dato_programa['nombre']?></td>
                 <td>  <?php echo $dato_programa['abreviatura']?> </td>
                 <td>  <?php echo $dato_programa['nivel']?> </td>
+                <td> <button class="btn btn-success" type="submit" name="seleccionar_beneficiario" id="seleccionar_beneficiario">Activado </button></td>
+
                 <td> <?php echo $dato_programa['descripcion']?> </td>
                 
                 <td><a href="controlador/ajustes/ajustes_mysql.php?id_programa=<?php echo $dato_programa['id_programas'] ?>"> <i class="far fa-trash-alt ml-3"></i></a></td>

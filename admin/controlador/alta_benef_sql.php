@@ -24,7 +24,7 @@ $beneficiario[10] = $_POST['telefono'];
 $beneficiario[11] = $_POST['email'];
 $beneficiario[12] = $_POST['whats'];
 
-$beneficiario[13] = $_POST['fecha_nacimiento'];
+$beneficiario[13] = isset($_POST['fecha_nacimiento']) && $_POST['fecha_nacimiento'] != "" ? $_POST['fecha_nacimiento'] : NULL;
 
 $beneficiario[14] = $_POST['nivel'];
 
@@ -148,7 +148,8 @@ function actualizar($con, $beneficiario){
     try{
         $sentencia_agregar->execute($beneficiario);
     }catch(Exception $e){
-        echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        echo 'Excepción capturada al Actualizar: ',  $e->getMessage(), "\n";
+        die();
     }  
 }
 

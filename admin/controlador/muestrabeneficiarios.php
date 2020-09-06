@@ -49,7 +49,7 @@ $resultado = $sql_query->fetchALL();
 
           <th scope='row'> <?php echo $dato['id_beneficiario'] ?>  </th>
           
-          <td> <?php echo $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>
+          <td> <?php echo '<i class="fas fa-skull-crossbones"> </i> ' . $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>
 
           <td><?php echo $colonia?></td>
           
