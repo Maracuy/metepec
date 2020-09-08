@@ -63,7 +63,7 @@ $beneficiarios = $sql_query->fetchALL();
               </form>
             </th>
           <?php endif ?> 
-
+            <th><input type="checkbox" id="id_beneficiario" name="id_beneficiario" value="<?php echo $dato['id_beneficiario'] ?>"></th>
             <th scope='row'> <?php echo $dato['id_beneficiario'] ?>  </th>
             
             <td> <?php echo $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>

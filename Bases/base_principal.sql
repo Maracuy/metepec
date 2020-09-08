@@ -280,8 +280,13 @@ CREATE TABLE IF NOT EXISTS tareas(
   creada_date DATE,
   tarea_titulo VARCHAR(255),
   tarea_descripcion TEXT,
+  origen VARCHAR(255),
   fecha_limite DATE,
   id_beneficiario INT,
   aceptada INT,
-  realizada INT
+  realizada INT,
+  prioridad INT,
+  CONSTRAINT fk_tareas_empleados FOREIGN KEY (id_empleado_asigna_tarea) REFERENCES empleados(id_empleado) ON ON DELETE CASCADE,
+  CONSTRAINT fk_tareas_empleados FOREIGN KEY (id_empleado_crea_tarea) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
+  CONSTRAINT fk_tareas_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

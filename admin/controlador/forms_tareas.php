@@ -1,5 +1,8 @@
 <?php
 
+$id_empleado = $_SESSION['user']['id_empleado'];
+
+
 if($_POST){
   $tarea_titulo = $_POST['tarea']['titulo'];
   $tarea_descripcion = $_POST['tarea']['descripcion'];
@@ -10,22 +13,59 @@ if($_POST){
 
 
 ?>
-
-
-
 <div class="container-fluid">
     <h4>Nueva tarea</h4>
     <br>
     <form action="controlador/tareasql.php" method="post">
 
+
         <div class="form-group">
 
             <input class="form-control col-md-7" required type="text" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_titulo . '"' : "" ?> name="tarea[titulo]" id="tarea[titulo]" placeholder="Cosas por hacer" >
             
+		</div>
 
-            <div class="mt-3">
-                <textarea class="form-control col-md-7" id="tarea[descripcion]" name="tarea[descripcion]" placeholder="Descripción de la Tarea"> <?php echo $echotitulo = ($_POST) ? $tarea_descripcion . '"' : "" ?></textarea>
-            </div>
+      	<div class="form-row">
+          	<div class="col-md-2">
+				<label for="medio">Responsable</label>
+				<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">
+                  	<?php $query = $mysqli -> query ("SELECT * FROM empleados WHERE id_empleado != 1");
+					while ($valores = mysqli_fetch_array($query)): ?>
+					<option <?php echo $echo_ = ($valores['id_empleado'] ==  $id_empleado) ? "selected" :  "" ?> value="<?php echo $valores['id_empleado'] ?>"> <?php echo $valores['usuario'] ?> </option>
+					<?php endwhile?>
+              	</select>
+          	</div>
+
+
+          	<div class="col-md-2">
+			  	<label for="origen">Origen</label>
+				<input type="text" class="form-control" name="origen" id="origen">
+			</div>
+			
+
+        	<div class="form-group col-md-2">
+            	<label for="tarea[fecha_limite]">Fecha Limite</label>
+            	<input type="date" value="<?php echo date("Y-m-d") ?>" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_fecha_limite. '"' : "" ?> class="form-control" id="tarea[fecha_limite]" name="tarea[fecha_limite]">
+        	</div>
+
+			<div class="form-group col-1">
+				<label for="prioridad">Prioridad</label>
+				<select class='form-control' name="prioridad" id="prioridad">
+					<option value="1"> Baja </option>
+					<option select value="2"> Media </option>
+					<option value="3"> Alta </option>
+				</select>
+			</div>
+
+      	</div>
+  
+
+      	<div class="form-row">
+		  	<div class="form-group col-12">
+			    <label for="prioridad">Descripcion de la tarea</label>
+                <textarea class="form-control col-md-7" id="tarea[descripcion]" name="tarea[descripcion]"> <?php echo $echotitulo = ($_POST) ? $tarea_descripcion . '"' : "" ?></textarea>
+        	</div>
+		</div>
 
             <br>
 <!-- Aqui comienza el modal -->
@@ -63,26 +103,6 @@ if($_POST){
 
 
               <br>
-
-            <div class="form-row">
-                <div class="col-md-3">
-                    <label for="medio">  Responsable</label>
-                    <select id="tarea[responsable]" name="tarea[responsable]" class="form-control">
-                        <?php $query = $mysqli -> query ("SELECT * FROM empleados");
-                        while ($valores = mysqli_fetch_array($query)) {
-                            echo '<option value="'.$valores['id_empleado'].'">'.$valores['usuario'].'</option>'; }?>
-                    </select>
-                </div>
-
-                <div class="form-group col-md-2">
-                    <label for="tarea[fecha_limite]">Fecha Limite</label>
-                    <input type="date" value="<?php echo date("Y-m-d") ?>" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_fecha_limite. '"' : "" ?> class="form-control" id="tarea[fecha_limite]" name="tarea[fecha_limite]">
-                </div>
-            </div>
-
-
-
-
         </div>
 
 
