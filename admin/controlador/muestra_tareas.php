@@ -1,4 +1,7 @@
 <?php
+
+
+
     $myuser = $_SESSION['user']['id_empleado'];
     $sql_query = $con->prepare('SELECT *, empleados.usuario, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, empleados WHERE tareas.id_empleado_asigna_tarea = empleados.id_empleado AND id_empleado_asigna_tarea =? AND tareas.realizada =0');
     $sql_query->execute(array($myuser));
@@ -12,17 +15,34 @@
 ?>
 
 
+<!-- Esta es el area superior con los botones principales de las tareas -->
 <div class="form-row">
     <div class="form-group col-md-4">
-        <h4>Tareas</h4>
+        <h4>Tareas por realizar</h4>
     </div>
 
-    <div class="form-group col-md-5">
-        <a href="crea_tareas.php" class="btn btn-primary"> <i class="fas fa-tasks"></i> Nueva Tarea </a>
+    <div class="form-group col-md-2">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Nueva Tarea
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="crea_tareas_int">Interna</a>
+            <a class="dropdown-item" href="crea_tareas_ciud">Ciudadana</a>
+          </div>
+        </div>
     </div>
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <a  href="tareas_archivadas.php" class="btn btn-success"> <i class="fas fa-clipboard-check"></i> Archivadas </a>
+    </div>
+
+    <div class="form-group col-md-2">
+        <a  href="tareas_archivadas.php" class="btn btn-success"> <i class="fas fa-clipboard-check"></i> Realizadas </a>
+    </div>
+
+    <div class="form-group col-md-2">
+        <a  href="tareas_archivadas.php" class="btn btn-success"> <i class="fas fa-clipboard-check"></i> Urgentes </a>
     </div>
 </div>
 
@@ -49,8 +69,6 @@ if(!empty($tareas)):
       <th scope="col">Titulo</th>
       <th scope="col">Fecha Limite</th>
       <th scope="col">Vista</th>
-
-
 
     </tr>
   </thead>

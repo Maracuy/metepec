@@ -272,20 +272,46 @@ CREATE TABLE IF NOT EXISTS procesos(
 
 
 
-DROP TABLE IF EXISTS tareas;
-CREATE TABLE IF NOT EXISTS tareas(
+DROP TABLE IF EXISTS tareas_ciudadanas;
+CREATE TABLE IF NOT EXISTS tareas_ciudadanas(
   id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_empleado_crea_tarea INT NOT NULL,
   id_empleado_asigna_tarea INT NOT NULL,
   creada_date DATE,
+  fecha_limite DATE,
   tarea_titulo VARCHAR(255),
   tarea_descripcion TEXT,
-  origen VARCHAR(255),
-  fecha_limite DATE,
+  id_origen INT,
   id_beneficiario INT,
-  aceptada INT,
-  realizada INT,
+  id_programa INT,
+  id_proceso INT,
+  vista INT,
+  estatus INT,
   prioridad INT,
+  avance INT,
+  CONSTRAINT fk_tareas_empleados FOREIGN KEY (id_empleado_asigna_tarea) REFERENCES empleados(id_empleado) ON ON DELETE CASCADE,
+  CONSTRAINT fk_tareas_empleados FOREIGN KEY (id_empleado_crea_tarea) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
+  CONSTRAINT fk_tareas_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS tareas_internas;
+CREATE TABLE IF NOT EXISTS tareas_internas(
+  id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_empleado_crea_tarea INT NOT NULL,
+  id_empleado_asigna_tarea INT NOT NULL,
+  creada_date DATE,
+  fecha_limite DATE,
+  tarea_titulo VARCHAR(255),
+  tarea_descripcion TEXT,
+  id_origen INT,
+  id_beneficiario INT,
+  id_programa INT,
+  id_proceso INT,
+  vista INT,
+  estatus INT,
+  prioridad INT,
+  avance INT,
   CONSTRAINT fk_tareas_empleados FOREIGN KEY (id_empleado_asigna_tarea) REFERENCES empleados(id_empleado) ON ON DELETE CASCADE,
   CONSTRAINT fk_tareas_empleados FOREIGN KEY (id_empleado_crea_tarea) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
   CONSTRAINT fk_tareas_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE
