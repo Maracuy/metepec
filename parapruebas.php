@@ -22,6 +22,8 @@
     <option value="4">Francia 
     </select>
     
+    <input type="button" value="Seleccionar" id="si" name="si">
+
     <select name=provincia> 
     <option value="-">- 
     </select>

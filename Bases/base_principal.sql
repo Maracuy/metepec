@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS altas(
   exito BOOLEAN,
   CONSTRAINT fk_altas_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
   CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas(id_programas) ON DELETE CASCADE,
+  CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas_internos(id_programa) ON DELETE CASCADE,
   CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
   CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -280,7 +280,7 @@ CREATE TABLE IF NOT EXISTS procesos_adulto_mayor(
   CONSTRAINT fk_procesos_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
   CONSTRAINT fk_procesos_altas FOREIGN KEY (id_alta) REFERENCES altas(id_alta),
   CONSTRAINT fk_procesos_servidor FOREIGN KEY (id_servidor_publico) REFERENCES servidores_publicos(id) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;/
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -297,15 +297,17 @@ CREATE TABLE IF NOT EXISTS tareas(
   id_origen INT,
   id_beneficiario INT,
   id_beneficiario_int INT,
-  id_programa INT,
+  id_programa_int INT,
+  id_programa_ciud INT,
   vista INT,
   estatus INT,
   prioridad INT,
   avance INT,
   realizada INT,
   aceptada INT,
-  CONSTRAINT fk_tareas_ciud_programa FOREIGN KEY (id_programa) REFERENCES programas(id_programas),
   CONSTRAINT fk_tareas_ciud_origenes FOREIGN KEY (id_origen) REFERENCES origenes(id),
+  CONSTRAINT fk_tareas_int_programa FOREIGN KEY (id_programa_int) REFERENCES programas_internos(id_programa),
+  CONSTRAINT fk_tareas_ciud_programa FOREIGN KEY (id_programa_ciud) REFERENCES programas_ciudadanos(id_programa),
   CONSTRAINT fk_tareas_ciud_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

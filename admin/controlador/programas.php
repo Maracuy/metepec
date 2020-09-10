@@ -22,13 +22,13 @@ $consulta_pagos->execute();
 $result_pagos = $consulta_pagos->fetchAll(); // Pagos
 
 
-$sql_altas= "SELECT a.id_alta, a.id_beneficiario, a.exito, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b WHERE a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programas=a.id_programa AND a.exito=1 AND p.id_programas !=1 GROUP BY a.id_alta;";
+$sql_altas= "SELECT a.id_alta, a.id_beneficiario, a.exito, p.id_programa, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas_ciudadanos p, beneficiarios b WHERE a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programa=a.id_programa AND a.exito=1 AND p.id_programa !=1 GROUP BY a.id_alta;";
 $consulta_altas = $con->prepare($sql_altas);
 $consulta_altas->execute(array($id_beneficiario, $id_beneficiario));
 $result_altas = $consulta_altas->fetchAll();
 
 
-$sql_en_proceso= "SELECT procesos.id_procesos, a.id_alta, a.id_beneficiario, a.exito, p.id_programas, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas p, beneficiarios b, procesos WHERE procesos.id_alta = a.id_alta AND a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programas=a.id_programa AND a.exito=0 AND p.id_programas !=1 GROUP BY a.id_alta;";
+$sql_en_proceso= "SELECT procesos_adulto_mayor.id_proceso, a.id_alta, a.id_beneficiario, a.exito, p.id_programa, p.abreviatura, p.nombre, b.nombres, b.apellido_m, b.apellido_p FROM altas a, programas_ciudadanos p, beneficiarios b, procesos_adulto_mayor WHERE procesos_adulto_mayor.id_alta = a.id_alta AND a.id_beneficiario =? AND b.id_beneficiario=? AND p.id_programa=a.id_programa AND a.exito=0 AND p.id_programas !=1 GROUP BY a.id_alta;";
 $consulta_en_proceso = $con->prepare($sql_en_proceso);
 $consulta_en_proceso->execute(array($id_beneficiario, $id_beneficiario));
 $result_en_proceso = $consulta_en_proceso->fetchAll();
@@ -120,9 +120,6 @@ if($result_altas){
 
                 </td>
                 <td>
-<<<<<<< HEAD
-                        <a href="registro_pagos.php?id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $alta['id_alta'] ?>" class="btn btn-primary">Registrar Pagos</a>
-=======
                     <?php
                     if(empty($result_pagos)){
                         $pagando = $alta['id_alta'];
@@ -132,7 +129,6 @@ if($result_altas){
                     }
                     ?>
                         <a href="registro_pagos.php?id_beneficiario=<?php echo $id_beneficiario ?>&id_alta=<?php echo $pagando ?>" class="btn btn-primary">Registrar Pagos</a>
->>>>>>> origin/master
                 </td>
                 <td> <?php echo '<i class="fas fa-sign-out-alt"></i>' ?> </td>
 
@@ -154,7 +150,7 @@ echo '<div class="dropdown-divider mt-5"></div>';
 
 echo "<br><h5> Inscribir a un programa nuevo: </h5>";
 
-$sql_programas = "SELECT p.id_programas, p.nombre, a.id_alta FROM programas p JOIN altas a ON p.id_programas != a.id_programa WHERE a.id_beneficiario = ? AND p.id_programas != 1 GROUP BY p.id_programas";
+$sql_programas = "SELECT p.id_programa, p.nombre, a.id_alta FROM programas_adulto_mayor p JOIN altas a ON p.id_programa != a.id_programa WHERE a.id_beneficiario = ? AND p.id_programa != 1 GROUP BY p.id_programa";
 $consulta_programas = $con->prepare($sql_programas);
 $consulta_programas->execute(array($id_beneficiario));
 $result_programas = $consulta_programas->fetchAll();

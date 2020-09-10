@@ -4,7 +4,7 @@ if (empty($_SESSION['user'])){
     die();
 }
 
-$consulta = "SELECT b.id_beneficiario, b.nombres, b.apellido_p, b.apellido_m, b.id_colonia, b.otra_colonia, b.telefono, p.id_programas, p.abreviatura, p.nombre, c.nombre_colonia, a.id_alta, a.id_beneficiario FROM beneficiarios b, programas p, colonias c, altas a WHERE b.id_beneficiario = a.id_beneficiario AND b.id_colonia = c.id AND a.id_programa = p.id_programas GROUP BY b.id_beneficiario ORDER BY b.id_beneficiario DESC";
+$consulta = "SELECT b.id_beneficiario, b.nombres, b.apellido_p, b.apellido_m, b.id_colonia, b.otra_colonia, b.telefono, p.id_programa, p.abreviatura, p.nombre, c.nombre_colonia, a.id_alta, a.id_beneficiario FROM beneficiarios b, programas_ciudadanos p, colonias c, altas a WHERE b.id_beneficiario = a.id_beneficiario AND b.id_colonia = c.id AND a.id_programa = p.id_programa GROUP BY b.id_beneficiario ORDER BY b.id_beneficiario DESC";
 $sql_query = $con->prepare($consulta);
 $sql_query->execute();
 $resultado = $sql_query->fetchALL();
@@ -66,9 +66,9 @@ $resultado = $sql_query->fetchALL();
         
 
           <td>
-            <?php if($dato['id_programas'] == 1 ): ?>
+            <?php if($dato['id_programa'] == 1 ): ?>
                 <a href="programas.php?id=<?php echo $dato['id_beneficiario'] ?>" class="btn btn-danger"> Inscribir </a>
-            <?php endif; if($dato['id_programas'] != 1 ){
+            <?php endif; if($dato['id_programa'] != 1 ){
                 echo '<a href="programas.php?id=' . $dato['id_beneficiario'] .'" class="btn btn-success">' . $dato['abreviatura'] . "</a>";
               }?>
           </td>
