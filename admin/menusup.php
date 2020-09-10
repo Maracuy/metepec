@@ -21,8 +21,10 @@
           Tareas <span class="badge badge-light"><?php echo $total['0']?></span>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="crea_tareas.php">Nueva Tarea Ciudadana</a>
+          <a class="dropdown-item" href="crea_tareas.php">Nueva Tarea Interna</a>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="index.php">Mis tareas</a>
-          <a class="dropdown-item" href="crea_tareas.php">Nueva tarea</a>
           <a class="dropdown-item" href="tareas_archivadas.php">Realizadas</a>
         </div>
       </div>

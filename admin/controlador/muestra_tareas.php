@@ -1,7 +1,5 @@
 <?php
 
-
-
     $myuser = $_SESSION['user']['id_empleado'];
     $sql_query = $con->prepare('SELECT *, empleados.usuario, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, empleados WHERE tareas.id_empleado_asigna_tarea = empleados.id_empleado AND id_empleado_asigna_tarea =? AND tareas.realizada =0');
     $sql_query->execute(array($myuser));
@@ -27,8 +25,8 @@
             Nueva Tarea
           </button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="crea_tareas_int">Interna</a>
-            <a class="dropdown-item" href="crea_tareas_ciud">Ciudadana</a>
+            <a class="dropdown-item" href="crea_tarea.php?tipo=1">Interna</a>
+            <a class="dropdown-item" href="crea_tarea.php?tipo=2">Ciudadana</a>
           </div>
         </div>
     </div>
@@ -55,20 +53,31 @@
 
 <?php 
 if(empty($tareas)){
-  echo "<br><h4>Actualmente no cuentas con tareas pendientes</h4>";
+  echo "<br><h4>Actualmente no cuentas con tareas pendientes ¡Genial!</h4>";
 }
 if(!empty($tareas)):
   ?>
 
-<h5>Tareas para mi</h5>
+<h5>Tareas pendientes</h5>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Creada por</th>
-      <th scope="col">Titulo</th>
-      <th scope="col">Fecha Limite</th>
-      <th scope="col">Vista</th>
+      <th scope="col">Status</th>
+      <th scope="col">Prioridad</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Programa</th>
+      <th scope="col">Origen</th>
+      <th scope="col">Asigna</th>
+      <th scope="col">Responsable</th>
+      <th scope="col">Solicitud</th>
+      <th scope="col">Detalles</th>
+      <th scope="col">Beneficiario</th>
+      <th scope="col">Contacto</th>
+      <th scope="col">Proceso</th>
+      <th scope="col">Avance</th>
+      <th scope="col">Enviado</th>
+      <th scope="col">Detalles</th>
 
     </tr>
   </thead>
@@ -92,7 +101,7 @@ if(!empty($tareas)):
   </tbody>
 </table>
 
-        <?php endif; ?>
+<?php endif; ?>
 
 
 <div class="espaciadormio" style="height: 50px;"></div>

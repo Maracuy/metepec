@@ -1,6 +1,63 @@
 <?php
+/* 1 = a CIUDADANA */
+/* 2 = a INTERNA */
+$id_tarea = (isset($_GET['id_tarea']) && $_GET['id_tarea'] != "") ? $_GET['id_tarea'] : NULL;
+if(!$_GET['tipo']){
+	echo "Se debe elegir el tipo de tarea nueva";	
+	die();
+}else{
+	$tipo=$_GET['tipo'];
+}
+$alta = NULL;
+if($id_tarea){
+	$sql_tarea_existe = $con->prepare('SELECT * FROM tareas WHERE id_tarea = ?');
+    $sql_tarea_existe->execute(array($id_tarea));
+	$tarea = $sql_tarea_existe->fetch();
 
+	$id_beneficiario = $tarea['id_beneficiario'];
+	if($id_beneficiario){
+		$sql_alta = $con->prepare('SELECT * FROM altas WHERE id_beneficiario = ?');
+		$sql_alta->execute(array($id_beneficiario));
+		$alta = $sql_alta->fetch();
+	}
+
+}
+
+if($tipo==1){ /* Aqui vamos a solicitar lo necesario para trabajar con CIUDADANA */
+	$sql_programas_ciudadanos = $con->prepare('SELECT * FROM programas_ciudadanos');
+    $sql_programas_ciudadanos->execute();
+	$programas = $sql_programas_ciudadanos->fetchAll();
+	
+	$procesos_ciudadanos = $con->prepare('SELECT * FROM procesos_ciudadanos');
+    $procesos_ciudadanos->execute();
+	$procesos = $procesos_ciudadanos->fetchAll();
+
+	$sql_beneficiarios_ciudadanos = $con->prepare('SELECT * FROM beneficiarios');
+    $sql_beneficiarios_ciudadanos->execute();
+	$beneficiarios = $sql_beneficiarios_ciudadanos->fetchAll();
+
+}
+
+
+if($tipo==2){
+	$sql_programas_internos = $con->prepare('SELECT * FROM programas_internos');
+    $sql_programas_internos->execute();
+	$programas = $sql_programas_internos->fetchAll();
+
+}
+
+
+/* aqui se sabe el nombre del empleado */
 $id_empleado = $_SESSION['user']['id_empleado'];
+
+
+/* aqui se cargan todos los comentarios */
+if($id_tarea){
+	$sql_comentarios = $con->prepare('SELECT comentarios.*, empleados.usuario FROM comentarios, empleados WHERE id_tarea =? AND comentarios.id_empleado = empleados.id_empleado GROUP BY id_comentario');
+	$sql_comentarios->execute(array($id_tarea));
+	$comantarios = $sql_comentarios->fetchAll();
+}
+
 
 
 if($_POST){
@@ -13,106 +70,170 @@ if($_POST){
 
 
 ?>
-<div class="container-fluid">
-    <h4>Nueva tarea</h4>
-    <br>
-    <form action="controlador/tareasql.php" method="post">
 
 
-        <div class="form-group">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8"> <!-- Aqui comienza el area amplia -->		
 
-            <input class="form-control col-md-7" required type="text" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_titulo . '"' : "" ?> name="tarea[titulo]" id="tarea[titulo]" placeholder="Cosas por hacer" >
-            
-		</div>
-
-      	<div class="form-row">
-          	<div class="col-md-2">
-				<label for="medio">Responsable</label>
-				<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">
-                  	<?php $query = $mysqli -> query ("SELECT * FROM empleados WHERE id_empleado != 1");
-					while ($valores = mysqli_fetch_array($query)): ?>
-					<option <?php echo $echo_ = ($valores['id_empleado'] ==  $id_empleado) ? "selected" :  "" ?> value="<?php echo $valores['id_empleado'] ?>"> <?php echo $valores['usuario'] ?> </option>
-					<?php endwhile?>
-              	</select>
-          	</div>
+		<h4>Nueva tarea</h4>
+		<br>
 
 
-          	<div class="col-md-2">
-			  	<label for="origen">Origen</label>
-				<input type="text" class="form-control" name="origen" id="origen">
-			</div>
-			
 
-        	<div class="form-group col-md-2">
-            	<label for="tarea[fecha_limite]">Fecha Limite</label>
-            	<input type="date" value="<?php echo date("Y-m-d") ?>" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_fecha_limite. '"' : "" ?> class="form-control" id="tarea[fecha_limite]" name="tarea[fecha_limite]">
-        	</div>
+		<form action="controlador/tareasql.php" method="post">
 
-			<div class="form-group col-1">
-				<label for="prioridad">Prioridad</label>
-				<select class='form-control' name="prioridad" id="prioridad">
-					<option value="1"> Baja </option>
-					<option select value="2"> Media </option>
-					<option value="3"> Alta </option>
-				</select>
+
+			<div class="form-row">
+				<div class="form-group col-11">
+					<label for="tarea[titulo]">Solicitud</label>
+					<input class="form-control" required type="text" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_titulo . '"' : "" ?> name="tarea[titulo]" id="tarea[titulo]" placeholder="Solicitud" >            
+				</div>
 			</div>
 
-      	</div>
-  
+			<div class="form-row">
+				<div class="form-group col-11">
+					<label for="prioridad">Detalles</label>
+					<textarea class="form-control" id="tarea[descripcion]" name="tarea[descripcion]"> <?php echo $echotitulo = ($_POST) ? $tarea_descripcion . '"' : "" ?></textarea>
+				</div>
+			</div>
 
-      	<div class="form-row">
-		  	<div class="form-group col-12">
-			    <label for="prioridad">Descripcion de la tarea</label>
-                <textarea class="form-control col-md-7" id="tarea[descripcion]" name="tarea[descripcion]"> <?php echo $echotitulo = ($_POST) ? $tarea_descripcion . '"' : "" ?></textarea>
-        	</div>
-		</div>
-
-            <br>
-<!-- Aqui comienza el modal -->
-           
-
-
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Seleccionar Beneficiario</button>
-<br>
-<!-- Modal -->
-<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Busca y selecciona al beneficiario relacionado con la tarea</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-        <?php include 'beneficiarios_todos.php' ?>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Aqui termina el modal -->
+			<div class="form-row">
+				<div class="col-md-4">
+					<?php 
+					if($programas && $alta):
+						echo '<label for="medio">Programa</label>';
+						echo '<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">';
+						foreach($programas as $programa): ?>
+							<option <?php echo $echo_ = ($programa['id_programa'] ==  $alta['id_programa']) ? "selected" :  "" ?> value="<?php echo $programa['id_programa'] ?>"> <?php echo $programa['nombre'] ?> </option>
+						<?php endforeach;
+					endif;
+					if($programas && !isset($altas)): 
+						echo '<label for="medio">Programa</label>';
+						echo '<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">';
+						foreach($programas as $programa):?>
+							<option value="<?php echo $programa['id_programa'] ?>"> <?php echo $programa['nombre'] ?> </option>
+						<?php endforeach; 
+					endif ?>
+					</select>
+				</div>
 
 
 
-              <br>
-        </div>
+				<div class="col-md-4">
+
+					
+
+				</div>
 
 
 
 
-    <button class="btn btn-primary" type="submit" name="registrar_tarea" id="registrar_tarea"> <i class="fas fa-forward mr-2"></i>Enviar Tarea</button>
+			</div>
+
+			<br>
+
+			<div class="form-row">
+				<div class="col-md-2">
+					<label for="medio">Responsable</label>
+					<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">
+						<?php $query = $mysqli -> query ("SELECT * FROM empleados WHERE id_empleado != 1");
+						while ($empleado = mysqli_fetch_array($query)): ?>
+							<option <?php echo $echo_ = ($empleado['id_empleado'] ==  $id_empleado) ? "selected" :  "" ?> value="<?php echo $empleado['id_empleado'] ?>"> <?php echo $empleado['usuario'] ?> </option>
+						<?php endwhile?>
+					</select>
+				</div>
+
+
+				<div class="col-md-2">
+					<label for="origen">Origen</label>
+					<input type="text" class="form-control" name="origen" id="origen">
+				</div>
+				
+
+				<div class="form-group col-md-2">
+					<label for="tarea[fecha_limite]">Fecha Limite</label>
+					<input type="date" value="<?php echo date("Y-m-d") ?>" <?php echo $echotitulo = ($_POST) ? 'value="'. $tarea_fecha_limite. '"' : "" ?> class="form-control" id="tarea[fecha_limite]" name="tarea[fecha_limite]">
+				</div>
+
+				<div class="form-group col-1">
+					<label for="prioridad">Prioridad</label>
+					<select class='form-control' name="prioridad" id="prioridad">
+						<option value="1"> Baja </option>
+						<option select value="2"> Media </option>
+						<option value="3"> Alta </option>
+					</select>
+				</div>
+
+			</div>
+	
+
+
+
+				<br>
+			<!-- Aqui comienza el modal -->
+					
+
+
+
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Seleccionar Beneficiario</button>
+			<br>
+			<!-- Modal -->
+			<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl">
+					<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Busca y selecciona al beneficiario relacionado con la tarea</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					
+					<?php include 'beneficiarios_todos.php' ?>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+				</div>
+			</div>
+			</div>
+
+			<!-- Aqui termina el modal -->
+
+
+
+				<br>
+			<button class="btn btn-primary" type="submit" name="registrar_tarea" id="registrar_tarea"> <i class="fas fa-forward mr-2"></i>Enviar Tarea</button>
     
 
-    </form>
+   		</form>
+
+	
+	</div> <!-- Aqui termina el area amplia -->
+    
+	<div class="col-sm-4"> <!-- Aqui comienza el area reducida -->
+
+	<?php 
+	if(isset($comentarios)):
+		echo "<h3>Comentarios</h3>";
+		foreach($comentarios as $comentario):
+			echo $comatario['usuario'] . ": " . $comentario['fecha_comment']?>
+			<div class="alert alert-secondary" role="alert">
+				<?php echo $comentario['texto'] ?>
+			</div>
+			<?php endforeach ?>
+		<input type="text" class="form-control" name="text" id="text">
+		<input type="button" value="Enviar" mane="update_chat" id="update_chat">
+	<?php endif?>
 
 
 
-</div>
+	</div> <!-- Aqui termina el area reducida -->
+  </div> <!-- Termina el row -->
+</div> <!-- Termina el div del container  -->
+
+
+

@@ -1,100 +1,85 @@
-<?php 
-include_once 'conection/conexion.php';
-
-$base = $con->prepare("SELECT id_empleado FROM empleados");
-$base->execute();
-$data = $base->fetchAll();
-?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
   <?php
+  if($_POST){
+    echo var_dump($_POST);
+  }
+  ?>
 
-header('Content-Type: text/plain; charset=utf-8');
+  <form name="f1" method="POST"> 
+    <select name="pais" onchange="cambia_provincia()"> 
+    <option value="0" selected>Seleccione... 
+    <option value="1">España 
+    <option value="2">Argentina 
+    <option value="3">Colombia 
+    <option value="4">Francia 
+    </select>
+    
+    <select name=provincia> 
+    <option value="-">- 
+    </select>
+    <button class="btn btn-primary" type="submit"> <i class="fas fa-user-edit"></i>  Guardar Todos los Cambios</button>
+  </form>
 
-try {
-   
-    // Undefined | Multiple Files | $_FILES Corruption Attack
-    // If this request falls under any of them, treat it invalid.
-    if (
-        !isset($_FILES['upfile']['error']) ||
-        is_array($_FILES['upfile']['error'])
-    ) {
-        throw new RuntimeException('Invalid parameters.');
-    }
 
-    // Check $_FILES['upfile']['error'] value.
-    switch ($_FILES['upfile']['error']) {
-        case UPLOAD_ERR_OK:
-            break;
-        case UPLOAD_ERR_NO_FILE:
-            throw new RuntimeException('No file sent.');
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
-            throw new RuntimeException('Exceeded filesize limit.');
-        default:
-            throw new RuntimeException('Unknown errors.');
-    }
+<?php 
+$dato1 = "Dato uno";
+$dato2 = "Dato dos";
+$dato3 = "Dato tres";
 
-    // You should also check filesize here.
-    if ($_FILES['upfile']['size'] > 1000000) {
-        throw new RuntimeException('Exceeded filesize limit.');
-    }
 
-    // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
-    // Check MIME Type by yourself.
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    if (false === $ext = array_search(
-        $finfo->file($_FILES['upfile']['tmp_name']),
-        array(
-            'jpg' => 'image/jpeg',
-            'png' => 'image/png',
-            'gif' => 'image/gif',
-        ),
-        true
-    )) {
-        throw new RuntimeException('Invalid file format.');
-    }
+?>
 
-    // You should name it uniquely.
-    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
-    // On this example, obtain safe unique name from its binary data.
-    if (!move_uploaded_file(
-        $_FILES['upfile']['tmp_name'],
-        sprintf('./uploads/%s.%s',
-            sha1_file($_FILES['upfile']['tmp_name']),
-            $ext
-        )
-    )) {
-        throw new RuntimeException('Failed to move uploaded file.');
-    }
+  <script>
+  var provincias_1=new Array("-","Andalucía","Asturias","Baleares","Canarias","Castilla y León","Castilla-La Mancha","...");
+  var provincias_2=new Array("-","Salta","San Juan","San Luis","La Rioja","La Pampa","...");
+  var provincias_3=new Array("-","Cali","Santamarta","Medellin","Cartagena","...");
+  var provincias_4=new Array("-","<?php echo $dato1 ?>","Creuse","Dordogne","Essonne","Gironde ","...");
 
-    echo 'File is uploaded successfully.';
+  var todasProvincias = [
+    [],
+    provincias_1,
+    provincias_2,
+    provincias_3,
+    provincias_4,
+  ];
 
-} catch (RuntimeException $e) {
-
-    echo $e->getMessage();
-
+  function cambia_provincia(){ 
+   	//tomo el valor del select del pais elegido 
+   	var pais 
+   	pais = document.f1.pais[document.f1.pais.selectedIndex].value 
+   	//miro a ver si el pais está definido 
+   	if (pais != 0) { 
+      	//si estaba definido, entonces coloco las opciones de la provincia correspondiente. 
+      	//selecciono el array de provincia adecuado 
+      	mis_provincias=todasProvincias[pais]
+      	//calculo el numero de provincias 
+      	num_provincias = mis_provincias.length 
+      	//marco el número de provincias en el select 
+      	document.f1.provincia.length = num_provincias 
+      	//para cada provincia del array, la introduzco en el select 
+      	for(i=0;i<num_provincias;i++){ 
+         	document.f1.provincia.options[i].value=mis_provincias[i] 
+         	document.f1.provincia.options[i].text=mis_provincias[i] 
+      	}	
+   	}else{ 
+      	//si no había provincia seleccionada, elimino las provincias del select 
+      	document.f1.provincia.length = 1 
+      	//coloco un guión en la única opción que he dejado 
+      	document.f1.provincia.options[0].value = "-" 
+      	document.f1.provincia.options[0].text = "-" 
+   	} 
+   	//marco como seleccionada la opción primera de provincia 
+   	document.f1.provincia.options[0].selected = true 
 }
 
-?>
-
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  </body>
+  </script>
+</body>
 </html>
