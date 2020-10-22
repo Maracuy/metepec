@@ -8,7 +8,7 @@
 
         <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-file-alt mr-2"></i> Reportes </a>
 
-        <a href="../admin/beneficiarios.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Beneficiarios </a>
+        <a href="../admin/ciudadanos.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Ciudadanos </a>
 
         <?php 
         if ($_SESSION['user']['nivel'] == "Admin" || $_SESSION['user']['nivel'] == "Super Admin"){

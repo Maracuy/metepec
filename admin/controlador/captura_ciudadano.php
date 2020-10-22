@@ -1,0 +1,552 @@
+<?php
+    if($_GET){       // Primero verificamos si existe el ciudadano
+        if($_GET['id']){
+            $id = $_GET['id'];
+            $sql_query_ciudadano = $con->prepare('SELECT * FROM ciudadanos WHERE id_ciudadano = ?');
+            $sql_query_ciudadano->execute(array($id));
+            $ciudadano = $sql_query_ciudadano->fetch();
+            echo $ciudadano['nombres'];
+        }
+    }
+    
+?>
+
+
+<form method="POST" action="controlador/alta_ciudadano_sql.php">
+
+
+<?php if(isset($id)):?>
+<input type="hidden" id="id_ciudadano" name="id" value="<?php echo $id?>">
+<input type="hidden" id="fecha_captura" name="fecha_captura" value="<?php echo $ciudadano['fecha_captura']?>">
+<?php endif ?>
+
+
+
+<div class="espaciadormio" style="height: 20px;"></div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <?php if(isset($id)):?>
+                <h4>Editar Ciudadano</h4>
+            <?php endif ?>
+            <?php if(!isset($id)):?>
+                <h4>Capturar Ciudadano</h4>
+            <?php endif ?>
+
+        </div>
+
+        <div class="form-group col-md-5">
+            <a href="beneficiarios.php" class="btn btn-danger"> <i class="far fa-times-circle"></i>  Salir sin guardar </a>
+        </div>
+
+        <div class="form-group col-md-3">
+            <?php if(isset($id)):?>
+                <a  href="programas.php?id=<?php echo $id ?>" class="btn btn-success"> <i class="fas fa-hands-helping"></i> Programas y proceso </a>
+            <?php endif?>
+
+        </div>
+    </div>
+
+
+    <div class="espaciadormio" style="height: 30px;"></div>
+
+
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            <label for="nombres">Nombre(s)*</label>
+            <?php if(isset($ciudadano['nombres'])){?>
+                <input type="text" value="<?php echo $ciudadano['nombres']?>" class="form-control" id="nombres" name="nombres">
+            <?php } else{
+                echo '<input type="text" class="form-control" id="nombres" name="nombres">';
+            }?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="apellido_p">Apellido Paterno*</label>
+            <?php if(isset($ciudadano['apellido_p'])){?>
+                <input type="text" value="<?php echo $ciudadano['apellido_p']?>" class="form-control" id="apellido_p" name="apellido_p" required>
+            <?php }else{
+                echo '<input type="text" class="form-control" id="apellido_p" name="apellido_p">';
+            }?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="apellido_m">Apellido Materno*</label>
+            <?php if(isset($ciudadano['apellido_m'])){?>
+                <input type="text" value="<?php echo $ciudadano['apellido_m']?>" class="form-control" id="apellido_m" name="apellido_m" required>
+            <?php }else{
+                echo '<input type="text" class="form-control" id="apellido_m" name="apellido_m">';
+            }?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="fecha_nacimiento">Fecha Nacimiento</label>
+            <?php if(isset($ciudadano['fecha_nacimiento'])){?>
+                <input type="date" value="<?php echo $ciudadano['fecha_nacimiento']?>" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+            <?php }else{
+                echo '<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">';
+            }?>
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="vulnerable">Vulnerable</label>
+            <select class="form-control" id="vulnerable" name="vulnerable">
+            <?php if(isset($ciudadano['vulnerable']) && $ciudadano['vulnerable'] != ""):?>
+                <option <?php if ($ciudadano['vulnerable'] == 0 ) echo 'selected' ; ?> value=0>No</option>
+                <option <?php if ($ciudadano['vulnerable'] == 1 ) echo 'selected' ; ?> value=1>Si</option>
+            <?php endif?>
+            <?php if(!isset($ciudadano['vulnerable'])):?>
+                <option value="">No seleccionado</option>
+                <option value=0>No</option>
+                <option value=1>Si</option>
+            <?php endif?>
+            </select>
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="genero">Genero</label>
+            <select class="form-control" id="genero" name="genero">
+            <?php if(isset($ciudadano['genero']) && $ciudadano['genero'] != ""): ?>
+                <option <?php if ($ciudadano['genero'] == 0 ) echo 'selected' ; ?> value=0>M</option>
+                <option <?php if ($ciudadano['genero'] == 1 ) echo 'selected' ; ?> value=1>F</option>
+            <?php endif ?>
+            <?php if(!isset($ciudadano['genero'])):?>
+                <option value="">No seleccionado</option>
+                <option value=0>M</option>
+                <option value=1>F</option>
+            <?php endif?>
+            </select>
+        </div>
+                
+    </div> <!--Termina row-->
+    <br>
+
+    <div class="form-row">
+        
+        <div class="form-group col-md-2">
+            <label for="curp">Curp</label>
+            <?php if(isset($ciudadano['curp'])):?>
+               <input type="text" value="<?php echo $ciudadano['curp']?>" class="form-control" id="curp" name="curp">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['curp'])):?>
+                <input type="text" class="form-control" id="curp" name="curp">
+            <?php endif ?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="numero_identificacion">Numero de Identificación</label>
+            <?php if(isset($ciudadano['numero_identificacion'])):?>
+                <input type="text" value="<?php echo $ciudadano['numero_identificacion']?>" class="form-control" id="numero_identificacion" name="numero_identificacion">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['numero_identificacion'])):?>
+                <input type="text" class="form-control" id="numero_identificacion" name="numero_identificacion">
+            <?php endif ?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="email">Email</label>
+            <?php if(isset($ciudadano['email'])):?>
+                <input type="text" value="<?php echo $ciudadano['email']?>" class="form-control" id="email" name="email">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['email'])):?>
+                <input type="text" class="form-control" id="email" name="email">
+            <?php endif ?>
+        </div>
+        
+        <div class="form-group col-md-2">
+            <label for="telefono">Telefono</label>
+            <?php if(isset($ciudadano['telefono'])):?>
+                <input type="text" value="<?php echo $ciudadano['telefono']?>" class="form-control" id="telefono" name="telefono">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['telefono'])):?>
+                <input type="text" class="form-control" id="telefono" name="telefono">
+            <?php endif ?>
+        </div>
+        
+        <div class="form-group col-md-2">
+            <label for="otro_telefono">Otro Telefono</label>
+            <?php if(isset($ciudadano['otro_telefono'])):?>
+                <input type="text" value="<?php echo $ciudadano['otro_telefono']?>" class="form-control" id="otro_telefono" name="otro_telefono">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['otro_telefono'])):?>
+                <input type="text" class="form-control" id="otro_telefono" name="otro_telefono">
+            <?php endif ?>
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="whats">Whatsapp</label>
+            <select class="form-control" id="whats" name="whats">
+            <?php if(isset($ciudadano['whats']) && $ciudadano['whats'] != ""): ?>
+                <option <?php if ($ciudadano['whats'] == 0 ) echo 'selected' ;?> value=0>No</option>
+                <option <?php if ($ciudadano['whats'] == 1 ) echo 'selected' ;?> value=1>Si</option>
+            <?php endif ?>
+            <?php if(!isset($ciudadano['whats'])): ?>
+                <option value=''> No seleccionado </option>
+                <option value=0> No </option>
+                <option value=1> Si </option>
+            <?php endif ?>
+            </select>
+        </div>
+
+    </div> <!--Termina row-->
+
+
+
+
+    <br>
+
+
+    <div class="form-row">
+            
+            
+        <div class="form-group col-md-2">
+            <label for="dir_calle">Calle</label>
+            <?php if(isset($ciudadano['dir_calle'])):?>
+                <input type="text" value="<?php echo $ciudadano['dir_calle']?>" class="form-control" id="dir_calle" name="dir_calle">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['dir_calle'])):?>
+                <input type="text" class="form-control" id="dir_calle" name="dir_calle">
+            <?php endif ?>
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="dir_numero">Numero</label>
+            <?php if(isset($ciudadano['dir_numero'])):?>
+                <input type="text" value="<?php echo $ciudadano['dir_numero']?>" class="form-control" id="dir_numero" name="dir_numero">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['dir_numero'])):?>
+                <input type="text" class="form-control" id="dir_numero" name="dir_numero">
+            <?php endif ?>
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="dir_numero_int">Numero int.</label>
+            <?php if(isset($ciudadano['dir_numero_int'])):?>
+                <input type="text" value="<?php echo $ciudadano['dir_numero_int']?>" class="form-control" id="dir_numero_int" name="dir_numero_int">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['dir_numero_int'])):?>
+                <input type="text" class="form-control" id="dir_numero_int" name="dir_numero_int">
+            <?php endif ?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="id_colonia">Colonia</label>
+            <select id="id_colonia" name="id_colonia" class="form-control">
+                <?php
+                $query = $mysqli->query ("SELECT * FROM colonias");
+                while ($colonias = mysqli_fetch_array($query)) {
+                echo '<option ' . $selected = ($ciudadano['id_colonia'] == $colonias['id']) ? "selected" : "" .' value="'.$colonias['id'].'">'.$colonias['nombre_colonia'].'</option>'; }?>
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="otra_colonia">Otra Colonia</label>
+            <?php if(isset($ciudadano['otra_colonia'])):?>
+                <input type="text" value="<?php echo $ciudadano['otra_colonia']?>" class="form-control" id="otra_colonia" name="otra_colonia">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['otra_colonia'])):?>
+                <input type="text" class="form-control" id="otra_colonia" name="otra_colonia">
+            <?php endif ?>
+        </div>
+        
+        <div class="form-group col-md-3">
+            <label for="dir_referencia">Referencia de domicilio</label>
+            <?php if(isset($ciudadano['dir_referencia'])):?>
+                <input type="text" value="<?php echo $ciudadano['dir_referencia']?>" class="form-control" id="dir_referencia" name="dir_referencia">
+            <?php endif ?>
+            <?php if(!isset($ciudadano['dir_referencia'])):?>
+                <input type="text" class="form-control" id="dir_referencia" name="dir_referencia">
+            <?php endif ?>
+        </div>
+
+
+    </div> <!--Termina row-->
+<br>
+
+<div class="form-row">
+
+
+    <div class="form-group col-md-1">
+        <label for="manzana">Manzana</label>
+        <?php if(isset($ciudadano['manzana'])):?>
+            <input type="text" value="<?php echo $ciudadano['manzana']?>" class="form-control" id="manzana" name="manzana">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['manzana'])):?>
+            <input type="text" class="form-control" id="manzana" name="manzana">
+        <?php endif ?>
+    </div>
+
+    <div class="form-group col-md-1">
+        <label for="lote">Lote</label>
+        <?php if(isset($ciudadano['lote'])):?>
+            <input type="text" value="<?php echo $ciudadano['lote']?>" class="form-control" id="lote" name="lote">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['lote'])):?>
+            <input type="text" class="form-control" id="lote" name="lote">
+        <?php endif ?>
+    </div>
+
+    <div class="form-group col-md-1">
+        <label for="cp">Codigo Postal</label>
+        <?php if(isset($ciudadano['cp'])):?>
+            <input type="number" value="<?php echo $ciudadano['cp']?>" class="form-control" id="cp" name="cp">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['cp'])):?>
+            <input type="text" class="form-control" id="cp" name="cp">
+        <?php endif ?>
+    </div>
+
+    <div class="form-group col-md-2">
+        <label for="estado_civil">Estado Civil</label>
+        <select class="form-control" id="estado_civil" name="estado_civil">
+        <?php if(isset($ciudadano['estado_civil']) && $ciudadano['estado_civil'] != ""):?>
+            <option <?php if ($ciudadano['whats'] == "soltero" ) echo 'selected'?> value="soltero">Soltero</option>
+            <option <?php if ($ciudadano['whats'] == "casado" ) echo 'selected'?> value="casado">Casado</option>
+            <option <?php if ($ciudadano['whats'] == "divorciado" ) echo 'selected'?> value="divorciado">Divorciado</option>
+            <option <?php if ($ciudadano['whats'] == "viudo" ) echo 'selected'?> value="viudo">Viudo</option>
+            <option <?php if ($ciudadano['whats'] == "concubinato" ) echo 'selected'?> value="concubinato">Concubinato</option>
+            
+        <?php endif ?>
+        <?php if(!isset($ciudadano['estado_civil']) || $ciudadano['estado_civil'] == ""):?>
+            <option value="">No Respondio</option>
+            <option value="soltero">Soltero</option>
+            <option value="casado">Casado</option>
+            <option value="divorciado">Divorciado</option>
+            <option value="viudo">Viudo</option>
+            <option value="concubinato">Concubinato</option>
+        <?php endif ?>
+        </select>
+    </div>
+
+    <div class="form-group col-md-1">
+        <label for="num_hijos">Numero Hijos</label>
+        <?php if(isset($ciudadano['num_hijos'])):?>
+            <input type="text" value="<?php echo $ciudadano['num_hijos']?>" class="form-control" id="num_hijos" name="num_hijos">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['num_hijos'])):?>
+            <input type="text" class="form-control" id="num_hijos" name="num_hijos">
+        <?php endif ?>
+    </div>
+
+    <div class="form-group col-md-2">
+        <label for="ocupacion">Ocupación</label>
+        <?php if(isset($ciudadano['ocupacion'])):?>
+            <input type="text" value="<?php echo $ciudadano['ocupacion']?>" class="form-control" id="ocupacion" name="ocupacion">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['ocupacion'])):?>
+            <input type="text" class="form-control" id="ocupacion" name="ocupacion">
+        <?php endif ?>
+    </div>
+
+    <div class="form-group col-md-1">
+        <label for="pensionado">Pensionado</label>
+        <select class="form-control" id="pensionado" name="pensionado">
+        <?php if(isset($ciudadano['pensionado'])) :?>
+            <option <?php if ($ciudadano['pensionado'] == 0 ) echo 'selected' ;?> value=0>No</option>
+            <option <?php if ($ciudadano['pensionado'] == 1 ) echo 'selected' ;?> value=1>Si</option>
+        <?php endif ?>
+        <?php if(!isset($ciudadano['pensionado']) || $ciudadano['pensionado'] != "" ) :?>
+            <option value=0>No</option>
+            <option value=1>Si</option>
+        <?php endif ?>
+        
+        </select>
+    </div>
+
+    <div class="form-group col-md-2">
+        <label for="enfermedades_cron">Enfermedades Cronicas</label>
+        <?php if(isset($ciudadano['enfermedades_cron'])):?>
+            <input type="text" value="<?php echo $ciudadano['enfermedades_cron']?>" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['enfermedades_cron'])):?>
+            <input type="text" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
+        <?php endif ?>
+    </div>
+
+</div>
+
+<br>
+
+<div class="form-row">
+
+    <div class="form-group col-md-1">
+        <label for="zona">Zona Electoral</label>
+        <?php if(isset($ciudadano['zona'])):?>
+            <input type="text" value="<?php echo $ciudadano['zona']?>" class="form-control" id="zona" name="zona">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['zona'])):?>
+            <input type="text" class="form-control" id="zona" name="zona">
+        <?php endif ?>
+    </div>
+
+    <div class="form-group col-md-1">
+        <label for="seccion_electoral">Sec. Electoral</label>
+        <?php if(isset($ciudadano['seccion_electoral'])):?>
+            <input type="text" value="<?php echo $ciudadano['seccion_electoral']?>" class="form-control" id="seccion_electoral" name="seccion_electoral">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['seccion_electoral'])):?>
+            <input type="text" class="form-control" id="seccion_electoral" name="seccion_electoral">
+        <?php endif ?>
+    </div>   
+
+</div>
+
+    <br>    
+
+
+<h4>Electoral</h4>
+<div class="form-row">
+
+<br>
+
+    <div class="form-group col-md-2">
+        <label for="participo_eleccion">Participo Eleccion</label>
+        <select class="form-control" id="participo_eleccion" name="participo_eleccion">
+        <?php if(isset($ciudadano['participo_eleccion'])) :?>
+            <option <?php if ($ciudadano['participo_eleccion'] == 0 ) echo 'selected' ;?> value=0>No</option>
+            <option <?php if ($ciudadano['participo_eleccion'] == 1 ) echo 'selected' ;?> value=1>Si</option>
+        <?php endif ?>
+        <?php if(!isset($ciudadano['participo_eleccion']) || $ciudadano['participo_eleccion'] != "" ) :?>
+            <option value=0>No</option>
+            <option value=1>Si</option>
+        <?php endif ?>
+        </select>
+    </div> 
+
+    <div class="form-group col-md-2">
+        <label for="posicion">Posicion</label>
+        <?php if(isset($ciudadano['posicion'])):?>
+            <input type="text" value="<?php echo $ciudadano['posicion']?>" class="form-control" id="posicion" name="posicion">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['posicion'])):?>
+            <input type="text" class="form-control" id="posicion" name="posicion">
+        <?php endif ?>
+    </div>
+
+    <div class="form-group col-md-1">
+        <label for="asistio">Asistio</label>
+        <?php if(isset($ciudadano['asistio'])):?>
+            <input type="text" value="<?php echo $ciudadano['asistio']?>" class="form-control" id="asistio" name="asistio">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['asistio'])):?>
+            <input type="text" class="form-control" id="asistio" name="asistio">
+        <?php endif ?>
+    </div>   
+
+    <div class="form-group col-md-2">
+        <label for="afiliacion">Afiliacion</label>
+        <?php if(isset($ciudadano['afiliacion'])):?>
+            <input type="text" value="<?php echo $ciudadano['afiliacion']?>" class="form-control" id="afiliacion" name="afiliacion">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['afiliacion'])):?>
+            <input type="text" class="form-control" id="afiliacion" name="afiliacion">
+        <?php endif ?>
+    </div>   
+
+    <div class="form-group col-md-2">
+        <label for="observaciones">Observaciones</label>
+        <?php if(isset($ciudadano['observaciones'])):?>
+            <textarea type="text" value="<?php echo $ciudadano['observaciones']?>" class="form-control" id="observaciones" name="observaciones"></textarea>
+        <?php endif ?>
+        <?php if(!isset($ciudadano['observaciones'])):?>
+            <textarea type="text" class="form-control" id="observaciones" name="observaciones"></textarea>
+        <?php endif ?>
+    </div>   
+
+
+</div>
+    <div class="dropdown-divider"></div>
+
+<br>
+
+<!--Aqui viene en area del registro del auxiliar-->
+
+<?php
+$no_auxiliares = 0;
+if(isset($id)){
+    $sql_aux = $con->prepare("SELECT COUNT(*) total FROM auxiliares WHERE id_beneficiario = ?");
+    $sql_aux->execute(array($id));
+    $no_auxiliares = $sql_aux->fetch();
+}
+
+
+
+
+if($no_auxiliares['total'] >= 1): 
+
+    $sql_query = $con->prepare("SELECT * FROM auxiliares WHERE id_beneficiario = ?");
+    $sql_query->execute(array($id));
+    $auxiliares = $sql_query->fetchAll();
+    echo "<h4>Auxiliares Registrados:</h4>";
+
+?>
+
+
+
+    
+    <?php foreach($auxiliares as $auxiliar): ?>
+        <div class="form-row">
+
+            <div class="form-group col-md-2">
+                <label for="nombres_auxiliar">Nombre(s) de Auxiliar</label> <br>
+                <?php echo $auxiliar['nombres_auxiliar']?>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="apellido_p_auxiliar">Apellido Paterno de Aux</label><br>
+                <?php echo $auxiliar['apellido_p_auxiliar']?>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="apellido_m_auxiliar">Apellido Materno de Aux</label><br>
+                <?php echo $auxiliar['apellido_m_auxiliar']?>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="telefono_auxiliar">Telefono de Aux</label><br>
+                <?php echo $auxiliar['telefono_auxiliar']?>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="parentesco">Parentesco</label><br>
+                
+                    <?php if($auxiliar['parentesco'] == "") echo "<option value=''> No seleccionado </option>"; ?>
+                    <?php echo $auxiliar['parentesco']?>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="parentesco">Editar</label><br>
+                
+                <a href="auxiliar.php?id=<?php echo $auxiliar['id_auxiliar']?>&tipo=edita"> <i class="far fa-edit"></i></a>
+            </div>
+
+        </div>
+    <?php endforeach;?>
+    <a href="auxiliar.php?id=<?php echo $id."&tipo=nuevo" ?>" class="btn btn-success"> <i class="fas fa-user-friends"></i> Registrar nuevo Auxiliar </a>
+<?php endif;
+
+if($no_auxiliares['total'] == 0){
+    echo "<h4> Aun no tiene universo</h4>";
+}
+?>
+
+
+    
+
+<div class="espaciadormio" style="height: 50px;"></div>
+
+
+<br>
+<br>
+
+    <button class="btn btn-primary" type="submit" name="continuar" id="continuar"> <i class="fas fa-user-edit"></i>  Guardar y Continuar</button>
+    <button class="btn btn-danger" type="submit" name="actualizar" id="actualizar"> <i class="far fa-times-circle"></i>  Salir sin guardar</button>
+    
+    
+  
+</form>
+
+
+<?php $con=null?>
+<?php mysqli_close($mysqli)?>

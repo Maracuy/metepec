@@ -7,15 +7,15 @@ if (empty($_SESSION['user'])){
 }
 require_once '../conection/conexion.php';
 require_once '../conection/conexioni.php';
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentos</title>
+    <title>Beneficiarios</title>
     <!-- Bootstrap CSS -->
     <script src="https://kit.fontawesome.com/d0baa1aa63.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -23,13 +23,13 @@ require_once '../conection/conexioni.php';
 
 </head>
 <body>
-
     <?php include 'estructura_inicio.php' ?>   <!--No menear -->
 
-    
 
-<h4>area de documentacion</h4>
 
+
+        <?php include 'controlador/muestra_ciudadanos.php'?>
+        
 
 
 

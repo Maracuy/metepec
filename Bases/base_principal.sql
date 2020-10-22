@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS metepec;
-CREATE DATABASE IF NOT EXISTS metepec;
-USE metepec;
+DROP DATABASE IF EXISTS u235387680_metepec;
+CREATE DATABASE IF NOT EXISTS u235387680_metepec;
+USE u235387680_metepec;
 
 
 DROP TABLE IF EXISTS empleados ;
@@ -140,28 +140,45 @@ CREATE TABLE IF NOT EXISTS servidores_publicos(
 INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocido" ,1);
 
 
-DROP TABLE IF EXISTS beneficiarios;
-CREATE TABLE IF NOT EXISTS beneficiarios (
-  id_beneficiario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+DROP TABLE IF EXISTS referencias;
+CREATE TABLE IF NOT EXISTS referencias(
+  id_referencia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  up INT,
+  padre INT,
+  madre INT,
+  hermano INT,
+  hijo INT,
+  conocido INT,
+  referido INT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS ciudadanos;
+CREATE TABLE IF NOT EXISTS ciudadanos (
+  id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nivel INT NOT NULL,
+  usuario_sistema VARCHAR(10),
+  contrasenia VARCHAR(50),
   fecha_captura DATETIME NULL,
   nombre_c VARCHAR(255) NOT NULL,
   nombres VARCHAR(45) NOT NULL,
   apellido_p VARCHAR(45) NOT NULL,
   apellido_m VARCHAR(45) NOT NULL,
-  vulnerable VARCHAR(2) NULL DEFAULT NULL,
-  genero VARCHAR(100) NULL DEFAULT NULL,
+  vulnerable INT,
+  genero INT NULL DEFAULT NULL,
   curp VARCHAR(20) NULL DEFAULT NULL,
   numero_identificacion VARCHAR(50) NULL DEFAULT NULL,
   telefono VARCHAR(10) NULL DEFAULT NULL,
+  otro_telefono VARCHAR(10) NULL,
   email VARCHAR(50) NULL DEFAULT NULL,
-  whats VARCHAR(2) NULL DEFAULT NULL,
+  whats INT,
   fecha_nacimiento DATE NULL DEFAULT NULL,
-  nivel VARCHAR(2) NULL DEFAULT NULL,
   estado_civil VARCHAR(50) NULL DEFAULT NULL,
-  num_hijos VARCHAR(10) NULL DEFAULT NULL,
+  num_hijos INT NULL DEFAULT NULL,
   ocupacion VARCHAR(100) NULL DEFAULT NULL,
-  pensionado VARCHAR(10) NULL DEFAULT NULL,
-  enfermedades_cron VARCHAR(10) NULL DEFAULT NULL,
+  pensionado INT NULL DEFAULT NULL,
+  enfermedades_cron INT NULL DEFAULT NULL,
   cp VARCHAR(10) NULL DEFAULT NULL,
   dir_calle VARCHAR(45) NULL DEFAULT NULL,
   dir_numero VARCHAR(50) NULL DEFAULT NULL,
@@ -169,33 +186,36 @@ CREATE TABLE IF NOT EXISTS beneficiarios (
   id_colonia INT NULL DEFAULT NULL,
   otra_colonia VARCHAR(50) NULL DEFAULT NULL,
   municipio VARCHAR(45) NULL DEFAULT NULL,
+  zona INT,
   manzana VARCHAR(255) NULL DEFAULT NULL,
   lote VARCHAR(255) NULL DEFAULT NULL,
   dir_referencia VARCHAR(255) NULL DEFAULT NULL,
-  id_empleado INT NULL DEFAULT NULL,
-  id_medio_contacto INT NULL DEFAULT NULL,
-  id_origenes INT NULL DEFAULT NULL,
-  id_promotores INT NULL DEFAULT NULL,
   zona_electoral VARCHAR(45) NULL DEFAULT NULL,
   seccion_electoral VARCHAR(45) NULL DEFAULT NULL,
-  participo_eleccion VARCHAR(45) NULL DEFAULT NULL,
+  participo_eleccion INT NULL DEFAULT NULL,
   posicion VARCHAR(45) NULL DEFAULT NULL,
   asisitio VARCHAR(45) NULL DEFAULT NULL,
   afiliacion VARCHAR(45) NULL DEFAULT NULL,
+  id_galaxia INT NULL DEFAULT NULL,
+  id_registrante INT NOT NULL,
   observaciones TEXT NULL DEFAULT NULL,
-  CONSTRAINT fk_beneficiarios_empleados FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado)
-    ON DELETE CASCADE ,
-  CONSTRAINT fk_beneficiarios_origen FOREIGN KEY (id_origenes) REFERENCES origenes (id)
-    ON DELETE CASCADE ,
-  CONSTRAINT fk_beneficiarios_promotores FOREIGN KEY (id_promotores) REFERENCES promotores(id)
-    ON DELETE CASCADE ,
-  CONSTRAINT fk_beneficiario_medio FOREIGN KEY (id_medio_contacto) REFERENCES medio_contacto (id)
-    ON DELETE CASCADE ,
   CONSTRAINT fk_beneficiarios_colonias FOREIGN KEY (id_colonia) REFERENCES colonias (id)
     ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS beneficiarios_int;
+CREATE TABLE IF NOT EXISTS beneficiarios_int(
+id_beneficiario_int INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(255),
+abreviatura VARCHAR(10)
+)ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
 
 
 
@@ -208,9 +228,7 @@ CREATE TABLE IF NOT EXISTS auxiliares(
   apellido_m_auxiliar VARCHAR(45) NULL,
   telefono_auxiliar VARCHAR(20) NULL DEFAULT NULL,
   id_beneficiario INT NOT NULL,
-  parentesco VARCHAR(45) NULL,
-  CONSTRAINT fk_auxiliar_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario)
-    ON DELETE CASCADE
+  parentesco VARCHAR(45) NULL
   )ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8
   COLLATE = utf8_unicode_ci;
@@ -230,7 +248,6 @@ CREATE TABLE IF NOT EXISTS altas(
   visto_por_responsable INT,
   id_empleado_capt INT NOT NULL,
   exito BOOLEAN,
-  CONSTRAINT fk_altas_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
   CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
   CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas_internos(id_programa) ON DELETE CASCADE,
   CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
@@ -277,7 +294,7 @@ CREATE TABLE IF NOT EXISTS procesos_adulto_mayor(
   fecha_estimada_activacion DATE,
   estado_pago INT,
   reporte TEXT,
-  CONSTRAINT fk_procesos_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario) ON DELETE CASCADE,
+  CONSTRAINT fk_procesos_beneficiario FOREIGN KEY (id_beneficiario) REFERENCES ciudadanos(id_ciudadano) ON DELETE CASCADE,
   CONSTRAINT fk_procesos_altas FOREIGN KEY (id_alta) REFERENCES altas(id_alta),
   CONSTRAINT fk_procesos_servidor FOREIGN KEY (id_servidor_publico) REFERENCES servidores_publicos(id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -294,6 +311,7 @@ CREATE TABLE IF NOT EXISTS tareas(
   fecha_limite DATE,
   tarea_titulo VARCHAR(255),
   tarea_descripcion TEXT,
+  proceso INT,
   id_origen INT,
   id_beneficiario INT,
   id_beneficiario_int INT,
@@ -305,10 +323,13 @@ CREATE TABLE IF NOT EXISTS tareas(
   avance INT,
   realizada INT,
   aceptada INT,
+  CONSTRAINT fk_tareas_empleado_crea FOREIGN KEY (id_empleado_crea_tarea) REFERENCES empleados(id_empleado),
+  CONSTRAINT fk_tareas_empleado_responsable FOREIGN KEY (id_empleado_asigna_tarea) REFERENCES empleados(id_empleado),
   CONSTRAINT fk_tareas_ciud_origenes FOREIGN KEY (id_origen) REFERENCES origenes(id),
   CONSTRAINT fk_tareas_int_programa FOREIGN KEY (id_programa_int) REFERENCES programas_internos(id_programa),
   CONSTRAINT fk_tareas_ciud_programa FOREIGN KEY (id_programa_ciud) REFERENCES programas_ciudadanos(id_programa),
-  CONSTRAINT fk_tareas_ciud_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES beneficiarios(id_beneficiario)
+  CONSTRAINT fk_tareas_ciud_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES ciudadanos(id_ciudadano),
+  CONSTRAINT fk_tareas_int_beneficiarios_int FOREIGN KEY (id_beneficiario_int) REFERENCES beneficiarios_int(id_beneficiario_int)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -343,6 +364,7 @@ DROP TABLE IF EXISTS procesos_internos;
 CREATE TABLE IF NOT EXISTS procesos_internos(
   id_proceso_ciudadano INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100),
-  abreviatura VARCHAR(20)
+  abreviatura VARCHAR(20),
   descripcion TEXT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO procesos_internos VALUES(NULL, "Sin proceso", "SNPR", "Se elige por defecto");

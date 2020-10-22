@@ -39,11 +39,18 @@ if($tipo==1){ /* Aqui vamos a solicitar lo necesario para trabajar con CIUDADANA
 }
 
 
-if($tipo==2){
+if($tipo==2){ /* Aqui vamos a solicitar lo necesario para trabajar con INTERNOS */
 	$sql_programas_internos = $con->prepare('SELECT * FROM programas_internos');
     $sql_programas_internos->execute();
 	$programas = $sql_programas_internos->fetchAll();
 
+	$procesos_ciudadanos = $con->prepare('SELECT * FROM procesos_internos');
+    $procesos_ciudadanos->execute();
+	$procesos = $procesos_ciudadanos->fetchAll();
+
+	$sql_beneficiarios_ciudadanos = $con->prepare('SELECT * FROM beneficiarios_int');
+    $sql_beneficiarios_ciudadanos->execute();
+	$beneficiarios = $sql_beneficiarios_ciudadanos->fetchAll();
 }
 
 
@@ -101,27 +108,29 @@ if($_POST){
 			<div class="form-row">
 				<div class="col-md-4">
 					<?php 
-					if($programas && $alta):
-						echo '<label for="medio">Programa</label>';
-						echo '<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">';
-						foreach($programas as $programa): ?>
-							<option <?php echo $echo_ = ($programa['id_programa'] ==  $alta['id_programa']) ? "selected" :  "" ?> value="<?php echo $programa['id_programa'] ?>"> <?php echo $programa['nombre'] ?> </option>
-						<?php endforeach;
-					endif;
-					if($programas && !isset($altas)): 
-						echo '<label for="medio">Programa</label>';
-						echo '<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">';
-						foreach($programas as $programa):?>
-							<option value="<?php echo $programa['id_programa'] ?>"> <?php echo $programa['nombre'] ?> </option>
-						<?php endforeach; 
-					endif ?>
+					if(isset($tarea['proceso'])):
+						if($programas && $alta):
+							echo '<label for="medio">Programa</label>';
+							echo '<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">';
+							foreach($programas as $programa): ?>
+								<option <?php echo $echo_ = ($programa['id_programa'] ==  $alta['id_programa']) ? "selected" :  "" ?> value="<?php echo $programa['id_programa'] ?>"> <?php echo $programa['nombre'] ?> </option>
+							<?php endforeach;
+						endif;
+						if($programas && !isset($altas)): 
+							echo '<label for="medio">Programa</label>';
+							echo '<select id="tarea[responsable]" name="tarea[responsable]" class="form-control">';
+							foreach($programas as $programa):?>
+								<option value="<?php echo $programa['id_programa'] ?>"> <?php echo $programa['nombre'] ?> </option>
+							<?php endforeach; 
+						endif;
+					endif?>
 					</select>
 				</div>
 
 
 
-				<div class="form-group col-4">
-					<label for="prioridad">Proceso</label>
+				<div class="form-group col-2">
+					<label for="prioridad">Prioridad</label>
 					<select class='form-control' name="prioridad" id="prioridad">
 						<option value="1"> Baja </option>
 						<option select value="2"> Media </option>
@@ -130,6 +139,12 @@ if($_POST){
 				</div>
 
 
+				<div class="form-group col-2">
+					<label for="proceso">Prioridad</label>
+					<select class='form-control' name="proceso" id="proceso">
+
+					</select>
+				</div>
 
 
 			</div>

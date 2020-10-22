@@ -19,7 +19,6 @@ $resultado = $sql_query->fetchALL();
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Nombre</th>
       <th scope="col">Colonia</th>
       <th scope="col">Telefono</th>
@@ -46,8 +45,6 @@ $resultado = $sql_query->fetchALL();
             ?>
       
         <tr>
-
-          <th scope='row'> <?php echo $dato['id_beneficiario'] ?>  </th>
           
           <td> <?php echo $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>
 
