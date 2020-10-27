@@ -61,11 +61,9 @@ $ciudadano[38] = ($_POST['asistio'] != '') ? $_POST['asistio'] : NULL;
 
 $ciudadano[39] = ($_POST['afiliacion'] != '') ? $_POST['afiliacion'] : NULL;
 
-$ciudadano[40] = (isset($_POST['id_galaxia']) && $_POST['id_galaxia'] != '') ? $_POST['id_galaxia'] : NULL;
+$ciudadano[40] = $_SESSION['user']['id_empleado'];
 
-$ciudadano[41] = $_SESSION['user']['id_empleado'];
-
-$ciudadano[42] = $_POST['observaciones'];
+$ciudadano[41] = $_POST['observaciones'];
 
 $id_capturista = $ciudadano[30];
 
@@ -121,7 +119,7 @@ function altas($con, $id_ciudadano, $id_capturista){
 
 function alta_ciudadano($con, $ciudadano){
  
-    $sql_agregar = 'INSERT INTO ciudadanos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    $sql_agregar = 'INSERT INTO ciudadanos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     $sentencia_agregar = $con->prepare($sql_agregar);    
     
     try{

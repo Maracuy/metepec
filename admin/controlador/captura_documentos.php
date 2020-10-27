@@ -20,7 +20,7 @@ echo var_dump(is_file($dir_identificacion . "/identificacion.jpg"));
 <h5>Capture los documentos del Ciudadano: <?php echo $ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?></h5>
 <br>
 
-    <img src="ciudadanos/1/identificacion.jpg" alt="esta imagen no se encontro">
+    <img src="ciudadanos/1/identificacion.jpg" alt="esta imagen no se encontro" width="150" height="150">
 
 <form action="controlador/captura_documentossql.php" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?php echo $id ?>">
@@ -32,5 +32,6 @@ echo var_dump(is_file($dir_identificacion . "/identificacion.jpg"));
 <br> Domicilio: <input name="userfile" type="file"> <input type="submit" name="domicilio" value="Subir"> <br>
  -->
 
-    
+<br>
 
+ <a href="galaxia.php?id=<?php echo $id ?>" class="btn btn-primary">Continuar</a>

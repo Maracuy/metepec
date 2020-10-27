@@ -141,19 +141,6 @@ INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocid
 
 
 
-DROP TABLE IF EXISTS referencias;
-CREATE TABLE IF NOT EXISTS referencias(
-  id_referencia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  up INT,
-  padre INT,
-  madre INT,
-  hermano INT,
-  hijo INT,
-  conocido INT,
-  referido INT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
 DROP TABLE IF EXISTS ciudadanos;
 CREATE TABLE IF NOT EXISTS ciudadanos (
   id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -196,7 +183,6 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   posicion VARCHAR(45) NULL DEFAULT NULL,
   asisitio VARCHAR(45) NULL DEFAULT NULL,
   afiliacion VARCHAR(45) NULL DEFAULT NULL,
-  id_galaxia INT NULL DEFAULT NULL,
   id_registrante INT NOT NULL,
   observaciones TEXT NULL DEFAULT NULL,
   CONSTRAINT fk_beneficiarios_colonias FOREIGN KEY (id_colonia) REFERENCES colonias (id)
@@ -204,6 +190,56 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS galaxias;
+CREATE TABLE IF NOT EXISTS galaxias(
+  id_galaxia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_ciudadano INT,
+  padre INT,
+  madre INT,
+  conyugue INT,
+  hermano INT,
+  hijo INT,
+  conocido INT,
+  referido INT
+)ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS hermanos;
+CREATE TABLE IF NOT EXISTS hermanos(
+  id_hermano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_galaxia INT,
+  hermano INT
+)ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS hijos;
+CREATE TABLE IF NOT EXISTS hijos(
+  id_hijo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_galaxia INT,
+  hijo INT
+)ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS conocidos;
+CREATE TABLE IF NOT EXISTS conocidos(
+  id_conocido INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_galaxia INT,
+  conocido INT
+)ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
 
 
 
