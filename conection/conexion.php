@@ -8,8 +8,7 @@ $dbpass = 'M3t3p3cSp3rt1k4';
 try {
     $con = new PDO($conect, $username , $dbpass);
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
+    
   } catch(PDOException $e) {
     echo 'Error conectando con la base de datos: ' . $e->getMessage();
   }

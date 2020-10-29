@@ -4,7 +4,6 @@ USE u235387680_metepec;
 
 
 DROP TABLE IF EXISTS empleados ;
-
 CREATE TABLE IF NOT EXISTS empleados (
   id_empleado INT NOT NULL AUTO_INCREMENT,
   usuario VARCHAR(30) NOT NULL,
@@ -25,17 +24,43 @@ INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","199
 INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
 
 
-DROP TABLE IF EXISTS programas_ciudadanos;
-CREATE TABLE IF NOT EXISTS programas_ciudadanos(
-  id_programa INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+DROP TABLE IF EXISTS programas_municipales;
+CREATE TABLE IF NOT EXISTS programas_municipales(
+  id_programa_municipal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
   abreviatura VARCHAR(10),
   nivel VARCHAR(255),
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO programas_ciudadanos VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
-INSERT INTO programas_ciudadanos VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal", "Programa Federal de Apoyo al Adulto Mayor");
+INSERT INTO programas_municipales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+INSERT INTO programas_municipales VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal", "Programa Federal de Apoyo al Adulto Mayor");
+
+
+
+DROP TABLE IF EXISTS programas_estatales;
+CREATE TABLE IF NOT EXISTS programas_estatales(
+  id_programa_estatal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(45) NOT NULL,
+  abreviatura VARCHAR(10),
+  nivel VARCHAR(255),
+  descripcion TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO programas_estatales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+
+
+
+DROP TABLE IF EXISTS programas_federales;
+CREATE TABLE IF NOT EXISTS programas_federales(
+  id_programa_federal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(45) NOT NULL,
+  abreviatura VARCHAR(10),
+  nivel VARCHAR(255),
+  descripcion TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO programas_federales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
 
 
 
@@ -54,7 +79,6 @@ INSERT INTO programas_internos VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel",
 
 
 DROP TABLE IF EXISTS departamentos;
-
 CREATE TABLE IF NOT EXISTS departamentos(
   id_departamento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
@@ -141,6 +165,9 @@ INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocid
 
 
 
+
+
+
 DROP TABLE IF EXISTS ciudadanos;
 CREATE TABLE IF NOT EXISTS ciudadanos (
   id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -177,7 +204,6 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   manzana VARCHAR(255) NULL DEFAULT NULL,
   lote VARCHAR(255) NULL DEFAULT NULL,
   dir_referencia VARCHAR(255) NULL DEFAULT NULL,
-  zona_electoral VARCHAR(45) NULL DEFAULT NULL,
   seccion_electoral VARCHAR(45) NULL DEFAULT NULL,
   participo_eleccion INT NULL DEFAULT NULL,
   posicion VARCHAR(45) NULL DEFAULT NULL,
@@ -209,12 +235,11 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
-
 DROP TABLE IF EXISTS hermanos;
 CREATE TABLE IF NOT EXISTS hermanos(
   id_hermano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_galaxia INT,
-  hermano INT
+  hermano VARCHAR(255)
 )ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -241,8 +266,6 @@ COLLATE = utf8_unicode_ci;
 
 
 
-
-
 DROP TABLE IF EXISTS beneficiarios_int;
 CREATE TABLE IF NOT EXISTS beneficiarios_int(
 id_beneficiario_int INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -254,27 +277,10 @@ COLLATE = utf8_unicode_ci;
 
 
 
-
-DROP TABLE IF EXISTS auxiliares;
-
-CREATE TABLE IF NOT EXISTS auxiliares(
-  id_auxiliar INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nombres_auxiliar VARCHAR(45) NOT NULL,
-  apellido_p_auxiliar VARCHAR(45) NULL,
-  apellido_m_auxiliar VARCHAR(45) NULL,
-  telefono_auxiliar VARCHAR(20) NULL DEFAULT NULL,
-  id_beneficiario INT NOT NULL,
-  parentesco VARCHAR(45) NULL
-  )ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8
-  COLLATE = utf8_unicode_ci;
-
-
-
 DROP TABLE IF EXISTS altas;
 CREATE TABLE IF NOT EXISTS altas(
   id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  id_beneficiario INT NOT NULL,
+  id_ciudadano INT NOT NULL,
   fecha_activacion DATETIME DEFAULT NULL,
   tarjeta VARCHAR(12),
   padron VARCHAR(10),

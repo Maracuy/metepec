@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group col-md-5">
-            <a href="beneficiarios.php" class="btn btn-danger"> <i class="far fa-times-circle"></i>  Salir sin guardar </a>
+            <a href="ciudadanos.php" class="btn btn-danger"> <i class="far fa-times-circle"></i>  Salir sin guardar </a>
         </div>
 
         <div class="form-group col-md-3">
@@ -58,7 +58,7 @@
             <?php if(isset($ciudadano['nombres'])){?>
                 <input type="text" value="<?php echo $ciudadano['nombres']?>" class="form-control" id="nombres" name="nombres">
             <?php } else{
-                echo '<input type="text" class="form-control" id="nombres" name="nombres">';
+                echo '<input type="text" required class="form-control" id="nombres" name="nombres">';
             }?>
         </div>
 
@@ -424,15 +424,19 @@
         <?php endif ?>
     </div>
 
-    <div class="form-group col-md-1">
+    <div class="form-group col-md-2">
         <label for="asistio">Asistio</label>
-        <?php if(isset($ciudadano['asistio'])):?>
-            <input type="text" value="<?php echo $ciudadano['asistio']?>" class="form-control" id="asistio" name="asistio">
+        <select class="form-control" id="asistio" name="asistio">
+        <?php if(isset($ciudadano['asistio'])) :?>
+            <option <?php if ($ciudadano['asistio'] == 0 ) echo 'selected' ;?> value=0>No</option>
+            <option <?php if ($ciudadano['asistio'] == 1 ) echo 'selected' ;?> value=1>Si</option>
         <?php endif ?>
-        <?php if(!isset($ciudadano['asistio'])):?>
-            <input type="text" class="form-control" id="asistio" name="asistio">
+        <?php if(!isset($ciudadano['asistio']) || $ciudadano['asistio'] != "" ) :?>
+            <option value=0>No</option>
+            <option value=1>Si</option>
         <?php endif ?>
-    </div>   
+        </select>
+    </div> 
 
     <div class="form-group col-md-2">
         <label for="afiliacion">Afiliacion</label>
@@ -458,90 +462,11 @@
 </div>
     <div class="dropdown-divider"></div>
 
-<br>
 
-<!--Aqui viene en area del registro del auxiliar-->
-
-<?php
-$no_auxiliares = 0;
-if(isset($id)){
-    $sql_aux = $con->prepare("SELECT COUNT(*) total FROM auxiliares WHERE id_beneficiario = ?");
-    $sql_aux->execute(array($id));
-    $no_auxiliares = $sql_aux->fetch();
-}
-
-
-
-
-if($no_auxiliares['total'] >= 1): 
-
-    $sql_query = $con->prepare("SELECT * FROM auxiliares WHERE id_beneficiario = ?");
-    $sql_query->execute(array($id));
-    $auxiliares = $sql_query->fetchAll();
-    echo "<h4>Auxiliares Registrados:</h4>";
-
-?>
-
-
-
-    
-    <?php foreach($auxiliares as $auxiliar): ?>
-        <div class="form-row">
-
-            <div class="form-group col-md-2">
-                <label for="nombres_auxiliar">Nombre(s) de Auxiliar</label> <br>
-                <?php echo $auxiliar['nombres_auxiliar']?>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="apellido_p_auxiliar">Apellido Paterno de Aux</label><br>
-                <?php echo $auxiliar['apellido_p_auxiliar']?>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="apellido_m_auxiliar">Apellido Materno de Aux</label><br>
-                <?php echo $auxiliar['apellido_m_auxiliar']?>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="telefono_auxiliar">Telefono de Aux</label><br>
-                <?php echo $auxiliar['telefono_auxiliar']?>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="parentesco">Parentesco</label><br>
-                
-                    <?php if($auxiliar['parentesco'] == "") echo "<option value=''> No seleccionado </option>"; ?>
-                    <?php echo $auxiliar['parentesco']?>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label for="parentesco">Editar</label><br>
-                
-                <a href="auxiliar.php?id=<?php echo $auxiliar['id_auxiliar']?>&tipo=edita"> <i class="far fa-edit"></i></a>
-            </div>
-
-        </div>
-    <?php endforeach;?>
-    <a href="auxiliar.php?id=<?php echo $id."&tipo=nuevo" ?>" class="btn btn-success"> <i class="fas fa-user-friends"></i> Registrar nuevo Auxiliar </a>
-<?php endif;
-
-if($no_auxiliares['total'] == 0){
-    echo "<h4> Aun no tiene universo</h4>";
-}
-?>
-
-
-    
-
-<div class="espaciadormio" style="height: 50px;"></div>
-
-
-<br>
 <br>
 
     <button class="btn btn-primary" type="submit" name="continuar" id="continuar"> <i class="fas fa-user-edit"></i>  Guardar y Continuar</button>
-    <button class="btn btn-danger" type="submit" name="actualizar" id="actualizar"> <i class="far fa-times-circle"></i>  Salir sin guardar</button>
+    <a href="ciudadanos.php" class="btn btn-danger"> <i class="far fa-times-circle"></i>  Salir sin guardar </a>
     
     
   

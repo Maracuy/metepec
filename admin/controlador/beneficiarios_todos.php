@@ -1,7 +1,9 @@
 <?php 
-$sql_query = $con->prepare("SELECT * FROM beneficiarios ORDER BY id_beneficiario ASC");
+require_once '../../conection/conexion.php';
+
+$sql_query = $con->prepare("SELECT * FROM ciudadanos ORDER BY id_ciudadano ASC");
 $sql_query->execute();
-$beneficiarios = $sql_query->fetchALL();
+$ciudadanos = $sql_query->fetchALL();
 ?>
 
 <table class="table table-striped" id="myTable">
@@ -36,7 +38,7 @@ $beneficiarios = $sql_query->fetchALL();
   <tbody>
     <?php
 
-      foreach ($beneficiarios as $dato): ?>
+      foreach ($ciudadanos as $dato): ?>
     
         <?php
           if(($dato['id_colonia'] != "1")){
@@ -50,30 +52,16 @@ $beneficiarios = $sql_query->fetchALL();
       
         <tr>
 
-            <?php if($_POST): ?><th>
-              <form action="../crea_tareas.php" method="post">
-                <input type="hidden" value="<?php echo $tarea_titulo ?>" name="tarea[titulo]">
-                <input type="hidden" value="<?php echo $tarea_descripcion ?>" name="tarea[descripcion]">
-                <input type="hidden" value="<?php echo $tarea_responsable ?>" name="tarea[responsable]">
-                <input type="hidden" value="<?php echo $tarea_fecha_limite ?>" name="tarea[fecha_limite]">
-                <input type="hidden" value="<?php echo $dato['id_beneficiario'] ?>" name="tarea[id_beneficiario]">
+            
 
-                <button class="btn btn-primary" type="submit" name="seleccionar_beneficiario" id="seleccionar_beneficiario"><i class="fas fa-search"></i> Seleccionar</button>
-
-              </form>
-            </th>
-          <?php endif ?> 
-            <th><input type="checkbox" id="id_beneficiario" name="id_beneficiario" value="<?php echo $dato['id_beneficiario'] ?>"></th>
-            <th scope='row'> <?php echo $dato['id_beneficiario'] ?>  </th>
+            <th><input type="checkbox" id="id_ciudadano" name="id_ciudadano" value="<?php echo $dato['id_ciudadano'] ?>"></th>
+            <th scope='row'> <?php echo $dato['id_ciudadano'] ?>  </th>
             
             <td> <?php echo $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>
 
             <td> <?php echo $dato['telefono'] ?></td>
-            
-            <td><?php echo $colonia?></td>
-            
+                        
             <td scope='row'> <?php echo $dato['fecha_captura'] ?>  </td>
-            <td scope='row'> <?php echo $dato['id_empleado'] ?>  </td>
             <td scope='row'> <?php echo $dato['telefono'] ?>  </td>
             <td scope='row'> <?php echo $dato['curp'] ?>  </td>
             <td scope='row'> <?php echo $dato['fecha_nacimiento'] ?>  </td>
