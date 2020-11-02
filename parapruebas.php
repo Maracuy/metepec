@@ -1,3 +1,21 @@
+<?php
+
+if($_POST){
+  $datos = $_POST;
+
+  var_dump($datos);
+
+  $datos['casa'] =   intval($datos['casa']);
+
+  $keys = array_keys($datos);
+  $values = array_values($datos);
+  $keysString = implode(",", $keys);
+  echo $keysString;
+  echo var_dump($values);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,81 +25,17 @@
   <title>Document</title>
 </head>
 <body>
-  <?php
-  if($_POST){
-    echo var_dump($_POST);
-  }
-  ?>
 
-  <form name="f1" method="POST"> 
-    <select name="pais" onchange="cambia_provincia()"> 
-    <option value="0" selected>Seleccione... 
-    <option value="1">España 
-    <option value="2">Argentina 
-    <option value="3">Colombia 
-    <option value="4">Francia 
-    </select>
-    
-    <input type="button" value="Seleccionar" id="si" name="si">
+<form method="POST">
 
-    <select name=provincia> 
-    <option value="-">- 
-    </select>
-    <button class="btn btn-primary" type="submit"> <i class="fas fa-user-edit"></i>  Guardar Todos los Cambios</button>
-  </form>
+	<input type="text" name="nombre" id="nombre">
+	<input type="text" name="telefono" id="telefono">
+	<input type="text" name="texto" id="texto">
+	<input type="text" name="casa" id="casa">
 
+	<input type="submit" value="send">
 
-<?php 
-$dato1 = "Dato uno";
-$dato2 = "Dato dos";
-$dato3 = "Dato tres";
+</form>
 
-
-?>
-
-  <script>
-  var provincias_1=new Array("-","Andalucía","Asturias","Baleares","Canarias","Castilla y León","Castilla-La Mancha","...");
-  var provincias_2=new Array("-","Salta","San Juan","San Luis","La Rioja","La Pampa","...");
-  var provincias_3=new Array("-","Cali","Santamarta","Medellin","Cartagena","...");
-  var provincias_4=new Array("-","<?php echo $dato1 ?>","Creuse","Dordogne","Essonne","Gironde ","...");
-
-  var todasProvincias = [
-    [],
-    provincias_1,
-    provincias_2,
-    provincias_3,
-    provincias_4,
-  ];
-
-  function cambia_provincia(){ 
-   	//tomo el valor del select del pais elegido 
-   	var pais 
-   	pais = document.f1.pais[document.f1.pais.selectedIndex].value 
-   	//miro a ver si el pais está definido 
-   	if (pais != 0) { 
-      	//si estaba definido, entonces coloco las opciones de la provincia correspondiente. 
-      	//selecciono el array de provincia adecuado 
-      	mis_provincias=todasProvincias[pais]
-      	//calculo el numero de provincias 
-      	num_provincias = mis_provincias.length 
-      	//marco el número de provincias en el select 
-      	document.f1.provincia.length = num_provincias 
-      	//para cada provincia del array, la introduzco en el select 
-      	for(i=0;i<num_provincias;i++){ 
-         	document.f1.provincia.options[i].value=mis_provincias[i] 
-         	document.f1.provincia.options[i].text=mis_provincias[i] 
-      	}	
-   	}else{ 
-      	//si no había provincia seleccionada, elimino las provincias del select 
-      	document.f1.provincia.length = 1 
-      	//coloco un guión en la única opción que he dejado 
-      	document.f1.provincia.options[0].value = "-" 
-      	document.f1.provincia.options[0].text = "-" 
-   	} 
-   	//marco como seleccionada la opción primera de provincia 
-   	document.f1.provincia.options[0].selected = true 
-}
-
-  </script>
 </body>
 </html>

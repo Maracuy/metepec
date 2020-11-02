@@ -1,12 +1,44 @@
 <?php
 session_start();
+
+if(!$_POST){
+    die();
+}
+
 if (empty($_SESSION['user'])){
     echo "no estas registrado";
     die();
 }
 require_once '../../conection/conexion.php';
 
+$empleado = $_SESSION['user']['id_empleado'];
 
+$datos = $_POST;
+
+$id = ($datos['id'] != '' ) ? intval($datos['id']) : NULL ;
+
+if($id){
+    unset($datos['id']);
+    unset($datos['fecha_captura']);
+}
+
+$datos['id_registrante'] = ($datos['id_registrante'] != '') ? intval($datos['id_registrante']) : $empleado;
+$datos['manzana'] = ($datos['manzana'] != '') ? intval($datos['manzana']) : $datos['manzana'];
+
+$keys = array_keys($datos);
+array_pop($keys);
+$number = count($keys);
+$signos = "?";
+if ($number > 1){
+    for($i=1; $i<$number; $i++){
+    $signos = $signos . ",?";
+    }
+}
+$values = array_values($datos);
+$keysString = implode(",", $keys);
+
+
+/* 
 $ciudadano = array();
 
 $ciudadano[0] = (isset($_POST['id']) && $_POST['id'] != "") ? $_POST['id'] : NULL;
@@ -66,12 +98,10 @@ $ciudadano[40] = $_SESSION['user']['id_empleado'];
 $ciudadano[41] = $_POST['observaciones'];
 
 $id_capturista = $ciudadano[30];
+*/
 
 
-
-
-
-function alta_auxiliar($con){
+/* function alta_auxiliar($con){
     
     $empleado = $_SESSION['user']['id_empleado'];
     $sql_unico = $con->prepare('SELECT * FROM ciudadanos WHERE id_empleado = ? ORDER BY id_ciudadano DESC');
@@ -94,15 +124,15 @@ function alta_auxiliar($con){
     }catch(Exception $e){
         echo 'Error al crear el auxiliar ',  $e->getMessage(), "\n";
     }  
-}
+} */
 
 
-
-function altas($con, $id_ciudadano, $id_capturista){
+/* 
+function altas($con, $id_ciudadano, $id_capturista, $keysString){
 
     
 
-    $sql_agregar = 'INSERT INTO altas VALUES (NULL, ?, NULL, NULL, NULL, NULL, 1, 1, NULL, ?, NULL)';
+    $sql_agregar = "INSERT INTO altas(" . $keysString . ") VALUES(?)";
     $sentencia_agregar = $con->prepare($sql_agregar);
     
     try{  
@@ -114,21 +144,19 @@ function altas($con, $id_ciudadano, $id_capturista){
     }  
 
 }
+ */
 
 
-
-function alta_ciudadano($con, $ciudadano){
+function alta_ciudadano($con, $values, $keysString, $signos){
  
-    $sql_agregar = 'INSERT INTO ciudadanos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    $sentencia_agregar = $con->prepare($sql_agregar);    
-    
+    $sql_agregar = "INSERT INTO ciudadanos(" . $keysString . ") VALUES(" . $signos . ")";
+    $sentencia_agregar = $con->prepare($sql_agregar);
     try{
-        $sentencia_agregar->execute($ciudadano);
+        $sentencia_agregar->execute($values);
         $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');
         $sentencia_alta->execute();
         $last_id_ciudadano = $sentencia_alta->fetch();
         $id_ciudadano = intval($last_id_ciudadano[0]);
-        return $id_ciudadano;
     }catch(Exception $e){
         echo 'Ocurrio un error al intentar la alta: ',  $e->getMessage(), "\n";
         die();
@@ -137,23 +165,32 @@ function alta_ciudadano($con, $ciudadano){
 }
 
 
-function actualizar($con, $ciudadano){
-
-    $id = $ciudadano[0];
-    $ciudadano = array_slice($ciudadano, 2);
-    $sql_editar = "UPDATE ciudadanos SET nombres=?, apellido_p=?, apellido_m=?, nombre_c=?, vulnerable=?, genero=?, curp=?, numero_identificacion=?, telefono=?, email=?, whats=?, fecha_nacimiento=?, nivel=?, estado_civil=?, num_hijos=?, ocupacion=?, pensionado=?, enfermedades_cron=?, cp=?, dir_calle=?, dir_numero=?, dir_numero_int=?, id_colonia=?, otra_colonia=?, municipio=?, manzana=?, lote=?, dir_referencia=?, id_empleado=?, id_medio_contacto=?, id_origenes=?, id_promotores=?, zona_electoral=?, seccion_electoral=?, participo_eleccion=?, posicion=?, asisitio=?, afiliacion=?, observaciones=? WHERE id_ciudadano=$id";
+function actualizar($con, $values, $keys, $id){
+    array_pop($values);
+    $keysString = "";
+    $number = count($keys);
+    $i=0;
+    foreach ($keys as $key => $value) {
+        $keysString = $keysString . "" . $value . "=?";
+        $i ++;
+        if($number != $i){
+            $keysString = $keysString . ",";
+        }
+    }
+    $sql_editar = "UPDATE ciudadanos SET $keysString WHERE id_ciudadano=$id";
     $sentencia_agregar = $con->prepare($sql_editar);
-       
     try{
-        $sentencia_agregar->execute($ciudadano);
+        $sentencia_agregar->execute($values);
+
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        die();
     }  
 }
 
 
 
-if(array_key_exists("guardar_salir",$_POST)){
+/* if(array_key_exists("guardar_salir",$_POST)){
     $id_ciudadano = alta_ciudadano($con, $ciudadano);
     altas($con, $id_ciudadano, $id_capturista);
 
@@ -172,12 +209,18 @@ if(array_key_exists("inscribir",$_POST)){
         alta_auxiliar($con);
     }
     header("Location: ../programas.php?id=$id_ciudadano");
-}
+} */
 
 
 
 if(array_key_exists("continuar",$_POST)){
-    $id_ciudadano = alta_ciudadano($con, $ciudadano);
+    array_pop($values);
+    $id_ciudadano = alta_ciudadano($con, $values, $keysString, $signos);
     header("Location: ../archivos_ciudadanos.php?id=$id_ciudadano");
+}
+
+if(array_key_exists("actualizar",$_POST)){
+    actualizar($con, $values, $keys, $id);
+    header("Location: ../archivos_ciudadanos.php?id=$id");
 }
 ?>

@@ -156,7 +156,7 @@
             <label for="id_colonia">Colonia</label>
             <select id="id_colonia" name="id_colonia" class="form-control">
                 <?php
-                $query = $mysqli->query ("SELECT * FROM colonias");
+                $query = $mysqli->query("SELECT * FROM colonias");
                 while ($colonias = mysqli_fetch_array($query)) {
                 echo '<option ' . $selected = ($editable['id_colonia'] == $colonias['íd']) ? "selected" : "" .' value="'.$colonias['id'].'">'.$colonias['nombre_colonia'].'</option>'; }?>
             </select>

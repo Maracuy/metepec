@@ -5,10 +5,10 @@
             $sql_query_ciudadano = $con->prepare('SELECT * FROM ciudadanos WHERE id_ciudadano = ?');
             $sql_query_ciudadano->execute(array($id));
             $ciudadano = $sql_query_ciudadano->fetch();
-            echo $ciudadano['nombres'];
         }
     }
-    
+$empleado = $_SESSION['user']['id_empleado'];
+
 ?>
 
 
@@ -18,6 +18,11 @@
 <?php if(isset($id)):?>
 <input type="hidden" id="id_ciudadano" name="id" value="<?php echo $id?>">
 <input type="hidden" id="fecha_captura" name="fecha_captura" value="<?php echo $ciudadano['fecha_captura']?>">
+<input type="hidden" id="id_registrante" name="id_registrante" value="<?php echo $ciudadano['id_registrante']?>">
+<?php endif ?>
+
+<?php if(!isset($id)):?>
+<input type="hidden" id="id_registrante" name="id_registrante" value="<?php echo $empleado?>">
 <?php endif ?>
 
 
@@ -27,7 +32,7 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             <?php if(isset($id)):?>
-                <h4>Editar Ciudadano</h4>
+                <h4>Editar Ciudadano: <br> <?php echo $ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m']; ?></h4>
             <?php endif ?>
             <?php if(!isset($id)):?>
                 <h4>Capturar Ciudadano</h4>
@@ -233,10 +238,10 @@
         <div class="form-group col-md-2">
             <label for="id_colonia">Colonia</label>
             <select id="id_colonia" name="id_colonia" class="form-control">
-                <?php
-                $query = $mysqli->query ("SELECT * FROM colonias");
+            <?php
+                $query = $mysqli->query("SELECT * FROM colonias");
                 while ($colonias = mysqli_fetch_array($query)) {
-                echo '<option ' . $selected = ($ciudadano['id_colonia'] == $colonias['id']) ? "selected" : "" .' value="'.$colonias['id'].'">'.$colonias['nombre_colonia'].'</option>'; }?>
+                echo '<option ' . $selected = ($ciudadano['id_colonia'] == $colonias['id']) ? "selected" : "" .' value="'.$colonias['id'].'">'.$colonias['nombre_colonia'].'</option>'; } ?>
             </select>
         </div>
 
@@ -464,8 +469,14 @@
 
 
 <br>
+    
+<?php if(isset($id)):?>
+    <button class="btn btn-primary" type="submit" name="actualizar" id="actualizar"> <i class="fas fa-user-edit"></i> Editar</button>
+<?php endif ?>
 
-    <button class="btn btn-primary" type="submit" name="continuar" id="continuar"> <i class="fas fa-user-edit"></i>  Guardar y Continuar</button>
+<?php if(!isset($id)):?>
+    <button class="btn btn-primary" type="submit" name="continuar" id="continuar"> <i class="fas fa-user-edit"></i> Guardar y Continuar</button>
+<?php endif ?>
     <a href="ciudadanos.php" class="btn btn-danger"> <i class="far fa-times-circle"></i>  Salir sin guardar </a>
     
     

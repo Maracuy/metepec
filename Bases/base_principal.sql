@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   seccion_electoral VARCHAR(45) NULL DEFAULT NULL,
   participo_eleccion INT NULL DEFAULT NULL,
   posicion VARCHAR(45) NULL DEFAULT NULL,
-  asisitio VARCHAR(45) NULL DEFAULT NULL,
+  asistio VARCHAR(45) NULL DEFAULT NULL,
   afiliacion VARCHAR(45) NULL DEFAULT NULL,
   id_registrante INT NOT NULL,
   observaciones TEXT NULL DEFAULT NULL,

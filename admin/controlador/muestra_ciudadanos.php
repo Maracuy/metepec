@@ -61,21 +61,11 @@ $colonias = $sql_colonias->fetchALL();
 			<th scope="col">Organizacion</th>
 			<th scope="col">Simpatia</th>
 			<th scope="col">Procesos</th>
-			<th scope="col">Iscribir</th>
+			<th scope="col">Inscribir</th>
 			<th scope="col">Prog. Federal</th>
 			<th scope="col">Prog. Estatal</th>
 			<th scope="col">Prog. Municipal</th>
-			<th scope="col">Recibio 1</th>
-			<th scope="col">Recibio 2</th>
-			<th scope="col">Recibio 3</th>
-			<th scope="col">Recibio 4</th>
-			<th scope="col">Recibio 5</th>
-			<th scope="col">Apoyo 1</th>
-			<th scope="col">Apoyo 2</th>
-			<th scope="col">Apoyo 3</th>
-			<th scope="col">Apoyo 4</th>
-			<th scope="col">Capt</th>
-			<th scope="col">Edit</th>
+			<th scope="col">Apoyos</th>
 		</tr>
 	</thead>
 
@@ -140,8 +130,8 @@ $colonias = $sql_colonias->fetchALL();
 					<td><?php echo $vul = ($ciudadano['vulnerable'] == 1) ? 'SI' : 'NO' ?></td>
 					<td><?php echo $ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?></td>
 					<td><a href="<?php echo 'alta_ciudadano.php?id=' . $ciudadano['id_ciudadano'] ?>"><i class="fas fa-id-card"></i></a></td>
-					<td><?php echo $ciudadano['genero'] ?></td>
-					<td><?php echo $edad = ($ciudadano['fecha_nacimiento'] != "") ? (date('Y') - date("Y",strtotime($ciudadano['fecha_nacimiento']))) : "" ?></td>
+					<td><?php echo $genero = ($ciudadano['genero'] == 0) ? "M" : "H" ?></td>
+					<td><?php echo $edad = ($ciudadano['fecha_nacimiento'] != "" && $ciudadano['fecha_nacimiento'] != "0000-00-00") ? (date('Y') - date("Y",strtotime($ciudadano['fecha_nacimiento']))) : "" ?></td>
 					<td><i class="fas fa-user-friends"></i></td>
 					<td><?php echo 'pendiente' ?></td>
 					<td><?php echo $ciudadano['zona'] ?></td>
