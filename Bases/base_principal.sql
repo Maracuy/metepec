@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS galaxias(
   id_ciudadano INT,
   padre INT,
   madre INT,
-  conyugue INT,
+  conyuge INT,
   hermano INT,
   hijo INT,
   conocido INT,
