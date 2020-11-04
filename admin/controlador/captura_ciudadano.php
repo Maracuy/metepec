@@ -2,13 +2,14 @@
     if($_GET){       // Primero verificamos si existe el ciudadano
         if($_GET['id']){
             $id = $_GET['id'];
+            include 'menu_proceso.php';
+
             $sql_query_ciudadano = $con->prepare('SELECT * FROM ciudadanos WHERE id_ciudadano = ?');
             $sql_query_ciudadano->execute(array($id));
             $ciudadano = $sql_query_ciudadano->fetch();
         }
     }
 $empleado = $_SESSION['user']['id_empleado'];
-
 ?>
 
 
@@ -24,7 +25,6 @@ $empleado = $_SESSION['user']['id_empleado'];
 <?php if(!isset($id)):?>
 <input type="hidden" id="id_registrante" name="id_registrante" value="<?php echo $empleado?>">
 <?php endif ?>
-
 
 
 <div class="espaciadormio" style="height: 20px;"></div>

@@ -5,6 +5,7 @@ if(!isset($_GET)){
 }
 $id = $_GET['id']; 
 
+
 //Obtenemos toda la informacion del beneficiario
 $sql_ciudadanos= "SELECT id_ciudadano, nombres, apellido_p, apellido_m FROM ciudadanos WHERE id_ciudadano = ?";
 $consulta_ciudadanos = $con->prepare($sql_ciudadanos);
@@ -18,6 +19,7 @@ $dir_identificacion = "ciudadanos/1/identificacion.jpg";
 
 var_dump(file_exists($dir_identificacion));
 
+include 'menu_proceso.php';
 ?>
 
 <br>

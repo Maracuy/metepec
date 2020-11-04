@@ -8,6 +8,8 @@ if(!($_GET)){
     die();
 }
 $id = $_GET['id'];
+include 'menu_proceso.php';
+
 
 
 $sql_ciudadanos= "SELECT id_ciudadano, nombres, apellido_p, apellido_m FROM ciudadanos WHERE id_ciudadano = ?";

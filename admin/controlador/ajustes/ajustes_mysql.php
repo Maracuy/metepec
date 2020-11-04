@@ -90,7 +90,7 @@ if(array_key_exists("guardar_programa",$_POST)){
     $nivel_programa = $_POST['nivel_programa'];
     $descripcion_programa = $_POST['descripcion_programa'];
 
-    $sql_programa = "INSERT INTO programas VALUES(NULL, ?, ?, ?, ?)";
+    $sql_programa = "INSERT INTO VALUES(NULL, ?, ?, ?, ?)";
     $sentencia_programas = $con->prepare($sql_programa);
 
     try{
