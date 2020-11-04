@@ -84,29 +84,76 @@ if(array_key_exists("guardar_promotor",$_POST)){
 }
 
 
-if(array_key_exists("guardar_programa",$_POST)){
+if(array_key_exists("guardar_programa_municipal",$_POST)){
     $nombre_programa = $_POST['nombre_programa'];
     $abreviatura_programa = $_POST['abreviatura_programa'];
-    $nivel_programa = $_POST['nivel_programa'];
     $descripcion_programa = $_POST['descripcion_programa'];
 
-    $sql_programa = "INSERT INTO VALUES(NULL, ?, ?, ?, ?)";
+    $sql_programa = "INSERT INTO programas_municipales VALUES(NULL, ?, ?, ?)";
     $sentencia_programas = $con->prepare($sql_programa);
 
     try{
-        $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $nivel_programa, $descripcion_programa));
-        header('Location:/admin/ajustes.php');
+        $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $descripcion_programa));
+        header('Location: admin/ajustes.php');
     }catch(Exception $e){
         echo 'Falló al agregar programa:' . $e->getMessage();
+        die();
     }
 }
 
+if(array_key_exists("guardar_programa_estatal",$_POST)){
+    $nombre_programa = $_POST['nombre_programa'];
+    $abreviatura_programa = $_POST['abreviatura_programa'];
+    $descripcion_programa = $_POST['descripcion_programa'];
 
+    $sql_programa = "INSERT INTO programas_estatales VALUES(NULL, ?, ?, ?)";
+    $sentencia_programas = $con->prepare($sql_programa);
+
+    try{
+        $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $descripcion_programa));
+        header('Location: admin/ajustes.php');
+    }catch(Exception $e){
+        echo 'Falló al agregar programa:' . $e->getMessage();
+        die();
+    }
+}
+
+if(array_key_exists("guardar_programa_federal",$_POST)){
+    $nombre_programa = $_POST['nombre_programa'];
+    $abreviatura_programa = $_POST['abreviatura_programa'];
+    $descripcion_programa = $_POST['descripcion_programa'];
+
+    $sql_programa = "INSERT INTO programas_federales VALUES(NULL, ?, ?, ?)";
+    $sentencia_programas = $con->prepare($sql_programa);
+
+    try{
+        $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $descripcion_programa));
+        header('Location: ../../ajustes.php');
+    }catch(Exception $e){
+        echo 'Falló al agregar programa:' . $e->getMessage();
+        die();
+    }
+}
 
 if($_GET){
-    if($_GET['id_programa']){
-        $id_programa = $_GET['id_programa'];
-        $sentencia_programas = $con->prepare('DELETE FROM programas WHERE id_programas = ?');
-        $sentencia_programas->execute(array($id_programa));
+    if(isset($_GET['id_programa_federal'])){
+        $id_programa_federal = $_GET['id_programa_federal'];
+        $sentencia_programas_federales = $con->prepare('DELETE FROM programas_federales WHERE id_programa_federal = ?');
+        $sentencia_programas_federales->execute(array($id_programa_federal));
+        header('Location: ../../ajustes.php');
+    }
+
+    if(isset($_GET['id_programa_estatal'])){
+        $id_programa_estatal = $_GET['id_programa_estatal'];
+        $sentencia_programas_estatales = $con->prepare('DELETE FROM programas_estatales WHERE id_programa_estatal = ?');
+        $sentencia_programas_estatales->execute(array($id_programa_estatal));
+        header('Location: ../../ajustes.php');
+    }
+
+    if(isset($_GET['id_programa_municipal'])){
+        $id_programa_municipal = $_GET['id_programa_municipal'];
+        $sentencia_programas_municipales = $con->prepare('DELETE FROM programas_municipales WHERE id_programa_municipal = ?');
+        $sentencia_programas_municipales->execute(array($id_programa_municipal));
+        header('Location: ../../ajustes.php');
     }
 }

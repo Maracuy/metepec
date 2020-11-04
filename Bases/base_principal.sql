@@ -29,12 +29,10 @@ CREATE TABLE IF NOT EXISTS programas_municipales(
   id_programa_municipal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
   abreviatura VARCHAR(10),
-  nivel VARCHAR(255),
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO programas_municipales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
-INSERT INTO programas_municipales VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal", "Programa Federal de Apoyo al Adulto Mayor");
+INSERT INTO programas_municipales VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
 
 
 
@@ -43,11 +41,10 @@ CREATE TABLE IF NOT EXISTS programas_estatales(
   id_programa_estatal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
   abreviatura VARCHAR(10),
-  nivel VARCHAR(255),
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO programas_estatales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+INSERT INTO programas_estatales VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
 
 
 
@@ -56,11 +53,11 @@ CREATE TABLE IF NOT EXISTS programas_federales(
   id_programa_federal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(45) NOT NULL,
   abreviatura VARCHAR(10),
-  nivel VARCHAR(255),
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO programas_federales VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
+INSERT INTO programas_federales VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
+INSERT INTO programas_municipales VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal de Apoyo al Adulto Mayor");
 
 
 
