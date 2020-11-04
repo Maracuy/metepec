@@ -394,6 +394,7 @@ CREATE TABLE IF NOT EXISTS comentarios(
 DROP TABLE IF EXISTS procesos_ciudadanos;
 CREATE TABLE IF NOT EXISTS procesos_ciudadanos(
   id_proceso_ciudadano INT AUTO_INCREMENT PRIMARY KEY,
+  id_alta INT,
   nombre VARCHAR(100),
   abreviatura VARCHAR(20),
   descripcion TEXT
