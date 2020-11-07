@@ -10,22 +10,18 @@ if(empty($_GET['id'])){
 $id_ciudadano = $_GET['id'];
 }
 
-$sql_ciudadano= "SELECT id_ciudadano, nombres, apellido_p, apellido_m FROM ciudadanos WHERE id_ciudadano = $id_ciudadano";
-$consulta_ciudadano = $con->prepare($sql_ciudadano);
-$consulta_ciudadano->execute();
-$ciudadano = $consulta_ciudadano->fetch();
-
-
-$sql_altas= "SELECT a.id_alta, a.exito, p.id_programa, p.abreviatura, p.nombre, c.nombres, c.apellido_m, c.apellido_p FROM altas a, programas_ciudadanos p, ciudadanos c WHERE a.id_ciudadano =? AND c.id_ciudadano=? AND p.id_programa=a.id_programa AND a.exito=1 AND p.id_programa !=1 GROUP BY a.id_alta;";
+/* $sql_altas= "SELECT a.id_alta, a.exito, p.id_programa, p.abreviatura, p.nombre, c.nombres, c.apellido_m, c.apellido_p 
+FROM altas a, programas_ciudadanos p, ciudadanos c 
+WHERE a.id_ciudadano =? AND c.id_ciudadano=? AND p.id_programa=a.id_programa AND a.exito=1 AND p.id_programa !=1 GROUP BY a.id_alta;";
 $consulta_altas = $con->prepare($sql_altas);
 $consulta_altas->execute(array($id_ciudadano, $id_ciudadano));
-$result_altas = $consulta_altas->fetchAll();
+$result_altas = $consulta_altas->fetchAll(); */
 
 
-$sql_en_proceso= "SELECT pc.id_proceso_ciudadano, a.id_alta, a.id_ciudadano, a.exito, p.id_programa, p.abreviatura, p.nombre, c.nombres, c.apellido_m, c.apellido_p FROM altas a, programas_ciudadanos p, ciudadanos c, procesos_ciudadanos pc WHERE pc.id_alta = a.id_alta AND a.id_ciudadano =? AND c.id_ciudadano=? AND p.id_programa=a.id_programa AND a.exito=0 AND p.id_programa !=1 GROUP BY a.id_alta;";
+/* $sql_en_proceso= "SELECT pc.id_proceso, a.id_alta, a.id_ciudadano, a.exito, p.id_programa, p.abreviatura, p.nombre, c.nombres, c.apellido_m, c.apellido_p FROM altas a, programas_ciudadanos p, ciudadanos c, procesos pc WHERE pc.id_alta = a.id_alta AND a.id_ciudadano =? AND c.id_ciudadano=? AND p.id_programa=a.id_programa AND a.exito=0 AND p.id_programa !=1 GROUP BY a.id_alta;";
 $consulta_en_proceso = $con->prepare($sql_en_proceso);
 $consulta_en_proceso->execute(array($id_ciudadano, $id_ciudadano));
-$result_en_proceso = $consulta_en_proceso->fetchAll();
+$result_en_proceso = $consulta_en_proceso->fetchAll(); */
 
 echo "<br>";
 echo  "<h4>" . $ciudadano['id_ciudadano'] . " - " .$ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] . "<h4>";
@@ -153,7 +149,7 @@ echo "<br>";
 
 foreach($result_programas as $programa): ?>
     <div class="alert btn alert-primary col-md-6" role="alert">
-        <a href="proceso.php?id_programa=<?php echo $programa['id_programas'] . '&id_ciudadano='. $id_ciudadano?>"> Inscribir al programa <?php echo $programa['nombre'] ?></a>
+        <a href="proceso.php?id_programa=<?php echo $programa['id_programa'] . '&id_ciudadano='. $id_ciudadano?>"> Inscribir al programa <?php echo $programa['nombre'] ?></a>
     </div>
 
 <?php endforeach;

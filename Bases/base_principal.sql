@@ -282,15 +282,13 @@ CREATE TABLE IF NOT EXISTS altas(
   tarjeta VARCHAR(12),
   padron VARCHAR(10),
   id_departamento INT NULL,
-  id_programa INT NULL,
+  id_programa_f INT NULL,
+  id_programa_e INT NULL,
+  id_programa_m INT NULL,
   id_responsable INT NOT NULL,
   visto_por_responsable INT,
   id_empleado_capt INT NOT NULL,
-  exito BOOLEAN,
-  CONSTRAINT fk_altas_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_programa FOREIGN KEY (id_programa) REFERENCES programas_internos(id_programa) ON DELETE CASCADE,
-  CONSTRAINT fk_altas_responsable FOREIGN KEY (id_responsable) REFERENCES empleados(id_empleado) ON DELETE CASCADE,
-  CONSTRAINT fk_alta_empleado_capturista FOREIGN KEY (id_empleado_capt) REFERENCES empleados(id_empleado) ON DELETE CASCADE
+  exito BOOLEAN
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -366,7 +364,6 @@ CREATE TABLE IF NOT EXISTS tareas(
   CONSTRAINT fk_tareas_empleado_responsable FOREIGN KEY (id_empleado_asigna_tarea) REFERENCES empleados(id_empleado),
   CONSTRAINT fk_tareas_ciud_origenes FOREIGN KEY (id_origen) REFERENCES origenes(id),
   CONSTRAINT fk_tareas_int_programa FOREIGN KEY (id_programa_int) REFERENCES programas_internos(id_programa),
-  CONSTRAINT fk_tareas_ciud_programa FOREIGN KEY (id_programa_ciud) REFERENCES programas_ciudadanos(id_programa),
   CONSTRAINT fk_tareas_ciud_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES ciudadanos(id_ciudadano),
   CONSTRAINT fk_tareas_int_beneficiarios_int FOREIGN KEY (id_beneficiario_int) REFERENCES beneficiarios_int(id_beneficiario_int)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -387,23 +384,12 @@ CREATE TABLE IF NOT EXISTS comentarios(
 
 
 
-DROP TABLE IF EXISTS procesos_ciudadanos;
-CREATE TABLE IF NOT EXISTS procesos_ciudadanos(
-  id_proceso_ciudadano INT AUTO_INCREMENT PRIMARY KEY,
+DROP TABLE IF EXISTS procesos;
+CREATE TABLE IF NOT EXISTS procesos(
+  id_proceso INT AUTO_INCREMENT PRIMARY KEY,
   id_alta INT,
-  nombre VARCHAR(100),
-  abreviatura VARCHAR(20),
+  id_empleado INT,
+  fecha DATE,
+  estado INT,
   descripcion TEXT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-
-DROP TABLE IF EXISTS procesos_internos;
-CREATE TABLE IF NOT EXISTS procesos_internos(
-  id_proceso_ciudadano INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100),
-  abreviatura VARCHAR(20),
-  descripcion TEXT
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO procesos_internos VALUES(NULL, "Sin proceso", "SNPR", "Se elige por defecto");
