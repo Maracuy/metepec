@@ -1,8 +1,8 @@
 <?php
-$sql_federales= "SELECT * FROM altas WHERE altas.id_ciudadano = ?";
-$consulta_federales = $con->prepare($sql_federales);
-$consulta_federales->execute(array($id_ciudadano));
-$federales = $consulta_federales->fetchAll();
+$sql= "SELECT a.*, pf.*, pe.*, pm.* FROM altas a, programas_federales pf, programas_estatales pe, programas_municipales pm WHERE a.id_programa_f IN (SELECT id_programa_federal FROM programas_federales) a.id_ciudadano = ? GROUP BY a.id_alta";
+$consulta = $con->prepare($sql);
+$consulta->execute(array($id_ciudadano));
+$altas = $consulta->fetchAll();
 
 /* $sql_estatales= "SELECT * FROM altas WHERE id_alta IN (SELECT id_programa_federal FROM programas_federales) AND altas.tipo_programa=2 AND id_ciudadano = ?";
 $consulta_estatales = $con->prepare($sql_estatales);
@@ -14,16 +14,13 @@ $consulta_municipales = $con->prepare($sql_municipales);
 $consulta_municipales->execute(array($id_ciudadano));
 $municipales = $consulta_municipales->fetchAll(); */
 
-
-var_dump($federales);
-
 ?>
 <br>
-<h4> <?php $ciudadano['id_ciudadano'] . " - " .$ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?> <h4>;
+<h4> <?php $ciudadano['id_ciudadano'] . " - " .$ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?> <h4>
 
 <!-- Aqui se muestra la tabla cuando el ciudadano esta en procesos activos -->
 
-<?php if($federales): ?>
+<?php if($altas): ?>
     <br><h3>Tiene en proceso:</h3> <br> 
     <table class="table">
         <thead>
@@ -36,30 +33,14 @@ var_dump($federales);
         </thead>
         
         <tbody>
-            <?php foreach($federales as $proceso): ?>
+            <?php foreach($altas as $alta): ?>
             <tr>
-                <td> <?php echo $proceso['nombre'] ?> </td>
-                <td> <?php echo $proceso['abreviatura'] ?> </td>
-                <td> <a href="proceso.php?id_proceso=<?php echo $proceso['id_procesos']?>&id_ciudadano=<?php echo $id_ciudadano ?>&id_alta=<?php echo $proceso['id_alta']?>" class="btn btn-primary">Ver progreso</a> </td>
+                <td> <?php echo $alta['nombre'] ?> </td>
+                <td> <?php echo $alta['abreviatura'] ?> </td>
+                <td>  </td>
+                <td> <a href="proceso.php?id_proceso=<?php //echo $alta['id_procesos']?>&id_ciudadano=<?php echo $id_ciudadano ?>&id_alta=<?php echo $alta['id_alta']?>" class="btn btn-primary">Ver progreso</a> </td>
             </tr>
             <?php endforeach;?>
-
-            <?php foreach($estatales as $proceso): ?>
-            <tr>
-                <td> <?php echo $proceso['nombre'] ?> </td>
-                <td> <?php echo $proceso['abreviatura'] ?> </td>
-                <td> <a href="proceso.php?id_proceso=<?php echo $proceso['id_procesos']?>&id_ciudadano=<?php echo $id_ciudadano ?>&id_alta=<?php echo $proceso['id_alta']?>" class="btn btn-primary">Ver progreso</a> </td>
-            </tr>
-            <?php endforeach;?>
-
-            <?php foreach($municipales as $proceso): ?>
-            <tr>
-                <td> <?php echo $proceso['nombre'] ?> </td>
-                <td> <?php echo $proceso['abreviatura'] ?> </td>
-                <td> <a href="proceso.php?id_proceso=<?php echo $proceso['id_procesos']?>&id_ciudadano=<?php echo $id_ciudadano ?>&id_alta=<?php echo $proceso['id_alta']?>" class="btn btn-primary">Ver progreso</a> </td>
-            </tr>
-            <?php endforeach;?>
-        
         </tbody>
 
 
