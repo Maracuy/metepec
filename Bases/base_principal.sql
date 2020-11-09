@@ -293,23 +293,13 @@ CREATE TABLE IF NOT EXISTS altas(
 
 
 
-
-DROP TABLE IF EXISTS pagos_adulto_mayor;
-CREATE TABLE IF NOT EXISTS pagos_adulto_mayor(
-  id_pagos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  forma_de_pago VARCHAR(15),
-  year_on_curse VARCHAR(4),
-  id_alta INT NOT NULL,
-  fecha_de_pago_bim_1 DATE,
-  fecha_de_pago_bim_2 DATE,
-  fecha_de_pago_bim_3 DATE,
-  fecha_de_pago_bim_4 DATE,
-  fecha_de_pago_bim_5 DATE,
-  fecha_de_pago_bim_6 DATE,
-  exito INT,
-  CONSTRAINT fk_pagos_programa FOREIGN KEY (id_alta) REFERENCES altas(id_alta) ON DELETE CASCADE
+DROP TABLE IF EXISTS peticiones;
+CREATE TABLE IF NOT EXISTS peticiones(
+  id_peticion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id_ciudadano INT,
+  fecha DATE,
+  peticion TEXT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 
 
 

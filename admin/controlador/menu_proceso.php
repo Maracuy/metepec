@@ -3,6 +3,8 @@
   <a href="archivos_ciudadanos.php?id=<?php echo $id ?>" type="button" class="btn btn-secondary">Decumentos</a>
   <a href="galaxia?id=<?php echo $id ?>" type="button" class="btn btn-secondary">Galaxia</a>
   <a href="permisos.php?id=<?php echo $id ?>" type="button" class="btn btn-secondary">Permisos</a>
+  <a href="programas.php?id=<?php echo $id ?>" type="button" class="btn btn-secondary">Programas</a>
+  <a href="peticiones.php?id=<?php echo $id ?>" type="button" class="btn btn-secondary">Peticiones</a>
 </div>
 
 <br>
