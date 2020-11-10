@@ -206,11 +206,10 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   posicion VARCHAR(45) NULL DEFAULT NULL,
   asistio VARCHAR(45) NULL DEFAULT NULL,
   afiliacion VARCHAR(45) NULL DEFAULT NULL,
+  simpatia INT,
   id_registrante INT NOT NULL,
-  observaciones TEXT NULL DEFAULT NULL,
-  CONSTRAINT fk_beneficiarios_colonias FOREIGN KEY (id_colonia) REFERENCES colonias (id)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
+  observaciones TEXT NULL DEFAULT NULL
+)ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
@@ -349,13 +348,7 @@ CREATE TABLE IF NOT EXISTS tareas(
   prioridad INT,
   avance INT,
   realizada INT,
-  aceptada INT,
-  CONSTRAINT fk_tareas_empleado_crea FOREIGN KEY (id_empleado_crea_tarea) REFERENCES empleados(id_empleado),
-  CONSTRAINT fk_tareas_empleado_responsable FOREIGN KEY (id_empleado_asigna_tarea) REFERENCES empleados(id_empleado),
-  CONSTRAINT fk_tareas_ciud_origenes FOREIGN KEY (id_origen) REFERENCES origenes(id),
-  CONSTRAINT fk_tareas_int_programa FOREIGN KEY (id_programa_int) REFERENCES programas_internos(id_programa),
-  CONSTRAINT fk_tareas_ciud_beneficiarios FOREIGN KEY (id_beneficiario) REFERENCES ciudadanos(id_ciudadano),
-  CONSTRAINT fk_tareas_int_beneficiarios_int FOREIGN KEY (id_beneficiario_int) REFERENCES beneficiarios_int(id_beneficiario_int)
+  aceptada INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

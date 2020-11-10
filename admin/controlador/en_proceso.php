@@ -28,6 +28,9 @@ $consulta_municipales = $con->prepare($sql_municipales);
 $consulta_municipales->execute(array($id_ciudadano));
 $municipales = $consulta_municipales->fetchAll(); */
 
+
+include 'controlador/menu_proceso.php';
+
 ?>
 <br>
 <h4> <?php $ciudadano['id_ciudadano'] . " - " .$ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?> <h4>

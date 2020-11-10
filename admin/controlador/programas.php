@@ -7,10 +7,10 @@ if(empty($_GET['id'])){
     echo "No exite esta pagina";
     die();
 }else{
-$id_ciudadano = $_GET['id'];
+$id = $_GET['id'];
 }
 
-$stm = $con->query("SELECT * FROM altas WHERE id_ciudadano = $id_ciudadano AND exito = 1");
+$stm = $con->query("SELECT * FROM altas WHERE id_ciudadano = $id AND exito = 1");
 $altas = $stm->fetchAll(PDO::FETCH_ASSOC);
 ?>
 

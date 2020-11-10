@@ -7,27 +7,6 @@ if (empty($_SESSION['user'])){
 }
 require_once '../conection/conexion.php';
 require_once '../conection/conexioni.php';
-
-if(empty($_GET['id'])){
-    echo "No exite esta pagina";
-    die();
-}else{
-$id_ciudadano = $_GET['id'];
-$id = $_GET['id'];
-
-}
-
-
-$sql_ciudadano= "SELECT id_ciudadano, nombres, apellido_p, apellido_m FROM ciudadanos WHERE id_ciudadano = $id_ciudadano";
-$consulta_ciudadano = $con->prepare($sql_ciudadano);
-$consulta_ciudadano->execute();
-$ciudadano = $consulta_ciudadano->fetch();
-
-/* $sql_altas= "SELECT a.id_alta, a.exito, p.id_programa, p.abreviatura, p.nombre, c.nombres, c.apellido_m, c.apellido_p FROM altas a, programas_ciudadanos p, ciudadanos c WHERE a.id_ciudadano =? AND c.id_ciudadano=? AND p.id_programa=a.id_programa AND a.exito=1 AND p.id_programa !=1 GROUP BY a.id_alta;";
-$consulta_altas = $con->prepare($sql_altas);
-$consulta_altas->execute(array($id_ciudadano, $id_ciudadano));
-$result_altas = $consulta_altas->fetchAll(); */
-
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +14,7 @@ $result_altas = $consulta_altas->fetchAll(); */
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programas</title>
+    <title>Inicio</title>
     <!-- Bootstrap CSS -->
     <script src="https://kit.fontawesome.com/d0baa1aa63.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -55,9 +34,8 @@ td a {
 
     
 
-    <?php include 'controlador/en_proceso.php' ?>
-    <?php include 'controlador/programas.php' ?>
-    <?php include 'controlador/programas_nuevos.php' ?>
+
+    <?php include 'controlador/Simpatia.php' ?>
 
 
 
