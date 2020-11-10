@@ -1,6 +1,5 @@
 <?php
 session_start();
-header("Content-Type: text/html;charset=utf-8");
 if (empty($_SESSION['user'])){
     echo "no estas registrado";
     die();

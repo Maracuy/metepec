@@ -21,7 +21,13 @@ if($_POST){
     $simpatia = $_POST['simpatia'];
     $simpatia = intval($simpatia);
     $nrows = $con->exec("UPDATE ciudadanos SET simpatia = $simpatia WHERE id_ciudadano = $id");
-    header("Location: ../ciudadanos.php");
+    echo "
+    <script>
+    alert('Se ha guardado correctamente')
+    window.location.href = 'ciudadanos.php';
+    </script>
+    ";
+    die();
 }
 
 include 'controlador/menu_proceso.php';
