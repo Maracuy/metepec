@@ -53,7 +53,7 @@ td a {
     
 
     <?php include 'controlador/en_proceso.php' ?>
-    <?php //include 'controlador/programas.php' ?>
+    <?php include 'controlador/programas.php' ?>
     <?php include 'controlador/programas_nuevos.php' ?>
 
 

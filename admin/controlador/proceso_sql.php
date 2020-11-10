@@ -6,8 +6,11 @@ if (empty($_SESSION['user']) ){
 }
 include_once '../../conection/conexion.php';
 
+
 $id_empleado = $_SESSION['user']['id_empleado'];
-$id_ciudadano = $_POST['id_ciudadano'];
+
+$id_ciudadano = (isset($_POST['id_ciudadano']) && $_POST['id_ciudadano'] != '') ? $_POST['id_ciudadano'] : NULL ;
+$id_alta = (isset($_POST['id_alta']) && $_POST['id_alta']) ? $_POST['id_alta'] : NULL;
 
 
 function creaAlta($datos, $con, $id_empleado){
@@ -16,13 +19,13 @@ function creaAlta($datos, $con, $id_empleado){
     $id_programa = $datos['id_programa'];
 
     if($tipo == 1 ){ // federal
-        $sql_proceso = $con->prepare('INSERT INTO altas(id_ciudadano, fecha_activacion, id_programa_f, id_empleado_capt) VALUES(?, CURTIME(), ?, ?)');
+        $sql_proceso = $con->prepare('INSERT INTO altas(id_ciudadano, fecha_activacion, id_programa_f, id_empleado_capt, exito) VALUES(?, CURTIME(), ?, ?, 0)');
     }
     if($tipo == 2 ){ // estatal
-        $sql_proceso = $con->prepare('INSERT INTO altas(id_ciudadano, fecha_activacion, id_programa_e, id_empleado_capt) VALUES(?, CURTIME(), ?, ?)');
+        $sql_proceso = $con->prepare('INSERT INTO altas(id_ciudadano, fecha_activacion, id_programa_e, id_empleado_capt, exito) VALUES(?, CURTIME(), ?, ?, 0)');
     }
     if($tipo == 3 ){ // municipal
-        $sql_proceso = $con->prepare('INSERT INTO altas(id_ciudadano, fecha_activacion, id_programa_m, id_empleado_capt) VALUES(?, CURTIME(), ?, ?)');
+        $sql_proceso = $con->prepare('INSERT INTO altas(id_ciudadano, fecha_activacion, id_programa_m, id_empleado_capt, exito) VALUES(?, CURTIME(), ?, ?, 0)');
     }
     try {
         $sql_proceso->execute(array($id_ciudadano, $id_programa, $id_empleado));
@@ -38,7 +41,7 @@ function creaAlta($datos, $con, $id_empleado){
     }
 }
 
-function proceso($proceso,$con, $id_empleado, $id_alta){
+function proceso($proceso,$con, $id_alta, $id_empleado){
     $descripcion = $proceso['descripcion'];
 
     $sentencia = 'INSERT INTO procesos(id_alta, id_empleado, fecha, descripcion) VALUES(?, ?, CURTIME(), ?)';
@@ -65,8 +68,16 @@ if(array_key_exists("nuevo",$_POST)){
     if(!isset($_POST['id_alta']) || $_POST['id_alta'] == ''){
         $id_alta = creaAlta($_POST, $con, $id_empleado);
     }
-    proceso($_POST, $con, $id_alta, $id_empleado, $id_alta, $_GET);
+    proceso($_POST, $con, $id_alta, $id_empleado);
     header("Location: ../programas.php?id=$id_ciudadano");
+}
+
+
+if($_GET){
+    if($_GET['terminado']){
+        $id_alta = $_GET['terminado'];
+        $terminar = $con->exec("UPDATE altas SET exito = 1 WHERE id_alta = $id_alta");
+    }
 }
 
 

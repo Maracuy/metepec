@@ -1,7 +1,5 @@
 <?php
 
-
-
 $sql_fed = "SELECT * FROM programas_federales WHERE id_programa_federal != 1";
 $programas_federales = $con->prepare($sql_fed);
 $programas_federales->execute();
@@ -19,10 +17,14 @@ $municipales = $programas_municipales->fetchAll();
 
 ?>
 
-<h5> Inscribir a un programa nuevo: </h5>
+
+<br>
+<br>
 
 
 <table class="table">
+    <br>
+    <h5> Inscribir a un programa nuevo: </h5>
   <thead>
     <tr>
       <th scope="col">Programas Federales</th>

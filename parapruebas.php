@@ -1,41 +1,19 @@
 <?php
 
-if($_POST){
-  $datos = $_POST;
+require_once 'conection/conexion.php';
 
-  var_dump($datos);
 
-  $datos['casa'] =   intval($datos['casa']);
+// Esto sirve para hacer deletes, no regresa nada.
+//$nrows = $con->exec("DELETE FROM programas_federales WHERE id_programa_federal = 9");
 
-  $keys = array_keys($datos);
-  $values = array_values($datos);
-  $keysString = implode(",", $keys);
-  echo $keysString;
-  echo var_dump($values);
-}
+
+//Para requerir informacion sin variables
+$stm = $con->query("SELECT * FROM altas WHERE id_alta =");
+$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+var_dump($rows);
+
+// Para el last ID
+$rowid = $con->lastInsertId();
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-
-<form method="POST">
-
-	<input type="text" name="nombre" id="nombre">
-	<input type="text" name="telefono" id="telefono">
-	<input type="text" name="texto" id="texto">
-	<input type="text" name="casa" id="casa">
-
-	<input type="submit" value="send">
-
-</form>
-
-</body>
-</html>
