@@ -1,3 +1,4 @@
+INSERT INTO colonias (nombre_colonia,municipio) VALUES ('Sin Colonia','');
 INSERT INTO colonias (nombre_colonia,municipio) VALUES ('BARRIO DE COAXUSTENCO','Metepec');
 INSERT INTO colonias (nombre_colonia,municipio) VALUES ('BARRIO DE SAN MATEO','Metepec');
 INSERT INTO colonias (nombre_colonia,municipio) VALUES ('BARRIO DE SAN MIGUEL','Metepec');

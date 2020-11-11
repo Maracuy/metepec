@@ -241,7 +241,8 @@ $empleado = $_SESSION['user']['id_empleado'];
             <?php
                 $query = $mysqli->query("SELECT * FROM colonias");
                 while ($colonias = mysqli_fetch_array($query)) {
-                echo '<option ' . $selected = ($ciudadano['id_colonia'] == $colonias['id']) ? "selected" : "" .' value="'.$colonias['id'].'">'.$colonias['nombre_colonia'].'</option>'; } ?>
+                echo '<option ' . ($selected = ($ciudadano['id_colonia'] == $colonias['id']) ? "selected" : "") . ' value="'.$colonias['id'].'">'.$colonias['nombre_colonia'].'</option>';
+                }?>
             </select>
         </div>
 

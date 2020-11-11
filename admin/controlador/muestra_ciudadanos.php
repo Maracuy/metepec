@@ -4,17 +4,18 @@ if (empty($_SESSION['user'])){
     die();
 }
 
-/* $consulta_procesos = "SELECT c.*, co.*, a.* FROM ciudadanos c, colonias co, altas a WHERE c.id_ciudadano = a.id_ciudadano AND c.id_colonia = co.id AND a.id_programa = p.id_programa GROUP BY b.id_beneficiario ORDER BY b.id_beneficiario DESC";
-$sql_query_procesos = $con->prepare($consulta);
+
+$consulta_procesos = "SELECT c.* FROM ciudadanos c WHERE c.id_ciudadano IN (SELECT id_alta FROM altas WHERE exito = 0);";
+$sql_query_procesos = $con->prepare($consulta_procesos);
 $sql_query_procesos->execute();
 $procesos = $sql_query_procesos->fetchALL();
 
 
 
-$consulta_beneficiarios = "SELECT b.id_beneficiario, b.nombres, b.apellido_p, b.apellido_m, b.id_colonia, b.otra_colonia, b.telefono, p.id_programa, p.abreviatura, p.nombre, c.nombre_colonia, a.id_alta, a.id_beneficiario FROM beneficiarios b, programas_ciudadanos p, colonias c, altas a WHERE b.id_beneficiario = a.id_beneficiario AND b.id_colonia = c.id AND a.id_programa = p.id_programa GROUP BY b.id_beneficiario ORDER BY b.id_beneficiario DESC";
-$sql_query_beneficiarios = $con->prepare($consulta);
+$consulta_beneficiarios = "SELECT c.* FROM ciudadanos c WHERE c.id_ciudadano IN (SELECT id_alta FROM altas WHERE exito = 1);";
+$sql_query_beneficiarios = $con->prepare($consulta_beneficiarios);
 $sql_query_beneficiarios->execute();
-$beneficiarios = $sql_query_beneficiarios->fetchALL(); */
+$beneficiarios = $sql_query_beneficiarios->fetchALL();
 
 
 
@@ -25,25 +26,19 @@ $ciudadanos = $sql_query_ciudadanos->fetchALL();
 
 
 
-/* $consulta_servidores = "SELECT b.id_beneficiario, b.nombres, b.apellido_p, b.apellido_m, b.id_colonia, b.otra_colonia, b.telefono, p.id_programa, p.abreviatura, p.nombre, c.nombre_colonia, a.id_alta, a.id_beneficiario FROM beneficiarios b, programas_ciudadanos p, colonias c, altas a WHERE b.id_beneficiario = a.id_beneficiario AND b.id_colonia = c.id AND a.id_programa = p.id_programa GROUP BY b.id_beneficiario ORDER BY b.id_beneficiario DESC";
-$sql_query_servidores = $con->prepare($consulta);
-$sql_query_servidores->execute();
-$servidores = $sql_query_servidores->fetchALL(); */
+$consulta_integrantes = "SELECT c.* FROM ciudadanos c WHERE c.nivel != 10;";
+$sql_query_integrantes = $con->prepare($consulta_integrantes);
+$sql_query_integrantes->execute();
+$integrantes = $sql_query_integrantes->fetchALL();
 
 
 
 $sql_colonias = $con->prepare("SELECT * FROM colonias");
 $sql_colonias->execute();
 $colonias = $sql_colonias->fetchALL();
-
-
 ?>
 
-
 <a href="../admin/alta_ciudadano.php"><button type="button" class="btn btn-primary btn-lg mt-3">Nuevo Ciudadano</button></a>
-
-
-
 
 <table class="table table-striped">
 	<thead>
@@ -70,20 +65,22 @@ $colonias = $sql_colonias->fetchALL();
 	</thead>
 
 	<tbody>
-		<?php if(isset($procesos)): ?>
+		<?php if(isset($procesos)): 
+			foreach ($procesos as $proceso):
+				$id_colonia = $proceso['id_colonia'];?>
         <tr>
-			<td></td>
-			<td>1</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td><?php echo $proceso['zona'] ?></td>
+			<td><?php echo $proceso['seccion_electoral'] ?></td>
+			<td><?php echo $colonia = ($proceso['id_colonia'] != 1 || $proceso['id_colonia'] != '') ? ($colonias[$id_colonia]['nombre_colonia'] ) : $proceso['otra_colonia']?></td>
+			<td><?php echo $proceso['manzana'] ?></td>
+			<td><?php echo $proceso['posicion'] ?></td>
+			<td><?php echo $vul = ($proceso['vulnerable'] == 1) ? 'SI' : 'NO' ?></td>
+			<td><?php echo $proceso['nombres'] . " " . $proceso['apellido_p'] . " " . $proceso['apellido_m'] ?></td>
+			<td><a href="<?php echo 'alta_ciudadano.php?id=' . $proceso['id_ciudadano'] ?>"><i class="fas fa-id-card"></i></a></td>
+			<td><?php echo $genero = ($proceso['genero'] == 0) ? "M" : "H" ?></td>
+			<td><?php echo $edad = ($proceso['fecha_nacimiento'] != "" && $proceso['fecha_nacimiento'] != "0000-00-00") ? (date('Y') - date("Y",strtotime($proceso['fecha_nacimiento']))) : "" ?></td>
+			<td><i class="fas fa-user-friends"></i></td>
+			<td><?php echo $simpatia = ($proceso['simpatia'] != 0) ? $proceso['simpatia'] : '<a href="simpatia.php?id='.$proceso['id_ciudadano'].'"><i class="fas fa-sliders-h"></i></a>' ?></td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -91,14 +88,15 @@ $colonias = $sql_colonias->fetchALL();
 			<td></td>
 			<td></td>
 		</tr>
-		<?php endif ?>
+		<?php endforeach;
+		endif ?>
 
 		<?php if(isset($beneficiarios)): ?>
 		<tr>
 			<td></td>
 			<td></td>
 			<td></td>
-			<td>12</td>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -115,7 +113,6 @@ $colonias = $sql_colonias->fetchALL();
 			<td></td>
 		</tr>
 		<?php endif ?>
-<!-- nodos 0382 -->
 		<?php if(isset($ciudadanos)):
 			foreach ($ciudadanos as $ciudadano):
 				$id_colonia = $ciudadano['id_colonia'];
@@ -133,7 +130,7 @@ $colonias = $sql_colonias->fetchALL();
 					<td><?php echo $genero = ($ciudadano['genero'] == 0) ? "M" : "H" ?></td>
 					<td><?php echo $edad = ($ciudadano['fecha_nacimiento'] != "" && $ciudadano['fecha_nacimiento'] != "0000-00-00") ? (date('Y') - date("Y",strtotime($ciudadano['fecha_nacimiento']))) : "" ?></td>
 					<td><i class="fas fa-user-friends"></i></td>
-					<td><?php echo 'pendiente' ?></td>
+					<td><?php echo $simpatia = ($proceso['simpatia'] != 0) ? $proceso['simpatia'] : '<a href="simpatia.php?id='.$proceso['id_ciudadano'].'"><i class="fas fa-sliders-h"></i></a>' ?></td>
 					<td><?php echo $ciudadano['zona'] ?></td>
 					<td><?php echo $ciudadano['zona'] ?></td>
 					<td><?php echo $ciudadano['zona'] ?></td>
@@ -149,7 +146,7 @@ $colonias = $sql_colonias->fetchALL();
 			<td></td>
 			<td></td>
 			<td></td>
-			<td>32</td>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>

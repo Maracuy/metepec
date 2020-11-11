@@ -1,5 +1,5 @@
 <?php
-$sql= "SELECT * FROM altas WHERE id_ciudadano = ? AND exito =NULL";
+$sql= "SELECT * FROM altas WHERE id_ciudadano = ? AND exito =0";
 $consulta = $con->prepare($sql);
 $consulta->execute(array($id_ciudadano));
 $altas = $consulta->fetchAll();
