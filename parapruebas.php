@@ -8,12 +8,20 @@ require_once 'conection/conexion.php';
 
 
 //Para requerir informacion sin variables
-$stm = $con->query("SELECT * FROM altas WHERE id_alta =");
+/* $stm = $con->query("SELECT * FROM altas WHERE id_alta =");
 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 var_dump($rows);
 
 // Para el last ID
-$rowid = $con->lastInsertId();
+$rowid = $con->lastInsertId(); */
+
+
+$id_ciudadano =1;
+
+
+$stm = $con->query("SELECT a.*, p* FROM altas a, programas_federales p WHERE a.id_ciudadano = $id_ciudadano AND p.id_programa_federal = a.id_programa_f");
+$federales = $stm->fetchAll(PDO::FETCH_ASSOC);
+var_dump($federales);
 
 ?>
