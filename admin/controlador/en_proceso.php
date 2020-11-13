@@ -16,19 +16,6 @@ $estatales = $stm->fetchAll(PDO::FETCH_ASSOC);
 $stm = $con->query("SELECT * FROM programas_municipales");
 $municipales = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-/* $sql_estatales= "SELECT * FROM altas WHERE id_alta IN (SELECT id_programa_federal FROM programas_federales) AND altas.tipo_programa=2 AND id_ciudadano = ?";
-$consulta_estatales = $con->prepare($sql_estatales);
-$consulta_estatales->execute(array($id_ciudadano));
-$estatales = $consulta_estatales->fetchAll();
-
-$sql_municipales= "SELECT * FROM altas WHERE id_alta IN (SELECT id_programa_federal FROM programas_federales) AND altas.tipo_programa=3 AND id_ciudadano = ?";
-$consulta_municipales = $con->prepare($sql_municipales);
-$consulta_municipales->execute(array($id_ciudadano));
-$municipales = $consulta_municipales->fetchAll(); */
-
-
 include 'controlador/menu_proceso.php';
 
 ?>
@@ -55,13 +42,13 @@ include 'controlador/menu_proceso.php';
             <tr>
                 <td> 
                     <?php 
-                        if($alta['id_programa_f'] != ''){
+                        if($alta['id_programa_f'] > 0){
                             echo $federales[$alta['id_programa_f']-1]['nombre'];
                         }
-                        if($alta['id_programa_e'] != ''){   
+                        if($alta['id_programa_e'] > 0){   
                             echo $estatales[$alta['id_programa_e']-1]['nombre'];
                         }
-                        if($alta['id_programa_m'] != ''){
+                        if($alta['id_programa_m'] > 0){
                             echo $municipales[$alta['id_programa_m']-1]['nombre'];
                         }
                     ?> 
@@ -76,5 +63,3 @@ include 'controlador/menu_proceso.php';
 <?php endif;?>
     </table>
 <br>
-
-<h5> no tiene ningun proceso activo</h5>

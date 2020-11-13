@@ -24,29 +24,38 @@ if($altas):?>
                 <td> Datos como fechas y asi.. </td>
             </tr>
         </thead>
-    <?php foreach($altas as $alta):?>
+    <?php foreach($altas as $alta):
+        $stm = $con->query("SELECT * FROM programas_federales WHERE i");
+        $federales = $stm->fetchAll(PDO::FETCH_ASSOC);
+        
+        $stm = $con->query("SELECT * FROM programas_estatales");
+        $estatales = $stm->fetchAll(PDO::FETCH_ASSOC);
+        
+        $stm = $con->query("SELECT * FROM programas_municipales");
+        $municipales = $stm->fetchAll(PDO::FETCH_ASSOC);
+        ?>
 
         <tbody>
             <tr>
                 <td> <?php 
-                if($alta['id_programa_f'] != ''){
-                    echo $federales[$alta['id_programa_f']-1]['nombre'];
+                if($alta['id_programa_f'] > 0){
+                    echo $federales['nombre'];
                 }
-                if($alta['id_programa_e'] != ''){   
-                    echo $estatales[$alta['id_programa_e']-1]['nombre'];
+                if($alta['id_programa_e'] >0 ){   
+                    echo $estatales['nombre'];
                 }
-                if($alta['id_programa_m'] != ''){
-                    echo $municipales[$alta['id_programa_m']-1]['nombre'];
+                if($alta['id_programa_m'] > 0){
+                    echo $municipales['nombre'];
                 } ?> </td>
                 <td> <?php 
-                if($alta['id_programa_f'] != ''){
-                    echo $federales[$alta['id_programa_f']-1]['abreviatura'];
+                if($alta['id_programa_f'] > 0){
+                    echo $federales['abreviatura'];
                 }
-                if($alta['id_programa_e'] != ''){   
-                    echo $estatales[$alta['id_programa_e']-1]['abreviatura'];
+                if($alta['id_programa_e'] > 0){   
+                    echo $estatales['abreviatura'];
                 }
-                if($alta['id_programa_m'] != ''){
-                    echo $municipales[$alta['id_programa_m']-1]['abreviatura'];
+                if($alta['id_programa_m'] > 0){
+                    echo $municipales['abreviatura'];
                 }
                 ?> </td>
                 <td> Datos como fechas y asi.. </td>
