@@ -12,16 +12,11 @@
 
         
         <a href="../admin/documentos.php" class="d-block text-light p-3"> <i class="far fa-file mr-2"></i> Documentos </a>
-        <a href="../admin/glosario.php" class="d-block text-light p-3"> <i class="fas fa-spell-check mr-2"></i> Glosario </a>
 
         <?php 
-        if ($_SESSION['user']['nivel'] == "Admin" || $_SESSION['user']['nivel'] == "Super Admin"){
-            echo '<a href="../admin/ajustes.php" class="d-block text-light p-3"> <i class="fas fa-tools mr-2"></i> Ajustes </a>';
-        }
-        else{
-            echo"";
-        }
-        ?>
+        if ($_SESSION['user']['nivel'] == "Admin" || $_SESSION['user']['nivel'] == "Super Admin"):?>
+            <a href="../admin/ajustes.php" class="d-block text-light p-3"> <i class="fas fa-tools mr-2"></i> Ajustes </a>
+        <?php endif ?>
 
     </div>
 </div>

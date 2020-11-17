@@ -40,9 +40,10 @@ if(array_key_exists("guardar_origen",$_POST)){
     
     try{
         $sentencia_agregar_origen->execute(array($nombre_origen, $abreviatura_origen, $descripcion_origen));
-        header('Location:/metepec/admin/ajustes.php');
+        header('Location: /admin/ajustes.php');
     }catch(Exception $e){
-        echo 'Excepcion capturada:' . $e->getMessage();
+        echo 'No se registro correctamente el origen:' . $e->getMessage();
+        die();
     }
 }
 
@@ -58,9 +59,10 @@ if(array_key_exists("guardar_medio",$_POST)){
     
     try{
         $sentencia_agregar_medio->execute(array($nombre_medio, $abreviatura_medio, $descripcion_medio));
-        header('Location:/metepec/admin/ajustes.php');
+        header('Location: /admin/ajustes.php');
     }catch(Exception $e){
-        echo 'Excepcion capturada:' . $e->getMessage();
+        echo 'No se registro correctamente el medio:' . $e->getMessage();
+        die();
     }
 }
 
@@ -77,9 +79,10 @@ if(array_key_exists("guardar_promotor",$_POST)){
     
     try{
         $sentencia_agregar_promotor->execute(array($nombre_promotor, $abreviatura_promotor, $descripcion_promotor));
-        header('Location:/metepec/admin/ajustes.php');
+        header('Location: /admin/ajustes.php');
     }catch(Exception $e){
-        echo 'Excepcion capturada:' . $e->getMessage();
+        echo 'No se registro correctamente el promotor:' . $e->getMessage();
+        die();
     }
 }
 
@@ -94,7 +97,7 @@ if(array_key_exists("guardar_programa_municipal",$_POST)){
 
     try{
         $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $descripcion_programa));
-        header('Location: admin/ajustes.php');
+        header('Location: /admin/ajustes.php');
     }catch(Exception $e){
         echo 'Falló al agregar programa:' . $e->getMessage();
         die();
@@ -111,7 +114,7 @@ if(array_key_exists("guardar_programa_estatal",$_POST)){
 
     try{
         $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $descripcion_programa));
-        header('Location: admin/ajustes.php');
+        header('Location: /admin/ajustes.php');
     }catch(Exception $e){
         echo 'Falló al agregar programa:' . $e->getMessage();
         die();
@@ -128,7 +131,7 @@ if(array_key_exists("guardar_programa_federal",$_POST)){
 
     try{
         $sentencia_programas->execute(array($nombre_programa, $abreviatura_programa, $descripcion_programa));
-        header('Location: ../../ajustes.php');
+        header('Location: /admin/ajustes.php');
     }catch(Exception $e){
         echo 'Falló al agregar programa:' . $e->getMessage();
         die();
