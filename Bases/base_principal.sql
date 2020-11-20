@@ -128,6 +128,7 @@ DROP TABLE IF EXISTS colonias;
 CREATE TABLE IF NOT EXISTS colonias(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nombre_colonia VARCHAR(100) NOT NULL,
+  abreviatura VARCHAR(5),
   municipio VARCHAR(50)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -297,7 +298,8 @@ CREATE TABLE IF NOT EXISTS peticiones(
   id_peticion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   id_ciudadano INT,
   fecha DATE,
-  peticion TEXT
+  peticion TEXT,
+  estatus INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

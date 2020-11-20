@@ -3,9 +3,19 @@ if (empty($_SESSION['user'])){
     echo "no estas registrado";
     die();
 }
+$orden = '';
+$ordent = '';
+if(isset($_GET['orden'])){
+	$ordent = $_GET['orden'];
+	$orden = "ORDER BY " . $_GET['orden'];
+	if(isset($_GET['by'])){
+		$desc= $_GET['by'];		
+		$orden = $orden . ' DESC';
+	}
+}
 
+$consulta_ciudadanos = "SELECT * FROM ciudadanos $orden";
 
-$consulta_ciudadanos = "SELECT * FROM ciudadanos";
 $sql_query_ciudadanos = $con->prepare($consulta_ciudadanos);
 $sql_query_ciudadanos->execute();
 $ciudadanos = $sql_query_ciudadanos->fetchALL();
@@ -21,25 +31,69 @@ $colonias = $sql_colonias->fetchALL();
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th scope="col"><a href="?zona=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por ZONA"> Z </a></th>
-			<th scope="col"><a href="?seccion=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por SECCIÓN"> SECC </a></th>
-			<th scope="col"><a href="?colonia=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por COLONIA"> COL </a></th>
-			<th scope="col"><a href="?manzana=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por MANZANA"> MZ </a></th>
-			<th scope="col"><a href="?posicion=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por POSICION EN ELECCIONES"> <i class="fas fa-vote-yea"></i> </a></th>
-			<th scope="col"><a href="?vulnerable=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por VULNERABLE"> <i class="fas fa-wheelchair"></i> </a></th>
-			<th scope="col"><a href="?nombre=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por NOMBRE"> Nombre </a></th>
-			<th scope="col">Edit</th>
-			<th scope="col">Gen</th>
-			<th scope="col"><a href="?edad=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por NOMBRE"> Edad </a></th>
-			<th scope="col"><a href="?org=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="ORGANIZACION"> Org </a></th>
-			<th scope="col"><a href="?simpatia=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="SIMPATIA"> Simp </a></th>
-			<th scope="col"><a href="?proceso=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Programas Federales"> PROCE </a></th>
-			<th scope="col"><a href="?federal=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Programas Federales"> FED </a></th>
-			<th scope="col"><a href="?estatal=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Programas Estatales"> EST </a></th>
-			<th scope="col"><a href="?municipal=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Programas Municipales"> MUN </a></th>
-			<th scope="col"><a href="?apoyos=1" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Apoyos"> APY </a></th>
+			<th scope="col">
+				<a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'zona') ? '?orden=zona&by=zona' : '?orden=zona' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por ZONA">
+					Z <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'zona') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+					echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'zona') ? $orde : '' ?> 
+				</a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'seccion_electoral') ? '?orden=seccion_electoral&by=seccion_electoral' : '?orden=seccion_electoral' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por SECCIÓN">
+					SECC <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'seccion_electoral') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+					echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'seccion_electoral') ? $orde : '' ?> 
+				</a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'id_colonia') ? '?orden=id_colonia&by=id_colonia' : '?orden=id_colonia' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por COLONIA">
+					COL <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'id_colonia') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'id_colonia') ? $orde : '' ?> 
+			</a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'manzana') ? '?orden=manzana&by=manzana' : '?orden=manzana' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por MANZANA">
+					MZ <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'manzana') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'manzana') ? $orde : '' ?> 
+			</a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'posicion') ? '?orden=posicion&by=posicion' : '?orden=posicion' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por POSICION ELECTORAL">
+					POS <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'posicion') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'posicion') ? $orde : '' ?> 
+			</a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'vulnerable') ? '?orden=vulnerable&by=vulnerable' : '?orden=vulnerable' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por VULNERABLE O NO">
+					VUL <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'vulnerable') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'vulnerable') ? $orde : '' ?> 
+			</a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'nombres') ? '?orden=nombres&by=nombres' : '?orden=nombres' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por PRIMER NOMBRE">
+					NOMBRES <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'nombres') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'nombres') ? $orde : '' ?> 
+			</a></th>
+
+			<th scope="col"> </th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'genero') ? '?orden=genero&by=genero' : '?orden=genero' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por GENERO">
+					GEN <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'genero') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'genero') ? $orde : '' ?> 
+			</a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'fecha_nacimiento') ? '?orden=fecha_nacimiento&by=fecha_nacimiento' : '?orden=fecha_nacimiento' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por EDAD">
+					EDAD <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'fecha_nacimiento') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'fecha_nacimiento') ? $orde : '' ?> 
+			</a></th>
+
+			<th scope="col"><a href="#" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="ORGANIZACION"> Org </a></th>
+
+			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'simpatia') ? '?orden=simpatia&by=simpatia' : '?orden=simpatia' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por SIMPATIA">
+					SIMP <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'simpatia') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'simpatia') ? $orde : '' ?> 
+			</a></th>
+			<th scope="col"><a href="?solo=procesos" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Procesos de programas"> PROCE </a></th>
+			<th scope="col"><a href="?solo=federales" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Programas Federales"> FED </a></th>
+			<th scope="col"><a href="?solo=estatales" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Programas Estatales"> EST </a></th>
+			<th scope="col"><a href="?solo=municipales" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Programas Municipales"> MUN </a></th>
+			<th scope="col"><a href="?solo=apoyos" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Apoyos"> APY </a></th>
 		</tr>
 	</thead>
+
+	
 
 	<tbody>
 		<?php if(isset($ciudadanos)):
@@ -80,13 +134,13 @@ $colonias = $sql_colonias->fetchALL();
 				?>
 					<td><?php echo $ciudadano['zona'] ?></td>
 					<td><?php echo $ciudadano['seccion_electoral'] ?></td>
-					<td><?php echo $colonia = ($ciudadano['id_colonia'] != 1 && $ciudadano['id_colonia'] != '') ? ($colonias[$id_colonia -1]['nombre_colonia'] ) : $ciudadano['otra_colonia']?></td>
+					<td><?php echo $colonia = ($ciudadano['id_colonia'] != 1 && $ciudadano['id_colonia'] != '') ? ($colonias[$id_colonia -1]['abreviatura']) : $ciudadano['otra_colonia']?></td>
 					<td><?php echo $ciudadano['manzana'] ?></td>
 					<td><?php echo $ciudadano['posicion'] ?></td>
 					<td><?php echo $vul = ($ciudadano['vulnerable'] == 1) ? '<i class="fas fa-wheelchair"></i>' : 'NO' ?></td>
 					<td><?php echo $ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?></td>
 					<td><a href="<?php echo 'alta_ciudadano.php?id=' . $ciudadano['id_ciudadano'] ?>"><i class="fas fa-id-card"></i></a></td>
-					<td><?php echo $genero = ($ciudadano['genero'] == 0) ? "<i class='fas fa-female'></i>" : "<i class='fas fa-male'></i>" ?></td>
+					<td><?php echo $genero = ($ciudadano['genero'] == 0) ? "<i class='fas fa-female ml-3'></i>" : "<i class='fas fa-male ml-3'></i>" ?></td>
 					<td><?php echo $edad = ($ciudadano['fecha_nacimiento'] != "" && $ciudadano['fecha_nacimiento'] != "0000-00-00") ? (date('Y') - date("Y",strtotime($ciudadano['fecha_nacimiento']))) : "" ?></td>
 					<td><i class="fas fa-user-friends"></i></td>
 					<td><?php echo $simpatia = ($ciudadano['simpatia'] != 0) ? $ciudadano['simpatia'] : '<a href="simpatia.php?id='.$ciudadano['id_ciudadano'].'"><i class="fas fa-sliders-h"></i></a>' ?></td>
