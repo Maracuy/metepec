@@ -140,7 +140,7 @@ $empleado = $_SESSION['user']['id_empleado'];
         </div>
 
         <div class="form-group col-md-2">
-            <label for="numero_identificacion">Numero de Identificación</label>
+            <label for="numero_identificacion">No. identificación</label>
             <?php if(isset($ciudadano['numero_identificacion'])):?>
                 <input type="text" value="<?php echo $ciudadano['numero_identificacion']?>" class="form-control" id="numero_identificacion" name="numero_identificacion">
             <?php endif ?>
@@ -226,7 +226,7 @@ $empleado = $_SESSION['user']['id_empleado'];
         </div>
 
         <div class="form-group col-md-1">
-            <label for="dir_numero_int">Numero int.</label>
+            <label for="dir_numero_int">No. int.</label>
             <?php if(isset($ciudadano['dir_numero_int'])):?>
                 <input type="text" value="<?php echo $ciudadano['dir_numero_int']?>" class="form-control" id="dir_numero_int" name="dir_numero_int">
             <?php endif ?>
@@ -294,7 +294,7 @@ $empleado = $_SESSION['user']['id_empleado'];
     </div>
 
     <div class="form-group col-md-1">
-        <label for="cp">Codigo Postal</label>
+        <label for="cp">C.P.</label>
         <?php if(isset($ciudadano['cp'])):?>
             <input type="number" value="<?php echo $ciudadano['cp']?>" class="form-control" id="cp" name="cp">
         <?php endif ?>
@@ -326,7 +326,7 @@ $empleado = $_SESSION['user']['id_empleado'];
     </div>
 
     <div class="form-group col-md-1">
-        <label for="num_hijos">Numero Hijos</label>
+        <label for="num_hijos">No. Hijos</label>
         <?php if(isset($ciudadano['num_hijos'])):?>
             <input type="text" value="<?php echo $ciudadano['num_hijos']?>" class="form-control" id="num_hijos" name="num_hijos">
         <?php endif ?>
@@ -377,7 +377,7 @@ $empleado = $_SESSION['user']['id_empleado'];
 <div class="form-row">
 
     <div class="form-group col-md-1">
-        <label for="zona">Zona Electoral</label>
+        <label for="zona">ZONA</label>
         <?php if(isset($ciudadano['zona'])):?>
             <input type="text" value="<?php echo $ciudadano['zona']?>" class="form-control" id="zona" name="zona">
         <?php endif ?>
@@ -387,7 +387,7 @@ $empleado = $_SESSION['user']['id_empleado'];
     </div>
 
     <div class="form-group col-md-1">
-        <label for="seccion_electoral">Sec. Electoral</label>
+        <label for="seccion_electoral">SECC</label>
         <?php if(isset($ciudadano['seccion_electoral'])):?>
             <input type="text" value="<?php echo $ciudadano['seccion_electoral']?>" class="form-control" id="seccion_electoral" name="seccion_electoral">
         <?php endif ?>
