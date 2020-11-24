@@ -164,8 +164,6 @@ INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocid
 
 
 
-
-
 DROP TABLE IF EXISTS ciudadanos;
 CREATE TABLE IF NOT EXISTS ciudadanos (
   id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -260,7 +258,6 @@ CREATE TABLE IF NOT EXISTS conocidos(
 )ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
-
 
 
 DROP TABLE IF EXISTS beneficiarios_int;
