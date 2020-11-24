@@ -50,6 +50,9 @@ if($tarea['id_beneficiario'] != 0){
 <br>
 
 
+estoy haciendo modificaciones muy chidas y sorprendentes<?php
+
+
 <?php if($tarea['realizada'] == 0): ?>
     <form method="post" action="controlador/realizar_tarea_sql.php">
     <input type="hidden" value="<?php echo $id_tarea ?>" name="id_tarea">
