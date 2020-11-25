@@ -12,8 +12,7 @@ $id_ciudadano = $_GET['id'];
 $id = $_GET['id'];
 }
 
-$stm = $con->query("SELECT simpatia FROM ciudadanos WHERE id_ciudadano = $id");
-$simpatia_actual = $stm->fetch(PDO::FETCH_ASSOC);
+
 
 
 
@@ -99,7 +98,7 @@ include 'controlador/menu_proceso.php';
     <button class="btn btn-primary" type="submit" name="continuar" id="continuar"> <i class="fas fa-user-edit"></i> Guardar y Continuar</button>
 <?php endif ?>
     <a href="ciudadanos.php" class="btn btn-danger"> <i class="far fa-times-circle"></i>  Salir sin guardar </a>
-    
+
   
 </form>
 
