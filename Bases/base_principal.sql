@@ -348,3 +348,58 @@ CREATE TABLE IF NOT EXISTS procesos(
   estado INT,
   descripcion TEXT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+/* Aqui comienza el area de defenza del voto, se cree que las zonas y las secciones se puede considerar en el area de promocion del voto pero aun no sabemos */
+
+DROP TABLE IF EXISTS zonas;
+CREATE TABLE IF NOT EXISTS zonas(
+  id_zona INT AUTO_INCREMENT PRIMARY KEY,
+  zona INT,
+  id_cordinador_zona_defenza INT,
+  id_cordinador_zona_promocion INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS representantes_generales;
+CREATE TABLE IF NOT EXISTS representantes_generales(
+  id_representante_general INT AUTO_INCREMENT PRIMARY KEY,
+  representante_general INT,
+  id_zona INT,
+  id_ciudadano_representante_general INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS secciones;
+CREATE TABLE IF NOT EXISTS secciones(
+  id_seccion INT AUTO_INCREMENT PRIMARY KEY,
+  seccion INT,
+  id_representante_general INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS casilla;
+CREATE TABLE IF NOT EXISTS casilla(
+  id_casilla INT AUTO_INCREMENT PRIMARY KEY,
+  casilla INT,
+  tipo_casilla VARCHAR(5),
+  id_seccion INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS representantes_de_casilla;
+CREATE TABLE IF NOT EXISTS representantes_de_casilla(
+  id_representante_de_casilla INT AUTO_INCREMENT PRIMARY KEY,
+  id_ciudadano INT,
+  tipo_representante VARCHAR(5),
+  id_casilla INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/* 
+DROP TABLE IF EXISTS defensa;
+CREATE TABLE IF NOT EXISTS defensa(
+  id_defensa INT AUTO_INCREMENT PRIMARY KEY,
+  zona VARCHAR(2),
+  id_cordinador_zona INT,
+  id_representante_general INT,
+  seccion VARCHAR(5),
+  casilla VARCHAR(3),
+  prin_sup VARCHAR(4),
+  id_ciudadano INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci; */
