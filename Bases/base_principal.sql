@@ -403,3 +403,16 @@ CREATE TABLE IF NOT EXISTS defensa(
   prin_sup VARCHAR(4),
   id_ciudadano INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci; */
+
+DROP TABLE IF EXISTS defenza_voto;
+CREATE TABLE IF NOT EXISTS defenza_voto(
+  id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
+  id_ciudadano INT,
+  participo_eleccion INT,
+  posicion VARCHAR(10),
+  asistio INT,
+  afiliacion VARCHAR(10),
+  observaciones TEXT,
+  zona INT,
+  seccion INT 
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

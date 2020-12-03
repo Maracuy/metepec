@@ -8,16 +8,14 @@ if(empty($_GET['id'])){
     echo "No exite esta pagina";
     die();
 }else{
-$id_ciudadano = $_GET['id'];
-$id = $_GET['id'];
-}
-
-
-
-
-
-include 'controlador/menu_proceso.php';
+    $id_ciudadano = $_GET['id'];
+    $id = $_GET['id'];
+    include 'controlador/menu_proceso.php';
+ }
 ?>
+
+
+<form method="POST" action="controlador/electoralsql.php">
 
 <h4>Electoral</h4>
 
@@ -84,7 +82,7 @@ include 'controlador/menu_proceso.php';
     </div>   
 
 
-</div>
+   </div>
     <div class="dropdown-divider"></div>
 
 

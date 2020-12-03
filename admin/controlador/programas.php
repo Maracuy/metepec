@@ -25,7 +25,7 @@ if($altas):?>
             </tr>
         </thead>
     <?php foreach($altas as $alta):
-        $stm = $con->query("SELECT * FROM programas_federales WHERE i");
+        $stm = $con->query("SELECT * FROM programas_federales");
         $federales = $stm->fetchAll(PDO::FETCH_ASSOC);
         
         $stm = $con->query("SELECT * FROM programas_estatales");
@@ -55,7 +55,7 @@ if($altas):?>
                     echo $estatales['abreviatura'];
                 }
                 if($alta['id_programa_m'] > 0){
-                    echo $municipales['abreviatura'];
+                    //echo $municipales['abreviatura'];
                 }
                 ?> </td>
                 <td> Datos como fechas y asi.. </td>
