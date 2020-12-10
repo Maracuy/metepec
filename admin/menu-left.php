@@ -10,7 +10,13 @@
  -->
         <a href="../admin/ciudadanos.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Ciudadanos </a>
 
+        <a href="../admin/ciudadanos.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Elecciones </a>
         
+            <a href="../admin/defensa.php" class="d-block text-light p-3 ml-3"> <i class="fas fa-user-shield mr-2"></i> Defensa </a>
+            <a href="../admin/promocion.php" class="d-block text-light p-3 ml-3"> <i class="fas fa-ad mr-2"></i> Promoción </a>
+
+
+
         <a href="../admin/documentos.php" class="d-block text-light p-3"> <i class="far fa-file mr-2"></i> Documentos </a>
 
         <?php 

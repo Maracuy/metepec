@@ -360,6 +360,15 @@ CREATE TABLE IF NOT EXISTS zonas(
   id_cordinador_zona_promocion INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+DROP TABLE IF EXISTS auxiliar_zonas;
+CREATE TABLE IF NOT EXISTS auxiliar_zonas(
+  id_auxiliar_zonas INT AUTO_INCREMENT PRIMARY KEY,
+  zona INT,
+  id_ciudadano_aux INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 DROP TABLE IF EXISTS representantes_generales;
 CREATE TABLE IF NOT EXISTS representantes_generales(
   id_representante_general INT AUTO_INCREMENT PRIMARY KEY,
