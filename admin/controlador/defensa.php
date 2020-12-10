@@ -11,39 +11,29 @@ if (!$zonas) {
 ?>
 
 <h4>Área de administración de la Defensa del Voto</h4>
+
+
 <?php foreach($zonas as $zona):
+
 	if($zona['id_cordinador_zona_defenza'] != NULL){
 		$id_zona = $zona['zona'];
 		$id_ciudadano = $zona['id_cordinador_zona_defenza'];
-		$nombre_cor = $ciudadanos[$id_ciudadano-1]['nombres'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_p'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_m'];
+		$nombre_rz = $ciudadanos[$id_ciudadano-1]['nombres'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_p'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_m'];
+		$link_delete = '<a href="delete_defensasql.php?cargo=rz&id=<?php echo $id_ciudadano?>"> <i class="fas fa-trash blackiconcolor"></i> </a>';
+		$link_add = '<a href="add_defensasql.php?cargo=rz&id=<?php echo $id_ciudadano?>"> <i class="fas fa-plus blackiconcolor"></i> </a>';
+
+		$nombre_rz = $nombre_rz . " " . ' ' . $link_delete;
 	}else{
-		$nombre_cor = "Sin Cordinador de Zona";
+		$nombre_rz = ' '. $link_add;
 	}
 	?>
 		
-		
-		Zona: <?php echo $zona['zona']?> | RZ: <?php echo $nombre_cor?> 
+	<div class="container-fluid bg-info bg-gradient text-light">
+		<h3>Zona: <?php echo $zona['zona']?></h3> <h6>RZ PRINCIPAL: <?php echo $nombre_rz ?> </h6>
 
 
-		<?php 
-			$stm = $con->query("SELECT * FROM representantes_generales WHERE id_zona = $id_zona");
-			$representantes = $stm->fetchAll(PDO::FETCH_ASSOC);	
-			foreach($representantes as $representante):
-		?>
-		
-				<article>
-					<?php
-						$id_representante = $representante['representante_general'];
-						$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
-						$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);	
-						foreach($secciones as $seccion):
-					?>
-					Sección <?php echo $seccion['seccion']?>
-					<?php endforeach?>
-				</article>
 
-		<?php endforeach?>
-		
-		
+	</div>
+<br>		
 
-<?php endforeach ?>
+<?php endforeach ?> <!-- Este es el foreach de las zonas -->

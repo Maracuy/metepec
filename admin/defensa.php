@@ -25,6 +25,9 @@ td a {
     display: block;
     text-decoration: none !important;
 }
+.blackiconcolor {
+  color: white;
+}
 </style>
     
 </head>
