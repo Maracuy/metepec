@@ -31,8 +31,35 @@ if (!$zonas) {
 	<div class="container-fluid bg-info bg-gradient text-light">
 		<h3>Zona: <?php echo $zona['zona']?></h3> <h6>RZ PRINCIPAL: <?php echo $nombre_rz ?> </h6>
 
+			<?php
+				$stm = $con->query("SELECT * FROM representantes_generales WHERE id_zona = $id_zona");
+				$representantes = $stm->fetchAll(PDO::FETCH_ASSOC);
+				foreach($representantes as $representante):
+				$id_representante = $representante['id_representante_general'] ?>
+				<div class="container-fluid bg-info bg-gradient text-light">
+
+					Representante Geral del la zona <?php echo $zona['zona'] ?>
+					<?php
+						$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
+						$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
+						foreach ($secciones as $seccion):
+						$id_seccion = $seccion['id']?>
+						<div class="container-fluid bg-info bg-gradient text-light">
+
+							<?php
+							$stm = $con->query("SELECT * FROM casillas WHERE id_seccion = ");
+							$casillas = $stm->fetchAll(PDO::FETCH_ASSOC);
+							foreach ($secciones as $seccion):?>
+								<div>
+
+								</div>
 
 
+							<?php ?>
+						</div>
+
+				</div>
+			<?php endforeach ?>
 	</div>
 <br>		
 
