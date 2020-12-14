@@ -1,7 +1,7 @@
 <?php
 
-require_once 'conection/conexion.php';
-
+//require_once 'conection/conexion.php';
+$mensaje = "Andres AO!";
 
 // Esto sirve para hacer deletes, no regresa nada.
 //$nrows = $con->exec("DELETE FROM programas_federales WHERE id_programa_federal = 9");
@@ -23,7 +23,10 @@ $rowid = $con->lastInsertId(); */
 $stm = $con->query("SELECT a.*, p* FROM altas a, programas_federales p WHERE a.id_ciudadano = $id_ciudadano AND p.id_programa_federal = a.id_programa_f");
 $federales = $stm->fetchAll(PDO::FETCH_ASSOC);
 var_dump($federales); */
+
+
 ?>
+<h1>hola mundo <?php echo $mensaje ?></h1>
 
 
-<input type="text" name="" id="" value="Hola">
+<!-- <input type="text" name="" id="" value="Hola"> -->

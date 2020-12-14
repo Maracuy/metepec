@@ -17,11 +17,11 @@ if(empty($_GET['id'])){
 
 <form method="POST" action="controlador/electoralsql.php">
 
+<input id = "id" name = "id" type = "hidden" value = "<?php echo $id?>">
+
 <h4>Electoral</h4>
 
-<div class="form-row">
-
-<br>
+<div class="form-row"><br>
 
     <div class="form-group col-md-2">
         <label for="participo_eleccion">Participo Eleccion</label>
