@@ -400,6 +400,16 @@ CREATE TABLE IF NOT EXISTS representantes_de_casilla(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+DROP TABLE IF EXISTS puestos_defensa;
+CREATE TABLE IF NOT EXISTS puestos_defensa(
+  id_puesto INT AUTO_INCREMENT PRIMARY KEY,
+  id_ciudadano INT,
+  tipo INT,
+  id_casilla INT,
+  id_seccion INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 DROP TABLE IF EXISTS defenza_voto;
 CREATE TABLE IF NOT EXISTS defenza_voto(
   id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
@@ -412,3 +422,4 @@ CREATE TABLE IF NOT EXISTS defenza_voto(
   zona INT,
   seccion INT 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+

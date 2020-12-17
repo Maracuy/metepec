@@ -54,17 +54,32 @@ if (!$zonas) {
 							$stm = $con->query("SELECT * FROM casillas WHERE id_seccion = $id_seccion");
 							$casillas = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-							foreach ($casillas as $casilla):?>
+							foreach ($casillas as $casilla):
+							$id_casilla = $casilla['id_casilla']?>
 								<div class="container-fluid bg-info bg-gradient text-light">
 									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
 
-									<?php
-									$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
-									$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
-									?>
+									<div class="container-fluid bg-info bg-gradient text-light">
+
+										<?php
+										$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_casilla = $id_casilla");
+										$puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
+										for ($i=0; $i < 4; $i++) { 
+											if($i == 0){
+												echo 'RCBP: ';
+												if(isset($puestos['tipo']) && $puestos['tipo'] == 0){
+													echo $ciudadanos[$puestos['id_ciudadano'] -1]['nombres'] . '<br>';
+												}else{
+													echo '<button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> Agregar</button>';
+													include 'modal_defensa.php';
+												}
+											}else{
+												echo 'RCBS: <br>';
+											}
+										}
+										?>
+									</div>
 								</div>
-
-
 							<?php endforeach ?>
 						</div>
 					<?php endforeach ?>
@@ -74,3 +89,5 @@ if (!$zonas) {
 <br>		
 
 <?php endforeach ?> <!-- Este es el foreach de las zonas -->
+
+

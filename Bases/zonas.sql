@@ -536,3 +536,5 @@ INSERT INTO casillas VALUES
 (NULL, 4, 'CC', 2532);
 
 
+INSERT INTO puestos VALUES
+(NULL, NULL, 0, 1, ),
