@@ -8,15 +8,16 @@ if (!$zonas) {
 	echo "Algo salió muuuuuy mal, esto se va a autodestruir en 5, 4, 3, 2, 1....";
 	die();
 }
+
 ?>
 
 <h4>Área de administración de la Defensa del Voto</h4>
 
 
 <?php foreach($zonas as $zona):
+	$id_zona = $zona['zona'];
 
 	if($zona['id_cordinador_zona_defenza'] != NULL){
-		$id_zona = $zona['zona'];
 		$id_ciudadano = $zona['id_cordinador_zona_defenza'];
 		$nombre_rz = $ciudadanos[$id_ciudadano-1]['nombres'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_p'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_m'];
 		$link_delete = '<a href="delete_defensasql.php?cargo=rz&id=<?php echo $id_ciudadano?>"> <i class="fas fa-trash blackiconcolor"></i> </a>';
@@ -24,7 +25,7 @@ if (!$zonas) {
 
 		$nombre_rz = $nombre_rz . " " . ' ' . $link_delete;
 	}else{
-		$nombre_rz = ' '. $link_add;
+		$nombre_rz = '';
 	}
 	?>
 		
@@ -34,30 +35,39 @@ if (!$zonas) {
 			<?php
 				$stm = $con->query("SELECT * FROM representantes_generales WHERE id_zona = $id_zona");
 				$representantes = $stm->fetchAll(PDO::FETCH_ASSOC);
+
 				foreach($representantes as $representante):
 				$id_representante = $representante['id_representante_general'] ?>
 				<div class="container-fluid bg-info bg-gradient text-light">
 
-					Representante Geral del la zona <?php echo $zona['zona'] ?>
+					RG<?php echo $representante['representante_general']?> aqui ponemos un boton para agregar un RG
 					<?php
 						$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
 						$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
 						foreach ($secciones as $seccion):
-						$id_seccion = $seccion['id']?>
+						$id_seccion = $seccion['seccion']?>
 						<div class="container-fluid bg-info bg-gradient text-light">
+							
+							Seccion: <?php echo $seccion['seccion'] ?>
 
 							<?php
-							$stm = $con->query("SELECT * FROM casillas WHERE id_seccion = ");
+							$stm = $con->query("SELECT * FROM casillas WHERE id_seccion = $id_seccion");
 							$casillas = $stm->fetchAll(PDO::FETCH_ASSOC);
-							foreach ($secciones as $seccion):?>
-								<div>
 
+							foreach ($casillas as $casilla):?>
+								<div class="container-fluid bg-info bg-gradient text-light">
+									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
+
+									<?php
+									$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
+									$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
+									?>
 								</div>
 
 
-							<?php ?>
+							<?php endforeach ?>
 						</div>
-
+					<?php endforeach ?>
 				</div>
 			<?php endforeach ?>
 	</div>

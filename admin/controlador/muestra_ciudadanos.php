@@ -58,7 +58,7 @@ $colonias = $sql_colonias->fetchALL();
 			</a></th>
 
 			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'vulnerable') ? '?orden=vulnerable&by=vulnerable' : '?orden=vulnerable' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por VULNERABLE O NO">
-					VUL <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'vulnerable') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+			<i class="fas fa-wheelchair"></i> <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'vulnerable') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
 				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'vulnerable') ? $orde : '' ?> 
 			</a></th>
 
@@ -82,7 +82,7 @@ $colonias = $sql_colonias->fetchALL();
 			<th scope="col"><a href="#" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="ORGANIZACION"> Org </a></th>
 
 			<th scope="col"><a href="<?php echo $orden = (isset($_GET['orden']) && $_GET['orden'] == 'simpatia') ? '?orden=simpatia&by=simpatia' : '?orden=simpatia' ?>" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Organizar por SIMPATIA">
-					SIMP <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'simpatia') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+			<i class="far fa-smile-wink"></i> <?php $orde = (isset($_GET['by']) && $_GET['by'] == 'simpatia') ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
 				echo $ordem = (isset($_GET['orden']) && $_GET['orden'] == 'simpatia') ? $orde : '' ?> 
 			</a></th>
 			<th scope="col"><a href="?solo=procesos" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Procesos de programas"> PROCE </a></th>
@@ -139,7 +139,7 @@ $colonias = $sql_colonias->fetchALL();
 					<td><?php echo $ciudadano['posicion'] ?></td>
 					<td><?php echo $vul = ($ciudadano['vulnerable'] == 1) ? '<i class="fas fa-wheelchair"></i>' : 'NO' ?></td>
 					<td><?php echo $ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?></td>
-					<td><a href="<?php echo 'alta_ciudadano.php?id=' . $ciudadano['id_ciudadano'] ?>"><i class="fas fa-id-card"></i></a></td>
+					<td><a href="<?php echo 'alta_ciudadano.php?id=' . $ciudadano['id_ciudadano'] ?>"><i class="fas fa-user-edit"></i></a></td>
 					<td><?php echo $genero = ($ciudadano['genero'] == 0) ? "<i class='fas fa-female ml-3'></i>" : "<i class='fas fa-male ml-3'></i>" ?></td>
 					<td><?php echo $edad = ($ciudadano['fecha_nacimiento'] != "" && $ciudadano['fecha_nacimiento'] != "0000-00-00") ? (date('Y') - date("Y",strtotime($ciudadano['fecha_nacimiento']))) : "" ?></td>
 					<td><i class="fas fa-user-friends"></i></td>

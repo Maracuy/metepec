@@ -350,7 +350,6 @@ CREATE TABLE IF NOT EXISTS procesos(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-/* Aqui comienza el area de defenza del voto, se cree que las zonas y las secciones se puede considerar en el area de promocion del voto pero aun no sabemos */
 
 DROP TABLE IF EXISTS zonas;
 CREATE TABLE IF NOT EXISTS zonas(
@@ -395,8 +394,8 @@ CREATE TABLE IF NOT EXISTS casillas(
 DROP TABLE IF EXISTS representantes_de_casilla;
 CREATE TABLE IF NOT EXISTS representantes_de_casilla(
   id_representante_de_casilla INT AUTO_INCREMENT PRIMARY KEY,
-  id_ciudadano INT,
-  tipo_representante VARCHAR(5),
+  id_ciudadano_ INT,
+  casilla INT,
   id_casilla INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
