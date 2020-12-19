@@ -388,17 +388,12 @@ CREATE TABLE IF NOT EXISTS casillas(
   id_casilla INT AUTO_INCREMENT PRIMARY KEY,
   casilla INT,
   tipo_casilla VARCHAR(5),
-  id_seccion INT
+  id_seccion INT,
+  id_ciudadano_rep INT,
+  id_ciudadano_sup1 INT,
+  id_ciudadano_sup2 INT,
+  id_ciudadano_sup3 INT 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-DROP TABLE IF EXISTS representantes_de_casilla;
-CREATE TABLE IF NOT EXISTS representantes_de_casilla(
-  id_representante_de_casilla INT AUTO_INCREMENT PRIMARY KEY,
-  id_ciudadano_ INT,
-  casilla INT,
-  id_casilla INT
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 
 DROP TABLE IF EXISTS puestos_defensa;
 CREATE TABLE IF NOT EXISTS puestos_defensa(

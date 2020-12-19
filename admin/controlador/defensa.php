@@ -60,23 +60,19 @@ if (!$zonas) {
 									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
 
 									<div class="container-fluid bg-info bg-gradient text-light">
-
-										<?php
-										$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_casilla = $id_casilla");
-										$puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
-										for ($i=0; $i < 4; $i++) { 
-											if($i == 0){
-												echo 'RCBP: ';
-												if(isset($puestos['tipo']) && $puestos['tipo'] == 0){
-													echo $ciudadanos[$puestos['id_ciudadano'] -1]['nombres'] . '<br>';
-												}else{
-													echo '<button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> Agregar</button>';
-													include 'modal_defensa.php';
-												}
-											}else{
-												echo 'RCBS: <br>';
-											}
-										}
+										<?php 
+										echo "RCBP: ";
+										echo $rp = (isset($casilla['id_ciudadano_rep'])&& $casilla['id_ciudadano_rep'] != '') ? $ciudadanos[$casilla['id_ciudadano_rep']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
+										echo "<br>";
+										echo "RCBS1: ";
+										echo $rp = (isset($casilla['id_ciudadano_sup1'])&& $casilla['id_ciudadano_sup1'] != '') ? $ciudadanos[$casilla['id_ciudadano_sup1']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
+										echo "<br>";
+										echo "RCBS2: ";
+										echo $rp = (isset($casilla['id_ciudadano_sup2'])&& $casilla['id_ciudadano_sup2'] != '') ? $ciudadanos[$casilla['id_ciudadano_sup2']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
+										echo "<br>";
+										echo "RCBS3: ";
+										echo $rp = (isset($casilla['id_ciudadano_sup3'])&& $casilla['id_ciudadano_sup3'] != '') ? $ciudadanos[$casilla['id_ciudadano_sup3']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
+										
 										?>
 									</div>
 								</div>
