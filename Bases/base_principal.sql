@@ -404,7 +404,6 @@ CREATE TABLE IF NOT EXISTS puestos_defensa(
   id_seccion INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
 DROP TABLE IF EXISTS defenza_voto;
 CREATE TABLE IF NOT EXISTS defenza_voto(
   id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
