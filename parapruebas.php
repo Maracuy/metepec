@@ -26,7 +26,21 @@ var_dump($federales); */
 
 
 ?>
-<h1>hola mundo <?php echo $mensaje ?></h1>
 
+
+
+<p>Click the button to display a confirm box.</p>
+
+<button onclick="myFunction('1')">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+
+function myFunction(p1) {
+    if(confirm("my text here")) document.location = 'http://stackoverflow.com?id=' + p1;
+}
+
+</script>
 
 <!-- <input type="text" name="" id="" value="Hola"> -->

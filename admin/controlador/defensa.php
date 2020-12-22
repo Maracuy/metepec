@@ -8,7 +8,7 @@ if (!$zonas) {
 	echo "Algo salió muuuuuy mal, esto se va a autodestruir en 5, 4, 3, 2, 1....";
 	die();
 }
-
+include 'DefensaC.php';
 ?>
 
 <h4>Área de administración de la Defensa del Voto</h4>
@@ -20,7 +20,6 @@ if (!$zonas) {
 	if($zona['id_cordinador_zona_defenza'] != NULL){
 		$id_ciudadano = $zona['id_cordinador_zona_defenza'];
 		$nombre_rz = $ciudadanos[$id_ciudadano-1]['nombres'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_p'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_m'];
-		$link_delete = '<a href="delete_defensasql.php?cargo=rz&id=<?php echo $id_ciudadano?>"> <i class="fas fa-trash blackiconcolor"></i> </a>';
 		$link_add = '<a href="add_defensasql.php?cargo=rz&id=<?php echo $id_ciudadano?>"> <i class="fas fa-plus blackiconcolor"></i> </a>';
 
 		$nombre_rz = $nombre_rz . " " . ' ' . $link_delete;
@@ -60,20 +59,41 @@ if (!$zonas) {
 									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
 
 									<div class="container-fluid bg-info bg-gradient text-light">
-										<?php 
-										echo "RCBP: ";
-										echo $rp = (isset($casilla['id_ciudadano_rep'])&& $casilla['id_ciudadano_rep'] != '') ? $ciudadanos[$casilla['id_ciudadano_rep']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
-										echo "<br>";
-										echo "RCBS1: ";
-										echo $rp = (isset($casilla['id_ciudadano_sup1'])&& $casilla['id_ciudadano_sup1'] != '') ? $ciudadanos[$casilla['id_ciudadano_sup1']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
-										echo "<br>";
-										echo "RCBS2: ";
-										echo $rp = (isset($casilla['id_ciudadano_sup2'])&& $casilla['id_ciudadano_sup2'] != '') ? $ciudadanos[$casilla['id_ciudadano_sup2']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
-										echo "<br>";
-										echo "RCBS3: ";
-										echo $rp = (isset($casilla['id_ciudadano_sup3'])&& $casilla['id_ciudadano_sup3'] != '') ? $ciudadanos[$casilla['id_ciudadano_sup3']-1]['nombres'] : '<button type="button" class="btn btn-light btn-sm"> + </button>';
-										
-										?>
+										<table class="table">
+											<thead>
+												<tr>
+												<th scope="col">Puesto</th>
+												<th scope="col">Nombres</th>
+												<th scope="col">Apellidos</th>
+												<th scope="col">otros datos...</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+													$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_casilla = $id_casilla");
+													$puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
+													foreach($puestos as $puesto):
+														$ciudadano = New Defensa;
+														$linkBorrar = $ciudadano->linkBorrar($puesto['id_ciudadano'], $puesto['tipo_puesto']);
+														$linkAgregar = $ciudadano;
+												?>
+												<tr>
+												<td><?php echo $puesto['nombre_puesto'] ?></td>
+												<td><?php 
+												if($puesto['id_ciudadano'] != ''){
+													$ciudadanos[$puesto['id_ciudadano']]['nombres']
+													
+												}
+												echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']]['nombres'] : '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Launch demo modal </button>' ?></td>
+												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']]['apellido_p'] : "" ?></td>
+												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']]['apellido_m'] : "" ?></td>
+												<td><?php echo $linkBorrar ?></td>
+
+												</tr>
+												<?php endforeach?>
+											</tbody>
+										</table>
+
 									</div>
 								</div>
 							<?php endforeach ?>
@@ -86,4 +106,29 @@ if (!$zonas) {
 
 <?php endforeach ?> <!-- Este es el foreach de las zonas -->
 
+<script>
 
+function borrarCiudadano(id) {
+    if(confirm("my text here")) document.location = 'http://stackoverflow.com?id=' + id;
+}
+
+</script>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
