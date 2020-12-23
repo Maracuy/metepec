@@ -15,7 +15,7 @@ class Defensa{
 
 
     function linkAgregar($id, $casilla){
-      	return $link_Add = '' . . '';
+      	return $link_Add = '' . $id . '';
     }
 }
 

@@ -81,12 +81,11 @@ include 'DefensaC.php';
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
 												<td><?php 
 												if($puesto['id_ciudadano'] != ''){
-													$ciudadanos[$puesto['id_ciudadano']]['nombres']
-													
+													$ciudadanos[$puesto['id_ciudadano']-1]['nombres'];	
 												}
-												echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']]['nombres'] : '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Launch demo modal </button>' ?></td>
-												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']]['apellido_p'] : "" ?></td>
-												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']]['apellido_m'] : "" ?></td>
+												echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['nombres'] : '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Agregar Ciudadano </button>' ?></td>
+												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['apellido_p'] : "" ?></td>
+												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['apellido_m'] : "" ?></td>
 												<td><?php echo $linkBorrar ?></td>
 
 												</tr>
