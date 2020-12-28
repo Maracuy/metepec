@@ -76,17 +76,16 @@ include 'DefensaC.php';
 														$ciudadano = New Defensa;
 														$linkBorrar = $ciudadano->linkBorrar($puesto['id_ciudadano'], $puesto['tipo_puesto']);
 														$linkAgregar = $ciudadano;
+														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 												?>
+												
 												<tr>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
-												<td><?php 
-												if($puesto['id_ciudadano'] != ''){
-													$ciudadanos[$puesto['id_ciudadano']-1]['nombres'];	
-												}
-												echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['nombres'] : '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Agregar Ciudadano </button>' ?></td>
+												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['nombres'] : "" ?></td>
 												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['apellido_p'] : "" ?></td>
+				
 												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['apellido_m'] : "" ?></td>
-												<td><?php echo $linkBorrar ?></td>
+												<td><?php echo $link = ($puesto['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
 
 												</tr>
 												<?php endforeach?>
@@ -106,28 +105,42 @@ include 'DefensaC.php';
 <?php endforeach ?> <!-- Este es el foreach de las zonas -->
 
 <script>
+var casilla;
 
 function borrarCiudadano(id) {
     if(confirm("my text here")) document.location = 'http://stackoverflow.com?id=' + id;
 }
+function numero(dato){
+	casilla = dato;
+	console.log(casilla);
+}
 
+
+function AgregarCiudadano(id) {
+    if(confirm("Seguro que desea agregarlo?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla;
+}
 </script>
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Seleccionar Ciudadano</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+		
+			<?php include 'ciudadanos_todos_defensa.php'?>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+		</div>
+	</div>
 </div>
+
