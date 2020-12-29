@@ -19,10 +19,9 @@ CREATE TABLE IF NOT EXISTS empleados (
   PRIMARY KEY (id_empleado)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO empleados VALUES(NULL, "NULO", "Sin", "Responsable", "Aun", "1990-03-17",NULL, "Usuario", "123456", "sin_email@metepec.work", "Sin responsable");
 INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","1990-03-17","7224531128", "Super Admin", "170390", "ggs,webmaster@metepec.work", "Creador del Sistema");
 INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
-
+INSERT INTO empleados VALUES(NULL,'Andres','Andres','Albarran','Ortiz','1997-01-01',NULL,'Capturista','AndresAO1197','andalbort@gmail.com',NULL);
 
 DROP TABLE IF EXISTS programas_municipales;
 CREATE TABLE IF NOT EXISTS programas_municipales(
