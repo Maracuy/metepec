@@ -189,9 +189,9 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
-INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES('0','Goder','170390','Germán', 'Guillen', 'Sanchez');
-INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES('0','roku','123456789','Angel', 'Tapia', 'Madero');
-INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES('0','AndAO','1197','Andres', 'Albarran', 'Ortiz');
+INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES(0,'Goder','170390','Germán', 'Guillen', 'Sanchez');
+INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES(0,'roku','123456789','Angel', 'Tapia', 'Madero');
+INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES(0,'AndAO','1197','Andres', 'Albarran', 'Ortiz');
 
 
 DROP TABLE IF EXISTS galaxias;
@@ -383,3 +383,6 @@ CREATE TABLE IF NOT EXISTS defenza_voto(
   zona INT,
   seccion INT 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS messag;

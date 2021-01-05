@@ -34,7 +34,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="img/usuarios/<?php echo $_SESSION['user']['usuario'].'.jpg' ?>" alt="Falta imagen" class="img-fluid rounded-circle avatar mr-2">
+            <img src="img/usuarios/<?php echo $_SESSION['user']['usuario_sistema'].'.jpg' ?>" alt="Falta imagen" class="img-fluid rounded-circle avatar mr-2">
             <?php 
             echo '"'.$_SESSION['user']['usuario_sistema'] . '" ' . $_SESSION['user']['nombres'];
             ?>
