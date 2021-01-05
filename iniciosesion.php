@@ -6,7 +6,7 @@ session_start();
 $usuario = $_POST['usuario'];
 $password = $_POST['password'];
 
-$loguser = $con->prepare("SELECT * FROM empleados WHERE usuario = ? AND password = ?");
+$loguser = $con->prepare("SELECT * FROM ciudadanos WHERE usuario_sistema = ? AND contrasenia = ?");
 
 try{
     $loguser->execute(array($usuario, $password));

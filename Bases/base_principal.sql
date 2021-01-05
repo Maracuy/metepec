@@ -2,27 +2,6 @@ DROP DATABASE IF EXISTS u235387680_metepec;
 CREATE DATABASE IF NOT EXISTS u235387680_metepec;
 USE u235387680_metepec;
 
-
-DROP TABLE IF EXISTS empleados ;
-CREATE TABLE IF NOT EXISTS empleados (
-  id_empleado INT NOT NULL AUTO_INCREMENT,
-  usuario VARCHAR(30) NOT NULL,
-  nombres VARCHAR(45) NOT NULL,
-  apellido_p VARCHAR(30) NOT NULL,
-  apellido_m VARCHAR(30) NOT NULL,
-  fech_nacimiento DATE NOT NULL,
-  telefono VARCHAR(10) NULL,
-  nivel ENUM('Super Admin', 'Admin', 'Capturista', 'Usuario') NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  email VARCHAR(100) NOT NULL,
-  descripcion TEXT NULL,
-  PRIMARY KEY (id_empleado)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","1990-03-17","7224531128", "Super Admin", "170390", "ggs,webmaster@metepec.work", "Creador del Sistema");
-INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
-INSERT INTO empleados VALUES(NULL,'Andres','Andres','Albarran','Ortiz','1997-01-01',NULL,'Capturista','AndresAO1197','andalbort@gmail.com',NULL);
-
 DROP TABLE IF EXISTS programas_municipales;
 CREATE TABLE IF NOT EXISTS programas_municipales(
   id_programa_municipal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -170,7 +149,6 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   usuario_sistema VARCHAR(10),
   contrasenia VARCHAR(50),
   fecha_captura DATETIME NULL,
-  nombre_c VARCHAR(255) NOT NULL,
   nombres VARCHAR(45) NOT NULL,
   apellido_p VARCHAR(45) NOT NULL,
   apellido_m VARCHAR(45) NOT NULL,
@@ -211,6 +189,9 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
+INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES('0','Goder','170390','Germán', 'Guillen', 'Sanchez');
+INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES('0','roku','123456789','Angel', 'Tapia', 'Madero');
+INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES('0','AndAO','1197','Andres', 'Albarran', 'Ortiz');
 
 
 DROP TABLE IF EXISTS galaxias;
@@ -358,15 +339,6 @@ CREATE TABLE IF NOT EXISTS zonas(
   id_cordinador_zona_defenza INT,
   id_cordinador_zona_promocion INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-DROP TABLE IF EXISTS auxiliar_zonas;
-CREATE TABLE IF NOT EXISTS auxiliar_zonas(
-  id_auxiliar_zonas INT AUTO_INCREMENT PRIMARY KEY,
-  zona INT,
-  id_ciudadano_aux INT
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 
 DROP TABLE IF EXISTS representantes_generales;
 CREATE TABLE IF NOT EXISTS representantes_generales(

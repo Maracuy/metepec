@@ -9,9 +9,9 @@
             $ciudadano = $sql_query_ciudadano->fetch();
         }
     }
-$empleado = $_SESSION['user']['id_empleado'];
-?>
+$empleado = $_SESSION['user']['id_ciudadano'];
 
+?>
 
 <form method="POST" action="controlador/alta_ciudadano_sql.php">
 
@@ -371,34 +371,7 @@ $empleado = $_SESSION['user']['id_empleado'];
     </div>
 
 </div>
-
-<br>
-
-<div class="form-row">
-
-    <div class="form-group col-md-1">
-        <label for="zona">ZONA</label>
-        <?php if(isset($ciudadano['zona'])):?>
-            <input type="text" value="<?php echo $ciudadano['zona']?>" class="form-control" id="zona" name="zona">
-        <?php endif ?>
-        <?php if(!isset($ciudadano['zona'])):?>
-            <input type="text" class="form-control" id="zona" name="zona">
-        <?php endif ?>
-    </div>
-
-    <div class="form-group col-md-1">
-        <label for="seccion_electoral">SECC</label>
-        <?php if(isset($ciudadano['seccion_electoral'])):?>
-            <input type="text" value="<?php echo $ciudadano['seccion_electoral']?>" class="form-control" id="seccion_electoral" name="seccion_electoral">
-        <?php endif ?>
-        <?php if(!isset($ciudadano['seccion_electoral'])):?>
-            <input type="text" class="form-control" id="seccion_electoral" name="seccion_electoral">
-        <?php endif ?>
-    </div>   
-
-</div>
-
-    <br>    
+ 
 
     
 <?php if(isset($id)):?>
