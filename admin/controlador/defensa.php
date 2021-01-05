@@ -15,20 +15,18 @@ $ciudadano = New Defensa;
 
 <h4>Área de administración de la Defensa del Voto</h4>
 
-
 <?php foreach($zonas as $zona):
 	$id_zona = $zona['zona'];
+	$stm = $con->query("SELECT * FROM altas_defensa WHERE id_zona = $id_zona");
+	$rzs = $stm->fetchAll(PDO::FETCH_ASSOC);
+	
+	if($rzs){
+	echo $name = ($rzs['id_ciudadano'] != '') ? $ciudadano[$rzs['id_ciudadano']-1]['nombres'] . " " . $ciudadano[$rzs['id_ciudadano']-1]['apellido_p'] . " " .$ciudadano[$rzs['id_ciudadano']-1]['apellido_m'] : "";
 
-	if($zona['id_cordinador_zona_defenza'] != NULL){
-		$id_ciudadano = $zona['id_cordinador_zona_defenza'];
-		$nombre_rz = $ciudadanos[$id_ciudadano-1]['nombres'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_p'] . " " . $ciudadanos[$id_ciudadano-1]['apellido_m'];
-		$link_add = '<a href="add_defensasql.php?cargo=rz&id=<?php echo $id_ciudadano?>"> <i class="fas fa-plus blackiconcolor"></i> </a>';
-
-		$nombre_rz = $nombre_rz . " " . ' ' . $link_delete;
 	}else{
-		$nombre_rz = '';
+		$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 	}
-	$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
+
 
 	?>
 		
@@ -92,10 +90,14 @@ $ciudadano = New Defensa;
 											</thead>
 											<tbody>
 												<?php
-													$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_casilla = $id_casilla");
+													$stm = $con->query("SELECT * FROM puestos_defensa_casillas WHERE id_casilla = $id_casilla");
 													$puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 													foreach($puestos as $puesto):
-														$linkBorrar = $ciudadano->linkBorrar($puesto['id_ciudadano'], $puesto['tipo_puesto']);
+														$id_puesto = $puesto['id_puesto'];
+														$stm = $con->query("SELECT * FROM altas_defensa WHERE id_puesto = $id_puesto");
+														$alta = $stm->fetch(PDO::FETCH_ASSOC);
+
+														$linkBorrar = $ciudadano->linkBorrar($alta['id_ciudadano'], $puesto['tipo_puesto']);
 														$linkAgregar = $ciudadano;
 														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 												?>
@@ -106,10 +108,10 @@ $ciudadano = New Defensa;
 												<td></td>
 												<td></td>
 												<td></td>
-												<td><?php echo $name = ($puesto['id_ciudadano'] != '') ? $ciudadanos[$puesto['id_ciudadano']-1]['nombres'] . " " . $ciudadanos[$puesto['id_ciudadano']-1]['apellido_p'] . " " .$ciudadanos[$puesto['id_ciudadano']-1]['apellido_m'] : "" ?></td>
+												<td><?php echo $name = ($alta['id_ciudadano'] != '') ? $ciudadanos[$alta['id_ciudadano']-1]['nombres'] . " " . $ciudadanos[$alta['id_ciudadano']-1]['apellido_p'] . " " .$ciudadanos[$alta['id_ciudadano']-1]['apellido_m'] : "" ?></td>
 												<td></td>
 												<td></td>
-												<td><?php echo $link = ($puesto['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
+												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
 
 												</tr>
 												<?php endforeach?>
@@ -143,10 +145,10 @@ function zona(dato){
 }
 
 function AgregarRZ(id){
-    if(confirm("Seguro que desea agregarlo como RZ?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + rz;
+    if(confirm("Seguro que desea agregarlo como RZ?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&rz=' + rz;
 }
 function AgregarCiudadano(id) {
-    if(confirm("Seguro que desea agregarlo a la casilla")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla;
+    if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
 }
 </script>
 

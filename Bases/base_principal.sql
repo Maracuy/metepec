@@ -345,8 +345,7 @@ DROP TABLE IF EXISTS zonas;
 CREATE TABLE IF NOT EXISTS zonas(
     id_zona INT AUTO_INCREMENT PRIMARY KEY,
     zona INT,
-    id_cordinador_zona_defenza INT,
-    id_cordinador_zona_promocion INT
+
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -366,12 +365,14 @@ CREATE TABLE IF NOT EXISTS representantes_generales(
     id_ciudadano_representante_general INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
 DROP TABLE IF EXISTS secciones;
 CREATE TABLE IF NOT EXISTS secciones(
     id_seccion INT AUTO_INCREMENT PRIMARY KEY,
     seccion INT,
     id_representante_general INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 DROP TABLE IF EXISTS casillas;
 CREATE TABLE IF NOT EXISTS casillas(
@@ -386,20 +387,24 @@ CREATE TABLE IF NOT EXISTS puestos_defensa_casillas(
     id_puesto INT AUTO_INCREMENT PRIMARY KEY,
     tipo_puesto INT,
     nombre_puesto VARCHAR(5),
-    id_casilla INT,
+    id_casilla INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 DROP TABLE IF EXISTS altas_defensa;
 CREATE TABLE IF NOT EXISTS altas_defensa(
     id_alta_defensa INT AUTO_INCREMENT PRIMARY KEY,
+    id_ciudadano INT,
     id_zona INT,
     id_rg INT,
-    id_casilla INT,
+    id_puesto INT,
     previo INT,
+    posicion_prev INT,
     compromiso INT,
+    afiliacion VARCHAR(255),
     origen VARCHAR(255),
-    cubre INT
+    cubre INT,
+    up INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

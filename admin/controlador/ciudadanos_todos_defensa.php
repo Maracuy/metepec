@@ -1,5 +1,5 @@
 <?php 
-$sql_query = $con->prepare("SELECT * FROM ciudadanos ORDER BY id_ciudadano ASC");
+$sql_query = $con->prepare("SELECT * FROM ciudadanos WHERE id_ciudadano NOT IN (SELECT id_ciudadano FROM altas_defensa)");
 $sql_query->execute();
 $ciudadanos = $sql_query->fetchALL();
 ?>

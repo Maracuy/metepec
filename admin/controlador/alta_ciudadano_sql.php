@@ -73,7 +73,6 @@ function actualizar($con, $values, $keys, $id){
     $sentencia_agregar = $con->prepare($sql_editar);
     try{
         $sentencia_agregar->execute($values);
-
     }catch(Exception $e){
         echo 'Excepción capturada: ',  $e->getMessage(), "\n";
         die();
