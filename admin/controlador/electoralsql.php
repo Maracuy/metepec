@@ -21,12 +21,12 @@ $origen = ($_POST['origen'] != '') ? $_POST['origen'] : '0';
 
 
 $sql_editar = "UPDATE altas_defensa SET previo = ?, posicion_prev = ?, compromiso = ?, afiliacion = ?, origen = ?, cubre = ? WHERE id_ciudadano = ?";
-    $sentencia_agregar = $con->prepare($sql_editar);
+$sentencia_agregar = $con->prepare($sql_editar);
 
 
 try{
     $sentencia_agregar->execute(array($participo_eleccion,$posicion,$compromiso,$afiliacion,$origen, $cubre, $id));
-    header("Location: ../electoral.php?id=$id_ciudadano");
+    header("Location: ../electoral.php?id=$id");
 }catch(Exception $e){
     echo 'Ocurrio un error al intentar la alta de defensa: ',  $e->getMessage(), "\n";
     die();

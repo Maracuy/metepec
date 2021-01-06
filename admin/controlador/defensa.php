@@ -18,15 +18,10 @@ $ciudadano = New Defensa;
 <?php foreach($zonas as $zona):
 	$id_zona = $zona['zona'];
 	$stm = $con->query("SELECT * FROM altas_defensa WHERE id_zona = $id_zona");
-	$rzs = $stm->fetchAll(PDO::FETCH_ASSOC);
-	
-	if($rzs){
-	echo $name = ($rzs['id_ciudadano'] != '') ? $ciudadano[$rzs['id_ciudadano']-1]['nombres'] . " " . $ciudadano[$rzs['id_ciudadano']-1]['apellido_p'] . " " .$ciudadano[$rzs['id_ciudadano']-1]['apellido_m'] : "";
+	$rzs = $stm->fetch(PDO::FETCH_ASSOC);
 
-	}else{
-		$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
-	}
-
+	$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="zona(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
+	$modalrz = '<butto n type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="zona(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 
 	?>
 		
@@ -34,9 +29,11 @@ $ciudadano = New Defensa;
 		<h3>Zona: <?php echo $zona['zona']?></h3> 
 		<h6>RZ PRINCIPAL: 
 			<?php 
-			if($zona['id_cordinador_zona_defenza'] != ''){
-				echo $nombre_rz; 
-			}else{
+			if($rzs){
+				echo $ciudadanos[$rzs['id_ciudadano']-1]['nombres'] . " " . $ciudadanos[$rzs['id_ciudadano']-1]['apellido_p'] . " " .$ciudadanos[$rzs['id_ciudadano']-1]['apellido_m'];
+
+			}
+			else{
 				echo $modal;
 			}
 			?> </h6>
@@ -144,11 +141,12 @@ function zona(dato){
 	rz = dato;
 }
 
-function AgregarRZ(id){
-    if(confirm("Seguro que desea agregarlo como RZ?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&rz=' + rz;
-}
 function AgregarCiudadano(id) {
-    if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
+	if(rz == null){
+		if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
+	}else{
+		if(confirm("Seguro que desea agregarlo como RZ?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&rz=' + rz;
+	}
 }
 </script>
 

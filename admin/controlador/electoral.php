@@ -15,39 +15,53 @@ if(empty($_GET['id'])){
 
 $consulta = $con->query("SELECT * FROM altas_defensa WHERE id_ciudadano = $id_ciudadano");
 $alta = $consulta->fetch(PDO::FETCH_ASSOC);
-$id_puesto = $alta['id_puesto'];
-
-$consultapues = $con->query("SELECT * FROM puestos_defensa_casillas WHERE id_puesto = $id_puesto");
-$puesto = $consultapues->fetch(PDO::FETCH_ASSOC);
-$id_casilla = $puesto['id_casilla'];
-
-$consultacas = $con->query("SELECT * FROM casillas WHERE id_casilla = $id_puesto");
-$casilla = $consultacas->fetch(PDO::FETCH_ASSOC);
-$id_seccion = $casilla['id_seccion'];
-
-$consultasecc = $con->query("SELECT * FROM secciones WHERE seccion = $id_seccion");
-$seccion = $consultasecc->fetch(PDO::FETCH_ASSOC);
-$id_representante_general = $seccion['id_representante_general'];
-
-$consultarg = $con->query("SELECT * FROM representantes_generales WHERE id_representante_general = $id_representante_general");
-$representante = $consultarg->fetch(PDO::FETCH_ASSOC);
-$id_zona = $representante['id_zona'];
-
-$consultaz = $con->query("SELECT * FROM zonas WHERE id_zona = $id_zona");
-$zona = $consultaz->fetch(PDO::FETCH_ASSOC);
 
 echo "<h4>Electoral</h4>";
 
-echo "Zona: " . $zona['zona'];
-echo "<br>";
-echo "RG: " . $representante['representante_general'];
-echo "<br>";
-echo "Seccion: " . $seccion['seccion'];
-echo "<br>";
-echo "Casilla: " . $casilla['casilla'];
-echo "<br>";
-echo "Puesto: " . $puesto['nombre_puesto'];
-echo "<br>";
+if(isset($alta['id_puesto']) && $alta['id_puesto'] != ''){
+
+    $id_puesto = $alta['id_puesto'];
+
+    $consultapues = $con->query("SELECT * FROM puestos_defensa_casillas WHERE id_puesto = $id_puesto");
+    $puesto = $consultapues->fetch(PDO::FETCH_ASSOC);
+    $id_casilla = $puesto['id_casilla'];
+    
+    $consultacas = $con->query("SELECT * FROM casillas WHERE id_casilla = $id_puesto");
+    $casilla = $consultacas->fetch(PDO::FETCH_ASSOC);
+    $id_seccion = $casilla['id_seccion'];
+    
+    $consultasecc = $con->query("SELECT * FROM secciones WHERE seccion = $id_seccion");
+    $seccion = $consultasecc->fetch(PDO::FETCH_ASSOC);
+    $id_representante_general = $seccion['id_representante_general'];
+    
+    $consultarg = $con->query("SELECT * FROM representantes_generales WHERE id_representante_general = $id_representante_general");
+    $representante = $consultarg->fetch(PDO::FETCH_ASSOC);
+    $id_zona = $representante['id_zona'];
+    
+    $consultaz = $con->query("SELECT * FROM zonas WHERE id_zona = $id_zona");
+    $zona = $consultaz->fetch(PDO::FETCH_ASSOC);    
+
+    echo "Zona: " . $zona['zona'];
+    echo "<br>";
+    echo "RG: " . $representante['representante_general'];
+    echo "<br>";
+    echo "Seccion: " . $seccion['seccion'];
+    echo "<br>";
+    echo "Casilla: " . $casilla['casilla'];
+    echo "<br>";
+    echo "Puesto: " . $puesto['nombre_puesto'];
+    echo "<br>";
+
+}
+
+if(isset($alta['id_zona']) && $alta['id_zona'] != ''){
+    $id_zona = $alta['id_zona'];
+    $consultaz = $con->query("SELECT * FROM zonas WHERE id_zona = $id_zona");
+    $zona = $consultaz->fetch(PDO::FETCH_ASSOC);   
+    echo "Representante de la Zona: " . $zona['zona'];
+    echo "<br>";
+}
+
 
 ?>
 <br>
