@@ -390,5 +390,5 @@ CREATE TABLE IF NOT EXISTS messag(
  id_mensaje INT AUTO_INCREMENT PRIMARY KEY,
  mensaje TEXT,
  id_ciudadano INT,
- fecha_captura DATETIME NULL,
+ fecha_captura DATETIME NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
