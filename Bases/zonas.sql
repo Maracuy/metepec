@@ -1,13 +1,13 @@
-INSERT INTO zonas (id_zona, zona, id_cordinador_zona_defenza, id_cordinador_zona_promocion) VALUES 
-(NULL, '1', NULL, NULL),
-(NULL, '2', NULL, NULL),
-(NULL, '3', NULL, NULL),
-(NULL, '4', NULL, NULL),
-(NULL, '5', NULL, NULL),
-(NULL, '6', NULL, NULL),
-(NULL, '7', NULL, NULL),
-(NULL, '8', NULL, NULL),
-(NULL, '9', NULL, NULL);
+INSERT INTO zonas (id_zona, zona) VALUES 
+(NULL, '1'),
+(NULL, '2'),
+(NULL, '3'),
+(NULL, '4'),
+(NULL, '5'),
+(NULL, '6'),
+(NULL, '7'),
+(NULL, '8'),
+(NULL, '9');
 
 
 INSERT INTO representantes_generales VALUES

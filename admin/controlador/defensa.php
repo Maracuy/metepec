@@ -1,8 +1,15 @@
 <?php
-$stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m FROM ciudadanos");
+$stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m, id_colonia FROM ciudadanos");
 $ciudadanos = $stm->fetchAll(PDO::FETCH_ASSOC);
+array_unshift($ciudadanos, 0);
 
-$stm = $con->query("SELECT zona, id_cordinador_zona_defenza FROM zonas");
+$stm = $con->query("SELECT * FROM colonias");
+$colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+$stm = $con->query("SELECT zona FROM zonas");
 $zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 if (!$zonas) {
 	echo "Algo salió muuuuuy mal, esto se va a autodestruir en 5, 4, 3, 2, 1....";
@@ -20,8 +27,7 @@ $ciudadano = New Defensa;
 	$stm = $con->query("SELECT * FROM altas_defensa WHERE id_zona = $id_zona");
 	$rzs = $stm->fetch(PDO::FETCH_ASSOC);
 
-	$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="zona(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
-	$modalrz = '<butto n type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="zona(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
+	$modalrz = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="zona(' . $zona['zona'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 
 	?>
 		
@@ -30,11 +36,11 @@ $ciudadano = New Defensa;
 		<h6>RZ PRINCIPAL: 
 			<?php 
 			if($rzs){
-				echo $ciudadanos[$rzs['id_ciudadano']-1]['nombres'] . " " . $ciudadanos[$rzs['id_ciudadano']-1]['apellido_p'] . " " .$ciudadanos[$rzs['id_ciudadano']-1]['apellido_m'];
+				echo $ciudadanos[$rzs['id_ciudadano']]['nombres'] . " " . $ciudadanos[$rzs['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$rzs['id_ciudadano']]['apellido_m'];
 
 			}
 			else{
-				echo $modal;
+				echo $modalrz;
 			}
 			?> </h6>
 
@@ -45,9 +51,19 @@ $ciudadano = New Defensa;
 				foreach($representantes as $representante):
 				$id_representante = $representante['id_representante_general'] ?>
 				<div class="container-fluid bg-info bg-gradient text-light">
-
-					RG<?php echo $representante['representante_general']?> aqui ponemos un boton para agregar un RG
+					
 					<?php
+					$stm = $con->query("SELECT * FROM altas_defensa WHERE id_rg = $id_representante");
+					$rgs = $stm->fetch(PDO::FETCH_ASSOC);
+					echo "<h6>RG PRINCIPAL: "; 
+					$modalrg = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="rg(' . $representante['representante_general'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
+							if($rgs){
+								echo $ciudadanos[$rgs['id_ciudadano']]['nombres'] . " " . $ciudadanos[$rgs['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$rgs['id_ciudadano']]['apellido_m'];
+								echo "</h6>";
+							}
+							else{
+								echo $modalrg;
+							}
 						$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
 						$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
 						foreach ($secciones as $seccion):
@@ -101,11 +117,11 @@ $ciudadano = New Defensa;
 												
 												<tr>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
+												<td><?php echo $col = ($alta['id_ciudadano'] != '') ? $colonias[$alta['id_ciudadano']]['abreviatura'] : '' ?></td>
 												<td></td>
 												<td></td>
 												<td></td>
-												<td></td>
-												<td><?php echo $name = ($alta['id_ciudadano'] != '') ? $ciudadanos[$alta['id_ciudadano']-1]['nombres'] . " " . $ciudadanos[$alta['id_ciudadano']-1]['apellido_p'] . " " .$ciudadanos[$alta['id_ciudadano']-1]['apellido_m'] : "" ?></td>
+												<td><?php echo $name = ($alta['id_ciudadano'] != '') ? $ciudadanos[$alta['id_ciudadano']]['nombres'] . " " . $ciudadanos[$alta['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$alta['id_ciudadano']]['apellido_m'] : "" ?></td>
 												<td></td>
 												<td></td>
 												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
@@ -130,28 +146,36 @@ $ciudadano = New Defensa;
 <script>
 var casilla;
 var rz;
+var rg;
 
 function borrarCiudadano(id) {
     if(confirm("my text here")) document.location = 'http://stackoverflow.com?id=' + id;
 }
+
 function numero(dato){
 	casilla = dato;
 }
+
 function zona(dato){
 	rz = dato;
 }
 
+function rg(dato){
+	rg = dato;
+}
+
 function AgregarCiudadano(id) {
-	if(rz == null){
-		if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
-	}else{
+	if(rz != null){
 		if(confirm("Seguro que desea agregarlo como RZ?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&rz=' + rz;
-	}
+	}else if(rg != null){
+		if(confirm("Seguro que desea agregarlo como RG?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&rg=' + rg;
+	}else if(casilla != null)
+	if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
 }
 </script>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 		<div class="modal-header">

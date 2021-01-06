@@ -40,7 +40,6 @@ $ciudadanos = $sql_query->fetchALL();
         <tr>            
             <td> <?php echo $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>
                         
-            <td scope='row'> <?php echo $dato['id_ciudadano'] ?>  </td>
             <td scope='row'> <?php echo $dato['telefono'] ?>  </td>
             <td scope='row'> <?php echo $dato['zona'] ?>  </td>
             <td scope='row'> <button class="btn btn-primary btn-sm" onclick="AgregarCiudadano(<?php echo $dato['id_ciudadano']?>)"> <i class="fas fa-plus"></i> </button></td>

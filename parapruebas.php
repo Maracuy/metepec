@@ -1,6 +1,6 @@
 <?php
 
-//require_once 'conection/conexion.php';
+require_once 'conection/conexion.php';
 //$mensaje = "Andres AO!";
 
 // Esto sirve para hacer deletes, no regresa nada.
@@ -64,3 +64,18 @@ function foo() {
 foo();
 console.log(i); // global
 </script>
+
+
+
+<?php
+
+$stm = $con->query("SELECT * FROM ciudadanos");
+$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+var_dump($rows);
+
+array_unshift($rows, 0);
+var_dump($rows);
+
+
+
+?>
