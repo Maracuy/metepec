@@ -1,6 +1,6 @@
 <?php
 
-    $myuser = $_SESSION['user']['id_empleado'];
+    $myuser = $_SESSION['user']['id_ciudadano'];
     $sql_query = $con->prepare('SELECT *, empleados.usuario, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, empleados WHERE tareas.id_empleado_asigna_tarea = empleados.id_empleado AND id_empleado_asigna_tarea =? AND tareas.realizada =0');
     $sql_query->execute(array($myuser));
     $tareas = $sql_query->fetchALL();

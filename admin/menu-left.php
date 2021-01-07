@@ -4,7 +4,7 @@
     </div>
     
     <div class="menu">
-        <a href="../admin/index.php" class="d-block text-light p-3"> <i class="fas fa-home mr-2"></i> Inicio </a>
+        <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-home mr-2"></i> Reporte </a>
 
         <!-- <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-file-alt mr-2"></i> Reportes </a>
  -->
@@ -20,7 +20,7 @@
         <a href="../admin/documentos.php" class="d-block text-light p-3"> <i class="far fa-file mr-2"></i> Documentos </a>
 
         <?php 
-        if ($_SESSION['user']['nivel'] == "Admin" || $_SESSION['user']['nivel'] == "Super Admin"):?>
+        if ($_SESSION['user']['nivel'] <= 1):?>
             <a href="../admin/ajustes.php" class="d-block text-light p-3"> <i class="fas fa-tools mr-2"></i> Ajustes </a>
         <?php endif ?>
 
