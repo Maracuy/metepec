@@ -38,7 +38,7 @@ td a {
     
 
 
-    <?php include 'controlador/reportes.php' ?>
+    <?php include 'controlador/reportes.php'?>
 
 
 
