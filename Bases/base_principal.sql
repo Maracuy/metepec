@@ -65,7 +65,6 @@ INSERT INTO departamentos VALUES(NULL, "Sin Depto.", "SnDP", "Se usa por defecto
 
 
 DROP TABLE IF EXISTS origenes;
-
 CREATE TABLE IF NOT EXISTS origenes (
     id int(11) NOT NULL AUTO_INCREMENT,
     nombre varchar(255) NOT NULL,
@@ -78,7 +77,6 @@ INSERT INTO origenes (id, nombre, abreviatura, descripcion) VALUES (NULL, 'Orige
 
 
 DROP TABLE IF EXISTS medio_contacto;
-
 CREATE TABLE IF NOT EXISTS medio_contacto (
     id INT NOT NULL AUTO_INCREMENT,
     nombre varchar(30) NOT NULL,
@@ -87,19 +85,6 @@ CREATE TABLE IF NOT EXISTS medio_contacto (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 INSERT INTO medio_contacto (id, nombre, abreviatura, descripcion) VALUES (NULL, 'Medio Pendiente', 'pend', 'Se usa cuando se desconoce el Medio de Contacto');
-
-
-
-DROP TABLE IF EXISTS promotores;
-CREATE TABLE IF NOT EXISTS promotores(
-    id INT NOT NULL AUTO_INCREMENT,
-    nombre varchar(30) NOT NULL,
-    abreviatura varchar(10) NOT NULL,
-    descripcion text NOT NULL,
-    PRIMARY KEY (id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO promotores (id, nombre, abreviatura, descripcion) VALUES (NULL, 'Promotor Pendiente', 'pend', 'Se usa cuando se desconoce el Promotor');
-
 
 
 DROP TABLE IF EXISTS colonias;
@@ -113,34 +98,10 @@ CREATE TABLE IF NOT EXISTS colonias(
 INSERT INTO colonias (id, nombre_colonia, municipio) VALUES (NULL, 'Sin colonia', 'Sin municipio');
 
 
-
-DROP TABLE IF EXISTS puestos_publicos;
-
-CREATE TABLE IF NOT EXISTS puestos_publicos(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre_puesto VARCHAR(30),
-    abreviatura VARCHAR(10)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO puestos_publicos VALUES (NULL, "Sin Puesto", "SIN");
-
-
-
-DROP TABLE IF EXISTS servidores_publicos;
-CREATE TABLE IF NOT EXISTS servidores_publicos(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombres VARCHAR(30),
-    apellido_p VARCHAR(30),
-    apellido_m VARCHAR(30),
-    id_puesto INT,
-    CONSTRAINT fk_servidorpublico_puestospublicos FOREIGN KEY (id_puesto) REFERENCES puestos_publicos(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocido" ,1);
-
-
 DROP TABLE IF EXISTS ciudadanos;
 CREATE TABLE IF NOT EXISTS ciudadanos (
   id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  nivel INT NOT NULL,
+  nivel INT NOT NULL DEFAULT 10,
   usuario_sistema VARCHAR(10),
   contrasenia VARCHAR(50),
   fecha_captura DATETIME NULL,
@@ -157,7 +118,6 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   whats INT,
   fecha_nacimiento DATE NULL DEFAULT NULL,
   estado_civil VARCHAR(50) NULL DEFAULT NULL,
-  num_hijos INT NULL DEFAULT NULL,
   ocupacion VARCHAR(100) NULL DEFAULT NULL,
   pensionado INT NULL DEFAULT NULL,
   enfermedades_cron INT NULL DEFAULT NULL,
@@ -235,15 +195,6 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS beneficiarios_int;
-CREATE TABLE IF NOT EXISTS beneficiarios_int(
-    id_beneficiario_int INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255),
-    abreviatura VARCHAR(10)
-)ENGINE = InnoDB DEFAULT CHARACTER SET = utf8 COLLATE = utf8_unicode_ci;
-
-
-
 DROP TABLE IF EXISTS altas;
 CREATE TABLE IF NOT EXISTS altas(
     id_alta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -269,7 +220,8 @@ CREATE TABLE IF NOT EXISTS peticiones(
     id_ciudadano INT,
     fecha DATE,
     peticion TEXT,
-    estatus INT
+    estatus INT,
+    exito INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -299,7 +251,6 @@ CREATE TABLE IF NOT EXISTS tareas(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-
 DROP TABLE IF EXISTS comentarios;
 CREATE TABLE IF NOT EXISTS comentarios(
     id_comentario INT PRIMARY KEY AUTO_INCREMENT,
@@ -308,8 +259,6 @@ CREATE TABLE IF NOT EXISTS comentarios(
     id_empleado INT,
     id_tarea INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
 
 
 DROP TABLE IF EXISTS procesos;
@@ -322,33 +271,22 @@ CREATE TABLE IF NOT EXISTS procesos(
     descripcion TEXT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
 DROP TABLE IF EXISTS zonas;
 CREATE TABLE IF NOT EXISTS zonas(
     id_zona INT AUTO_INCREMENT PRIMARY KEY,
-    zona INT
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
-DROP TABLE IF EXISTS auxiliar_zonas;
-CREATE TABLE IF NOT EXISTS auxiliar_zonas(
-    id_auxiliar_zonas INT AUTO_INCREMENT PRIMARY KEY,
     zona INT,
-    id_ciudadano_aux INT
+    color VARCHAR(5)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
->>>>>>> organizacional2
->>>>>>> origin/master
 DROP TABLE IF EXISTS representantes_generales;
 CREATE TABLE IF NOT EXISTS representantes_generales(
     id_representante_general INT AUTO_INCREMENT PRIMARY KEY,
     representante_general INT,
     id_zona INT,
-    id_ciudadano_representante_general INT
+    id_ciudadano_representante_general INT,
+    color VARCHAR(5)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -368,6 +306,7 @@ CREATE TABLE IF NOT EXISTS casillas(
     id_seccion INT 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
 DROP TABLE IF EXISTS puestos_defensa_casillas;
 CREATE TABLE IF NOT EXISTS puestos_defensa_casillas(
     id_puesto INT AUTO_INCREMENT PRIMARY KEY,
@@ -382,7 +321,9 @@ CREATE TABLE IF NOT EXISTS altas_defensa(
     id_alta_defensa INT AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano INT,
     id_zona INT,
+    id_zona_aux INT,
     id_rg INT,
+    id_rg_aux INT,
     id_puesto INT,
     previo INT,
     posicion_prev INT,
@@ -394,41 +335,6 @@ CREATE TABLE IF NOT EXISTS altas_defensa(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS capacitaciones_defensa;
-CREATE TABLE IF NOT EXISTS capacitaciones_defensa(
-
-
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-DROP TABLE IF EXISTS defenza_voto;
-CREATE TABLE IF NOT EXISTS defenza_voto(
-<<<<<<< HEAD
-<<<<<<< HEAD
-    id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
-    id_ciudadano INT,
-    participo_eleccion INT,
-    posicion VARCHAR(10),
-    asistio INT,
-    afiliacion VARCHAR(10),
-    observaciones TEXT,
-    zona INT,
-    seccion INT 
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-=======
-=======
->>>>>>> origin/master
-  id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
-  id_ciudadano INT,
-  participo_eleccion INT,
-  posicion VARCHAR(10),
-  asistio INT,
-  afiliacion VARCHAR(10),
-  observaciones TEXT,
-  zona INT,
-  seccion INT 
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
 DROP TABLE IF EXISTS messag;
 CREATE TABLE IF NOT EXISTS messag(
  id_mensaje INT AUTO_INCREMENT PRIMARY KEY,
@@ -436,19 +342,15 @@ CREATE TABLE IF NOT EXISTS messag(
  id_ciudadano INT,
  fecha_captura DATETIME NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-<<<<<<< HEAD
->>>>>>> electoral
-=======
-=======
-    id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
-    id_ciudadano INT,
-    participo_eleccion INT,
-    posicion VARCHAR(10),
-    asistio INT,
-    afiliacion VARCHAR(10),
-    observaciones TEXT,
-    zona INT,
-    seccion INT 
+
+
+DROP TABLE IF EXISTS capacitaciones_defensa;
+CREATE TABLE IF NOT EXISTS capacitaciones_defensa(
+    id_capacitacion INT AUTO_INCREMENT PRIMARY KEY,
+    cap1 INT,
+    cap2 INT,
+    cap3 INT,
+    cap4 INT,
+    cap5 INT,
+    id_ciudadano INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
->>>>>>> organizacional2
->>>>>>> origin/master
