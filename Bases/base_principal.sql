@@ -2,31 +2,7 @@ DROP DATABASE IF EXISTS u235387680_metepec;
 CREATE DATABASE IF NOT EXISTS u235387680_metepec;
 USE u235387680_metepec;
 
-<<<<<<< HEAD
 
-DROP TABLE IF EXISTS empleados ;
-CREATE TABLE IF NOT EXISTS empleados (
-    id_empleado INT NOT NULL AUTO_INCREMENT,
-    usuario VARCHAR(30) NOT NULL,
-    nombres VARCHAR(45) NOT NULL,
-    apellido_p VARCHAR(30) NOT NULL,
-    apellido_m VARCHAR(30) NOT NULL,
-    fech_nacimiento DATE NOT NULL,
-    telefono VARCHAR(10) NULL,
-    nivel ENUM('Super Admin', 'Admin', 'Capturista', 'Usuario') NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    descripcion TEXT NULL,
-    PRIMARY KEY (id_empleado)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO empleados VALUES(NULL, "NULO", "Sin", "Responsable", "Aun", "1990-03-17",NULL, "Usuario", "123456", "sin_email@metepec.work", "Sin responsable");
-INSERT INTO empleados VALUES(NULL, "Goder", "Germán", "Guillen", "Sanchez","1990-03-17","7224531128", "Super Admin", "170390", "ggs,webmaster@metepec.work", "Creador del Sistema");
-INSERT INTO empleados VALUES (NULL, 'roku', 'Angel', 'Tapia', 'Madero', '2020-07-01', NULL, 'Super Admin', '123456789', 'hangarinteractive@gmail.com', NULL);
-
-
-=======
->>>>>>> electoral
 DROP TABLE IF EXISTS programas_municipales;
 CREATE TABLE IF NOT EXISTS programas_municipales(
     id_programa_municipal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -163,50 +139,6 @@ INSERT INTO servidores_publicos VALUES (NULL, "Servidor", "Publico", "Desconocid
 
 DROP TABLE IF EXISTS ciudadanos;
 CREATE TABLE IF NOT EXISTS ciudadanos (
-<<<<<<< HEAD
-    id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nivel INT NOT NULL,
-    usuario_sistema VARCHAR(10),
-    contrasenia VARCHAR(50),
-    fecha_captura DATETIME NULL,
-    nombre_c VARCHAR(255) NOT NULL,
-    nombres VARCHAR(45) NOT NULL,
-    apellido_p VARCHAR(45) NOT NULL,
-    apellido_m VARCHAR(45) NOT NULL,
-    vulnerable INT,
-    genero INT NULL DEFAULT NULL,
-    curp VARCHAR(20) NULL DEFAULT NULL,
-    numero_identificacion VARCHAR(50) NULL DEFAULT NULL,
-    telefono VARCHAR(10) NULL DEFAULT NULL,
-    otro_telefono VARCHAR(10) NULL,
-    email VARCHAR(50) NULL DEFAULT NULL,
-    whats INT,
-    fecha_nacimiento DATE NULL DEFAULT NULL,
-    estado_civil VARCHAR(50) NULL DEFAULT NULL,
-    num_hijos INT NULL DEFAULT NULL,
-    ocupacion VARCHAR(100) NULL DEFAULT NULL,
-    pensionado INT NULL DEFAULT NULL,
-    enfermedades_cron INT NULL DEFAULT NULL,
-    cp VARCHAR(10) NULL DEFAULT NULL,
-    dir_calle VARCHAR(45) NULL DEFAULT NULL,
-    dir_numero VARCHAR(50) NULL DEFAULT NULL,
-    dir_numero_int VARCHAR(50) NULL DEFAULT NULL,
-    id_colonia INT NULL DEFAULT NULL,
-    otra_colonia VARCHAR(50) NULL DEFAULT NULL,
-    municipio VARCHAR(45) NULL DEFAULT NULL,
-    zona INT,
-    manzana VARCHAR(255) NULL DEFAULT NULL,
-    lote VARCHAR(255) NULL DEFAULT NULL,
-    dir_referencia VARCHAR(255) NULL DEFAULT NULL,
-    seccion_electoral VARCHAR(45) NULL DEFAULT NULL,
-    participo_eleccion INT NULL DEFAULT NULL,
-    posicion VARCHAR(45) NULL DEFAULT NULL,
-    asistio VARCHAR(45) NULL DEFAULT NULL,
-    afiliacion VARCHAR(45) NULL DEFAULT NULL,
-    simpatia INT,
-    id_registrante INT NOT NULL,
-    observaciones TEXT NULL DEFAULT NULL
-=======
   id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nivel INT NOT NULL,
   usuario_sistema VARCHAR(10),
@@ -248,7 +180,6 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   simpatia INT,
   id_registrante INT NOT NULL,
   observaciones TEXT NULL DEFAULT NULL
->>>>>>> electoral
 )ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -397,6 +328,21 @@ CREATE TABLE IF NOT EXISTS zonas(
     zona INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+DROP TABLE IF EXISTS auxiliar_zonas;
+CREATE TABLE IF NOT EXISTS auxiliar_zonas(
+    id_auxiliar_zonas INT AUTO_INCREMENT PRIMARY KEY,
+    zona INT,
+    id_ciudadano_aux INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+>>>>>>> organizacional2
+>>>>>>> origin/master
 DROP TABLE IF EXISTS representantes_generales;
 CREATE TABLE IF NOT EXISTS representantes_generales(
     id_representante_general INT AUTO_INCREMENT PRIMARY KEY,
@@ -457,6 +403,7 @@ CREATE TABLE IF NOT EXISTS capacitaciones_defensa(
 DROP TABLE IF EXISTS defenza_voto;
 CREATE TABLE IF NOT EXISTS defenza_voto(
 <<<<<<< HEAD
+<<<<<<< HEAD
     id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano INT,
     participo_eleccion INT,
@@ -468,6 +415,8 @@ CREATE TABLE IF NOT EXISTS defenza_voto(
     seccion INT 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 =======
+=======
+>>>>>>> origin/master
   id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
   id_ciudadano INT,
   participo_eleccion INT,
@@ -487,4 +436,19 @@ CREATE TABLE IF NOT EXISTS messag(
  id_ciudadano INT,
  fecha_captura DATETIME NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+<<<<<<< HEAD
 >>>>>>> electoral
+=======
+=======
+    id_defensa_voto INT AUTO_INCREMENT PRIMARY KEY,
+    id_ciudadano INT,
+    participo_eleccion INT,
+    posicion VARCHAR(10),
+    asistio INT,
+    afiliacion VARCHAR(10),
+    observaciones TEXT,
+    zona INT,
+    seccion INT 
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+>>>>>>> organizacional2
+>>>>>>> origin/master

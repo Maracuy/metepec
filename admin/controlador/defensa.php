@@ -196,5 +196,3 @@ function AgregarCiudadano(id) {
 		</div>
 	</div>
 </div>
-
-<?php endforeach ?>
