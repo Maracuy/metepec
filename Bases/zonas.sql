@@ -44,7 +44,7 @@ INSERT INTO representantes_generales VALUES
 
 (NULL, 24, 9, NULL, "76FCFF"),
 (NULL, 25, 9, NULL, "00EDFF"),
-(NULL, 26, 9, NULL, "00CEFF"),
+(NULL, 26, 9, NULL, "00CEFF");
 
 
 
@@ -435,6 +435,7 @@ INSERT INTO casillas VALUES
 (NULL, 1, 'CC', 2498),
 (NULL, 2, 'CC', 2498),
 (NULL, 3, 'CC', 2498),
+
 (NULL, 0, 'CBA', 2499),
 (NULL, 1, 'CC', 2499),
 (NULL, 2, 'CC', 2499),
@@ -462,6 +463,22 @@ INSERT INTO casillas VALUES
 
 
 
+(NULL, 0, 'CBA', 2524),
+(NULL, 1, 'CC', 2524),
+
+(NULL, 0, 'CBA', 2525),
+(NULL, 1, 'CC', 2525),
+(NULL, 2, 'CC', 2525),
+
+(NULL, 0, 'CBA', 2526),
+
+(NULL, 0, 'CBA', 2527),
+(NULL, 1, 'CC', 2527),
+(NULL, 2, 'CC', 2527),
+
+
+
+
 (NULL, 0, 'CBA', 2528),
 (NULL, 1, 'CC', 2528),
 (NULL, 2, 'CC', 2528),
@@ -473,20 +490,8 @@ INSERT INTO casillas VALUES
 (NULL, 0, 'CBA', 2537),
 (NULL, 1, 'CC', 2537),
 
-(NULL, 0, 'CBA', 2524),
-(NULL, 1, 'CC', 2524),
 
 
-
-(NULL, 0, 'CBA', 2525),
-(NULL, 1, 'CC', 2525),
-(NULL, 2, 'CC', 2525),
-
-(NULL, 0, 'CBA', 2526),
-
-(NULL, 0, 'CBA', 2527),
-(NULL, 1, 'CC', 2527),
-(NULL, 2, 'CC', 2527),
 
 (NULL, 0, 'CBA', 2535),
 (NULL, 1, 'CC', 2535),
@@ -500,6 +505,9 @@ INSERT INTO casillas VALUES
 (NULL, 4, 'CC', 2539),
 (NULL, 5, 'CC', 2539),
 (NULL, 6, 'CC', 2539),
+
+
+
 
 (NULL, 0, 'CBA', 2546),
 (NULL, 1, 'CC', 2546),
@@ -519,6 +527,8 @@ INSERT INTO casillas VALUES
 (NULL, 3, 'CC', 2548),
 (NULL, 4, 'CC', 2548),
 
+
+
 (NULL, 0, 'CBA', 2470),
 (NULL, 1, 'CC', 2470),
 (NULL, 2, 'CC', 2470),
@@ -533,6 +543,8 @@ INSERT INTO casillas VALUES
 (NULL, 4, 'CC', 2512),
 (NULL, 5, 'CC', 2512),
 (NULL, 6, 'CC', 2512),
+
+
 
 (NULL, 0, 'CBA', 2510),
 (NULL, 1, 'CC', 2510),
@@ -550,6 +562,8 @@ INSERT INTO casillas VALUES
 
 (NULL, 0, 'CBA', 2517),
 (NULL, 1, 'CC', 2517),
+
+
 
 (NULL, 0, 'CBA', 2513),
 (NULL, 1, 'CC', 2513),
