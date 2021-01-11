@@ -4,10 +4,8 @@
     </div>
     
     <div class="menu">
-        <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-align-justify"></i> Reporte </a>
+        <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-align-justify mr-2"></i> Reporte </a>
 
-        <!-- <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-file-alt mr-2"></i> Reportes </a>
- -->
         <a href="../admin/ciudadanos.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Ciudadanos </a>
 
         <a href="../admin/ciudadanos.php" class="d-block text-light p-3"> <i class="fas fa-briefcase mr-2"></i> Elecciones </a>

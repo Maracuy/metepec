@@ -1,5 +1,16 @@
 <?php 
-  $sql_reportes = $con->prepare("SELECT * FROM messag ORDER BY fecha_captura DESC");
+  $i=1;
+  $a=20;
+  if($_GET){
+    $i = $_GET['i'];
+    $a = $i *20;   
+  }
+
+  $cantidad = $con->prepare("SELECT COUNT(fecha_captura) FROM messag");
+  $cantidad->execute();
+  $cantidad_r = $cantidad->fetch();
+
+  $sql_reportes = $con->prepare("SELECT * FROM messag ORDER BY fecha_captura DESC LIMIT $a");
   $sql_reportes->execute();
   $reportes = $sql_reportes->fetchALL();
 
@@ -40,7 +51,11 @@
             ?>
             <p align="right"><?php echo $newfecha?></p>
         </div>
-    <?php endforeach ?>
+    <?php endforeach;
+      if($a>$cantidad_r):
+    ?>
+    <a href="reportes.php?i=<?php echo $i+1?>" class="btn btn-primary"> <i class="fas fa-chevron-down"></i>  Mostrar mas </a>
+    <?php endif?>
   </div>
 </div>
 
