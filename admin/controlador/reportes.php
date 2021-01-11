@@ -36,7 +36,7 @@
             echo '<h6>' . $ciudadanos[$reporte['id_ciudadano']]['nombres'] ." ".$ciudadanos[$reporte['id_ciudadano']]['apellido_p']." ".$ciudadanos[$reporte['id_ciudadano']]['apellido_m'].'</h6>';
             echo $reporte['mensaje'];
             $fecha = $reporte['fecha_captura'];
-            $newfecha = date("H:i:s d/m/Y",strtotime($fecha));
+            $newfecha = date("h:ia d/m/y",strtotime($fecha));
             ?>
             <p align="right"><?php echo $newfecha?></p>
         </div>
