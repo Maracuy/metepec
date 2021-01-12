@@ -1,4 +1,6 @@
+<?php
 
+$ciudadanoPuesto = datos;
 $id_ciudadano = 
 $id_casilla = "SELECT id_casilla FROM casillas WHERE seccion = $seccion";
 

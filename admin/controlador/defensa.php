@@ -72,17 +72,7 @@ $ciudadano = New Defensa;
 							
 							Seccion: <?php echo $seccion['seccion'] ?>
 
-							<?php
-							$stm = $con->query("SELECT * FROM casillas WHERE id_seccion = $id_seccion");
-							$casillas = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-							foreach ($casillas as $casilla):
-							$id_casilla = $casilla['id_casilla']?>
-								<div class="container-fluid bg-info bg-gradient text-light">
-									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
-
-									<div class="container-fluid bg-info bg-gradient text-light">
-										<table class="table">
+							<table class="table">
 											<thead>
 												<tr>
 												<th scope="col">Puesto</th>
@@ -101,6 +91,19 @@ $ciudadano = New Defensa;
 												<th scope="col">Promo</th>
 												</tr>
 											</thead>
+							</table>
+
+							<?php
+							$stm = $con->query("SELECT * FROM casillas WHERE id_seccion = $id_seccion");
+							$casillas = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+							foreach ($casillas as $casilla):
+							$id_casilla = $casilla['id_casilla']?>
+								<div class="container-fluid bg-info bg-gradient text-light">
+									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
+
+									<div class="container-fluid bg-info bg-gradient text-light">
+										<table>
 											<tbody>
 												<?php
 													$stm = $con->query("SELECT * FROM puestos_defensa_casillas WHERE id_casilla = $id_casilla");

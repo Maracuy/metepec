@@ -43,6 +43,10 @@ function alta_ciudadano($con, $values, $keysString, $signos){
  
     $sql_agregar = "INSERT INTO ciudadanos(" . $keysString . ") VALUES(" . $signos . ")";
     $sentencia_agregar = $con->prepare($sql_agregar);
+
+    var_dump($keysString);
+    var_dump($signos);
+die();
     try{
         $sentencia_agregar->execute($values);
         $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');

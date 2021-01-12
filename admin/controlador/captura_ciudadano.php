@@ -325,16 +325,6 @@ $empleado = $_SESSION['user']['id_ciudadano'];
         </select>
     </div>
 
-    <div class="form-group col-md-1">
-        <label for="num_hijos">No. Hijos</label>
-        <?php if(isset($ciudadano['num_hijos'])):?>
-            <input type="text" value="<?php echo $ciudadano['num_hijos']?>" class="form-control" id="num_hijos" name="num_hijos">
-        <?php endif ?>
-        <?php if(!isset($ciudadano['num_hijos'])):?>
-            <input type="text" class="form-control" id="num_hijos" name="num_hijos">
-        <?php endif ?>
-    </div>
-
     <div class="form-group col-md-2">
         <label for="ocupacion">Ocupación</label>
         <?php if(isset($ciudadano['ocupacion'])):?>

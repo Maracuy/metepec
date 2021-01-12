@@ -7,7 +7,7 @@ if (empty($_SESSION['user'])){
 require_once '../../conection/conexion.php';
 
 $id_ciudadano = $_GET['id'];
-$up = $_SESSION['user']['id_empleado'];
+$up = $_SESSION['user']['id_ciudadano'];
 
 if(isset($_GET['rz']) && $_GET['rz'] != ''){
     $puesto = $_GET['rz'];
