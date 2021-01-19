@@ -44,9 +44,7 @@ function alta_ciudadano($con, $values, $keysString, $signos){
     $sql_agregar = "INSERT INTO ciudadanos(" . $keysString . ") VALUES(" . $signos . ")";
     $sentencia_agregar = $con->prepare($sql_agregar);
 
-    var_dump($keysString);
-    var_dump($signos);
-die();
+    
     try{
         $sentencia_agregar->execute($values);
         $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');
@@ -96,4 +94,8 @@ if(array_key_exists("actualizar",$_POST)){
     actualizar($con, $values, $keys, $id);
     header("Location: ../archivos_ciudadanos.php?id=$id");
 }
+
+$con=null;
+mysqli_close($mysqli);1
 ?>
+

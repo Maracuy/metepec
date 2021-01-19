@@ -9,7 +9,7 @@ $colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$stm = $con->query("SELECT zona FROM zonas");
+$stm = $con->query("SELECT * FROM zonas");
 $zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 if (!$zonas) {
 	echo "Algo salió muuuuuy mal, esto se va a autodestruir en 5, 4, 3, 2, 1....";
@@ -31,7 +31,7 @@ $ciudadano = New Defensa;
 
 	?>
 		
-	<div class="container-fluid bg-info bg-gradient text-light">
+	<div class="container-fluid bg-gradient text-light" style="background-color: #<?php echo $zona['color'] ?>;">
 		<h3>Zona: <?php echo $zona['zona']?></h3> 
 		<h6>RZ PRINCIPAL: 
 			<?php 
@@ -47,28 +47,27 @@ $ciudadano = New Defensa;
 			<?php
 				$stm = $con->query("SELECT * FROM representantes_generales WHERE id_zona = $id_zona");
 				$representantes = $stm->fetchAll(PDO::FETCH_ASSOC);
-
 				foreach($representantes as $representante):
-				$id_representante = $representante['id_representante_general'] ?>
-				<div class="container-fluid bg-info bg-gradient text-light">
-					
-					<?php
-					$stm = $con->query("SELECT * FROM altas_defensa WHERE id_rg = $id_representante");
-					$rgs = $stm->fetch(PDO::FETCH_ASSOC);
-					echo "<h6>RG PRINCIPAL: "; 
-					$modalrg = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="rg(' . $representante['representante_general'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
-							if($rgs){
-								echo $ciudadanos[$rgs['id_ciudadano']]['nombres'] . " " . $ciudadanos[$rgs['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$rgs['id_ciudadano']]['apellido_m'];
-								echo "</h6>";
-							}
-							else{
-								echo $modalrg;
-							}
+					$id_representante = $representante['id_representante_general']?>
+					<div class="container-fluid bg-gradient text-light" style="background-color: #<?php echo $representante['color'] ?>;">
+						
+						<?php
+						$stm = $con->query("SELECT * FROM altas_defensa WHERE id_rg = $id_representante");
+						$rgs = $stm->fetch(PDO::FETCH_ASSOC);
+						echo "<h6>RG PRINCIPAL: "; 
+						$modalrg = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="representanteg(' . $representante['representante_general'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
+								if($rgs){
+									echo $ciudadanos[$rgs['id_ciudadano']]['nombres'] . " " . $ciudadanos[$rgs['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$rgs['id_ciudadano']]['apellido_m'];
+									echo "</h6>";
+								}
+								else{
+									echo $modalrg;
+								}
 						$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
 						$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
 						foreach ($secciones as $seccion):
 						$id_seccion = $seccion['seccion']?>
-						<div class="container-fluid bg-info bg-gradient text-light">
+						<div class="container-fluid bg-gradient text-light">
 							
 							Seccion: <?php echo $seccion['seccion'] ?>
 
@@ -99,10 +98,10 @@ $ciudadano = New Defensa;
 
 							foreach ($casillas as $casilla):
 							$id_casilla = $casilla['id_casilla']?>
-								<div class="container-fluid bg-info bg-gradient text-light">
+								<div class="container-fluid text-light">
 									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
 
-									<div class="container-fluid bg-info bg-gradient text-light">
+									<div class="container-fluid text-light">
 										<table>
 											<tbody>
 												<?php
@@ -163,8 +162,14 @@ function zona(dato){
 	rz = dato;
 }
 
-function rg(dato){
+function representanteg(dato){
 	rg = dato;
+}
+
+function deleteall(){
+	casilla = null;
+	rz = null;
+	rg = null;
 }
 
 function AgregarCiudadano(id) {
@@ -193,8 +198,7 @@ function AgregarCiudadano(id) {
 
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Save changes</button>
+			<button type="button" class="btn btn-secondary" onclick="deleteall()" data-dismiss="modal">Close</button>
 		</div>
 		</div>
 	</div>

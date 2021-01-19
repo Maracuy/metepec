@@ -48,13 +48,7 @@ nuevo
 function myFunction(p1) {
     if(confirm("my text here")) document.location = 'http://stackoverflow.com?id=' + p1;
 }
- */
   
-</script>
-
-
-<script>
-
 
 let i = "global";
 function foo() {
@@ -63,19 +57,30 @@ function foo() {
 }
 foo();
 console.log(i); // global
+ */
 </script>
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 <?php
-
-$stm = $con->query("SELECT * FROM ciudadanos");
-$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-var_dump($rows);
-
-array_unshift($rows, 0);
-var_dump($rows);
-
-
-
-?>
+$stm = $con->query("SELECT * FROM representantes_generales WHERE id_zona = 2");
+$representantes = $stm->fetchAll(PDO::FETCH_ASSOC);
+foreach($representantes as $representante):
+    $id_representante = $representante['id_representante_general'];
+    $color = $representante['color'];
+    echo $color?>
+    <div class="container-fluid bg-gradient text-light" style="background-color: #19A020;">
+    <h3>Este es el color</h3>
+    </div>
+<?php endforeach?>
+</body>
+</html>
+html

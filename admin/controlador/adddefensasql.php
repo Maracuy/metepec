@@ -79,5 +79,6 @@ if ($_GET['nuevo'] == '1'){
     nuevo($con, $id_ciudadano, $puesto, $up);
 }
 
-
+$con=null;
+mysqli_close($mysqli);
 ?>

@@ -276,7 +276,7 @@ DROP TABLE IF EXISTS zonas;
 CREATE TABLE IF NOT EXISTS zonas(
     id_zona INT AUTO_INCREMENT PRIMARY KEY,
     zona INT,
-    color VARCHAR(5)
+    color VARCHAR(10)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS representantes_generales(
     representante_general INT,
     id_zona INT,
     id_ciudadano_representante_general INT,
-    color VARCHAR(5)
+    color VARCHAR(10)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
