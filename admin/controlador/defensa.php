@@ -100,7 +100,6 @@ $ciudadano = New Defensa;
 							$id_casilla = $casilla['id_casilla']?>
 								<div class="container-fluid text-light">
 									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
-
 										<table>
 											<tbody>
 												<?php
@@ -116,7 +115,6 @@ $ciudadano = New Defensa;
 														$linkAgregar = $ciudadano;
 														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 												?>
-												
 												<tr>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
 												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col]['abreviatura'] : '' ?></td>
