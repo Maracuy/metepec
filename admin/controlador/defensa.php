@@ -112,7 +112,7 @@ $ciudadano = New Defensa;
 														$id_puesto = $puesto['id_puesto'];
 														$stm = $con->query("SELECT * FROM altas_defensa WHERE id_puesto = $id_puesto");
 														$alta = $stm->fetch(PDO::FETCH_ASSOC);
-
+														$col = (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') ? $ciudadanos[$alta['id_ciudadano']]['id_colonia'] : '';
 														$linkBorrar = $ciudadano->linkBorrar($alta['id_ciudadano'], $puesto['tipo_puesto']);
 														$linkAgregar = $ciudadano;
 														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
@@ -120,7 +120,7 @@ $ciudadano = New Defensa;
 												
 												<tr>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
-												<td><?php echo $col = ($alta['id_ciudadano'] != '') ? $colonias[$alta['id_ciudadano']]['abreviatura'] : '' ?></td>
+												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col] : '' ?></td>
 												<td></td>
 												<td></td>
 												<td></td>
@@ -133,7 +133,6 @@ $ciudadano = New Defensa;
 												<?php endforeach?>
 											</tbody>
 										</table>
-
 									</div>
 								</div>
 							<?php endforeach ?>

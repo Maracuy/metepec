@@ -22,7 +22,7 @@ if(isset($_GET['rz']) && $_GET['rz'] != ''){
 
 function nuevo($con, $id_ciudadano, $puesto, $up){
 
-    $sql_puestos = "INSERT INTO altas_defensa (id_ciudadano, iz_zona, up) VALUES ($id_ciudadano, $puesto, $up)";
+    $sql_puestos = "INSERT INTO altas_defensa (id_ciudadano, id_puesto, up) VALUES ($id_ciudadano, $puesto, $up)";
     $sentencia_puestos = $con->prepare($sql_puestos);
     try{  
         $sentencia_puestos->execute();
@@ -42,7 +42,7 @@ function nuevorz($con, $id_ciudadano, $puesto, $up){
         $sentencia_puestos->execute();
         header("Location: ../electoral.php?id=".$id_ciudadano);
     }catch(Exception $e){
-        echo 'Error al agregar un puesto: ',  $e->getMessage(), "\n";
+        echo 'Error al agregar un RZ: ',  $e->getMessage(), "\n";
         die();
     }  
 
@@ -57,7 +57,7 @@ function nuevorg($con, $id_ciudadano, $puesto, $up){
         $sentencia_puestos->execute();
         header("Location: ../electoral.php?id=".$id_ciudadano);
     }catch(Exception $e){
-        echo 'Error al agregar un puesto: ',  $e->getMessage(), "\n";
+        echo 'Error al agregar un RG: ',  $e->getMessage(), "\n";
         die();
     }  
 
@@ -75,7 +75,6 @@ if(isset($_GET['rg']) && $_GET['rg'] != ''){
 
 
 if ($_GET['nuevo'] == '1'){
-    echo 'Entra aqui';
     nuevo($con, $id_ciudadano, $puesto, $up);
 }
 
