@@ -13,8 +13,8 @@ if(isset($_GET['rz']) && $_GET['rz'] != ''){
     $puesto = $_GET['rz'];
 }elseif(isset($_GET['rg']) && $_GET['rg'] != ''){
     $puesto = $_GET['rg'];
-}elseif(isset($_GET['puesto']) && $_GET['puesto'] != ''){
-    $puesto = $_GET['puesto'];
+}elseif(isset($_GET['casilla']) && $_GET['casilla'] != ''){
+    $puesto = $_GET['casilla'];
 }
 
 
@@ -22,7 +22,7 @@ if(isset($_GET['rz']) && $_GET['rz'] != ''){
 
 function nuevo($con, $id_ciudadano, $puesto, $up){
 
-    $sql_puestos = "INSERT INTO altas_defensa (id_ciudadano, iz_zona, up) VALUES ($id_ciudadano, $puesto, $up)";
+    $sql_puestos = "INSERT INTO altas_defensa (id_ciudadano, id_puesto, up) VALUES ($id_ciudadano, $puesto, $up)";
     $sentencia_puestos = $con->prepare($sql_puestos);
     try{  
         $sentencia_puestos->execute();

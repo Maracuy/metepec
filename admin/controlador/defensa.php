@@ -101,7 +101,6 @@ $ciudadano = New Defensa;
 								<div class="container-fluid text-light">
 									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
 
-									<div class="container-fluid text-light">
 										<table>
 											<tbody>
 												<?php
@@ -111,6 +110,7 @@ $ciudadano = New Defensa;
 														$id_puesto = $puesto['id_puesto'];
 														$stm = $con->query("SELECT * FROM altas_defensa WHERE id_puesto = $id_puesto");
 														$alta = $stm->fetch(PDO::FETCH_ASSOC);
+														$col = (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') ? $ciudadanos[$alta['id_ciudadano']]['id_colonia'] : '';
 
 														$linkBorrar = $ciudadano->linkBorrar($alta['id_ciudadano'], $puesto['tipo_puesto']);
 														$linkAgregar = $ciudadano;
@@ -119,7 +119,7 @@ $ciudadano = New Defensa;
 												
 												<tr>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
-												<td><?php echo $col = ($alta['id_ciudadano'] != '') ? $colonias[$alta['id_ciudadano']]['abreviatura'] : '' ?></td>
+												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col]['abreviatura'] : '' ?></td>
 												<td></td>
 												<td></td>
 												<td></td>
@@ -133,7 +133,6 @@ $ciudadano = New Defensa;
 											</tbody>
 										</table>
 
-									</div>
 								</div>
 							<?php endforeach ?>
 						</div>
