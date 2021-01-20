@@ -120,7 +120,7 @@ $ciudadano = New Defensa;
 												
 												<tr>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
-												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col] : '' ?></td>
+												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col]['abreviatura'] : '' ?></td>
 												<td></td>
 												<td></td>
 												<td></td>
