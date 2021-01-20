@@ -1,13 +1,13 @@
-INSERT INTO zonas (id_zona, zona, color) VALUES 
-(NULL, '1', 'FF9FFF'),
-(NULL, '2', '19A02E'),
-(NULL, '3', 'ACFF40'),
-(NULL, '4', 'B71313'),
-(NULL, '5', 'FFFF00'),
-(NULL, '6', 'A61FFF'),
-(NULL, '7', 'FE920A'),
-(NULL, '8', '2697FF'),
-(NULL, '9', '76FCFF');
+INSERT INTO zonas (id_zona, zona) VALUES 
+(NULL, '1'),
+(NULL, '2'),
+(NULL, '3'),
+(NULL, '4'),
+(NULL, '5'),
+(NULL, '6'),
+(NULL, '7'),
+(NULL, '8'),
+(NULL, '9');
 
 
 INSERT INTO representantes_generales VALUES
