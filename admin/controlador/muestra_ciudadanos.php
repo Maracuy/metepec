@@ -14,8 +14,9 @@ if(isset($_GET['orden'])){
 	}
 }
 
-$consulta_ciudadanos = "SELECT * FROM ciudadanos $orden";
 
+$usuario = $_SESSION['user']['id_ciudadano'];
+$consulta_ciudadanos = "SELECT * FROM ciudadanos WHERE id_registrante = $usuario $orden";
 $sql_query_ciudadanos = $con->prepare($consulta_ciudadanos);
 $sql_query_ciudadanos->execute();
 $ciudadanos = $sql_query_ciudadanos->fetchALL();
