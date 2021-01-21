@@ -6,11 +6,6 @@ array_unshift($ciudadanos, 0);
 $stm = $con->query("SELECT * FROM colonias");
 $colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-
-
-
 $stm = $con->query("SELECT * FROM zonas");
 $zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 if (!$zonas) {
@@ -33,7 +28,7 @@ $ciudadano = New Defensa;
 
 	?>
 		
-	<div class="container-fluid bg-info bg-gradient text-light">
+	<div class="container-fluid bg-gradient text-light" style="background-color: #<?php echo $zona['color'] ?>;">
 		<h3>Zona: <?php echo $zona['zona']?></h3> 
 			<?php 
 			if($rzs){
@@ -50,7 +45,6 @@ $ciudadano = New Defensa;
 			<?php
 				$stm = $con->query("SELECT * FROM representantes_generales WHERE id_zona = $id_zona");
 				$representantes = $stm->fetchAll(PDO::FETCH_ASSOC);
-
 				foreach($representantes as $representante):
 					$id_representante = $representante['id_representante_general']?>
 					<div class="container-fluid bg-gradient text-light" style="background-color: #<?php echo $representante['color'] ?>;">
@@ -74,7 +68,7 @@ $ciudadano = New Defensa;
 						$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
 						foreach ($secciones as $seccion):
 						$id_seccion = $seccion['seccion']?>
-						<div class="container-fluid bg-info bg-gradient text-light">
+						<div class="container-fluid bg-gradient text-light">
 							
 							Seccion: <?php echo $seccion['seccion'] ?>
 
@@ -209,8 +203,14 @@ function zona(dato){
 	rz = dato;
 }
 
-function rg(dato){
+function representanteg(dato){
 	rg = dato;
+}
+
+function deleteall(){
+	casilla = null;
+	rz = null;
+	rg = null;
 }
 
 function AgregarCiudadano(id) {
@@ -239,8 +239,7 @@ function AgregarCiudadano(id) {
 
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Save changes</button>
+			<button type="button" class="btn btn-secondary" onclick="deleteall()" data-dismiss="modal">Close</button>
 		</div>
 		</div>
 	</div>
