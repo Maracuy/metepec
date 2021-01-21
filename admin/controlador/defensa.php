@@ -9,13 +9,9 @@ $colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-<<<<<<< HEAD
-$stm = $con->query("SELECT zona FROM zonas");
-=======
 
 
 $stm = $con->query("SELECT * FROM zonas");
->>>>>>> organizacional
 $zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 if (!$zonas) {
 	echo "Algo salió muuuuuy mal, esto se va a autodestruir en 5, 4, 3, 2, 1....";
@@ -56,23 +52,6 @@ $ciudadano = New Defensa;
 				$representantes = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 				foreach($representantes as $representante):
-<<<<<<< HEAD
-				$id_representante = $representante['id_representante_general'] ?>
-				<div class="container-fluid bg-info bg-gradient text-light">
-					
-					<?php
-					$stm = $con->query("SELECT * FROM altas_defensa WHERE id_rg = $id_representante");
-					$rgs = $stm->fetch(PDO::FETCH_ASSOC);
-					echo "<h6>RG PRINCIPAL: "; 
-					$modalrg = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="rg(' . $representante['representante_general'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
-							if($rgs){
-								echo $ciudadanos[$rgs['id_ciudadano']]['nombres'] . " " . $ciudadanos[$rgs['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$rgs['id_ciudadano']]['apellido_m'];
-								echo "</h6>";
-							}
-							else{
-								echo $modalrg;
-							}
-=======
 					$id_representante = $representante['id_representante_general']?>
 					<div class="container-fluid bg-gradient text-light" style="background-color: #<?php echo $representante['color'] ?>;">
 						
@@ -91,7 +70,6 @@ $ciudadano = New Defensa;
 								else{
 									echo $modalrg;
 								}
->>>>>>> organizacional
 						$stm = $con->query("SELECT * FROM secciones WHERE id_representante_general = $id_representante");
 						$secciones = $stm->fetchAll(PDO::FETCH_ASSOC);
 						foreach ($secciones as $seccion):
@@ -128,17 +106,9 @@ $ciudadano = New Defensa;
 
 							foreach ($casillas as $casilla):
 							$id_casilla = $casilla['id_casilla']?>
-<<<<<<< HEAD
-								<div class="container-fluid bg-info bg-gradient text-light">
-									Casilla: <?php echo $casilla['tipo_casilla'] ?> <br>
-
-									<div class="container-fluid bg-info bg-gradient text-light">
-										<table>
-=======
 								<div class="container-fluid text-light">
 									<?php echo '<h5>Casilla: ' . $casilla['tipo_casilla'] . '</h5>' ?>
 										<table class="table">
->>>>>>> organizacional
 											<tbody>
 												<?php
 													$stm = $con->query("SELECT * FROM puestos_defensa_casillas WHERE id_casilla = $id_casilla");
@@ -149,12 +119,8 @@ $ciudadano = New Defensa;
 														$stm = $con->query("SELECT * FROM altas_defensa WHERE id_puesto = $id_puesto");
 														$alta = $stm->fetch(PDO::FETCH_ASSOC);
 														$col = (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') ? $ciudadanos[$alta['id_ciudadano']]['id_colonia'] : '';
-<<<<<<< HEAD
-														$linkBorrar = $ciudadano->linkBorrar($alta['id_ciudadano'], $puesto['tipo_puesto']);
-=======
 														$id_ciudadano = $alta['id_ciudadano'];
 														$linkBorrar = '<a href="controlador/adddefensasql.php?id=' . $alta['id_ciudadano'] . '&borrar=1" class="btn btn-primary btn-sm"> <i class="fas fa-trash"></i> </a>';
->>>>>>> organizacional
 														$linkAgregar = $ciudadano;
 														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 												?>
@@ -170,11 +136,6 @@ $ciudadano = New Defensa;
 												?></td>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
 												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col]['abreviatura'] : '' ?></td>
-<<<<<<< HEAD
-												<td></td>
-												<td></td>
-												<td></td>
-=======
 												<td><?php
 												if($alta){
 													if((isset($ciudadanos[$alta['id_ciudadano']]['seccion_electoral']) && $ciudadanos[$alta['id_ciudadano']]['seccion_electoral'] != NULL) == $seccion['seccion']){
@@ -200,7 +161,6 @@ $ciudadano = New Defensa;
 														}
 													}
 												?></td>
->>>>>>> organizacional
 												<td><?php echo $name = ($alta['id_ciudadano'] != '') ? $ciudadanos[$alta['id_ciudadano']]['nombres'] . " " . $ciudadanos[$alta['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$alta['id_ciudadano']]['apellido_m'] : "" ?></td>
 												<td>
 												<?php
@@ -217,10 +177,6 @@ $ciudadano = New Defensa;
 												<?php endforeach?>
 											</tbody>
 										</table>
-<<<<<<< HEAD
-									</div>
-=======
->>>>>>> organizacional
 								</div>
 							<?php endforeach ?>
 						</div>
