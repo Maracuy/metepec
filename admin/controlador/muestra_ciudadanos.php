@@ -24,6 +24,8 @@ $ciudadanos = $sql_query_ciudadanos->fetchALL();
 $sql_colonias = $con->prepare("SELECT * FROM colonias");
 $sql_colonias->execute();
 $colonias = $sql_colonias->fetchALL();
+array_unshift($colonias, 0);
+
 ?>
 
 <a href="../admin/alta_ciudadano.php"><button type="button" class="btn btn-primary btn-lg mt-3">Nuevo Ciudadano</button></a>
@@ -134,7 +136,7 @@ $colonias = $sql_colonias->fetchALL();
 				?>
 					<td><?php echo $ciudadano['zona'] ?></td>
 					<td><?php echo $ciudadano['seccion_electoral'] ?></td>
-					<td><?php echo $colonia = ($ciudadano['id_colonia'] != 1 && $ciudadano['id_colonia'] != '') ? ($colonias[$id_colonia -1]['abreviatura']) : $ciudadano['otra_colonia']?></td>
+					<td><?php echo $colonia = ($ciudadano['id_colonia'] != 1 && $ciudadano['id_colonia'] != '') ? ($colonias[$id_colonia]['abreviatura']) : $ciudadano['otra_colonia']?></td>
 					<td><?php echo $ciudadano['manzana'] ?></td>
 					<td><?php echo $ciudadano['posicion'] ?></td>
 					<td><?php echo $vul = ($ciudadano['vulnerable'] == 1) ? '<i class="fas fa-wheelchair"></i>' : 'NO' ?></td>
