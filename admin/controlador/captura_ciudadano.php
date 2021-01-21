@@ -303,6 +303,31 @@ $empleado = $_SESSION['user']['id_ciudadano'];
         <?php endif ?>
     </div>
 
+
+    <div class= "form-group col-md-1">
+        <label for="zona">Zona</label> 
+        <?php if(isset($ciudadano['zona'])):?>
+            <input type="text" value="<?php echo $ciudadano['zona']?>" class="form-control" id="zona" name="zona">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['zona'])):?>
+            <input type="text" class="form-control" id="zona" name="zona">
+        <?php endif ?>
+
+    </div>
+
+    <div class= "form-group col-md-1">
+        <label for="seccion_electoral">SECC.</label> 
+        <?php if(isset($ciudadano['seccion_electoral'])):?>
+            <input type="text" value="<?php echo $ciudadano['seccion_electoral']?>" class="form-control" id="seccion_electoral" name="seccion_electoral">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['seccion_electoral'])):?>
+            <input type="text" class="form-control" id="seccion_electoral" name="seccion_electoral">
+        <?php endif ?>
+
+    </div>        
+
+
+
     <div class="form-group col-md-2">
         <label for="estado_civil">Estado Civil</label>
         <select class="form-control" id="estado_civil" name="estado_civil">
@@ -360,15 +385,15 @@ $empleado = $_SESSION['user']['id_ciudadano'];
         </select>
     </div>
 
-    <div class="form-group col-md-2">
+   <!--  <div class="form-group col-md-1">
         <label for="enfermedades_cron">Enfermedades Cronicas</label>
-        <?php if(isset($ciudadano['enfermedades_cron'])):?>
-            <input type="text" value="<?php echo $ciudadano['enfermedades_cron']?>" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
-        <?php endif ?>
-        <?php if(!isset($ciudadano['enfermedades_cron'])):?>
+        <?php// if(isset($ciudadano['enfermedades_cron'])):?>
+            <input type="text" value="<?php //echo $ciudadano['enfermedades_cron']?>" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
+        <?php //endif ?>
+        <?php //if(!isset($ciudadano['enfermedades_cron'])):?>
             <input type="text" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
-        <?php endif ?>
-    </div>
+        <?php //endif ?>
+    </div> -->
 
 </div>
  
