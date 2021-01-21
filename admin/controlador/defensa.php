@@ -1,5 +1,5 @@
 <?php
-$stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m, id_colonia, seccion_electoral FROM ciudadanos");
+$stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m, id_colonia, seccion_electoral, id_registrante FROM ciudadanos");
 $ciudadanos = $stm->fetchAll(PDO::FETCH_ASSOC);
 array_unshift($ciudadanos, 0);
 
@@ -118,7 +118,7 @@ $ciudadano = New Defensa;
 														$stm = $con->query("SELECT * FROM altas_defensa WHERE id_puesto = $id_puesto");
 														$alta = $stm->fetch(PDO::FETCH_ASSOC);
 														$col = (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') ? $ciudadanos[$alta['id_ciudadano']]['id_colonia'] : '';
-													
+														$id_ciudadano = $alta['id_ciudadano'];
 														$linkBorrar = '<a href="controlador/adddefensasql.php?id=' . $alta['id_ciudadano'] . '&borrar=1" class="btn btn-primary btn-sm"> <i class="fas fa-trash"></i> </a>';
 														$linkAgregar = $ciudadano;
 														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
@@ -161,7 +161,14 @@ $ciudadano = New Defensa;
 													}
 												?></td>
 												<td><?php echo $name = ($alta['id_ciudadano'] != '') ? $ciudadanos[$alta['id_ciudadano']]['nombres'] . " " . $ciudadanos[$alta['id_ciudadano']]['apellido_p'] . " " .$ciudadanos[$alta['id_ciudadano']]['apellido_m'] : "" ?></td>
-												<td></td>
+												<td>
+												<?php
+													if(isset($ciudadanos[$id_ciudadano]['id_registrante']) && $ciudadanos[$id_ciudadano]['id_registrante'] != NULL){
+														$mireg = $ciudadanos[$id_ciudadano]['id_registrante'];
+														echo $ciudadanos[$mireg]['nombres'];
+													}
+												?>
+												</td>
 												<td></td>
 												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
 
@@ -169,7 +176,6 @@ $ciudadano = New Defensa;
 												<?php endforeach?>
 											</tbody>
 										</table>
-
 								</div>
 							<?php endforeach ?>
 						</div>
