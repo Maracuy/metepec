@@ -3,6 +3,10 @@ $stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m, id_col
 $ciudadanos = $stm->fetchAll(PDO::FETCH_ASSOC);
 array_unshift($ciudadanos, 0);
 
+$stm = $con->query("SELECT * FROM capacitaciones_defensa");
+$capacitaciones = $stm->fetch(PDO::FETCH_ASSOC);
+
+
 $stm = $con->query("SELECT * FROM colonias");
 $colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -164,7 +168,14 @@ $ciudadano = New Defensa;
 													}
 												?>
 												</td>
-												<td></td>
+												<td><?php echo $alta['origen']?></td>
+												<td><?php echo $alta['afiliacion']?></td>
+												<td> <!-- Beneficios --> </td>
+												<td> <!-- Colaboracion --> </td>
+												<td>
+													<button type="button" class="btn btn-primary btn-sm" onclick="Capacitaciones(<?php echo $id_ciudadano ?>)" data-toggle="modal" data-target="#modalcapacitaciones"> Capacitaciones</button>
+												</td>
+												<td> </td>
 												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
 
 												</tr>
@@ -183,6 +194,9 @@ $ciudadano = New Defensa;
 <?php endforeach ?> <!-- Este es el foreach de las zonas -->
 
 <script>
+var capacitaciones = <?php echo json_encode($capacitaciones)?>
+var id_capacitaciones;
+
 var casilla;
 var rz;
 var rg;
@@ -221,6 +235,10 @@ function AgregarCiudadano(id) {
 	}else if(casilla != null)
 	if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
 }
+
+function Capacitaciones(id){
+	id_capacitaciones = id;
+}
 </script>
 
 
@@ -240,6 +258,26 @@ function AgregarCiudadano(id) {
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" onclick="deleteall()" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modalcapacitaciones" tabindex="" role="dialog" aria-labelledby="modalcapacitaciones" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="modalcapacitaciones">Hola</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<?php include 'controlador/capacitaciones_defensa.php'?>		
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		</div>
 		</div>
 	</div>
