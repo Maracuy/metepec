@@ -4,8 +4,7 @@ $ciudadanos = $stm->fetchAll(PDO::FETCH_ASSOC);
 array_unshift($ciudadanos, 0);
 
 $stm = $con->query("SELECT * FROM capacitaciones_defensa");
-$capacitaciones = $stm->fetch(PDO::FETCH_ASSOC);
-
+$capacitaciones = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 $stm = $con->query("SELECT * FROM colonias");
 $colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -18,7 +17,6 @@ if (!$zonas) {
 }
 include 'DefensaC.php';
 $ciudadano = New Defensa;
-
 ?>
 
 <h4>Área de administración de la Defensa del Voto</h4>
@@ -116,7 +114,7 @@ $ciudadano = New Defensa;
 
 														$stm = $con->query("SELECT * FROM altas_defensa WHERE id_puesto = $id_puesto");
 														$alta = $stm->fetch(PDO::FETCH_ASSOC);
-														$col = (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') ? $ciudadanos[$alta['id_ciudadano']]['id_colonia'] : '';
+
 														$id_ciudadano = $alta['id_ciudadano'];
 														$linkBorrar = '<a href="controlador/adddefensasql.php?id=' . $alta['id_ciudadano'] . '&borrar=1" class="btn btn-primary btn-sm"> <i class="fas fa-trash"></i> </a>';
 														$linkAgregar = $ciudadano;
@@ -133,16 +131,25 @@ $ciudadano = New Defensa;
 												}
 												?></td>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
-												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col]['abreviatura'] : '' ?></td>
+												<td><?php 
+												if (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') {
+													$id_col = $ciudadanos[$alta['id_ciudadano']]['id_colonia'];
+													
+													$col = '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="' . $colonias[$id_col]['nombre_colonia'] . '">' . $colonias[$id_col]['abreviatura'] . '</a>';
+												}else{
+													$col = '<a href="alta_ciudadano.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
+												}
+												echo $col;
+												?></td>
 												<td><?php
 												if($alta){
-													if((isset($ciudadanos[$alta['id_ciudadano']]['seccion_electoral']) && $ciudadanos[$alta['id_ciudadano']]['seccion_electoral'] != NULL) == $seccion['seccion']){
-														echo "local";
+													if((isset($ciudadanos[$alta['id_ciudadano']]['seccion_electoral']) && $ciudadanos[$alta['id_ciudadano']]['seccion_electoral'] != '') == $seccion['seccion']){
+														echo '<i class="fas fa-map-marker-alt"></i>';
+													}else if(isset($ciudadanos[$alta['id_ciudadano']]['seccion_electoral']) != $seccion['seccion']){
+														echo '<i class="fas fa-map-marked"></i>';
 													}else{
-														echo "foraneo";
+														echo '<a href="alta_ciudadano.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 													}
-												}else{
-													echo "no asignado";
 												}
 												?></td>
 												<td><?php
@@ -194,7 +201,8 @@ $ciudadano = New Defensa;
 <?php endforeach ?> <!-- Este es el foreach de las zonas -->
 
 <script>
-var capacitaciones = <?php echo json_encode($capacitaciones)?>
+var capacitaciones = <?php echo json_encode($capacitaciones)?>;
+
 var id_capacitaciones;
 
 var casilla;
@@ -237,7 +245,13 @@ function AgregarCiudadano(id) {
 }
 
 function Capacitaciones(id){
-	id_capacitaciones = id;
+	for(let i=0;i<capacitaciones.length;i++){
+		let chec = capacitaciones[i]['id_ciudadano'];
+		if(chec == id){
+			id_capacitaciones = capacitaciones[i]['id_capacitacion'];
+			alert("Me encontraste");
+		}
+	}
 }
 </script>
 
@@ -263,17 +277,18 @@ function Capacitaciones(id){
 	</div>
 </div>
 
+
 <div class="modal fade" id="modalcapacitaciones" tabindex="" role="dialog" aria-labelledby="modalcapacitaciones" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 		<div class="modal-header">
-			<h5 class="modal-title" id="modalcapacitaciones">Hola</h5>
+			<h5 class="modal-title" id="modalcapacitaciones">Capacitaciones</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
 		<div class="modal-body">
-			<?php include 'controlador/capacitaciones_defensa.php'?>		
+			<?php include 'controlador/capacitaciones_defensa.php'?>
 
 		</div>
 		<div class="modal-footer">

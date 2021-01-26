@@ -10,13 +10,15 @@ if(empty($_POST)){
 }
 require_once '../../conection/conexion.php';
 
+
+
 $id =  intval($_POST['id']) ;
 $participo_eleccion = intval($_POST['participo_eleccion']);
 $posicion = ($_POST['posicion'] != '') ? $_POST['posicion'] : 0;
 $asistio = intval($_POST['asistio']);
 $compromiso = $_POST['compromiso'];
 $afiliacion = ($_POST['afiliacion'] != '') ? $_POST['afiliacion'] : "";
-$cubre = intval($_POST['cubre']);
+$cubre = ($_POST['cubre'] != "") ? intval($_POST['cubre']) : "";
 $origen = ($_POST['origen'] != '') ? $_POST['origen'] : '0';
 
 
