@@ -67,7 +67,6 @@ if(isset($alta['id_zona']) && $alta['id_zona'] != ''){
     echo "<br>";
 }
 
-
 ?>
 <br>
 <form method="POST" action="controlador/electoralsql.php">
@@ -78,14 +77,14 @@ if(isset($alta['id_zona']) && $alta['id_zona'] != ''){
 <div class="form-row"><br>
 
     <div class="form-group col-md-2">
-        <label for="participo_eleccion">Participo Eleccion Previa</label>
-        <select class="form-control" id="participo_eleccion" name="participo_eleccion">
-        <?php if(isset($alta['participo_eleccion'])) :?>
-            <option <?php if ($alta['participo_eleccion'] == '' ) echo 'selected' ;?> value="">No definido</option>
-            <option <?php if ($alta['participo_eleccion'] == 0 ) echo 'selected' ;?> value=0>No</option>
-            <option <?php if ($alta['participo_eleccion'] == 1 ) echo 'selected' ;?> value=1>Si</option>
+        <label for="previo">Participo Eleccion Previa</label>
+        <select class="form-control" id="previo" name="previo">
+        <?php if(isset($alta['previo']) && $alta['previo'] != ''):?>
+            <option <?php if ($alta['previo'] == '' ) echo 'selected' ;?> value="">No definido</option>
+            <option <?php if ($alta['previo'] == 0 ) echo 'selected' ;?> value=0>No</option>
+            <option <?php if ($alta['previo'] == 1 ) echo 'selected' ;?> value=1>Si</option>
         <?php endif ?>
-        <?php if(!isset($alta['participo_eleccion']) || $alta['participo_eleccion'] != "" ) :?>
+        <?php if(!isset($alta['previo']) && $alta['previo'] == "" ) :?>
             <option value="">No Definido</option>
             <option value=0>No</option>
             <option value=1>Si</option>
@@ -94,12 +93,12 @@ if(isset($alta['id_zona']) && $alta['id_zona'] != ''){
     </div> 
 
     <div class="form-group col-md-2">
-        <label for="posicion">Posicion (Opciones)</label>
-        <?php if(isset($alta['posicion'])):?>
-            <input type="text" value="<?php echo $alta['posicion']?>" class="form-control" id="posicion" name="posicion">
+        <label for="posicion_prev">Posicion (Opciones)</label>
+        <?php if(isset($alta['posicion_prev'])):?>
+            <input type="text" value="<?php echo $alta['posicion_prev']?>" class="form-control" id="posicion_prev" name="posicion_prev">
         <?php endif ?>
-        <?php if(!isset($alta['posicion'])):?>
-            <input type="text" class="form-control" id="posicion" name="posicion">
+        <?php if(!isset($alta['posicion_prev'])):?>
+            <input type="text" class="form-control" id="posicion_prev" name="posicion_prev">
         <?php endif ?>
     </div>
     
@@ -112,7 +111,7 @@ if(isset($alta['id_zona']) && $alta['id_zona'] != ''){
             <option <?php if ($alta['asistio'] == 0 ) echo 'selected' ;?> value=0>No</option>
             <option <?php if ($alta['asistio'] == 1 ) echo 'selected' ;?> value=1>Si</option>
             <?php endif ?>
-            <?php if(!isset($alta['asistio']) || $alta['asistio'] != "" ) :?>
+            <?php if(!isset($alta['asistio']) && $alta['asistio'] != "" ) :?>
                 <option value="">No Definido</option>
                 <option value=0>No</option>
                 <option value=1>Si</option>
