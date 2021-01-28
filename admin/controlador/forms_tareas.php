@@ -31,17 +31,7 @@ if($tipo==1){ /* Aqui vamos a solicitar lo necesario para trabajar con CIUDADANA
 
 
 if($tipo==2){ /* Aqui vamos a solicitar lo necesario para trabajar con INTERNOS */
-	$sql_programas_internos = $con->prepare('SELECT * FROM programas_internos');
-    $sql_programas_internos->execute();
-	$programas = $sql_programas_internos->fetchAll();
 
-	$procesos_ciudadanos = $con->prepare('SELECT * FROM procesos_internos');
-    $procesos_ciudadanos->execute();
-	$procesos = $procesos_ciudadanos->fetchAll();
-
-	$sql_beneficiarios_ciudadanos = $con->prepare('SELECT * FROM beneficiarios_int');
-    $sql_beneficiarios_ciudadanos->execute();
-	$beneficiarios = $sql_beneficiarios_ciudadanos->fetchAll();
 }
 
 

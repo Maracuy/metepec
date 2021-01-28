@@ -230,8 +230,8 @@ DROP TABLE IF EXISTS tareas;
 CREATE TABLE IF NOT EXISTS tareas(
     id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     tipo INT,
-    id_empleado_crea_tarea INT NOT NULL,
-    id_empleado_asigna_tarea INT NOT NULL,
+    id_ciudadano_crea_tarea INT NOT NULL,
+    id_ciudadano_asigna_tarea INT NOT NULL,
     creada_date DATE,
     fecha_limite DATE,
     tarea_titulo VARCHAR(255),
