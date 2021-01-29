@@ -121,6 +121,7 @@ $ciudadano = New Defensa;
 														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 												?>
 												<tr>
+												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
 												<td><?php
 												if($alta){
 													if($alta['confirmacion'] == 0 ){
@@ -131,15 +132,14 @@ $ciudadano = New Defensa;
 												}
 												?></td>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
-												<td><?php 
+												<td><?php
 												if (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') {
 													$id_col = $ciudadanos[$alta['id_ciudadano']]['id_colonia'];
 													
-													$col = '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="' . $colonias[$id_col]['nombre_colonia'] . '">' . $colonias[$id_col]['abreviatura'] . '</a>';
-												}else{
-													$col = '<a href="alta_ciudadano.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
+													echo $col = '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="' . $colonias[$id_col]['nombre_colonia'] . '">' . $colonias[$id_col]['abreviatura'] . '</a>';
+												}else if($alta){
+													echo $col = '<a href="alta_ciudadano.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 												}
-												echo $col;
 												?></td>
 												<td><?php
 												if($alta){
@@ -153,9 +153,13 @@ $ciudadano = New Defensa;
 												}
 												?></td>
 												<td><?php
-													if ($alta) {
-														if ($alta['previo'] == 1) {
-															echo "asistió";
+													if($alta){
+														if(isset($alta['previo']) && $alta['id_ciudadano']['previo'] == 1){
+															echo '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="Previo"><i class="fas fa-backward"></i></a>';
+														}else if(isset($ciudadanos[$alta['id_ciudadano']]['previo']) && ($ciudadanos[$alta['id_ciudadano']]['previo'] == 0)){
+															echo '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="Nuevo"><i class="fas fa-bell"></i></a>';
+														}else{
+															echo '<a href="electoral.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 														}
 													}
 												?></td>
@@ -183,7 +187,6 @@ $ciudadano = New Defensa;
 													<button type="button" class="btn btn-primary btn-sm" onclick="Capacitaciones(<?php echo $id_ciudadano ?>)" data-toggle="modal" data-target="#modalcapacitaciones"> Capacitaciones</button>
 												</td>
 												<td> </td>
-												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
 
 												</tr>
 												<?php endforeach?>

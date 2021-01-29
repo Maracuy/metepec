@@ -13,9 +13,9 @@ require_once '../../conection/conexion.php';
 
 
 $id =  intval($_POST['id']) ;
-$previo = ($_POST['previo'] != '') ? intval($_POST['previo']) : $_POST['previo'];
-$posicion = ($_POST['posicion_prev'] != '') ? $_POST['posicion_prev'] : '';
-$asistio = ($_POST['asistio'] != '') ? intval($_POST['asistio']) : $_POST['asistio'];
+$previo = intval($_POST['previo']);
+$posicion = ($_POST['posicion'] != '') ? $_POST['posicion'] : 0;
+$asistio = intval($_POST['asistio']);
 $compromiso = $_POST['compromiso'];
 $afiliacion = ($_POST['afiliacion'] != '') ? $_POST['afiliacion'] : "";
 $origen = ($_POST['origen'] != '') ? $_POST['origen'] : '';
