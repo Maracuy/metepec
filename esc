@@ -1,0 +1,580 @@
+[33mcommit 51cf2dbd5893eb264ebed1178e297e97a84d1ba2[m[33m ([m[1;36mHEAD -> [m[1;32mtareas[m[33m, [m[1;31morigin/organizacional[m[33m, [m[1;32morganizacional[m[33m)[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 27 13:23:53 2021 -0600
+
+    Antes de comenzar tareas
+
+[33mcommit df1e8c59e51cd90a592c69475d5e6d27cea24642[m
+Author: Goderlive <goder@live.com>
+Date:   Tue Jan 26 13:00:46 2021 -0600
+
+    Funcionando, falta previo, pero colonia jala
+
+[33mcommit 587b0b353d9c103ad63d65f89d72a3b87d9b4915[m
+Author: Goderlive <goder@live.com>
+Date:   Fri Jan 22 11:11:50 2021 -0600
+
+    comienza javascrip para capacitaciones
+
+[33mcommit 395a113aa07f7234772ce7525df20ae928b707e7[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 17:38:17 2021 -0600
+
+    corrige muestra de ciudadanos
+
+[33mcommit 3587684ce283f6fd4c425554ca7a649df7b4fe3e[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 17:20:26 2021 -0600
+
+    udate force
+
+[33mcommit f2b706cda032469710283fbd31bef66ebd4128b3[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 17:19:19 2021 -0600
+
+    merge desde organizacional
+
+[33mcommit 57059e7513e9cf8d8168b15af57a9d2b8e1a6828[m
+Merge: 10930ae c1ba0d1
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 17:14:48 2021 -0600
+
+    Merge branch 'organizacional' into master
+
+[33mcommit 10930ae94773db3a907086cdb579500c8db6313c[m
+Merge: 4ff0688 1415c1d
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 17:08:32 2021 -0600
+
+    Merge branch 'electoral' into master
+
+[33mcommit 1415c1df7cc9aae1b11152b650b29a1072f39f65[m[33m ([m[1;32melectoral[m[33m)[m
+Merge: 92ec788 3230124
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 17:07:33 2021 -0600
+
+    Merge remote-tracking branch 'origin/electoral2' into electoral
+
+[33mcommit c1ba0d1f1ccb08f6723b0a8cbd0c2a47eca8502f[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 17:03:10 2021 -0600
+
+    muestra UP en defensa
+
+[33mcommit c01541b0d49fa149639c539ce98192f53ab6811f[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Jan 21 15:07:29 2021 -0600
+
+    Avance considerable en defensa. Funciona
+
+[33mcommit 32301246b64b35da4d2a856c402d2291b27ec8e4[m[33m ([m[1;31morigin/electoral2[m[33m)[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Thu Jan 21 13:35:47 2021 -0600
+
+    secc y zona en ciudadanos
+
+[33mcommit 44c005b35b8cb01a1c6e0a50242e8c319e5221a2[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 20 14:18:47 2021 -0600
+
+    Justo antes del experimento, remitir al anterior
+
+[33mcommit 11d0a61162fddc9ac8c048688e0b2c2d5218dade[m[33m ([m[1;31morigin/organizacional2[m[33m)[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 20 13:05:12 2021 -0600
+
+    funciona bien, se usara para clonar
+
+[33mcommit 4ff06886a10f8c3b93fe423c4d01bd67b9242df0[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 20 12:34:43 2021 -0600
+
+    update en defensa
+
+[33mcommit e591dc3a9279f9af6313156a82670c0c7f9f43ca[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 20 12:21:50 2021 -0600
+
+    Este comit tampoco
+
+[33mcommit 1d175bb221c729a2d85094d51aef69a1d2d65e62[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 20 12:21:27 2021 -0600
+
+    Este commit no
+
+[33mcommit 1c314779dbfe082989d8df2c9efcc5bae2ada54f[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Jan 18 19:34:56 2021 -0600
+
+    muestra, agrega, funciona
+
+[33mcommit fe3aeda4380323f5d69a5a8765144bb2a6da3e9a[m
+Author: Goderlive <goder@live.com>
+Date:   Tue Jan 12 15:23:52 2021 -0600
+
+    modificacion en estructura defensa
+
+[33mcommit 4e8a67fe6506d2f2fa027cbfce6d259a87c3507a[m
+Merge: f63703b f3c9bba
+Author: Goderlive <goder@live.com>
+Date:   Mon Jan 11 12:39:22 2021 -0600
+
+    Merge branch 'electoral2' into organizacional2
+
+[33mcommit f63703bae2092a97614fe0f46e964f127effd31f[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Jan 11 12:37:27 2021 -0600
+
+    actualizacion en zonas
+
+[33mcommit f3c9bba88227401ac6c97b8894442cf1fedb0a53[m[33m ([m[1;32melectoral2[m[33m)[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Mon Jan 11 12:30:48 2021 -0600
+
+    seccion de reportes Terminada
+
+[33mcommit 53333c06283ff402d763160487a6bc114c2d1306[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Sun Jan 10 22:15:40 2021 -0600
+
+    Icono reporte
+
+[33mcommit 1e3656c489313d5adf1b1708c2c3769d9e35fb83[m
+Author: Goderlive <goder@live.com>
+Date:   Fri Jan 8 14:44:43 2021 -0600
+
+    update en secciones
+
+[33mcommit 99db2e6a0af9cb665f07adcf4390a20f04322907[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Fri Jan 8 14:32:50 2021 -0600
+
+    reportes -modificacion en el formato f_c-
+
+[33mcommit 4793f28e2fd62e50e170fcc98cec3394814c91c4[m
+Merge: ed3995a 92ec788
+Author: Goderlive <goder@live.com>
+Date:   Fri Jan 8 12:19:07 2021 -0600
+
+    Merge branch 'electoral' into organizacional2
+
+[33mcommit 92ec78876e1a76f92def7ba4a8e98fa296f992b7[m[33m ([m[1;31morigin/electoral[m[33m)[m
+Author: Goderlive <goder@live.com>
+Date:   Fri Jan 8 12:18:28 2021 -0600
+
+    Bases Update
+
+[33mcommit ca996ac58aefaad635f20f4c658e6308f55b092c[m
+Merge: 289b7da 4ba7323
+Author: Goderlive <goder@live.com>
+Date:   Fri Jan 8 12:08:42 2021 -0600
+
+    Merge remote-tracking branch 'origin/electoral' into electoral
+
+[33mcommit ed3995a51e761ba7e65e93ffd754b916c06937d2[m
+Merge: 0785667 289b7da
+Author: Goderlive <goder@live.com>
+Date:   Fri Jan 8 12:06:52 2021 -0600
+
+    Merge remote-tracking branch 'origin/master' into organizacional2
+
+[33mcommit 0785667ef3268ba44dbc6765da8454ce120a4476[m
+Merge: 6140bd5 4ba7323
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Thu Jan 7 16:41:28 2021 -0600
+
+    Merge branch 'electoral' into organizacional2
+
+[33mcommit 4ba7323670c9310dfebf129f3016759f659c7dba[m
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Thu Jan 7 16:38:26 2021 -0600
+
+    logica
+
+[33mcommit 6140bd53fa5cfad30793f19ba12392151378589e[m
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Thu Jan 7 14:54:18 2021 -0600
+
+    cambios menores
+
+[33mcommit 88a84144a9346cd705f3a6112ddefe866aac1674[m
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Thu Jan 7 13:19:13 2021 -0600
+
+    muestra mensajes pero no registra
+
+[33mcommit 289b7da8be98b1f01fbf08c3789425a77bc409fd[m
+Merge: 6cec384 89a3e50
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 6 15:31:25 2021 -0600
+
+    Merge branch 'organizacional2' into electoral
+
+[33mcommit 89a3e506f814b9a9cbe116aabd8db27453b370cf[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 6 15:21:30 2021 -0600
+
+    agrega rgs y muestra colonia
+
+[33mcommit 6cec384b5c710520e44ea69905e2ef4d46a34d65[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Wed Jan 6 13:50:47 2021 -0600
+
+    actualizacion en reportes -st-
+
+[33mcommit c1edfc231427326b9675d78efa8b10c442e3648e[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Jan 6 13:02:02 2021 -0600
+
+    Ya agrega rz, pero falta rg
+
+[33mcommit cb26b725e9eb149c6358ff79e1e13e9c392ab822[m
+Author: Goderlive <goder@live.com>
+Date:   Tue Jan 5 16:08:32 2021 -0600
+
+    Avance en defensa
+
+[33mcommit 2cf98366879fbe2a79716d6f4a5f9295174c18c6[m
+Author: Desarrollo <andalbort@gmail.com>
+Date:   Tue Jan 5 14:11:15 2021 -0600
+
+    creacion de seccion de reportes
+
+[33mcommit c28be2712c51543afdf0bdef6af17284c59e8963[m
+Author: Desarrollo <andalbort@gmail.com>
+Date:   Tue Jan 5 12:50:37 2021 -0600
+
+    pequeños cambios
+
+[33mcommit 627804e879f965c484577f790e8e40b50d2e7bf1[m
+Author: Desarrollo <andalbort@gmail.com>
+Date:   Tue Jan 5 11:41:49 2021 -0600
+
+    cambios en login
+
+[33mcommit b180a1718c05074e5d08353543c710641cfac0e7[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Dec 30 14:29:32 2020 -0600
+
+    Last Update antes de cambiar de rama
+
+[33mcommit 079fc31330537ab1b1ecd5b84233b403d0f86bcd[m
+Merge: 0d31596 a6342dd
+Author: Desarrollo <andalbort@gmail.com>
+Date:   Tue Dec 29 13:00:06 2020 -0600
+
+    Merge branch 'master' into electoral
+
+[33mcommit 0d315968a3e0a6e9883b302dfbdf2068ac55631a[m
+Author: Desarrollo <andalbort@gmail.com>
+Date:   Tue Dec 29 12:57:26 2020 -0600
+
+    eliminacion de usuario nulo
+
+[33mcommit 2187f4abaa592eb4ad086f30829001e915f6271b[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Dec 28 14:28:31 2020 -0600
+
+    Ya agrega ciudadanos a puestos defensa
+
+[33mcommit 7166741ec110c2d0279752ae789b4d65c344f188[m
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Wed Dec 23 11:43:12 2020 -0600
+
+    update
+
+[33mcommit 9be92436bd7e5643ba98e4a1a2dea0963c485725[m
+Author: Goderlive <goder@live.com>
+Date:   Tue Dec 22 12:07:54 2020 -0600
+
+    Update en defensa
+
+[33mcommit c100aa0bf719056c278e6182cdbf925678a82841[m
+Merge: a054cbd 38e3286
+Author: Goderlive <goder@live.com>
+Date:   Sat Dec 19 01:19:49 2020 -0600
+
+    Merge branch 'electoral' into master
+
+[33mcommit a054cbdcb2a3c976b81052924b3684dbdb120dad[m
+Author: Goderlive <goder@live.com>
+Date:   Sat Dec 19 00:56:39 2020 -0600
+
+    Last up to server
+
+[33mcommit 18e8074c24d0772d030958c2e4536fd9362a9253[m
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Thu Dec 17 14:36:50 2020 -0600
+
+    inicio de modal
+
+[33mcommit f33ebbd4844235e27e0981d94398af4c479daa71[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Dec 17 02:14:26 2020 -0600
+
+    ElectoralUpdate
+
+[33mcommit 78e8cda5796e99552e6b6ed21bf03bf886ad06d3[m
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Mon Dec 14 14:23:13 2020 -0600
+
+    suma en defenza
+
+[33mcommit 38e3286504b63d8f183268694a9fd4d16ae8af23[m
+Author: Desarrollo <andalbort@gmail.com>
+Date:   Mon Dec 14 11:52:28 2020 -0600
+
+    modificaciones en electoral -recepcion de datos-
+
+[33mcommit 6cd3b89b63081ece865db67a44a2bf4ddd4b0941[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Dec 10 14:44:55 2020 -0600
+
+    Last Update jeje
+
+[33mcommit a6342ddc34e58707a3f7b12744264e020a9797ca[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Dec 10 12:48:58 2020 -0600
+
+    update en menu y archivos
+
+[33mcommit 3af216472538342766a5c2373100dcd8e76d02e1[m
+Author: ¨Goderlive¨ <¨goder@live.com¨>
+Date:   Thu Dec 3 13:19:23 2020 -0600
+
+    Nueva tabla de electoral -defensa_voto-
+
+[33mcommit 60afc6ead3ec6da8a41a5d9b70559a29a6c2fec7[m
+Merge: 53ba1f7 c0e31ef
+Author: Goderlive <goder@live.com>
+Date:   Mon Nov 30 17:33:54 2020 -0600
+
+    Merge remote-tracking branch 'origin/electoral' into electoral
+
+[33mcommit 53ba1f7932614ef2c9548021f4bd49a74cf4d0da[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Nov 30 17:28:04 2020 -0600
+
+    Defensa del voto, paso 1
+
+[33mcommit c0e31efd9358e32bf807a69a125e634f8668dfaa[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Wed Nov 25 14:38:18 2020 -0600
+
+    Segunda modificacion de electoral
+
+[33mcommit 9883ecf8a3638ab8d17f71f4c49c5f976b9026c5[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Wed Nov 25 14:12:00 2020 -0600
+
+    modificacion en electoral
+
+[33mcommit c56cd678bddfd875f2bc959c627d7597cfc96db6[m
+Merge: 2a58b18 0537ff4
+Author: goderlive <goder@live.com>
+Date:   Tue Nov 24 12:54:57 2020 -0600
+
+    Merge remote-tracking branch 'origin/master' into Andres
+
+[33mcommit 2a58b184e6ee733e29432d5ab0591d350d8b6f4e[m
+Author: goderlive <goder@live.com>
+Date:   Tue Nov 24 12:54:52 2020 -0600
+
+    Cambios generales
+
+[33mcommit 0537ff41538e80cbc4b7004bcbabaef59a3199ab[m
+Author: Andres AO <andalbort@gmail.com>
+Date:   Mon Nov 23 14:44:57 2020 -0600
+
+    Primer intento
+
+[33mcommit 83f3ca3ef2d9afd59abe9fb86540ee3e8b4de361[m
+Author: Goderlive <goder@live.com>
+Date:   Fri Nov 20 10:41:35 2020 -0600
+
+    update
+
+[33mcommit aea657f1ac0fe7c302360c893952974dbda67ff8[m
+Author: Goderlive <goder@live.com>
+Date:   Tue Nov 17 12:59:48 2020 -0600
+
+    pre start orders
+
+[33mcommit 106015a7398197c633f5669f0ceda2610de94881[m
+Author: Goderlive <goder@live.com>
+Date:   Fri Nov 13 13:36:09 2020 -0600
+
+    up
+
+[33mcommit a0b2a95d2facba1eedd1a27bcfbcfb898cd08431[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Nov 11 19:39:20 2020 -0600
+
+    Vista casi terminada
+
+[33mcommit 2cb7d4b71f0a03c6056a2741b41dae88ba23889a[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Nov 11 12:44:18 2020 -0600
+
+    Mostrando
+
+[33mcommit e4485721da5db9dc2fbb742d6342e4bc13cebd72[m
+Author: Goderlive <goder@live.com>
+Date:   Tue Nov 10 17:52:32 2020 -0600
+
+    Simpatia work
+
+[33mcommit c3d5ec3b56cddb39155452f537f07b69c78bab35[m
+Author: Goderlive <goder@live.com>
+Date:   Tue Nov 10 17:14:38 2020 -0600
+
+    Simpatia
+
+[33mcommit 492a66b2cc5e405e07a7272c0b554e342126bc34[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Nov 9 19:49:44 2020 -0600
+
+    to upload alpha
+
+[33mcommit a2c177583a8f5dfcce472c9554cf5514d2292bfd[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Nov 9 11:31:21 2020 -0600
+
+    Listas peticiones sencillas
+
+[33mcommit 6ca8af9a3e2b244c8d89e6d1fd445b09590e2afc[m
+Merge: 6d625ae 9c59e4d
+Author: Goderlive <goder@live.com>
+Date:   Fri Nov 6 23:26:30 2020 -0600
+
+    el merge
+
+[33mcommit 6d625aecfe6c428249c046796f0460e106b870b3[m
+Author: Goderlive <goder@live.com>
+Date:   Fri Nov 6 23:19:46 2020 -0600
+
+    igual
+
+[33mcommit 7e0db77b36ab8432d5c73d667fb57dd7e1c6004a[m
+Author: Goderlive <goder@live.com>
+Date:   Fri Nov 6 22:45:31 2020 -0600
+
+    procesos update1
+
+[33mcommit 50765aed959e963dedca4c99a15b595b396bcb8e[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Nov 4 15:33:33 2020 -0600
+
+    Altas de programas en ajustes
+
+[33mcommit 477495c815c40dd2373306ca6deb59bda2e44ab1[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Nov 4 14:38:06 2020 -0600
+
+    Menu del proceso
+
+[33mcommit e6272b3755c84e4dffb1c19ed72d063c5224ea7f[m[33m ([m[1;31morigin/tickets[m[33m, [m[1;32mtickets[m[33m)[m
+Author: Goderlive <goder@live.com>
+Date:   Wed Nov 4 12:38:42 2020 -0600
+
+    Permisos incompleta
+
+[33mcommit aa5d09bb3a6aeb2a1e8be857c05f6ac581283d6f[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Nov 2 22:14:18 2020 -0600
+
+    adelanto en galaxia
+
+[33mcommit 5943a56fb9c52e2922bb6319a188a4e1d351d072[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Nov 2 18:52:25 2020 -0600
+
+    Avance a documentos
+
+[33mcommit 3df1d99667647ed40cffd6356c6b10a71008a1dd[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Nov 2 17:35:57 2020 -0600
+
+    Edicion Funcional
+
+[33mcommit 9e369b274ea2eac3b63d00946210e7125b4328d9[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Oct 29 17:00:07 2020 -0600
+
+    Vista Ciudadanos
+
+[33mcommit 5bdb27571303a7a9244902cd3651d583972d641b[m
+Author: Goderlive <goder@live.com>
+Date:   Mon Oct 26 22:31:08 2020 -0600
+
+    primer galaxia
+
+[33mcommit bb8a01df0b8430ed7372dff3d5e9e8b833093b1e[m
+Author: Goderlive <goder@live.com>
+Date:   Thu Oct 22 16:07:47 2020 -0500
+
+    nuevo sistema de ciudadanos
+
+[33mcommit 3bc6fded993f7d62691ecc517b8e018fb27a3f60[m
+Author: goderlive <goder@live.com>
+Date:   Thu Sep 10 17:23:16 2020 -0500
+
+    Cambio a bases y actualizacion con las nuevas bases
+
+[33mcommit 4772fd66d4ed720b334aa4093f6eef589e3d5d82[m
+Author: goderlive <goder@live.com>
+Date:   Thu Sep 10 13:36:56 2020 -0500
+
+    Antes de implementar el js
+
+[33mcommit 988c1feece12fe8eda7189c1e71cc4fdc9c9f780[m
+Author: goderlive <goder@live.com>
+Date:   Tue Sep 8 16:51:19 2020 -0500
+
+    nueva base de tareas
+
+[33mcommit 379daf8e22cb6c82692d17c6bebafcf60c5b6beb[m
+Author: goderlive <goder@live.com>
+Date:   Tue Sep 8 16:11:28 2020 -0500
+
+    principio de tickets
+
+[33mcommit 9c59e4d39cd02f1b1d6721ce9becd9cf62a7b515[m
+Merge: 4e72043 11f4239
+Author: maracuyacreative <angel@maracuya.mx>
+Date:   Sun Sep 6 13:31:53 2020 -0500
+
+    Merge branch 'master' of https://github.com/Maracuy/metepec
+
+[33mcommit 11f4239ae826f1f7b96d20cda9b9fb3f894e1bf3[m
+Merge: 3ad8673 a014d47
+Author: German Guillen <goder@live.com>
+Date:   Sat Sep 5 00:56:55 2020 -0500
+
+    Merge remote-tracking branch 'origin/master' lsto
+
+[33mcommit a014d4758c5a91d0fb14a3b1a9dd7264c153b72f[m
+Author: goderlive <goder@live.com>
+Date:   Fri Sep 4 17:13:34 2020 -0500
+
+    Update Tablas
+
+[33mcommit 4e7204331e584638d96e6a911b7cc15463399a34[m
+Author: maracuyacreative <angel@maracuya.mx>
+Date:   Fri Sep 4 14:03:41 2020 -0500
+
+    UPD.0001
+
+[33mcommit e2a8b8ef46409fe66e9176a1c482341f48371de8[m
+Merge: 20a10de 9cdb291
+Author: goderlive <goder@live.com>
+Date:   Fri Sep 4 13:35:01 2020 -0500
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 20a10debd396b28000ab3e5cdfe9ed98b1161021[m
+Author: goderlive <goder@live.com>
+Date:   Fri Sep 4 13:23:47 2020 -0500
+
+    Cambios a merge

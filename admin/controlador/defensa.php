@@ -3,6 +3,9 @@ $stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m, id_col
 $ciudadanos = $stm->fetchAll(PDO::FETCH_ASSOC);
 array_unshift($ciudadanos, 0);
 
+$stm = $con->query("SELECT * FROM capacitaciones_defensa");
+$capacitaciones = $stm->fetchAll(PDO::FETCH_ASSOC);
+
 $stm = $con->query("SELECT * FROM colonias");
 $colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -14,7 +17,6 @@ if (!$zonas) {
 }
 include 'DefensaC.php';
 $ciudadano = New Defensa;
-
 ?>
 
 <h4>Área de administración de la Defensa del Voto</h4>
@@ -112,13 +114,14 @@ $ciudadano = New Defensa;
 
 														$stm = $con->query("SELECT * FROM altas_defensa WHERE id_puesto = $id_puesto");
 														$alta = $stm->fetch(PDO::FETCH_ASSOC);
-														$col = (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') ? $ciudadanos[$alta['id_ciudadano']]['id_colonia'] : '';
+
 														$id_ciudadano = $alta['id_ciudadano'];
 														$linkBorrar = '<a href="controlador/adddefensasql.php?id=' . $alta['id_ciudadano'] . '&borrar=1" class="btn btn-primary btn-sm"> <i class="fas fa-trash"></i> </a>';
 														$linkAgregar = $ciudadano;
 														$modal = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="numero(' . $puesto['id_puesto'] . ')" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>';
 												?>
 												<tr>
+												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
 												<td><?php
 												if($alta){
 													if($alta['confirmacion'] == 0 ){
@@ -129,22 +132,34 @@ $ciudadano = New Defensa;
 												}
 												?></td>
 												<td><?php echo $puesto['nombre_puesto'] ?></td>
-												<td><?php echo $colo = (isset($col) && $col != '') ? $colonias[$col]['abreviatura'] : '' ?></td>
 												<td><?php
-												if($alta){
-													if((isset($ciudadanos[$alta['id_ciudadano']]['seccion_electoral']) && $ciudadanos[$alta['id_ciudadano']]['seccion_electoral'] != NULL) == $seccion['seccion']){
-														echo "local";
-													}else{
-														echo "foraneo";
-													}
-												}else{
-													echo "no asignado";
+												if (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') {
+													$id_col = $ciudadanos[$alta['id_ciudadano']]['id_colonia'];
+													
+													echo $col = '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="' . $colonias[$id_col]['nombre_colonia'] . '">' . $colonias[$id_col]['abreviatura'] . '</a>';
+												}else if($alta){
+													echo $col = '<a href="alta_ciudadano.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 												}
 												?></td>
 												<td><?php
-													if ($alta) {
-														if ($alta['previo'] == 1) {
-															echo "asistió";
+												if($alta){
+													if((isset($ciudadanos[$alta['id_ciudadano']]['seccion_electoral']) && $ciudadanos[$alta['id_ciudadano']]['seccion_electoral'] != '') == $seccion['seccion']){
+														echo '<i class="fas fa-map-marker-alt"></i>';
+													}else if(isset($ciudadanos[$alta['id_ciudadano']]['seccion_electoral']) != $seccion['seccion']){
+														echo '<i class="fas fa-map-marked"></i>';
+													}else{
+														echo '<a href="alta_ciudadano.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
+													}
+												}
+												?></td>
+												<td><?php
+													if($alta){
+														if(isset($alta['previo']) && $alta['id_ciudadano']['previo'] == 1){
+															echo '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="Previo"><i class="fas fa-backward"></i></a>';
+														}else if(isset($ciudadanos[$alta['id_ciudadano']]['previo']) && ($ciudadanos[$alta['id_ciudadano']]['previo'] == 0)){
+															echo '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="Nuevo"><i class="fas fa-bell"></i></a>';
+														}else{
+															echo '<a href="electoral.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 														}
 													}
 												?></td>
@@ -164,8 +179,14 @@ $ciudadano = New Defensa;
 													}
 												?>
 												</td>
-												<td></td>
-												<td><?php echo $link = ($alta['id_ciudadano'] == '' ) ? $modal : $linkBorrar ?></td>
+												<td><?php echo $alta['origen']?></td>
+												<td><?php echo $alta['afiliacion']?></td>
+												<td> <!-- Beneficios --> </td>
+												<td> <!-- Colaboracion --> </td>
+												<td>
+													<button type="button" class="btn btn-primary btn-sm" onclick="Capacitaciones(<?php echo $id_ciudadano ?>)" data-toggle="modal" data-target="#modalcapacitaciones"> Capacitaciones</button>
+												</td>
+												<td> </td>
 
 												</tr>
 												<?php endforeach?>
@@ -183,6 +204,10 @@ $ciudadano = New Defensa;
 <?php endforeach ?> <!-- Este es el foreach de las zonas -->
 
 <script>
+var capacitaciones = <?php echo json_encode($capacitaciones)?>;
+
+var id_capacitaciones;
+
 var casilla;
 var rz;
 var rg;
@@ -221,6 +246,16 @@ function AgregarCiudadano(id) {
 	}else if(casilla != null)
 	if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
 }
+
+function Capacitaciones(id){
+	for(let i=0;i<capacitaciones.length;i++){
+		let chec = capacitaciones[i]['id_ciudadano'];
+		if(chec == id){
+			id_capacitaciones = capacitaciones[i]['id_capacitacion'];
+			alert("Me encontraste");
+		}
+	}
+}
 </script>
 
 
@@ -240,6 +275,27 @@ function AgregarCiudadano(id) {
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" onclick="deleteall()" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="modalcapacitaciones" tabindex="" role="dialog" aria-labelledby="modalcapacitaciones" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="modalcapacitaciones">Capacitaciones</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<?php include 'controlador/capacitaciones_defensa.php'?>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		</div>
 		</div>
 	</div>

@@ -6,9 +6,9 @@ if (empty($_SESSION['user'])){
 }
     $id_tarea = $_GET['id'];
 
-    $myuser = $_SESSION['user']['id_empleado'];
+    $myuser = $_SESSION['user']['id_ciudadano'];
 
-    $sql_query = $con->prepare('SELECT *, empleados.usuario, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, empleados WHERE tareas.id_empleado_asigna_tarea = empleados.id_empleado AND tareas.id_tarea = ?');
+    $sql_query = $con->prepare('SELECT *, ciudadanos.usuario, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, ciudadanos WHERE tareas.id_empleado_asigna_tarea = ciudadanos.id_ciudadano AND tareas.id_tarea = ?');
     $sql_query->execute(array( $id_tarea));
     $tarea = $sql_query->fetch();
     if(empty($tarea)){

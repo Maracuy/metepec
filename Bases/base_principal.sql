@@ -230,8 +230,8 @@ DROP TABLE IF EXISTS tareas;
 CREATE TABLE IF NOT EXISTS tareas(
     id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     tipo INT,
-    id_empleado_crea_tarea INT NOT NULL,
-    id_empleado_asigna_tarea INT NOT NULL,
+    id_ciudadano_crea_tarea INT NOT NULL,
+    id_ciudadano_asigna_tarea INT NOT NULL,
     creada_date DATE,
     fecha_limite DATE,
     tarea_titulo VARCHAR(255),
@@ -326,12 +326,14 @@ CREATE TABLE IF NOT EXISTS altas_defensa(
     id_rg_aux INT,
     id_puesto INT,
     previo INT,
-    posicion_prev INT,
+    posicion_prev VARCHAR(10),
+    asistio INT,
     compromiso INT,
     afiliacion VARCHAR(255),
     origen VARCHAR(255),
     cubre INT,
-    up INT
+    up INT,
+    confirmacion INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

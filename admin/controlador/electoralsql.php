@@ -10,22 +10,24 @@ if(empty($_POST)){
 }
 require_once '../../conection/conexion.php';
 
+
+
 $id =  intval($_POST['id']) ;
-$participo_eleccion = intval($_POST['participo_eleccion']);
+$previo = intval($_POST['previo']);
 $posicion = ($_POST['posicion'] != '') ? $_POST['posicion'] : 0;
 $asistio = intval($_POST['asistio']);
 $compromiso = $_POST['compromiso'];
 $afiliacion = ($_POST['afiliacion'] != '') ? $_POST['afiliacion'] : "";
-$cubre = intval($_POST['cubre']);
-$origen = ($_POST['origen'] != '') ? $_POST['origen'] : '0';
+$origen = ($_POST['origen'] != '') ? $_POST['origen'] : '';
+$cubre = ($_POST['cubre'] != '') ? intval($_POST['cubre']) : "";
 
 
-$sql_editar = "UPDATE altas_defensa SET previo = ?, posicion_prev = ?, compromiso = ?, afiliacion = ?, origen = ?, cubre = ? WHERE id_ciudadano = ?";
+$sql_editar = "UPDATE altas_defensa SET previo = ?, posicion_prev = ?, asistio = ?, compromiso = ?, afiliacion = ?, origen = ?, cubre = ? WHERE id_ciudadano = ?";
 $sentencia_agregar = $con->prepare($sql_editar);
 
 
 try{
-    $sentencia_agregar->execute(array($participo_eleccion,$posicion,$compromiso,$afiliacion,$origen, $cubre, $id));
+    $sentencia_agregar->execute(array($previo,$posicion,$asistio,$compromiso,$afiliacion,$origen,$cubre,$id));
     header("Location: ../electoral.php?id=$id");
 }catch(Exception $e){
     echo 'Ocurrio un error al intentar la alta de defensa: ',  $e->getMessage(), "\n";

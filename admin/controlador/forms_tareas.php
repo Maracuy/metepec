@@ -23,39 +23,20 @@ if($id_tarea){
 
 }
 
-if($tipo==1){ /* Aqui vamos a solicitar lo necesario para trabajar con CIUDADANA */
-	$sql_programas_ciudadanos = $con->prepare('SELECT * FROM programas_ciudadanos');
-    $sql_programas_ciudadanos->execute();
-	$programas = $sql_programas_ciudadanos->fetchAll();
-	
-	$procesos_ciudadanos = $con->prepare('SELECT * FROM procesos_ciudadanos');
-    $procesos_ciudadanos->execute();
-	$procesos = $procesos_ciudadanos->fetchAll();
-
-	$sql_beneficiarios_ciudadanos = $con->prepare('SELECT * FROM beneficiarios');
+if($tipo==1){ /* Aqui vamos a solicitar lo necesario para trabajar con CIUDADANA */	
+	$sql_beneficiarios_ciudadanos = $con->prepare('SELECT * FROM ciudadanos');
     $sql_beneficiarios_ciudadanos->execute();
 	$beneficiarios = $sql_beneficiarios_ciudadanos->fetchAll();
-
 }
 
 
 if($tipo==2){ /* Aqui vamos a solicitar lo necesario para trabajar con INTERNOS */
-	$sql_programas_internos = $con->prepare('SELECT * FROM programas_internos');
-    $sql_programas_internos->execute();
-	$programas = $sql_programas_internos->fetchAll();
 
-	$procesos_ciudadanos = $con->prepare('SELECT * FROM procesos_internos');
-    $procesos_ciudadanos->execute();
-	$procesos = $procesos_ciudadanos->fetchAll();
-
-	$sql_beneficiarios_ciudadanos = $con->prepare('SELECT * FROM beneficiarios_int');
-    $sql_beneficiarios_ciudadanos->execute();
-	$beneficiarios = $sql_beneficiarios_ciudadanos->fetchAll();
 }
 
 
 /* aqui se sabe el nombre del empleado */
-$id_empleado = $_SESSION['user']['id_empleado'];
+$id_empleado = $_SESSION['user']['id_ciudadano'];
 
 
 /* aqui se cargan todos los comentarios */
