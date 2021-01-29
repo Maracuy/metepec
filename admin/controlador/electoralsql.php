@@ -13,7 +13,7 @@ require_once '../../conection/conexion.php';
 
 
 $id =  intval($_POST['id']) ;
-$participo_eleccion = intval($_POST['participo_eleccion']);
+$previo = intval($_POST['previo']);
 $posicion = ($_POST['posicion'] != '') ? $_POST['posicion'] : 0;
 $asistio = intval($_POST['asistio']);
 $compromiso = $_POST['compromiso'];

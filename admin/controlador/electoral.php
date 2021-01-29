@@ -78,15 +78,15 @@ if(isset($alta['id_zona']) && $alta['id_zona'] != ''){
 <div class="form-row"><br>
 
     <div class="form-group col-md-2">
-        <label for="participo_eleccion">Participo Eleccion Previa</label>
-        <select class="form-control" id="participo_eleccion" name="participo_eleccion">
-        <?php if(isset($alta['participo_eleccion'])) :?>
-            <option <?php if ($alta['participo_eleccion'] == '' ) echo 'selected' ;?> value="">No definido</option>
-            <option <?php if ($alta['participo_eleccion'] == 0 ) echo 'selected' ;?> value=0>No</option>
-            <option <?php if ($alta['participo_eleccion'] == 1 ) echo 'selected' ;?> value=1>Si</option>
+        <label for="previo">Participo Eleccion Previa</label>
+        <select class="form-control" id="previo" name="previo">
+        <?php if(isset($alta['previo'])) :?>
+            <option <?php if ($alta['previo'] == '' ) echo 'selected' ;?> value="">No definido</option>
+            <option <?php if ($alta['previo'] == 0 ) echo 'selected' ;?> value=0>No</option>
+            <option <?php if ($alta['previo'] == 1 ) echo 'selected' ;?> value=1>Si</option>
         <?php endif ?>
-        <?php if(!isset($alta['participo_eleccion']) || $alta['participo_eleccion'] != "" ) :?>
-            <option value="">No Definido</option>
+        <?php if(!isset($alta['previo']) || $alta['previo'] != "" ) :?>
+            <option value="">Aun No Definido</option>
             <option value=0>No</option>
             <option value=1>Si</option>
         <?php endif ?>

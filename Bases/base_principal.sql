@@ -331,7 +331,8 @@ CREATE TABLE IF NOT EXISTS altas_defensa(
     afiliacion VARCHAR(255),
     origen VARCHAR(255),
     cubre INT,
-    up INT
+    up INT,
+    confirmacion INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
