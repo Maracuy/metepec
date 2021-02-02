@@ -135,9 +135,8 @@ $ciudadano = New Defensa;
 												<td><?php
 												if (isset($ciudadanos[$alta['id_ciudadano']]['id_colonia']) && $ciudadanos[$alta['id_ciudadano']]['id_colonia'] != '') {
 													$id_col = $ciudadanos[$alta['id_ciudadano']]['id_colonia'];
-													
 													echo $col = '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="' . $colonias[$id_col]['nombre_colonia'] . '">' . $colonias[$id_col]['abreviatura'] . '</a>';
-												}else if($alta){
+												}else if($alta ){
 													echo $col = '<a href="alta_ciudadano.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 												}
 												?></td>
@@ -154,19 +153,21 @@ $ciudadano = New Defensa;
 												?></td>
 												<td><?php
 													if($alta){
-														if(isset($alta['previo']) && $alta['id_ciudadano']['previo'] == 1){
-															echo '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="Previo"><i class="fas fa-backward"></i></a>';
-														}else if(isset($ciudadanos[$alta['id_ciudadano']]['previo']) && ($ciudadanos[$alta['id_ciudadano']]['previo'] == 0)){
-															echo '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="Nuevo"><i class="fas fa-bell"></i></a>';
+														if(isset($alta['previo']) && $alta['previo'] == 1){
+															echo $ciudadano->tooltipSimple("Previo", '<i class="fas fa-backward"> </i>');
+														}else if(isset($alta['previo']) && ($alta['previo'] == 0)){
+															echo $ciudadano->tooltipSimple("Nuevo", '<i class="fas fa-bell"> </i> </i>');
 														}else{
 															echo '<a href="electoral.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 														}
 													}
 												?></td>
 												<td><?php
-													if ($alta) {
-														if ($alta['compromiso'] != '') {
+													if($alta){
+														if(isset($alta['compromiso']) && $alta['compromiso'] != 0){
 															echo $alta['compromiso'];
+														}else{
+															echo '<a href="electoral.php?id=' . $id_ciudadano .'"><i class="fas fa-sliders-h"></i></a>';
 														}
 													}
 												?></td>
