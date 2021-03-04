@@ -24,6 +24,7 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<th scope="col">Zona</th>
 		<th scope="col">RG</th>
 		<th scope="col">Seccion</th>
+		<th scope="col">Casilla</th>
 		<th scope="col">Posicion</th>
 		<th scope="col">Col</th>
 		<th scope="col">Mz</th>
@@ -51,6 +52,7 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<td> <?=$puesto['zona']?> </td>
 		<td> <?=$puesto['rg']?> </td>
 		<td> <?=$puesto['seccion']?> </td>
+		<td> <?=$puesto['casilla']?> </td>
 		<td> <?=$puesto['puesto']?> </td>
 
 <?php if(!$puesto['id_ciudadano']):?>
