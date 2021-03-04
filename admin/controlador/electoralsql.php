@@ -22,7 +22,7 @@ $origen = ($_POST['origen'] != '') ? $_POST['origen'] : '';
 $cubre = ($_POST['cubre'] != '') ? intval($_POST['cubre']) : "";
 
 
-$sql_editar = "UPDATE altas_defensa SET previo = ?, posicion_prev = ?, asistio = ?, compromiso = ?, afiliacion = ?, origen = ?, cubre = ? WHERE id_ciudadano = ?";
+$sql_editar = "UPDATE puestos_defensa SET previo = ?, posicion_prev = ?, asistio = ?, compromiso = ?, afiliacion = ?, origen = ?, cubre = ? WHERE id_ciudadano = ?";
 $sentencia_agregar = $con->prepare($sql_editar);
 
 

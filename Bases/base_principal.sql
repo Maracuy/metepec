@@ -356,3 +356,25 @@ CREATE TABLE IF NOT EXISTS capacitaciones_defensa(
     cap5 INT,
     id_ciudadano INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS puestos_defensa;
+CREATE TABLE IF NOT EXISTS puestos_defensa(
+    id_defensa INT AUTO_INCREMENT PRIMARY KEY,
+    id_ciudadano INT,
+    zona VARCHAR(5),
+    rg VARCHAR(5),
+    seccion VARCHAR(5),
+    casilla VARCHAR(5),
+    puesto INT,
+    previo INT,
+    posicion_prev VARCHAR(10),
+    asistio INT,
+    compromiso INT,
+    afiliacion VARCHAR(255),
+    origen VARCHAR(255),
+    cubre INT,
+    up INT,
+    confirmacion INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

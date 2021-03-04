@@ -27,16 +27,6 @@ $ciudadanos = $sql_query->fetchALL();
     <?php
 
       foreach ($ciudadanos as $dato): ?>
-    
-        <?php
-          if(($dato['id_colonia'] != "1")){
-            $la_colonia = $dato['id_colonia'];
-            $sql_query_colonias = $con->prepare("SELECT id, nombre_colonia FROM colonias WHERE id=?");
-            $sql_query_colonias->execute(array($la_colonia));
-            $nombre_colonia = $sql_query_colonias->fetch();
-            $colonia=$nombre_colonia["nombre_colonia"];
-        }elseif(isset($dato['otra_colonia'])){
-            $colonia = $dato['otra_colonia'];} ?>		
         <tr>            
             <td> <?php echo $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>
                         

@@ -12,7 +12,7 @@ if(empty($_GET['id'])){
     include 'controlador/menu_proceso.php';
 }
 
-$consulta = $con->query("SELECT * FROM altas_defensa WHERE id_ciudadano = $id");
+$consulta = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = $id");
 $alta = $consulta->fetch(PDO::FETCH_ASSOC);
 
 if(!$alta):
@@ -111,7 +111,7 @@ if(isset($alta['id_zona']) && $alta['id_zona'] != ''){
             <option <?php if ($alta['asistio'] == 0 ) echo 'selected' ;?> value=0>No</option>
             <option <?php if ($alta['asistio'] == 1 ) echo 'selected' ;?> value=1>Si</option>
             <?php endif ?>
-            <?php if(!isset($alta['asistio']) && $alta['asistio'] != "" ) :?>
+            <?php if(!isset($alta['asistio'])) :?>
                 <option value="">No Definido</option>
                 <option value=0>No</option>
                 <option value=1>Si</option>
