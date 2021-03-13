@@ -375,15 +375,15 @@ $empleado = $_SESSION['user']['id_ciudadano'];
         </select>
     </div>
 
-   <!--  <div class="form-group col-md-1">
-        <label for="enfermedades_cron">Enfermedades Cronicas</label>
-        <?php// if(isset($ciudadano['enfermedades_cron'])):?>
-            <input type="text" value="<?php //echo $ciudadano['enfermedades_cron']?>" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
-        <?php //endif ?>
-        <?php //if(!isset($ciudadano['enfermedades_cron'])):?>
-            <input type="text" class="form-control" id="enfermedades_cron" name="enfermedades_cron">
-        <?php //endif ?>
-    </div> -->
+    <div class="form-group col-md-2">
+        <label for="origen">Origen</label>
+        <?php if(isset($ciudadano['origen'])):?>
+            <input type="text" value="<?php echo $ciudadano['origen']?>" class="form-control" id="origen" name="origen">
+        <?php endif ?>
+        <?php if(!isset($ciudadano['origen'])):?>
+            <input type="text" class="form-control" id="origen" name="origen">
+        <?php endif ?>
+    </div>
 
 </div>
  

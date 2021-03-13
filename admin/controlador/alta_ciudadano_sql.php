@@ -11,11 +11,12 @@ if (empty($_SESSION['user'])){
 }
 require_once '../../conection/conexion.php';
 
-$empleado = $_SESSION['user']['id_empleado'];
+$empleado = $_SESSION['user']['id_ciudadano'];
 
 $datos = $_POST;
 
-$id = ($datos['id'] != '' ) ? intval($datos['id']) : NULL ;
+$id = (isset($datos['id']) && $datos['id'] != '' ) ? intval($datos['id']) : NULL ;
+
 
 if($id){
     unset($datos['id']);
@@ -44,9 +45,6 @@ function alta_ciudadano($con, $values, $keysString, $signos){
     $sql_agregar = "INSERT INTO ciudadanos(" . $keysString . ") VALUES(" . $signos . ")";
     $sentencia_agregar = $con->prepare($sql_agregar);
 
-    var_dump($keysString);
-    var_dump($signos);
-die();
     try{
         $sentencia_agregar->execute($values);
         $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');

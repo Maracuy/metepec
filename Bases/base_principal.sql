@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   asistio VARCHAR(45) NULL DEFAULT NULL,
   afiliacion VARCHAR(45) NULL DEFAULT NULL,
   simpatia INT,
+  origen VARCHAR(255),
   id_registrante INT NOT NULL,
   observaciones TEXT NULL DEFAULT NULL
 )ENGINE = InnoDB
@@ -380,17 +381,14 @@ CREATE TABLE IF NOT EXISTS puestos_defensa(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-
 DROP TABLE IF EXISTS puestos_promocion;
 CREATE TABLE IF NOT EXISTS puestos_promocion(
     id_promocion INT AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano INT,
     zona VARCHAR(5),
-    rg VARCHAR(5),
     seccion VARCHAR(5),
-    casilla VARCHAR(5),
-    puesto INT,
-    previo INT,
+    manzana VARCHAR(5),
+    promotor VARCHAR(1),
     posicion_prev VARCHAR(10),
     asistio INT,
     compromiso INT,
@@ -399,4 +397,20 @@ CREATE TABLE IF NOT EXISTS puestos_promocion(
     cubre INT,
     up INT,
     confirmacion INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS promotor_promocion;
+CREATE TABLE IF NOT EXISTS promotor_promocion(
+    id_promotor INT AUTO_INCREMENT PRIMARY KEY,
+    id_ciudadano INT,
+    id_promocion INT    
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS promovido_promocion;
+CREATE TABLE IF NOT EXISTS promovido_promocion(
+    id_promovido INT AUTO_INCREMENT PRIMARY KEY,
+    id_ciudadano INT,
+    id_promotor INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

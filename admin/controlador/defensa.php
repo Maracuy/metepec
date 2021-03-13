@@ -1,5 +1,5 @@
 <?php
-$stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m, id_colonia, seccion_electoral, id_registrante FROM ciudadanos");
+$stm = $con->query("SELECT id_ciudadano, nombres, apellido_p, apellido_m, id_colonia, seccion_electoral, id_registrante, origen FROM ciudadanos");
 $ciudadanos = $stm->fetchAll(PDO::FETCH_ASSOC);
 array_unshift($ciudadanos, 0);
 
@@ -31,8 +31,8 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<th scope="col">Nombre</th>
 		<th scope="col">Local</th>
 		<th scope="col">Prev</th>
-		<th scope="col">UP</th>
 		<th scope="col">Origen</th>
+		<th scope="col">UP</th>
 		<th scope="col">Afiliación</th>
 	</tr>
 	</thead>
@@ -84,8 +84,14 @@ if($puesto['id_ciudadano']):?>
 					echo '<a href="electoral.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';
 				}
 		?></td>	
-		<td><?=$ciudadanos[$puesto['up']]['nombres'] . " " . $ciudadanos[$puesto['up']]['apellido_p']?> </td>
-		<td>o</td>
+
+		<td> <?php
+			if(isset($ciudadanos[$puesto['id_ciudadano']]['origen']) && $ciudadanos[$puesto['id_ciudadano']]['origen'] != ''){
+				echo $ciudadanos[$puesto['id_ciudadano']]['origen'];
+			}else{
+				echo '<a href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';}?></td>
+
+		<td><?=$ciudadanos[$puesto['up']]['nombres']?> </td>
 		<td><?=(isset($puesto['afiliacion']) &&  $puesto['afiliacion'] != "" ) ? $puesto['afiliacion'] : $boton_conf_elec?> </td>
 		
 		
