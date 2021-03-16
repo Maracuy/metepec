@@ -21,8 +21,8 @@ function changeStatus($con, $id, $status){
 }
 
 
-function borrarAlta($con, $id_ciudadano){
-    $nrows = $con->exec("DELETE FROM altas_defensa WHERE id_ciudadano = $id_ciudadano");
+function borrarAlta($con, $id){
+    $nrows = $con->exec("UPDATE puestos_defensa SET id_ciudadano=NULL, previo = NULL, posicion_prev= NULL, asistio = NULL, compromiso=NULL, afiliacion=NULL, origen=NULL, cubre=NULL, up=NULL, confirmacion=NULL WHERE id_defensa=$id");
     header("Location: ../defensa.php");
 }
 
@@ -42,7 +42,8 @@ function nuevo($con, $id_ciudadano, $puesto, $up){
 }
 
 if (isset($_GET['borrar']) && $_GET['borrar'] != 0) {
-    borrarAlta($con, $id_ciudadano);
+    $id=$_GET['id'];
+    borrarAlta($con, $id, $borrar);
 }
 
 

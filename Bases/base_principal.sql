@@ -388,7 +388,6 @@ CREATE TABLE IF NOT EXISTS puestos_promocion(
     zona VARCHAR(5),
     seccion VARCHAR(5),
     manzana VARCHAR(5),
-    promotor VARCHAR(1),
     posicion_prev VARCHAR(10),
     asistio INT,
     compromiso INT,
@@ -403,8 +402,16 @@ CREATE TABLE IF NOT EXISTS puestos_promocion(
 DROP TABLE IF EXISTS promotor_promocion;
 CREATE TABLE IF NOT EXISTS promotor_promocion(
     id_promotor INT AUTO_INCREMENT PRIMARY KEY,
+    manzana INT,
     id_ciudadano INT,
-    id_promocion INT    
+    posicion_prev VARCHAR(10),
+    asistio INT,
+    compromiso INT,
+    afiliacion VARCHAR(255),
+    origen VARCHAR(255),
+    cubre INT,
+    up INT,
+    confirmacion INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -412,5 +419,5 @@ DROP TABLE IF EXISTS promovido_promocion;
 CREATE TABLE IF NOT EXISTS promovido_promocion(
     id_promovido INT AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano INT,
-    id_promotor INT
+    id_promotor_promovido INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
