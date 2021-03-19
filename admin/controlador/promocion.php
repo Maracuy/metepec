@@ -5,8 +5,9 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-$stm = $con->query("SELECT * FROM promovido_promocion");
-$promovidos = $stm->fetchAll(PDO::FETCH_ASSOC);
+$stm = $con->query("SELECT * FROM ciudadanos");
+$ciudadanos = $stm->fetchAll(PDO::FETCH_ASSOC);
+array_unshift($ciudadanos, 0);
 
 
 $promo = array();
@@ -53,30 +54,51 @@ foreach($puestos as $puesto){
 
 ?>
 
+<h4>Estructura Para La Promocion Del Voto</h4>
 <table class="table">
   <thead>
     <tr>
+		<th scope="col">Asig/Del</th>
 		<th scope="col">Status</th>
 		<th scope="col">Zona</th>
 		<th scope="col">Seccion</th>
 		<th scope="col">Mz</th>
 		<th scope="col">Posicion</th>
-		<th scope="col">Col</th>
-		<th scope="col">Mz</th>
 		<th scope="col">Nombre</th>
-		<th scope="col">Local</th>
-		<th scope="col">Prev</th>
-		<th scope="col">UP</th>
-		<th scope="col">Origen</th>
-		<th scope="col">Afiliación</th>
+		<th scope="col">Bardas</th>
+		<th scope="col">Lonas</th>
+		<th scope="col">Reuniones</th>
 	</tr>
 	</thead>
 	<tbody>
     <?php 
 	$zona_aux = 1;
 	$seccion_universal = 0;
-	foreach($promo as $pro):?>
+	foreach($promo as $pro):
+	
+		$nombres = array_keys($pro);	
+	?>
     <tr>
+
+		<td><?php
+
+		if($pro['id_ciudadano']){?>
+			<a href="controlador/promocionsql.php?id=<?=$pro['id_ciudadano']?>&borrar=1" class="btn btn-primary btn-sm"> <i class="fas fa-trash"></i> </button>
+		<?php }else{
+			if(isset($pro['id_promocion'])):?>
+				<button type="button" class="btn btn-primary btn-sm" onclick="numero(<?=$pro['id_promocion']?>, <?=$nombres[0]?>)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>
+			<?php endif;
+			if(isset($pro['id_promotor'])):?>
+				<button type="button" class="btn btn-primary btn-sm" onclick="numero(<?=$pro['id_promotor']?>, <?=$nombres[0]?>)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>
+			<?php endif;
+			if(isset($pro['id_promovido'])):?>
+				<button type="button" class="btn btn-primary btn-sm" onclick="numero(<?=$pro['id_promovido']?>, <?=$nombres[0]?>)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button>
+			<?php endif;
+		}
+		
+		?></td>
+
+
 		<td><?php
 		if(isset($pro['id_promocion'])){
 			echo $pro['id_promocion'];
@@ -129,6 +151,10 @@ foreach($puestos as $puesto){
 			}
 		?></td>
 
+		<td><?php
+			if($pro['id_ciudadano']){
+				echo $ciudadanos[$pro['id_ciudadano']]['nombres'];}
+		?></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -138,3 +164,43 @@ foreach($puestos as $puesto){
     <?php endforeach?>
 	</tbody> 
     </table>
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Seleccionar Ciudadano</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+		
+			<?php include 'ciudadanos_todos_defensa.php'?>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script>
+function numero(dato,que){
+	console.log(que)
+	casilla = dato;
+}
+
+function AgregarCiudadano(id) {
+	if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/promocionsql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
+}
+
+</script>
