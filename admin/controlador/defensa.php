@@ -32,6 +32,7 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<th scope="col">Origen</th>
 		<th scope="col">Nombre</th>
 		<th scope="col">Local</th>
+		<th scope="col">Tel</th>
 		<th scope="col">Comp</th>
 		<th scope="col">Afil</th>
 	</tr>

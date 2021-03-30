@@ -1,6 +1,3 @@
 <?php
 
-$perro = "Soy un perro";
-$gato = "perro";
-
-echo $$gato;
+echo rand(1, 1000);

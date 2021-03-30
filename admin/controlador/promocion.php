@@ -13,42 +13,38 @@ array_unshift($ciudadanos, 0);
 $promo = array();
 $promovacio = array('manzana' => '');
 
+
 foreach($puestos as $puesto){
-	if(!$puesto['manzana']){
-		array_push($promo, $puesto);
-	}
-	if($puesto['manzana']){
-		$manzana = $puesto['manzana'];
-		$stm = $con->query("SELECT * FROM promotor_promocion WHERE manzana = $manzana");
-		$promotores = $stm->fetchAll(PDO::FETCH_ASSOC);
-		if($promotores){
-			if(count($promotores)>1){
-				foreach($promotores as $promotor){
-					array_push($promo, $promotor);
-					$id_promotor = $promotor[''];
-					$stm = $con->query("SELECT * FROM promovido_promocion WHERE id_promotor = $id_promotor");
-					$promovidos = $stm->fetchAll(PDO::FETCH_ASSOC);
-					if($promovidos){
-						if(count($promovidos)>1){
-							foreach($promovidos as $promovido){
-								array_push($promo, $promovido);
-							}
-						}else{
-							array_push($promo, $promovidos[0]);
+	array_push($promo, $puesto);
+	$seccion = $puesto['seccion'];
+	$stm = $con->query("SELECT * FROM promotor_promocion WHERE seccion = $seccion");
+	$promotores = $stm->fetchAll(PDO::FETCH_ASSOC);
+	if($promotores){
+		if(count($promotores)>1){
+			foreach($promotores as $promotor){
+				array_push($promo, $promotor);
+				$id_promotor = $promotor[''];
+				$stm = $con->query("SELECT * FROM promovido_promocion WHERE id_promotor = $id_promotor");
+				$promovidos = $stm->fetchAll(PDO::FETCH_ASSOC);
+				if($promovidos){
+					if(count($promovidos)>1){
+						foreach($promovidos as $promovido){
+							array_push($promo, $promovido);
 						}
+					}else{
+						array_push($promo, $promovidos[0]);
 					}
 				}
-			}else{
-				array_push($promo, $promotores[0]);
-				$id_promotor = $promotores[0]['id_promotor'];
-				$stm = $con->query("SELECT * FROM promovido_promocion WHERE id_promotor_promovido = $id_promotor");
-				$promovido = $stm->fetch(PDO::FETCH_ASSOC);
-				if($promovido){
-					array_push($promo, $promovido);
-				}
+			}
+		}else{
+			array_push($promo, $promotores[0]);
+			$id_promotor = $promotores[0]['id_promotor'];
+			$stm = $con->query("SELECT * FROM promovido_promocion WHERE id_promotor_promovido = $id_promotor");
+			$promovido = $stm->fetch(PDO::FETCH_ASSOC);
+			if($promovido){
+				array_push($promo, $promovido);
 			}
 		}
-		array_push($promo, $puesto);
 	}
 }
 
@@ -132,17 +128,6 @@ foreach($puestos as $puesto){
 		?></td>
 
 		<td><?php
-			if(isset($pro['id_promocion'])){
-				if(!$pro['manzana']){
-					if(!$pro['seccion']){
-						echo 'RZ';
-					}else{
-						echo 'RC';
-					}
-				}else{
-					echo 'VacioPromo';
-				}
-			}
 			if(isset($pro['id_promotor'])){
 				echo 'Promotor';
 			}

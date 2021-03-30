@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   nivel INT NOT NULL DEFAULT 10,
   usuario_sistema VARCHAR(10),
   contrasenia VARCHAR(50),
-  fecha_captura DATETIME NULL,
+  fecha_captura DATETIME DEFAULT CURRENT_TIMESTAMP,
   nombres VARCHAR(45) NOT NULL,
   apellido_p VARCHAR(45) NOT NULL,
   apellido_m VARCHAR(45) NOT NULL,
@@ -227,6 +227,19 @@ CREATE TABLE IF NOT EXISTS peticiones(
 
 
 
+DROP TABLE IF EXISTS documentos;
+CREATE TABLE IF NOT EXISTS documentos(
+    id_documento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_ciudadano_subida INT,
+    fecha_subida DATETIME,
+    fecha_borrada DATETIME,
+    id_ciudadano_documento INT,
+    tipo_documento VARCHAR(10)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
 DROP TABLE IF EXISTS tareas;
 CREATE TABLE IF NOT EXISTS tareas(
     id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -343,7 +356,7 @@ CREATE TABLE IF NOT EXISTS messag(
  id_mensaje INT AUTO_INCREMENT PRIMARY KEY,
  mensaje TEXT,
  id_ciudadano INT,
- fecha_captura TIMESTAMP
+ fecha_captura TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -386,8 +399,7 @@ CREATE TABLE IF NOT EXISTS puestos_promocion(
     id_promocion INT AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano INT,
     zona VARCHAR(5),
-    seccion VARCHAR(5),
-    manzana VARCHAR(5),
+    seccion INT,
     posicion_prev VARCHAR(10),
     asistio INT,
     compromiso INT,
@@ -402,7 +414,8 @@ CREATE TABLE IF NOT EXISTS puestos_promocion(
 DROP TABLE IF EXISTS promotor_promocion;
 CREATE TABLE IF NOT EXISTS promotor_promocion(
     id_promotor INT AUTO_INCREMENT PRIMARY KEY,
-    manzana INT,
+    seccion INT,
+    manzana VARCHAR(5),
     id_ciudadano INT,
     posicion_prev VARCHAR(10),
     asistio INT,

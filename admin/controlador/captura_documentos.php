@@ -14,15 +14,17 @@ $ciudadano = $consulta_ciudadanos->fetch();
 
 //Obtenemos las posibles direcciones de documentos.
 //Comenzamos con la INE, tenemos 2 posibles, o JPG o PDF
-$raiz = "C:/wamp64/www/metepec/admin/";
-$dir_identificacion = "ciudadanos/1/identificacion.jpg";
+$dir_identificacion = "../admin/ciudadanos/" . $id . "/identificacion.jpg";
+$show_id = "http://admindemo.xpertika.com/admin/ciudadanos/" . $id . "/identificacion.jpg";
 
-var_dump(file_exists($dir_identificacion));
+
+$dir_identificacion_atras = "../admin/ciudadanos/" . $id . "/identificacion_atras.jpg";
+$show_id_atras = "http://admindemo.xpertika.com/admin/ciudadanos/" . $id . "/identificacion_atras.jpg";
+
 
 include 'menu_proceso.php';
 ?>
 
-<br>
 
 <h5>Capture los documentos del Ciudadano: <?php echo $ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?></h5>
 <br>
@@ -30,25 +32,55 @@ include 'menu_proceso.php';
 
 <!-- El primer CARD donde vamos a mostrar la identificacion o la posibilidad de subir una -->
 <?php
-if(file_exists($raiz.$dir_identificacion)):?>
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="<?php echo $dir_identificacion ?>" alt="INE">
-  <div class="card-body">
-    <h5 class="card-title">Identificacion (FRENTE)</h5>
-    <p class="card-text">Aqui se debera mostrar la fecha de subida y quien la subio.</p>
-    <a href="#" class="btn btn-danger">Delete</a>
-  </div>
-</div>
+if(is_file($dir_identificacion)):?>
+
+	<div class="card" style="width: 18rem;">
+	<img class="card-img-top" src="<?php echo $show_id ?>" alt="INE">
+	<div class="card-body">
+		<h5 class="card-title">Identificacion (Frente)</h5>
+		<p class="card-text">Aqui se debera mostrar la fecha de subida y quien la subio.</p>
+		<a href="controlador/captura_documentossql.php?delete=id&id=<?=$id?>" class="btn btn-danger">Eliminar</a>
+	</div>
+	</div>
 <?php endif?>
 
+
 <?php
-if(!file_exists($raiz.$dir_identificacion)):?>
+if(is_file($dir_identificacion_atras)):?>
 
-<form action="controlador/captura_documentossql.php" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="<?php echo $id ?>">
-    <input type="hidden" name="MAX_FILE_SIZE" value="10000000">
+	<div class="card" style="width: 18rem;">
+	<img class="card-img-top" src="<?php echo $show_id_atras ?>" alt="INE">
+	<div class="card-body">
+		<h5 class="card-title">Identificacion (Reverso)</h5>
+		<p class="card-text">Aqui se debera mostrar la fecha de subida y quien la subio.</p>
+		<a href="controlador/captura_documentossql.php?delete=id_b&id=<?=$id?>" class="btn btn-danger">Eliminar</a>
+	</div>
+	</div>
+<?php endif?>
 
-<br> Identificación:  <input name="userfile" type="file"> <input type="submit" name="identificacion" value="Subir"> <br> </form>
+
+<br><br>
+<h5>Doumentos Faltantes:</h5>
+
+<?php
+if(!is_file($dir_identificacion)):?>
+
+	<form action="controlador/captura_documentossql.php" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="<?php echo $id ?>">
+		<input type="hidden" name="MAX_FILE_SIZE" value="10000000">
+
+	<br> Identificación (Frente):  <input name="userfile" type="file"> <input type="submit" name="identificacion" value="Subir"> <br> </form>
+<?php endif?>
+
+
+<?php
+if(!is_file($dir_identificacion_atras)):?>
+
+	<form action="controlador/captura_documentossql.php" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="<?php echo $id ?>">
+		<input type="hidden" name="MAX_FILE_SIZE" value="10000000">
+
+	<br> Identificación (Atras):  <input name="userfile" type="file"> <input type="submit" name="identificacion_atras" value="Subir"> <br> </form>
 <?php endif?>
 
 <!-- <br> CURP:  <input name="userfile" type="file"> <input type="submit" name="curp" value="Subir"> <br>
