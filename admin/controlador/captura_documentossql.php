@@ -12,7 +12,7 @@ if(!isset($_POST)){
 
 include_once '../../conection/conexion.php';
 
-$hoy = date("Y-m-d H:i:s"); 
+$tipo = (isset($_POST['tipo']) && $_POST['tipo'] != '') ? $_POST['tipo'] : '';
 
 $id_empleado = $_SESSION['user']['id_ciudadano'];
 $id = $_POST['id'];
@@ -28,7 +28,8 @@ if(!is_dir($dir_subida)){
     mkdir($dir_subida, 0755);
 }
 
-function identificacion($con, $nombre_archivo, $tipo_archivo, $tamano_archivo, $dir_subida, $id, $id_empleado, $hoy){
+
+function subir($con, $nombre_archivo, $tipo_archivo, $tamano_archivo, $dir_subida, $id, $id_empleado, $tipo){
 
     $fichero_subido = ($dir_subida . $nombre_archivo);
 
@@ -37,42 +38,24 @@ function identificacion($con, $nombre_archivo, $tipo_archivo, $tamano_archivo, $
            echo "La extensión o el tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos .gif o .jpg<br><li>se permiten archivos de 100 Kb máximo.</td></tr></table>";
     }else{
            if (move_uploaded_file($_FILES['userfile']['tmp_name'],  $fichero_subido)){
-                $newname = $dir_subida . 'identificacion.jpg';
-                rename($fichero_subido, $newname);
-                $sentencia_alta = $con->prepare('INSERT INTO documentos(id_ciudadano_subida, fecha_subida, id_ciudadano_subida, tipo_documento) VALUES(?, ?, ?, ?)');
-                $sentencia_alta->execute(array($id_empleado, $hoy, $id, 'id'));
-                header("Location: ../archivos_ciudadanos.php?id=$id");
-           }else{
-                  echo "Ocurrió algún error al subir el fichero. No pudo guardarse.";
-           }
-    }
-}
 
 
+                $sql_agregar = "INSERT INTO documentos(id_ciudadano_subida, id_ciudadano_documento, tipo_documento) VALUES(?,?,?)";
+                $sentencia_agregar = $con->prepare($sql_agregar);
 
-
-function identificacion_atras($con, $nombre_archivo, $tipo_archivo, $tamano_archivo, $dir_subida, $id, $id_empleado, $hoy){
-
-    $fichero_subido = ($dir_subida . $nombre_archivo);
-
-    //compruebo si las características del archivo son las que deseo
-    if (!((strpos($tipo_archivo, "pdf") || strpos($tipo_archivo, "jpeg")) && ($tamano_archivo < 1000000000))) {
-           echo "La extensión o el tamaño de los archivos no es correcta. <br><br><table><tr><td><li>Se permiten archivos .gif o .jpg<br><li>se permiten archivos de 100 Kb máximo.</td></tr></table>";
-    }else{
-           if (move_uploaded_file($_FILES['userfile']['tmp_name'],  $fichero_subido)){
-                $newname = $dir_subida . 'identificacion_atras.jpg';
-                rename($fichero_subido, $newname);
-                
-
-                try {
-                    $sentencia_alta = $con->prepare('INSERT INTO documentos(id_ciudadano_subida, fecha_subida, id_ciudadano_subida, tipo_documento) VALUES(?, ?, ?, ?)');
-                    $sentencia_alta->execute(array($id_empleado, $hoy, $id, 'id_b'));
+                try{
+                    $sentencia_agregar->execute(array($id_empleado, $id, $tipo));
                 } catch (\Throwable $th) {
-                   echo $th;
-                }
+                    echo 'Error al dar alta imagen en tabla documentos: ' . $th;
+                    die();
+                }   
+                
+                $last = $con->lastInsertId();
 
+                $newname = $dir_subida . $tipo . $last .'.jpg';
+
+                rename($fichero_subido, $newname);
                 header("Location: ../archivos_ciudadanos.php?id=$id");
-
            }else{
                   echo "Ocurrió algún error al subir el fichero. No pudo guardarse.";
            }
@@ -81,88 +64,31 @@ function identificacion_atras($con, $nombre_archivo, $tipo_archivo, $tamano_arch
 
 
 
-
-
-function actnac(){
-    echo 'Entro en la de act nat';
-    die();
-}
-
-function curp(){
-    echo 'Entro en la de curp';
-    die();
-}
-
-function domicilio(){
-    echo 'Entro en la de domicilio';
-    die();
+if(array_key_exists("subir",$_POST)){
+    subir($con, $nombre_archivo, $tipo_archivo, $tamano_archivo, $dir_subida, $id, $id_empleado, $tipo);
 }
 
 
 
+function eliminar($con, $id, $tipo){
+    //$hoy = date("Y-m-d H:i:s");
 
-
-if(array_key_exists("identificacion",$_POST)){
-    identificacion($con, $nombre_archivo, $tipo_archivo, $tamano_archivo, $dir_subida, $id, $id_empleado, $hoy);
-}
-
-if(array_key_exists("identificacion_atras",$_POST)){
-    identificacion_atras($con, $nombre_archivo, $tipo_archivo, $tamano_archivo, $dir_subida, $id, $id_empleado, $hoy);
-}
-
-if(array_key_exists("actnac",$_POST)){
-    actnac();
-}
-
-if(array_key_exists("curp",$_POST)){
-    curp();
-}
-
-if(array_key_exists("domicilio",$_POST)){
-    domicilio();
-}
-
-
-/* 
-
-
-Estabamos tratando de encontrar por que no podemos eliminar la primer identificacion, pero si borra la segunda jajaja
-
-
-la neta esta raro pero no entiendo
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-function eliminar($id, $tipo){
-    $azar = rand(1, 1000);
-    if ($tipo = 'id') {
-        $tipe = 'identificacion.jpg';
+    $sql_editar = "UPDATE documentos SET fecha_borrada = NOW() WHERE id_ciudadano_documento = ? AND tipo_documento = ?";
+    $sentencia_agregar = $con->prepare($sql_editar);
+    try{
+        $sentencia_agregar->execute(array($id, $tipo));
+        header("Location: ../archivos_ciudadanos.php?id=$id");
+    } catch (\Throwable $th) {
+        echo $th;
+        die();
     }
-    if ($tipo = 'id_b') {
-        $tipe = 'identificacion_atras.jpg';
-    }
-    $direccion = "../../admin/ciudadanos/" . $id . '/' . $tipe;
-    $deletes = "../../admin/ciudadanos/" . $id . '/deletes' . $azar.$tipe;
-
-    rename($direccion, $deletes);
 }
 
 
 if($_GET['delete']){
     $id  = $_GET['id'];
     $tipo = $_GET['delete'];
-    eliminar($id, $tipo);
+    eliminar($con, $id, $tipo);
 }
 
 

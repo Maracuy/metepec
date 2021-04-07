@@ -231,7 +231,7 @@ DROP TABLE IF EXISTS documentos;
 CREATE TABLE IF NOT EXISTS documentos(
     id_documento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano_subida INT,
-    fecha_subida DATETIME,
+    fecha_subida DATETIME NULL DEFAULT CURRENT_TIMESTAMP;,
     fecha_borrada DATETIME,
     id_ciudadano_documento INT,
     tipo_documento VARCHAR(10)
