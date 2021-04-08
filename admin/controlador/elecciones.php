@@ -19,6 +19,36 @@ $ncas = $stm->fetchAll(PDO::FETCH_ASSOC);
 $stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND id_ciudadano != '' ");
 $cas = $stm->fetchAll(PDO::FETCH_ASSOC);
 
+
+       
+        //Area de consulta de los suplentes:
+
+    //representantes totales y vacios
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 0");
+$rc_totales = $stm->fetchAll(PDO::FETCH_ASSOC);
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 0 AND id_ciudadano != ''");
+$rc_ocupados = $stm->fetchAll(PDO::FETCH_ASSOC);
+ 
+    //Suplentes 1 totales y vacios
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 1");
+$s1_totales = $stm->fetchAll(PDO::FETCH_ASSOC);
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 1 AND id_ciudadano != ''");
+$s1_ocupados = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+    //Suplentes 2 totales y vacios
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 2");
+$s2_totales = $stm->fetchAll(PDO::FETCH_ASSOC);
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 2 AND id_ciudadano != ''");
+$s2_ocupados = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+    //Suplentes 3 totales y vacios
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 3");
+$s3_totales = $stm->fetchAll(PDO::FETCH_ASSOC);
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE casilla !='' AND puesto = 3 AND id_ciudadano != ''");
+$s3_ocupados = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 ?>
 
 
@@ -27,47 +57,75 @@ $cas = $stm->fetchAll(PDO::FETCH_ASSOC);
 <h4>Defensa</h4>
 <br>
 <h5>Avance General</h5>
+<div class="dropdown-divider"></div>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
-        <?='<b>' . count($rz) . '</b> RZs registrados de <b>' . count($nrz) . '</b>'?>
+    <div class="form-group col-md-2">
+        <?='<b>' . count($rz) . '</b> RZs   de <b>' . count($nrz) . '</b>'?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($rz)/ count($nrz) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rz)/ count($nrz) * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=(count($rz)/ count($nrz) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rz)/ count($nrz) * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
     <br>
 
-    <div class="form-group col-md-3">
-        <?='<b>' . count($rg) . '</b> RGs registrados de <b>' . count($nrg) . '</b>'?>
+    <div class="form-group col-md-2">
+        <?='<b>' . count($rg) . '</b> RGs   de <b>' . count($nrg) . '</b>'?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($rg)/ count($nrg) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rg)/ count($nrg) * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=(count($rg)/ count($nrg) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rg)/ count($nrg) * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
     <br>
 
-    <div class="form-group col-md-3">
-        <?='<b>' . count($cas) . '</b> Puestos registrados de <b>' . count($ncas) . '</b>'?>
+    <div class="form-group col-md-2">
+        <?='<b>' . count($rc_ocupados) . '</b> PRC <b>' . count($rc_totales) . '</b>'?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($cas)/ count($ncas) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($cas)/ count($ncas) * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=(count($rc_ocupados)/ count($rc_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rc_ocupados)/ count($rc_totales) * 100), 0, '.', '')?>%</div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-2">
+        <?='<b>' . count($s1_ocupados) . '</b> S1 de <b>' . count($s1_totales) . '</b>'?>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <?=(count($s1_ocupados)/ count($s1_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($s1_ocupados)/ count($s1_totales) * 100), 0, '.', '')?>%</div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-2">
+        <?='<b>' . count($s2_ocupados) . '</b> S2 de <b>' . count($s2_totales) . '</b>'?>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <?=(count($s2_ocupados)/ count($s2_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($s2_ocupados)/ count($s2_totales) * 100), 0, '.', '')?>%</div>
+        </div>
+    </div>
+
+    <div class="form-group col-md-2">
+        <?='<b>' . count($s3_ocupados) . '</b> S3 de <b>' . count($s3_totales) . '</b>'?>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <?=(count($s3_ocupados)/ count($s3_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($s3_ocupados)/ count($s3_totales) * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
 
+
+
 <br>
 <h5>Avance Por Zona</h5>
-
+<div class="dropdown-divider"></div>
 <br>
 
 
-<h6>Zona 1</h6>
-<?php
-$this_zona = 1;
-?>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
+
+    <div class="mr-2">
+        <h1>Z1</h1>
+        <?php
+        $this_zona = 1;
+        ?>    
+    </div>
+
+    <div class="form-group col-md-1">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -82,7 +140,7 @@ $this_zona = 1;
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -98,20 +156,19 @@ $this_zona = 1;
         echo $rgz1v;
         echo $rgz1;
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v) *100?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v) *100?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
-
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
+        foreach($rc_totales as $n){
+            if($n['zona'] == $this_zona){
                 $cas1v++;
                 if($n['id_ciudadano'] != null){
                     $cas1++;
@@ -119,13 +176,81 @@ $this_zona = 1;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> PRC de <b>' . $cas1v . '</b>'?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
+
+
+    <div class="form-group col-md-2">
+    <?php
+        $cas1v = 0;
+        $cas1 = 0;
+        foreach($s1_totales as $n){
+            if($n['zona'] == $this_zona){
+                $cas1v++;
+                if($n['id_ciudadano'] != null){
+                    $cas1++;
+                }
+            }
+        }
+    ?>
+        <?='<b>' . $cas1 . '</b> S1s de <b>' . $cas1v . '</b>'?>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group col-md-2">
+    <?php
+        $cas1v = 0;
+        $cas1 = 0;
+        foreach($s2_totales as $n){
+            if($n['zona'] == $this_zona){
+                $cas1v++;
+                if($n['id_ciudadano'] != null){
+                    $cas1++;
+                }
+            }
+        }
+    ?>
+        <?='<b>' . $cas1 . '</b> S2s de <b>' . $cas1v . '</b>'?>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group col-md-2">
+    <?php
+        $cas1v = 0;
+        $cas1 = 0;
+        foreach($s3_totales as $n){
+            if($n['zona'] == $this_zona){
+                $cas1v++;
+                if($n['id_ciudadano'] != null){
+                    $cas1++;
+                }
+            }
+        }
+    ?>
+        <?='<b>' . $cas1 . '</b> S3s de <b>' . $cas1v . '</b>'?>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
+        </div>
+    </div>
+
+        
 </div>
 
+
+<div class="dropdown-divider"></div>
+
+<!-- Zona 2 -->
 
 <h6>Zona 2</h6>
 <?php
@@ -133,7 +258,7 @@ $this_zona = 2;
 ?>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -146,7 +271,7 @@ $this_zona = 2;
         </div>
     </div>
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -159,15 +284,15 @@ $this_zona = 2;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -180,9 +305,9 @@ $this_zona = 2;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
@@ -193,7 +318,7 @@ $this_zona = 2;
 $this_zona = 3;
 ?>
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -207,7 +332,7 @@ $this_zona = 3;
     </div>
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -220,15 +345,15 @@ $this_zona = 3;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -241,9 +366,9 @@ $this_zona = 3;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
@@ -255,7 +380,7 @@ $this_zona = 4;
 ?>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -269,7 +394,7 @@ $this_zona = 4;
     </div>
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -282,15 +407,15 @@ $this_zona = 4;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -303,9 +428,9 @@ $this_zona = 4;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
@@ -317,7 +442,7 @@ $this_zona = 5;
 ?>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -331,7 +456,7 @@ $this_zona = 5;
     </div>
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -344,15 +469,15 @@ $this_zona = 5;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -365,9 +490,9 @@ $this_zona = 5;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
@@ -379,7 +504,7 @@ $this_zona = 6;
 ?>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -392,7 +517,7 @@ $this_zona = 6;
         </div>
     </div>
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -405,15 +530,15 @@ $this_zona = 6;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -426,9 +551,9 @@ $this_zona = 6;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
@@ -439,7 +564,7 @@ $this_zona = 6;
 $this_zona = 7;
 ?>
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -453,7 +578,7 @@ $this_zona = 7;
     </div>
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -466,15 +591,15 @@ $this_zona = 7;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -487,9 +612,9 @@ $this_zona = 7;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
@@ -501,7 +626,7 @@ $this_zona = 8;
 ?>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -515,7 +640,7 @@ $this_zona = 8;
     </div>
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -528,15 +653,15 @@ $this_zona = 8;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -549,9 +674,9 @@ $this_zona = 8;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>
@@ -563,7 +688,7 @@ $this_zona = 9;
 ?>
 
 <div class="form-row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <?php
         if($nrz[$this_zona-1]['id_ciudadano']){
             echo "Tiene RZ </b>";
@@ -577,7 +702,7 @@ $this_zona = 9;
     </div>
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $rgz1v = 0;
         $rgz1 = 0;
@@ -590,15 +715,15 @@ $this_zona = 9;
             }
         }
     ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 
 
 
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
     <?php
         $cas1v = 0;
         $cas1 = 0;
@@ -611,9 +736,9 @@ $this_zona = 9;
             }
         }
     ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> RCs Registrados en la Zona ' . $this_zona?>
+        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 2, '.', '')?>%</div>
+            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
         </div>
     </div>
 </div>

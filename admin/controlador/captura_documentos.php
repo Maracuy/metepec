@@ -23,10 +23,10 @@ $ciudadano = $consulta_ciudadanos->fetch();
 //Comenzamos con la INE, tenemos 2 posibles, o JPG o PDF
 
 if ($ine) {
-	$show_id = "http://admindemo.xpertika.com/admin/ciudadanos/" . $id .  "/" . $ine['tipo_documento'] . $ine['id_documento'] . ".jpg";
+	$show_id = "http://metepec.xpertika.com/admin/ciudadanos/" . $id .  "/" . $ine['tipo_documento'] . $ine['id_documento'] . ".jpg";
 }
 if ($ineb) {
-	$show_idb = "http://admindemo.xpertika.com/admin/ciudadanos/" . $id .  "/" . $ineb['tipo_documento'] . $ineb['id_documento'] . ".jpg";
+	$show_idb = "http://metepec.xpertika.com/admin/ciudadanos/" . $id .  "/" . $ineb['tipo_documento'] . $ineb['id_documento'] . ".jpg";
 }
 
 

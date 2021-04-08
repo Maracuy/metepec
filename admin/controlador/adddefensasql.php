@@ -29,7 +29,7 @@ function borrarAlta($con, $id){
 
 function nuevo($con, $id_ciudadano, $puesto, $up){
 
-    $sql_puestos = "UPDATE puestos_defensa SET id_ciudadano = $id_ciudadano, up = $up WHERE id_defensa = $puesto";
+    $sql_puestos = "UPDATE puestos_defensa SET id_ciudadano = $id_ciudadano, up = $up, confirmacion = 0 WHERE id_defensa = $puesto";
     $sentencia_puestos = $con->prepare($sql_puestos);
     try{  
         $sentencia_puestos->execute();

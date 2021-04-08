@@ -20,21 +20,23 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 <table class="table">
   <thead>
     <tr>
-		<th scope="col">Asig/De</th>
-		<th scope="col">Status</th>
+		<th scope="col">(+)</th>
+		<th scope="col">Sta</th>
 		<th scope="col">Prev</th>
-		<th scope="col">Zona</th>
+		<th scope="col">Local</th>
+		<th scope="col">Zn</th>
 		<th scope="col">RG</th>
-		<th scope="col">Seccion</th>
+		<th scope="col">Secc</th>
 		<th scope="col">Casilla</th>
 		<th scope="col">Posicion</th>
 		<th scope="col">Col</th>
 		<th scope="col">Origen</th>
 		<th scope="col">Nombre</th>
-		<th scope="col">Local</th>
 		<th scope="col">Tel</th>
 		<th scope="col">Comp</th>
 		<th scope="col">Afil</th>
+		<th scope="col">Move</th>
+
 	</tr>
 	</thead>
 	<tbody>
@@ -45,6 +47,8 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		?>
 	<tr>
+
+		<td> <a name="<?=$puesto['id_defensa']?>" id="<?=$puesto['id_defensa']?>"></a></td>
 		<?php if(!$puesto['id_ciudadano']):?>
 		<td> <button type="button" class="btn btn-primary btn-sm" onclick="numero(<?=$puesto['id_defensa']?>)" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-user-plus"></i> </button> </td>
 		<?php endif;
@@ -67,6 +71,17 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 					echo '<a href="electoral.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';
 				}
 		?></td>	
+		<td> <?php
+	if($puesto['id_ciudadano']){
+		if(isset($ciudadanos[$puesto['id_ciudadano']]['seccion_electoral']) && $ciudadanos[$puesto['id_ciudadano']]['seccion_electoral'] != ''){
+			if($ciudadanos[$puesto['id_ciudadano']]['seccion_electoral'] == $puesto['seccion']){
+				echo '<i class="fas fa-map-marker-alt"></i>';
+			}else{
+				echo '<i class="fas fa-map-marked"></i>';
+			}
+		}else{
+			echo '<a href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';}
+		}?></td>
 		<td> <?=$puesto['zona']?> </td>
 		<td> <?=$puesto['rg']?> </td>
 		<td> <?=$puesto['seccion']?> </td>
@@ -82,15 +97,6 @@ $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 			}else{
 				echo '<a href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';}?></td>
 	<td> <?=$ciudadanos[$puesto['id_ciudadano']]['apellido_p'] . " " . $ciudadanos[$puesto['id_ciudadano']]['apellido_m'] . " " . $ciudadanos[$puesto['id_ciudadano']]['nombres']?> </td>
-	<td> <?php
-	if(isset($ciudadanos[$puesto['id_ciudadano']]['seccion_electoral']) && $ciudadanos[$puesto['id_ciudadano']]['seccion_electoral'] != ''){
-		if($ciudadanos[$puesto['id_ciudadano']]['seccion_electoral'] == $puesto['seccion']){
-			echo '<i class="fas fa-map-marker-alt"></i>';
-		}else{
-			echo '<i class="fas fa-map-marked"></i>';
-		}
-		}else{
-			echo '<a href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';}?></td>
 
 		<td><?=$ciudadanos[$puesto['id_ciudadano']]['telefono']?> </td>
 		<td><?=(isset($puesto['compromiso']) &&  $puesto['compromiso'] != "" ) ? $puesto['compromiso'] : $boton_conf_elec?> </td>
