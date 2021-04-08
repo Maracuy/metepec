@@ -1,10 +1,16 @@
 <?php
+
+require_once 'controlador/EstadisticaElecciones.php';
+$ele = new Elecciones();
+
+$stm = $con->query("SELECT zona FROM puestos_defensa GROUP BY zona");
+$zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
+
 $stm = $con->query("SELECT * FROM puestos_defensa WHERE rg=''");
 $nrz = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 $stm = $con->query("SELECT * FROM puestos_defensa WHERE rg='' AND id_ciudadano != ''");
 $rz = $stm->fetchAll(PDO::FETCH_ASSOC);
-
 
 $stm = $con->query("SELECT * FROM puestos_defensa WHERE seccion='' AND zona != '' AND rg!=''");
 $nrg = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -114,631 +120,56 @@ $s3_ocupados = $stm->fetchAll(PDO::FETCH_ASSOC);
 <div class="dropdown-divider"></div>
 <br>
 
+<?php foreach($zonas as $zona):
+    $this_zona = $zona['zona']?>
 
 
-<div class="form-row">
+    <div class="form-row">
 
-    <div class="mr-2">
-        <h1>Z1</h1>
-        <?php
-        $this_zona = 1;
-        ?>    
-    </div>
+        <div class="mr-2">
+            <h1>Z<?=$this_zona?></h1>   
+        </div>
 
-    <div class="form-group col-md-1">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
+        <div class="form-group col-md-1">
+            <?= $ele->TieneRZ($nrz[$this_zona-1]['id_ciudadano'])?>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-md-2">
+            <?php $result = $ele->Cifras($nrg, $this_zona)?>
+            <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'RGs')?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <?php $result = $ele->Cifras($rc_totales, $this_zona)?>
+            <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'PRC')?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <?php $result = $ele->Cifras($s1_totales, $this_zona)?>
+            <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'S1')?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <?php $result = $ele->Cifras($s2_totales, $this_zona)?>
+            <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'S1')?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <?php $result = $ele->Cifras($s3_totales, $this_zona)?>
+            <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'S1')?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
         </div>
     </div>
 
 
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona'] == $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-
-        echo $rgz1v;
-        echo $rgz1;
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v) *100?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($rc_totales as $n){
-            if($n['zona'] == $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> PRC de <b>' . $cas1v . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($s1_totales as $n){
-            if($n['zona'] == $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> S1s de <b>' . $cas1v . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($s2_totales as $n){
-            if($n['zona'] == $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> S2s de <b>' . $cas1v . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($s3_totales as $n){
-            if($n['zona'] == $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> S3s de <b>' . $cas1v . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/$cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-        
-</div>
-
-
-<div class="dropdown-divider"></div>
-
-<!-- Zona 2 -->
-
-<h6>Zona 2</h6>
-<?php
-$this_zona = 2;
-?>
-
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
-
-
-<h6>Zona 3</h6>
-<?php
-$this_zona = 3;
-?>
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
-
-
-<h6>Zona 4</h6>
-<?php
-$this_zona = 4;
-?>
-
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
-
-
-<h6>Zona 5</h6>
-<?php
-$this_zona = 5;
-?>
-
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
-
-
-<h6>Zona 6</h6>
-<?php
-$this_zona = 6;
-?>
-
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
-
-
-<h6>Zona 7</h6>
-<?php
-$this_zona = 7;
-?>
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
-
-
-<h6>Zona 8</h6>
-<?php
-$this_zona = 8;
-?>
-
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
-
-
-<h6>Zona 9</h6>
-<?php
-$this_zona = 9;
-?>
-
-<div class="form-row">
-    <div class="form-group col-md-2">
-        <?php
-        if($nrz[$this_zona-1]['id_ciudadano']){
-            echo "Tiene RZ </b>";
-        }else{
-            echo "Falta RZ </b>";
-        }
-        ?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-        </div>
-    </div>
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $rgz1v = 0;
-        $rgz1 = 0;
-        foreach($nrg as $n){
-            if($n['zona']== $this_zona){
-                $rgz1v++;
-                if($n['id_ciudadano'] != null){
-                    $rgz1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $rgz1 . '</b> de <b>' . $rgz1v . '</b> RGs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($rgz1/ $rgz1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($rgz1/ $rgz1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-
-
-    <div class="form-group col-md-2">
-    <?php
-        $cas1v = 0;
-        $cas1 = 0;
-        foreach($ncas as $n){
-            if($n['zona']== $this_zona){
-                $cas1v++;
-                if($n['id_ciudadano'] != null){
-                    $cas1++;
-                }
-            }
-        }
-    ?>
-        <?='<b>' . $cas1 . '</b> de <b>' . $cas1v . '</b> Rcs en Zona  ' . $this_zona?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=($cas1/ $cas1v *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format(($cas1/ $cas1v * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-</div>
+    <div class="dropdown-divider"></div>
+<?php endforeach?>
