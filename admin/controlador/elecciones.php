@@ -67,50 +67,35 @@ $s3_ocupados = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="form-row">
     <div class="form-group col-md-2">
-        <?='<b>' . count($rz) . '</b> RZs   de <b>' . count($nrz) . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($rz)/ count($nrz) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rz)/ count($nrz) * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="form-group col-md-2">
-        <?='<b>' . count($rg) . '</b> RGs   de <b>' . count($nrg) . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($rg)/ count($nrg) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rg)/ count($nrg) * 100), 0, '.', '')?>%</div>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="form-group col-md-2">
-        <?='<b>' . count($rc_ocupados) . '</b> PRC <b>' . count($rc_totales) . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($rc_ocupados)/ count($rc_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($rc_ocupados)/ count($rc_totales) * 100), 0, '.', '')?>%</div>
-        </div>
+        <?=$ele->TituloBarra(count($nrz), count($rz), 'CZs')?>
+        <?=$ele->BarraProgreso(count($nrz), count($rz), '')?>
     </div>
 
     <div class="form-group col-md-2">
-        <?='<b>' . count($s1_ocupados) . '</b> S1 de <b>' . count($s1_totales) . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($s1_ocupados)/ count($s1_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($s1_ocupados)/ count($s1_totales) * 100), 0, '.', '')?>%</div>
-        </div>
+        <?=$ele->TituloBarra(count($nrg), count($rg), 'RGs')?>
+        <?=$ele->BarraProgreso(count($nrg), count($rg), '')?>
     </div>
 
     <div class="form-group col-md-2">
-        <?='<b>' . count($s2_ocupados) . '</b> S2 de <b>' . count($s2_totales) . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($s2_ocupados)/ count($s2_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($s2_ocupados)/ count($s2_totales) * 100), 0, '.', '')?>%</div>
-        </div>
+        <?=$ele->TituloBarra(count($rc_totales), count($rc_ocupados), 'PRs')?>
+        <?=$ele->BarraProgreso(count($rc_totales), count($rc_ocupados), '')?>
     </div>
 
     <div class="form-group col-md-2">
-        <?='<b>' . count($s3_ocupados) . '</b> S3 de <b>' . count($s3_totales) . '</b>'?>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <?=(count($s3_ocupados)/ count($s3_totales) *100)?>%;" aria-valuemin="0" aria-valuemax="100"><?=number_format((count($s3_ocupados)/ count($s3_totales) * 100), 0, '.', '')?>%</div>
-        </div>
+        <?=$ele->TituloBarra(count($s1_totales), count($s1_ocupados), 'S1s')?>
+        <?=$ele->BarraProgreso(count($s1_totales), count($s1_ocupados), '')?>
     </div>
+
+    <div class="form-group col-md-2">
+        <?=$ele->TituloBarra(count($s2_totales), count($s2_ocupados), 'S1s')?>
+        <?=$ele->BarraProgreso(count($s2_totales), count($s2_ocupados), '')?>
+    </div>
+
+    <div class="form-group col-md-2">
+        <?=$ele->TituloBarra(count($s3_totales), count($s3_ocupados), 'S1s')?>
+        <?=$ele->BarraProgreso(count($s3_totales), count($s3_ocupados), '')?>
+    </div>
+
 </div>
 
 
@@ -126,47 +111,44 @@ $s3_ocupados = $stm->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="form-row">
 
-        <div class="mr-2">
-            <h1>Z<?=$this_zona?></h1>   
+        <div class="col-md-1">
+            <h1 class="ml-2">Z<?=$this_zona?></h1>   
         </div>
 
         <div class="form-group col-md-1">
             <?= $ele->TieneRZ($nrz[$this_zona-1]['id_ciudadano'])?>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: <?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0' ?>%;" aria-valuemin="0" aria-valuemax="100"><?=($nrz[$this_zona-1]['id_ciudadano']) ? '100' : '0'?>%</div>
-            </div>
         </div>
 
 
-
+<!-- Aqui comienza el area de las estadisticas por rg, pr, etc -->
         <div class="form-group col-md-2">
             <?php $result = $ele->Cifras($nrg, $this_zona)?>
             <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'RGs')?>
-            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'], '')?>
         </div>
 
         <div class="form-group col-md-2">
             <?php $result = $ele->Cifras($rc_totales, $this_zona)?>
-            <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'PRC')?>
-            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+            <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'PR')?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'], 'bg-warning')?>
         </div>
 
         <div class="form-group col-md-2">
             <?php $result = $ele->Cifras($s1_totales, $this_zona)?>
             <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'S1')?>
-            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'], '')?>
         </div>
 
         <div class="form-group col-md-2">
             <?php $result = $ele->Cifras($s2_totales, $this_zona)?>
             <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'S1')?>
-            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'], '')?>
         </div>
 
         <div class="form-group col-md-2">
             <?php $result = $ele->Cifras($s3_totales, $this_zona)?>
             <?= $ele->TituloBarra($result['total'], $result['ocupados'], 'S1')?>
-            <?= $ele->BarraProgreso($result['total'],$result['ocupados'])?>
+            <?= $ele->BarraProgreso($result['total'],$result['ocupados'], '')?>
         </div>
     </div>
 
