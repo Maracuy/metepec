@@ -14,6 +14,8 @@ $id_ciudadano = $_GET['id'];
 $up = $_SESSION['user']['id_ciudadano'];
 
 
+
+
 function changeStatus($con, $id, $status){
     $status = ($status == 1) ? 0 : 1;
     $nrows = $con->exec("UPDATE puestos_defensa SET confirmacion = $status WHERE id_defensa = $id");

@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   manzana VARCHAR(255) NULL DEFAULT NULL,
   lote VARCHAR(255) NULL DEFAULT NULL,
   dir_referencia VARCHAR(255) NULL DEFAULT NULL,
-  seccion_electoral VARCHAR(45) NULL DEFAULT NULL,
+  seccion_electoral VARCHAR(5) NULL DEFAULT NULL,
   participo_eleccion INT NULL DEFAULT NULL,
   posicion VARCHAR(45) NULL DEFAULT NULL,
   asistio VARCHAR(45) NULL DEFAULT NULL,
@@ -140,7 +140,8 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   simpatia INT,
   origen VARCHAR(255),
   id_registrante INT NOT NULL,
-  observaciones TEXT NULL DEFAULT NULL
+  observaciones TEXT NULL DEFAULT NULL,
+  borrado INT DEFAULT 0
 )ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -290,7 +291,7 @@ DROP TABLE IF EXISTS zonas;
 CREATE TABLE IF NOT EXISTS zonas(
     id_zona INT AUTO_INCREMENT PRIMARY KEY,
     zona INT,
-    color VARCHAR(5)
+    color VARCHAR(10)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

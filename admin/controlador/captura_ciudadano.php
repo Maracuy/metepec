@@ -2,11 +2,16 @@
     if($_GET){       // Primero verificamos si existe el ciudadano
         if($_GET['id']){
             $id = $_GET['id'];
-            include 'menu_proceso.php';
-
-            $sql_query_ciudadano = $con->prepare('SELECT * FROM ciudadanos WHERE id_ciudadano = ?');
+            
+            $sql_query_ciudadano = $con->prepare('SELECT * FROM ciudadanos WHERE id_ciudadano = ? AND borrado != 1');
             $sql_query_ciudadano->execute(array($id));
             $ciudadano = $sql_query_ciudadano->fetch();
+            
+            if(!$ciudadano){
+                echo "Este ciudadano no existe";
+                die();
+            }
+            include 'menu_proceso.php';
         }
     }
 $empleado = $_SESSION['user']['id_ciudadano'];

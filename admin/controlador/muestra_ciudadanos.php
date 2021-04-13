@@ -14,7 +14,7 @@ if(isset($_GET['orden'])){
 	}
 }
 
-$consulta_ciudadanos = "SELECT * FROM ciudadanos $orden";
+$consulta_ciudadanos = "SELECT * FROM ciudadanos $orden WHERE borrado !=1";
 
 $sql_query_ciudadanos = $con->prepare($consulta_ciudadanos);
 $sql_query_ciudadanos->execute();
