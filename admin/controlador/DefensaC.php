@@ -38,8 +38,8 @@ class Defensa{
     function Flechas($puesto){
         $dato=0;
         $flecha_ = '';
-        $flecha_up = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=sube">  <i class="fas fa-chevron-up"></i>  </a>';
-        $flecha_down = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=baja">  <i class="fas fa-chevron-down"></i>  </a>';
+        $flecha_up = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=up">  <i class="fas fa-chevron-up"></i>  </a>';
+        $flecha_down = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=down">  <i class="fas fa-chevron-down"></i>  </a>';
         if ($puesto['casilla']) {
             if($puesto['puesto'] == 0){
                 return $flecha_down;
@@ -50,6 +50,39 @@ class Defensa{
             if($puesto['puesto'] == 3){
                 return $flecha_up;
             }
+        }
+    }
+
+    function Colores($puesto){
+        if ($puesto['casilla']) { //
+            if ($puesto['puesto'] == 0) {
+                return 'table-primary';
+            }
+            if ($puesto['puesto'] == 1) {
+                return 'table-secondary';
+            }
+            if ($puesto['puesto'] == 2) {
+                return 'table-secondary';
+            }
+            if ($puesto['puesto'] == 3) {
+                return 'table-secondary';
+            }
+        }else {
+            if ($puesto['rg']) {
+                return 'bg-info';
+            }else {
+                return 'bg-primary';
+            }
+        }
+    }
+
+
+    function Capacitaciones($puesto,$capacitacion, $numero){
+        $link = '<a href="controlador/adddefensasql.php?capacitaciones='. $capacitacion .'&id=' . $puesto . '&numero=' . $numero . '">';
+        if($capacitacion == 1){
+            return $link . '<i class="far fa-check-square mr-0 ml-1" style="color: #fff;"></i></a>';
+        }else{
+            return $link . '<i class="far fa-square mr-0 ml-0" style="color: #fff;"></i></a>';
         }
     }
 

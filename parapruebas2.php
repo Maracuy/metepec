@@ -1,18 +1,38 @@
 <?php
 require_once 'conection/conexion.php';
 
-$sentencia = 'SELECT p.*, 
-c.id_ciudadano, c.nombres, c.apellido_p, c.apellido_m, c.id_colonia, c.seccion_electoral, c.id_registrante, c.origen, c.telefono, 
-l.abreviatura, l.nombre_colonia
-FROM puestos_defensa p
-LEFT JOIN ciudadanos c ON p.id_ciudadano = c.id_ciudadano
-LEFT JOIN colonias l ON c.id_colonia = l.id
-';
+$sentencia = 'SELECT CONCAT(apellido_p, " ", apellido_m, " ", nombres) AS nombre, dir_calle AS direccion, numero_identificacion AS claveElector, telefono FROM ciudadanos';
 $stm = $con->query($sentencia);
 $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-var_dump($puestos);
 
+function exportProductDatabase($productResult) {
 
+    $timestamp = time();
+    $filename = 'Export_' . $timestamp . '.xls';
+    
+    header("Content-Type: application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=\"$filename\"");
+    
+    $isPrintHeader = false;
+
+    foreach ($productResult as $row) {
+
+        if (! $isPrintHeader ) {
+
+            echo implode("\t", array_keys($row)) . "\n";
+            $isPrintHeader = true;
+
+        }
+
+        echo implode("\t", array_values($row)) . "\n";
+
+    }
+
+    exit();
+
+}
+
+exportProductDatabase($puestos);
 
 ?>

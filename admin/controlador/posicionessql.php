@@ -1,7 +1,6 @@
 <?php
 session_start();
-
-if(!$_POST){
+if(!$_GET){
     die();
 }
 
@@ -11,6 +10,17 @@ if (empty($_SESSION['user'])){
 }
 require_once '../../conection/conexion.php';
 
+
+function reconfigurar($puesto){
+    unset($puesto['id_defensa']);
+    unset($puesto['zona']);
+    unset($puesto['rg']);
+    unset($puesto['seccion']);
+    unset($puesto['casilla']);
+    unset($puesto['puesto']);
+    return $puesto;
+}
+
 $empleado = $_SESSION['user']['id_ciudadano'];
 
 $id = $_GET['posicion'];
@@ -18,49 +28,51 @@ $orden = $_GET['dato'];
 
 $stm = $con->query("SELECT * FROM puestos_defensa WHERE id_defensa = $id");
 $actual = $stm->fetch(PDO::FETCH_ASSOC);
+$actual = reconfigurar($actual);
+$actual_keys = array_keys($actual);
+$actual_values = array_values($actual);
 
 
-if ($orden == 'up') {
+if($orden == 'up') {
     $nid = $id-1;
-    $stm = $con->query("SELECT * FROM puestos_defensa WHERE id_defensa = $nid");
-    $puesto = $stm->fetch(PDO::FETCH_ASSOC);
-
-    if ($puesto['id_ciudadano'] != '') {
-
-        $id_ocupado = $puesto['id_ciudadano'];
-        $previo = $puesto['previo'];
-        $posicion_prev = $puesto['posicion_prev'];
-        $compromiso = $puesto['compromiso'];
-        $afiliacion = $puesto['afiliacion'];
-        $origen = $puesto['origen'];
-        $cubre = $puesto['cubre'];
-        $up = $puesto['up'];
-        $confirmacion = $puesto['confirmacion'];
-
-
-
-        //ponemos los datos del puesto destino en 
-
-
-
-        $sql_editar = "UPDATE puestos_defensa SET 
-        previo = $previo, posicion_prev = $posicion_prev, compromiso = $compromiso, afiliacion = $afiliacion, origen = $origen, cubre = $cubre, up = $up, confirmacion = $confirmacion
-        WHERE id_ciudadano = $id_ocupado+1";
-        $sentencia_agregar = $con->prepare($sql_editar);
-        try {
-            $sentencia_agregar->execute();
-        } catch (\Throwable $th) {
-            echo "Error al mover el lugar ocupado: " . $th;
-        }
-
-
-    }
-
+    $sent_futuro = $con->query("SELECT * FROM puestos_defensa WHERE id_defensa = $nid");
 }
-$stm = $con->query("SELECT * FROM colonias");
-$colonias = $stm->fetchAll(PDO::FETCH_ASSOC);
+if($orden == 'down'){
+    $nid= $id+1;
+    $sent_futuro = $con->query("SELECT * FROM puestos_defensa WHERE id_defensa = $nid");
+}
+$futuro = $sent_futuro->fetch(PDO::FETCH_ASSOC);
+$futuro = reconfigurar($futuro);
+$future_values = array_values($futuro);
+
+$keys = '';
+
+foreach ($actual_keys as $key) {
+    $keys = $keys . $key . '=?,'; 
+}
+$keys = substr($keys, 0, -1);
 
 
+$sql_editar = "UPDATE puestos_defensa SET $keys WHERE id_defensa=$nid";
+$sentencia_agregar = $con->prepare($sql_editar);
+try {
+    $sentencia_agregar->execute($actual_values);
+} catch (\Throwable $th) {
+    echo 'fallo al insertar los datos: ' . $th; 
+}
+
+
+$sql_editar = "UPDATE puestos_defensa SET $keys WHERE id_defensa=$id";
+$sentencia_agregar = $con->prepare($sql_editar);
+try {
+    $sentencia_agregar->execute($future_values);
+} catch (\Throwable $th) {
+    echo 'fallo al insertar los datos: ' . $th; 
+}
+
+$toid = $id-5;  
+
+header("Location: ../defensa.php#$toid");
 
 
 ?>

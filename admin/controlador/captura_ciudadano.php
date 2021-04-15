@@ -58,19 +58,10 @@ $empleado = $_SESSION['user']['id_ciudadano'];
     </div>
 
 
-    <div class="espaciadormio" style="height: 30px;"></div>
+    <div class="espaciadormio" style="height: 10px;"></div>
 
 
     <div class="form-row">
-
-        <div class="form-group col-md-2">
-            <label for="nombres">Nombre(s)*</label>
-            <?php if(isset($ciudadano['nombres'])){?>
-                <input type="text" value="<?php echo $ciudadano['nombres']?>" class="form-control" id="nombres" name="nombres">
-            <?php } else{
-                echo '<input type="text" required class="form-control" id="nombres" name="nombres">';
-            }?>
-        </div>
 
         <div class="form-group col-md-2">
             <label for="apellido_p">Apellido Paterno*</label>
@@ -87,6 +78,15 @@ $empleado = $_SESSION['user']['id_ciudadano'];
                 <input type="text" value="<?php echo $ciudadano['apellido_m']?>" class="form-control" id="apellido_m" name="apellido_m" required>
             <?php }else{
                 echo '<input type="text" class="form-control" id="apellido_m" name="apellido_m">';
+            }?>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="nombres">Nombre(s)*</label>
+            <?php if(isset($ciudadano['nombres'])){?>
+                <input type="text" value="<?php echo $ciudadano['nombres']?>" class="form-control" id="nombres" name="nombres">
+            <?php } else{
+                echo '<input type="text" required class="form-control" id="nombres" name="nombres">';
             }?>
         </div>
 
@@ -145,7 +145,7 @@ $empleado = $_SESSION['user']['id_ciudadano'];
         </div>
 
         <div class="form-group col-md-2">
-            <label for="numero_identificacion">No. identificación</label>
+            <label for="numero_identificacion">Clave Elec.</label>
             <?php if(isset($ciudadano['numero_identificacion'])):?>
                 <input type="text" value="<?php echo $ciudadano['numero_identificacion']?>" class="form-control" id="numero_identificacion" name="numero_identificacion">
             <?php endif ?>
@@ -167,10 +167,10 @@ $empleado = $_SESSION['user']['id_ciudadano'];
         <div class="form-group col-md-2">
             <label for="telefono">Telefono</label>
             <?php if(isset($ciudadano['telefono'])):?>
-                <input type="text" value="<?php echo $ciudadano['telefono']?>" class="form-control" id="telefono" name="telefono">
+                <input type="tel" value="<?php echo $ciudadano['telefono']?>" class="form-control" id="telefono" name="telefono">
             <?php endif ?>
             <?php if(!isset($ciudadano['telefono'])):?>
-                <input type="text" class="form-control" id="telefono" name="telefono">
+                <input type="tel" class="form-control" id="telefono" name="telefono">
             <?php endif ?>
         </div>
         
@@ -381,7 +381,7 @@ $empleado = $_SESSION['user']['id_ciudadano'];
     </div>
 
     <div class="form-group col-md-2">
-        <label for="origen">Origen</label>
+        <label for="origen">Referencia</label>
         <?php if(isset($ciudadano['origen'])):?>
             <input type="text" value="<?php echo $ciudadano['origen']?>" class="form-control" id="origen" name="origen">
         <?php endif ?>

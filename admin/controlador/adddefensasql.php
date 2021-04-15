@@ -13,7 +13,11 @@ require_once '../../conection/conexion.php';
 $id_ciudadano = $_GET['id'];
 $up = $_SESSION['user']['id_ciudadano'];
 
-
+function Capacitaciones($con, $id, $capacitacion, $actual){
+    $nrows = $con->exec("UPDATE puestos_defensa SET $capacitacion = $actual WHERE id_defensa = $id");
+    $nid = $id-4;
+    header("Location: ../defensa.php#$nid");
+}
 
 
 function changeStatus($con, $id, $status){
@@ -58,6 +62,24 @@ if (isset($_GET['status']) && $_GET['status'] != '') {
 if (isset($_GET['nuevo']) && $_GET['nuevo'] == '1'){
     $puesto = $_GET['casilla'];
     nuevo($con, $id_ciudadano, $puesto, $up);
+}
+
+
+if (isset($_GET['capacitaciones'])){
+    $id = $_GET['id'];
+    $actual = $_GET['capacitaciones'];
+    if($_GET['capacitaciones'] == 0){
+        $actual++;
+    }else{
+        $actual--;
+    }
+
+    if($_GET['numero'] == 1){
+        $capacitacion = "capacitacion1";
+    }else{
+        $capacitacion = "capacitacion2";
+    }
+    Capacitaciones($con, $id, $capacitacion, $actual);
 }
 
 $con=null;

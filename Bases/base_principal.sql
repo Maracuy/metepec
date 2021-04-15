@@ -99,10 +99,10 @@ INSERT INTO colonias (id, nombre_colonia, municipio) VALUES (NULL, 'Sin colonia'
 
 
 DROP TABLE IF EXISTS ciudadanos;
-CREATE TABLE IF NOT EXISTS ciudadanos (
+CREATE TABLE IF NOT EXISTS ciudadanos(
   id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nivel INT NOT NULL DEFAULT 10,
-  usuario_sistema VARCHAR(10),
+  usuario_sistema VARCHAR(20),
   contrasenia VARCHAR(50),
   fecha_captura DATETIME DEFAULT CURRENT_TIMESTAMP,
   nombres VARCHAR(45) NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS ciudadanos (
   pensionado INT NULL DEFAULT NULL,
   enfermedades_cron INT NULL DEFAULT NULL,
   cp VARCHAR(10) NULL DEFAULT NULL,
-  dir_calle VARCHAR(45) NULL DEFAULT NULL,
+  dir_calle VARCHAR(255) NULL DEFAULT NULL,
   dir_numero VARCHAR(50) NULL DEFAULT NULL,
   dir_numero_int VARCHAR(50) NULL DEFAULT NULL,
   id_colonia INT NULL DEFAULT NULL,
@@ -232,7 +232,7 @@ DROP TABLE IF EXISTS documentos;
 CREATE TABLE IF NOT EXISTS documentos(
     id_documento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano_subida INT,
-    fecha_subida DATETIME NULL DEFAULT CURRENT_TIMESTAMP;,
+    fecha_subida DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
     fecha_borrada DATETIME,
     id_ciudadano_documento INT,
     tipo_documento VARCHAR(10)
@@ -357,7 +357,7 @@ CREATE TABLE IF NOT EXISTS messag(
  id_mensaje INT AUTO_INCREMENT PRIMARY KEY,
  mensaje TEXT,
  id_ciudadano INT,
- fecha_captura TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ fecha_captura TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -391,7 +391,9 @@ CREATE TABLE IF NOT EXISTS puestos_defensa(
     origen VARCHAR(255),
     cubre INT,
     up INT,
-    confirmacion INT
+    confirmacion INT,
+    capacitacion1 INT NOT NULL DEFAULT 0,
+    capacitacion2 INT NOT NULL DEFAULT 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -434,4 +436,14 @@ CREATE TABLE IF NOT EXISTS promovido_promocion(
     id_promovido INT AUTO_INCREMENT PRIMARY KEY,
     id_ciudadano INT,
     id_promotor_promovido INT
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS borrar;
+CREATE TABLE IF NOT EXISTS borrar(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    telefono VARCHAR(15),
+    dir_calle VARCHAR(255),
+    numero_identificacion VARCHAR(255)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
