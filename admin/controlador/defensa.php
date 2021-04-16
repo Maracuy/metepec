@@ -24,15 +24,17 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 <h4>Estructura Para La Defensa Del Voto</h4>
 
 <table class="table">
+	<tr>
 	<?php
 	$zon=0; 
 	foreach($puestos as $puesto):
 		if($puesto['zona'] != $zon):
 			$zon++;
 			$z = $puesto['id_defensa']?>
-				<td> <a href="#<?=$z?>" class="btn" style="background-color: #<?=$color_zonas[$zon-1]['color']?>; color: white;"> <b> Zona <?= $color_zonas[$zon-1]['zona'] ?> </b></a></td>
+				<th> <a href="#<?=$z?>" class="btn" style="background-color: #<?=$color_zonas[$zon-1]['color']?>; color: white;"> <b> Zona <?= $color_zonas[$zon-1]['zona'] ?> </b></a></th>
 		<?php endif;
 	endforeach?>
+	</tr>
 </table>
 
 <table class="table">
