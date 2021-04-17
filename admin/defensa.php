@@ -1,15 +1,6 @@
 <?php
-session_start();
-header("Content-Type: text/html;charset=utf-8");
-if (empty($_SESSION['user'])){
-    echo "no estas registrado";
-    die();
-}
-require_once '../conection/conexion.php';
-require_once '../conection/conexioni.php';
-?>
-
-<!DOCTYPE html>
+require_once 'controlador/Sesiones.php';
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

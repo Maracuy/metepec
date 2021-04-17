@@ -3,21 +3,23 @@ require_once 'conection/conexion.php';
 session_start();
 
 
-$usuario = $_POST['usuario'];
-$password = $_POST['password'];
+$user = filter_var($_POST['usuario'], FILTER_SANITIZE_STRING);
+$password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
-$loguser = $con->prepare("SELECT * FROM ciudadanos WHERE usuario_sistema = ? AND contrasenia = ?");
+$loguser = $con->prepare("SELECT * FROM ciudadanos WHERE usuario_sistema = ?");
 
 try{
-    $loguser->execute(array($usuario, $password));
+    $loguser->execute(array($user));
 }catch(Exception $e){
     echo 'Excepción capturada: ',  $e->getMessage(), "\n";
 }
-$resultado_unico= $loguser->fetch();
+$usuario= $loguser->fetch(PDO::FETCH_ASSOC);
 
-if($resultado_unico){
-    $_SESSION['user'] = $resultado_unico;
-    header('Location:admin/');
+if ($usuario) {
+    if (password_verify($password, $usuario['contrasenia'])) {
+        $_SESSION['user'] = $usuario;
+        header('Location: admin/');
+    }
 }else{
     include 'login_fail.html';
 }

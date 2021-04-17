@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS ciudadanos(
   id_ciudadano INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nivel INT NOT NULL DEFAULT 10,
   usuario_sistema VARCHAR(20),
-  contrasenia VARCHAR(50),
+  contrasenia VARCHAR(255),
   fecha_captura DATETIME DEFAULT CURRENT_TIMESTAMP,
   nombres VARCHAR(45) NOT NULL,
   apellido_p VARCHAR(45) NOT NULL,
