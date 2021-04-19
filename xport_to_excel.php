@@ -1,7 +1,13 @@
 <?php
 require_once 'conection/conexion.php';
 
-$sentencia = 'SELECT CONCAT(apellido_p, " ", apellido_m, " ", nombres) AS nombre, dir_calle AS direccion, numero_identificacion AS claveElector, telefono FROM ciudadanos';
+$sentencia = 'SELECT 
+CONCAT(apellido_p, " ", apellido_m, " ", nombres) AS nombre, 
+dir_calle AS direccion, 
+numero_identificacion AS claveElector, 
+telefono 
+FROM ciudadanos';
+
 $stm = $con->query($sentencia);
 $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 
