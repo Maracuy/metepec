@@ -8,6 +8,7 @@ $ciudadanos = $sql_query->fetchALL();
 
 <table class="table table-striped" id="myTable">
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por nombre">
+<input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Buscar por Telefono">
 
   <thead>
     <tr>
@@ -18,6 +19,7 @@ $ciudadanos = $sql_query->fetchALL();
         }
         ?>
 
+        <th scope="col">Cas</th>
         <th scope="col">Id</th>
         <th scope="col">Nombre</th>
         <th scope="col">Telefono</th>
@@ -46,14 +48,11 @@ $ciudadanos = $sql_query->fetchALL();
             $sql_query_colonias = $con->prepare("SELECT id, nombre_colonia FROM colonias WHERE id=?");
             $sql_query_colonias->execute(array($la_colonia));
             $nombre_colonia = $sql_query_colonias->fetch();
-            $colonia=$nombre_colonia["nombre_colonia"];
         }elseif(isset($dato['otra_colonia'])){
             $colonia = $dato['otra_colonia'];} ?>
       
+
         <tr>
-
-            
-
             <th><input type="checkbox" id="id_ciudadano" name="id_ciudadano" value="<?php echo $dato['id_ciudadano'] ?>"></th>
             <th scope='row'> <?php echo $dato['id_ciudadano'] ?>  </th>
             
@@ -89,6 +88,28 @@ function myFunction() {
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function myFunction2() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {

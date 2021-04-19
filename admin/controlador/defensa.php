@@ -1,5 +1,4 @@
 <?php
-
 $sentencia = 'SELECT p.*, 
 c.id_ciudadano as id, c.nombres, c.apellido_p, c.apellido_m, c.id_colonia, c.seccion_electoral, c.id_registrante, c.origen, c.telefono, 
 l.abreviatura, l.nombre_colonia
@@ -37,8 +36,25 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 	</tr>
 </table>
 
-<table class="table">
+<table class="table" id="myTable">
   <thead>
+	<tr>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Secc"  maxlength="4" size="4"></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th><input type="text" id="myInputnombre" onkeyup="nombre()" placeholder="Nombres"  maxlength="10" size="10"></th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
     <tr>
 		<th scope="col">(+)</th>
 		<th scope="col">Sta</th>
@@ -185,5 +201,54 @@ function numero(dato){
 function AgregarCiudadano(id) {
 	if(confirm("Seguro que desea agregarlo a la casilla?")) document.location = 'controlador/adddefensasql.php?id=' + id +'&casilla=' + casilla +'&nuevo=1';
 }
+
+
+
+
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[6];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function nombre() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputnombre");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[11];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
 
 </script>
