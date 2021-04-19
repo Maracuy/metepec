@@ -69,9 +69,9 @@ class Defensa{
             }
         }else {
             if ($puesto['rg']) {
-                return 'bg-info';
+                return 'table-warning';
             }else {
-                return 'bg-primary';
+                return 'table-danger';
             }
         }
     }
