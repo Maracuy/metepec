@@ -57,6 +57,12 @@ function myFunction(p1) {
     if(confirm("my text here")) document.location = 'http://stackoverflow.com?id=' + p1;
 }
  */
+
+
+
+
+
+ // Para listas <datalist>
   
 </script>
 

@@ -4,8 +4,8 @@ $sql_query->execute();
 $ciudadanos = $sql_query->fetchALL();
 ?>
 
-<table class="table table-striped" id="myTable">
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por nombre">
+<table class="table table-striped" id="myTables">
+<input type="text" id="myInputs" onkeyup="myFunctiontodos()" placeholder="Buscar por nombre">
 
   <thead>
     <tr>
@@ -42,12 +42,12 @@ $ciudadanos = $sql_query->fetchALL();
   </tbody>
 
   <script>
-function myFunction() {
+function myFunctiontodos() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
+  input = document.getElementById("myInputs");
   filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
+  table = document.getElementById("myTables");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query

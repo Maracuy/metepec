@@ -28,7 +28,7 @@ require_once '../conection/conexioni.php';
 
 
 
-        <?php include 'controlador/muestra_ciudadanos_copy.php'?>
+        <?php include 'controlador/muestra_ciudadanos.php'?>
         
 
 

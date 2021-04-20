@@ -19,10 +19,16 @@ td a {
 .blackiconcolor {
   color: white;
 }
+
+#zonas{
+  position: sticky;
+  top: -15px; /* Don't forget this, required for the stickiness */
+}
+
 th {
   background: white;
   position: sticky;
-  top: 0; /* Don't forget this, required for the stickiness */
+  top: 23px; /* Don't forget this, required for the stickiness */
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 </style>

@@ -3,7 +3,7 @@
             <h3 class="text-light font-weight-bold">Metepec</h3>
     </div>
     
-    <div class="menu">
+    <div class="menu" style="position: sticky; top: 10px;">
         <a href="../admin/reportes.php" class="d-block text-light p-3"> <i class="fas fa-align-justify mr-2"></i> Reporte </a>
 
 

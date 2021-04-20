@@ -21,7 +21,7 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 <h4>Estructura Para La Defensa Del Voto</h4>
 
-<table class="table">
+<table class="table" id="zonas">
 	<tr>
 	<?php
 	$zon=0; 
