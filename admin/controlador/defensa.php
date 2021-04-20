@@ -4,8 +4,7 @@ c.id_ciudadano as id, c.nombres, c.apellido_p, c.apellido_m, c.id_colonia, c.sec
 l.abreviatura, l.nombre_colonia
 FROM puestos_defensa p
 LEFT JOIN ciudadanos c ON p.id_ciudadano = c.id_ciudadano
-LEFT JOIN colonias l ON c.id_colonia = l.id
-';
+LEFT JOIN colonias l ON c.id_colonia = l.id';
 
 $stm = $con->query($sentencia);
 $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +29,7 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 		if($puesto['zona'] != $zon):
 			$zon++;
 			$z = $puesto['id_defensa']?>
-				<th> <a href="#<?=$z?>" class="btn" style="background-color: #<?=$color_zonas[$zon-1]['color']?>; color: white;"> <b> Zona <?= $color_zonas[$zon-1]['zona'] ?> </b></a></th>
+				<th> <a href="#<?=$z-2?>" class="btn" style="background-color: #<?=$color_zonas[$zon-1]['color']?>; color: white;"> <b> Zona <?= $color_zonas[$zon-1]['zona'] ?> </b></a></th>
 		<?php endif;
 	endforeach?>
 	</tr>

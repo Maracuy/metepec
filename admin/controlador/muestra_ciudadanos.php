@@ -14,6 +14,7 @@ if(isset($_GET['orden'])){
 	}
 }
 
+//Orden de la consulta principal
 $consulta_ciudadanos = "SELECT * FROM ciudadanos $orden WHERE borrado !=1";
 
 $sql_query_ciudadanos = $con->prepare($consulta_ciudadanos);

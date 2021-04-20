@@ -20,6 +20,16 @@ header("Location: admin/index.php");
     <?php include 'menu_superior.html'?>
     <div class="division"></div>
     
+    <?php
+    if($_GET){
+        if($_GET['fail'] == 1){
+            echo 'Contraseña incorrecta';
+        }
+        if ($_GET['fail'] == 2) {
+            echo 'Usuario no existe';
+        }
+    }
+?>
     <form class="formulario" action="iniciosesion.php" method="POST">
         <h1>Login</h1>
         <div class="contenedor">
@@ -35,6 +45,13 @@ header("Location: admin/index.php");
             <p>Al entrar, aceptas los Terminos y Condiciones</p>
         </div>
     </form>
+
+<script>
+function myFunction() {
+  alert("Hello! I am an alert box!");
+}
+</script>
+
 
 </body>
 </html>
