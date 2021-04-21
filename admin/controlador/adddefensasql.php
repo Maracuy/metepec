@@ -21,9 +21,18 @@ function Capacitaciones($con, $id, $capacitacion, $actual){
 
 
 function changeStatus($con, $id, $status){
+    $nid = $id - 4;
     $status = ($status == 1) ? 0 : 1;
     $nrows = $con->exec("UPDATE puestos_defensa SET confirmacion = $status WHERE id_defensa = $id");
-    header("Location: ../defensa.php");
+    header("Location: ../defensa.php#$nid");
+}
+
+
+function inamovible($con, $id, $status){
+    $nid = $id - 4;
+    $status = ($status == 1) ? 0 : 1;
+    $nrows = $con->exec("UPDATE puestos_defensa SET inamovible = $status WHERE id_defensa = $id");
+    header("Location: ../defensa.php#$nid");
 }
 
 
@@ -62,6 +71,13 @@ if (isset($_GET['status']) && $_GET['status'] != '') {
 if (isset($_GET['nuevo']) && $_GET['nuevo'] == '1'){
     $puesto = $_GET['casilla'];
     nuevo($con, $id_ciudadano, $puesto, $up);
+}
+
+
+if (isset($_GET['inamovible']) && $_GET['inamovible'] != ''){
+    $puesto = $_GET['id'];
+    $status = $_GET['inamovible'];
+    inamovible($con, $puesto, $status);
 }
 
 

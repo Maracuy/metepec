@@ -2,16 +2,6 @@
 class Defensa{
     private $puesto;
 
-    function tooltipSimple($tooltip, $inter){
-        $tooltip = '<a href="" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="' . $tooltip . '">' . $inter . '</a>';
-        return $tooltip;
-    }
-
-    function tooltipDoble($tooltip, $inter, $link){
-        $tooltip = '<a href="' . $link . '" style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="top" title="' . $tooltip . '">' . $inter . '</a>'; 
-        return $tooltip;
-    }
-
     function posicion($puesto){
         if ($puesto['casilla']) { //
             if ($puesto['puesto'] == 0) {
@@ -36,19 +26,21 @@ class Defensa{
     }
 
     function Flechas($puesto){
-        $dato=0;
-        $flecha_ = '';
-        $flecha_up = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=up">  <i class="fas fa-chevron-up"></i>  </a>';
-        $flecha_down = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=down">  <i class="fas fa-chevron-down"></i>  </a>';
-        if ($puesto['casilla']) {
-            if($puesto['puesto'] == 0){
-                return $flecha_down;
-            }
-            if ($puesto['puesto'] == 1 || $puesto['puesto'] == 2 ) {
-                return $flecha_up . $flecha_down;
-            }
-            if($puesto['puesto'] == 3){
-                return $flecha_up;
+        if ($puesto['id_ciudadano']) {
+            $dato=0;
+            $flecha_ = '';
+            $flecha_up = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=up">  <i class="fas fa-chevron-up"></i>  </a>';
+            $flecha_down = '<a href="controlador/posicionessql.php?posicion=' . $puesto['id_defensa'] . '&dato=down">  <i class="fas fa-chevron-down"></i>  </a>';
+            if ($puesto['casilla']) {
+                if($puesto['puesto'] == 0){
+                    return $flecha_down;
+                }
+                if ($puesto['puesto'] == 1 || $puesto['puesto'] == 2 ) {
+                    return $flecha_up . $flecha_down;
+                }
+                if($puesto['puesto'] == 3){
+                    return $flecha_up;
+                }
             }
         }
     }
@@ -77,14 +69,53 @@ class Defensa{
     }
 
 
-    function Capacitaciones($puesto,$capacitacion, $numero){
-        $link = '<a href="controlador/adddefensasql.php?capacitaciones='. $capacitacion .'&id=' . $puesto . '&numero=' . $numero . '">';
-        if($capacitacion == 1){
-            return $link . '<i class="far fa-check-square mr-0 ml-1" style="color: #fff;"></i></a>';
-        }else{
-            return $link . '<i class="far fa-square mr-0 ml-0" style="color: #fff;"></i></a>';
+    function ElementoBoton($puesto, $nombre, $colortrue, $colorfalse, $ico, $tooltipTrue, $tooltipFalse){
+        if($puesto['id_ciudadano']){
+            if($puesto[$nombre] != ''){
+                $status = $puesto[$nombre];
+                $color = ($puesto[$nombre]) ? $colortrue : $colorfalse;
+                $tooltip = ($puesto[$nombre]) ? $tooltipTrue : $tooltipFalse;
+                $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $puesto['id_defensa'] . '">';
+                if($puesto[$nombre] == 1){
+                    return $fulllink . $ico . '</a>';
+                }else{
+                    return $fulllink . $ico . '</a>';
+                }
+            }
         }
     }
+
+    //Esta funcion regresa un Boton con Icono True o icono False, Ademas de un Tooltop True o False.
+    function ConfBotonIco($puesto, $nombre, $icoTrue, $icoFalse, $tooltipTrue, $tooltipFalse){
+        if($puesto['id_ciudadano']){
+            if($puesto[$nombre] != ''){
+                $status = $puesto[$nombre];
+                $ico = ($puesto[$nombre]) ? $icoTrue : $icoFalse;
+                $tooltip = ($puesto[$nombre]) ? $tooltipTrue : $tooltipFalse;
+                $fulllink = '<a class="btn btn-secondary btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $puesto['id_defensa'] . '">';
+                if($puesto[$nombre] == 1){
+                    return $fulllink . $ico . '</a>';
+                }else{
+                    return $fulllink . $ico . '</a>';
+                }
+            }else{
+                return '<a class="btn btn-secondary btn-sm" href="electoral.php?id=' . $puesto[$nombre] .'"><i class="fas fa-sliders-h"></i></a>';
+            }
+        }
+    }
+
+
+    function DatoConfigurable($puesto, $nombre){
+        if($puesto['id_ciudadano']){
+            $fulllink = '<a class="btn btn-secondary btn-sm" href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] . '">';
+            if($puesto[$nombre] != ''){
+                return $puesto[$nombre];
+            }else{
+                return $fulllink . '<i class="fas fa-sliders-h"></i></a>';
+            }
+        }
+    }
+
 
 }
 

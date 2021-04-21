@@ -44,18 +44,22 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<th></th>
 		<th></th>
 		<th></th>
-		<th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Secc"  maxlength="4" size="4"></th>
+		<th><input type="text" id="myInputrg" onkeyup="myFunctionrg()" placeholder="RG"  maxlength="4" size="2"></th>
+		<th><input type="text" id="myInput" onkeyup="myFunctionsection()" placeholder="Secc"  maxlength="4" size="2"></th>
 		<th></th>
 		<th></th>
 		<th></th>
+		<th><input type="text" id="referente" onkeyup="referente()" placeholder="Ref"  maxlength="4" size="2"></th>
 		<th></th>
-		<th><input type="text" id="myInputnombre" onkeyup="nombre()" placeholder="Nombres"  maxlength="10" size="10"></th>
+		<th></th>
+		<th></th>
 		<th></th>
 		<th></th>
 		<th></th>
 	</tr>
     <tr>
 		<th scope="col">(+)</th>
+		<th scope="col">Lock</th>
 		<th scope="col">Sta</th>
 		<th scope="col">Prev</th>
 		<th scope="col">Origen</th>
@@ -70,8 +74,8 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<th scope="col">Tel</th>
 		<th scope="col">Comp</th>
 		<th scope="col">Afil</th>
-		<th scope="col">Cap1</th>
-		<th scope="col">Cap2</th>
+		<th scope="col">C1</th>
+		<th scope="col">C2</th>
 		<th scope="col">Move</th>
 
 	</tr>
@@ -102,64 +106,28 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 			<a href="controlador/adddefensasql.php?id=<?=$puesto['id_defensa']?>&borrar=1" class="btn btn-primary btn-sm"> <i class="fas fa-trash"></i> </a> 
 		<?php endif?>
 		</td>
-		
-		<td> <?php if($puesto['id_ciudadano']):?>
-		<a href="controlador/adddefensasql.php?id=<?=$puesto['id_defensa'] . '&status=' . $puesto['confirmacion']?>" class="btn btn-<?=($puesto['confirmacion'] == 1) ? 'success' : 'secondary' ?> btn-sm"> <i class="fas fa-dot-circle"></i></a>
-		<?php endif ?>
-		</td>
-		<td><?php
-			if ($puesto['id_ciudadano']) {
-				if(isset($puesto['previo']) && $puesto['previo'] != ''){
-					if(isset($puesto['previo']) && ($puesto['previo'] == 1)){
-						echo $ciudadano->tooltipSimple("Previo", '<i class="fas fa-backward"> </i>');
-					}else{
-						echo $ciudadano->tooltipSimple("Nuevo", '<i class="fas fa-bell"> </i> </i>');
-					}
-				}else{
-					echo '<a href="electoral.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';
-				}
-			}
-			?></td>	
-		<td> <?php
-			if($puesto['id_ciudadano']){
-				if(isset($puesto['id_ciudadano']['seccion_electoral'])){
-					echo $puesto['id_ciudadano']['seccion_electoral'];
-				}else{
-					echo '<a href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';
-				}
-			}?></td>
+<!-- 		La estructura para el metodo es: VarToda, El campo, color si TRUE, Color False, Icono, Tooltip TRUE, Tooltip False-->
+		<td><?= $ciudadano->ElementoBoton($puesto, 'inamovible', 'danger', 'secondary', '<i class="fas fa-lock"></i>', 'Bloqueado', 'Desbloqueado')?>
+		<td><?= $ciudadano->ElementoBoton($puesto, 'confirmacion', 'success', 'secondary', '<i class="fas fa-dot-circle"></i>', 'Confirmado', 'Sin Confirmacion')?>
+<!-- 		La estructura para el metodo es: VarToda, El campo, IconoTrue, IconoFalse, Tooltip TRUE, Tooltip False-->
+		<td><?= $ciudadano->ConfBotonIco($puesto, 'previo', '<i class="fas fa-backward"> </i>', '<i class="fas fa-bell"> </i>', 'Previo', 'Nuevo')?></td>
+		<td><?= $ciudadano->DatoConfigurable($puesto, "seccion_electoral")?></td>
 		<td> <?=$puesto['zona']?> </td>
 		<td> <?=$puesto['rg']?> </td>
 		<td> <?=$puesto['seccion']?> </td>
 		<td> <?=$puesto['casilla']?> </td>
 		<td> <?=$ciudadano->posicion($puesto)?> </td>
-		<?php if(!$puesto['id_ciudadano']){
-			echo "<td> </td>";
-			echo "<td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>";
-		}?>
-		
-<?php if($puesto['id_ciudadano']):?>
-
-	<td> <?=($puesto['abreviatura']) ? $puesto['abreviatura'] : $boton_conf?> </td>
-	
-	<td> <?php
-			if(isset($puesto['origen'])){
-				echo $puesto['origen'];
-			}else{
-				echo '<a href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] .'"><i class="fas fa-sliders-h"></i></a>';}?></td>
-	
-	<td> <?=$puesto['apellido_p'] . " " . $puesto['apellido_m'] . " " . $puesto['nombres']?> </td>
-
-	<td><?=$puesto['telefono']?> </td>
-	<td><?=($puesto['compromiso']) ? $puesto['compromiso'] : $boton_conf_elec?> </td>
-	<td><?=($puesto['afiliacion']) ? $puesto['afiliacion'] : $boton_conf_elec?> </td>
-	<td><?=$ciudadano->Capacitaciones($puesto['id_defensa'], $puesto['capacitacion1'], "1")?></td>
-	<td> <span style="color: Tomato"> <?=$ciudadano->Capacitaciones($puesto['id_defensa'], $puesto['capacitacion2'], "2")?> </span> </td>
-	<td><?= $ciudadano->Flechas($puesto)?></td>
-	<td></td>		
+		<td><?=$ciudadano->DatoConfigurable($puesto, 'abreviatura')?></td>
+		<td><?=$ciudadano->DatoConfigurable($puesto, 'origen')?></td>
+		<td> <?= ($puesto['id_ciudadano']) ? $puesto['apellido_p'] . " " . $puesto['apellido_m'] . " " . $puesto['nombres'] : ""?> </td>
+		<td><?=$ciudadano->DatoConfigurable($puesto, 'telefono')?></td>
+		<td><?=$ciudadano->DatoConfigurable($puesto, 'compromiso')?></td>
+		<td><?=$ciudadano->DatoConfigurable($puesto, 'afiliacion')?></td>
+		<td><?=$ciudadano->ConfBotonIco($puesto, 'capacitacion1', '<i class="far fa-check-square";"></i>', '<i class="far fa-square mr-0 ml-0";"></i>', 'Capacitada', 'Falta Capacitar')?></td>
+		<td><?=$ciudadano->ConfBotonIco($puesto, 'capacitacion2', '<i class="far fa-check-square";"></i>', '<i class="far fa-square mr-0 ml-0";"></i>', 'Capacitada', 'Falta Capacitar')?></td>
+		<td><?=$ciudadano->Flechas($puesto)?></td>
 </tr>
 	<?php 
-	endif;
 	endforeach?>
   </tbody>
 </table>
@@ -204,10 +172,34 @@ function AgregarCiudadano(id) {
 
 
 
-function myFunction() {
+function myFunctionsection() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[7];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+
+function myFunctionrg() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInputrg");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
@@ -226,10 +218,10 @@ function myFunction() {
   }
 }
 
-function nombre() {
+function referente() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInputnombre");
+  input = document.getElementById("referente");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
@@ -247,7 +239,6 @@ function nombre() {
     }
   }
 }
-
 
 
 </script>

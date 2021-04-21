@@ -50,7 +50,7 @@ function alta_ciudadano($con, $values, $keysString, $signos){
         $sentencia_alta = $con->prepare('SELECT LAST_INSERT_ID()');
         $sentencia_alta->execute();
         $last_id_ciudadano = $sentencia_alta->fetch();
-        $id_ciudadano = intval($last_id_ciudadano[0]);
+        return $id_ciudadano = intval($last_id_ciudadano[0]);
     }catch(Exception $e){
         echo 'Ocurrio un error al intentar la alta: ',  $e->getMessage(), "\n";
         die();
@@ -87,7 +87,7 @@ function actualizar($con, $values, $keys, $id){
 if(array_key_exists("continuar",$_POST)){
     array_pop($values);
     $id_ciudadano = alta_ciudadano($con, $values, $keysString, $signos);
-    header("Location: ../archivos_ciudadanos.php?id=$id_ciudadano");
+    header("Location: ../alta_ciudadano.php?id=$id_ciudadano");
 }
 
 if(array_key_exists("actualizar",$_POST)){

@@ -3,6 +3,24 @@ CREATE DATABASE IF NOT EXISTS u235387680_metepec;
 USE u235387680_metepec;
 
 
+DROP TABLE IF EXISTS permisos;
+CREATE TABLE IF NOT EXISTS permisos(
+    numero INT,
+    nombre VARCHAR(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO permisos VALUES
+(1, 'Super Admin'),
+(2, 'Administrador'),
+(3, 'Encargado'),
+(5, 'CZ'),
+(6, 'RG'),
+(7, 'RC'),
+(9, 'Capturista'),
+(10, 'SIN PERMISOS');
+
+
+
 DROP TABLE IF EXISTS programas_municipales;
 CREATE TABLE IF NOT EXISTS programas_municipales(
     id_programa_municipal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -142,6 +160,7 @@ CREATE TABLE IF NOT EXISTS ciudadanos(
   id_registrante INT NOT NULL,
   observaciones TEXT NULL DEFAULT NULL,
   borrado INT DEFAULT 0
+
 )ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -331,27 +350,6 @@ CREATE TABLE IF NOT EXISTS puestos_defensa_casillas(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS altas_defensa;
-CREATE TABLE IF NOT EXISTS altas_defensa(
-    id_alta_defensa INT AUTO_INCREMENT PRIMARY KEY,
-    id_ciudadano INT,
-    id_zona INT,
-    id_zona_aux INT,
-    id_rg INT,
-    id_rg_aux INT,
-    id_puesto INT,
-    previo INT,
-    posicion_prev VARCHAR(10),
-    asistio INT,
-    compromiso INT,
-    afiliacion VARCHAR(255),
-    origen VARCHAR(255),
-    cubre INT,
-    up INT,
-    confirmacion INT
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
 DROP TABLE IF EXISTS messag;
 CREATE TABLE IF NOT EXISTS messag(
  id_mensaje INT AUTO_INCREMENT PRIMARY KEY,
@@ -359,19 +357,6 @@ CREATE TABLE IF NOT EXISTS messag(
  id_ciudadano INT,
  fecha_captura TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-DROP TABLE IF EXISTS capacitaciones_defensa;
-CREATE TABLE IF NOT EXISTS capacitaciones_defensa(
-    id_capacitacion INT AUTO_INCREMENT PRIMARY KEY,
-    cap1 INT,
-    cap2 INT,
-    cap3 INT,
-    cap4 INT,
-    cap5 INT,
-    id_ciudadano INT
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 
 
 DROP TABLE IF EXISTS puestos_defensa;
@@ -392,8 +377,9 @@ CREATE TABLE IF NOT EXISTS puestos_defensa(
     cubre INT,
     up INT,
     confirmacion INT,
+    inamovible INT NOT NULL DEFAULT 0
     capacitacion1 INT NOT NULL DEFAULT 0,
-    capacitacion2 INT NOT NULL DEFAULT 0
+    capacitacion2 INT NOT NULL DEFAULT 0,
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -447,3 +433,6 @@ CREATE TABLE IF NOT EXISTS borrar(
     dir_calle VARCHAR(255),
     numero_identificacion VARCHAR(255)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+

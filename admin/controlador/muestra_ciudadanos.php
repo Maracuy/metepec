@@ -3,6 +3,7 @@ if (empty($_SESSION['user'])){
     echo "no estas registrado";
     die();
 }
+
 $orden = '';
 $ordent = '';
 if(isset($_GET['orden'])){
@@ -15,7 +16,11 @@ if(isset($_GET['orden'])){
 }
 
 //Orden de la consulta principal
-$consulta_ciudadanos = "SELECT * FROM ciudadanos $orden WHERE borrado !=1";
+if($_SESSION['user']>=1){
+	$consulta_ciudadanos = "SELECT * FROM ciudadanos $orden WHERE borrado !=1";
+}else{
+	$consulta_ciudadanos = "SELECT * FROM ciudadanos $orden WHERE borrado !=1 AND nivel!=0";
+}
 
 $sql_query_ciudadanos = $con->prepare($consulta_ciudadanos);
 $sql_query_ciudadanos->execute();

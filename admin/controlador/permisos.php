@@ -17,11 +17,14 @@ if($_SESSION['user']['nivel'] >= 2 ){
     die();
 }
 
-
 ?>
 
 <br>
-
+<?php if($ciudadano['usuario_sistema']){
+    echo '<h4>El Usuario ' . $ciudadano['nombres'] . ' ya cuenta con un usuario</h4>';
+}else{
+    echo '<h4>Crear usuario y contraseña</h4>';
+}?>
 <form action="controlador/permisossql.php" method="post">
 
     <input type="hidden" name="id" value="<?=$ciudadano['id_ciudadano']?>">
@@ -54,27 +57,22 @@ if($_SESSION['user']['nivel'] >= 2 ){
  ?>
         </div>
 
-        <?php if ($_SESSION['user']['nivel'] < $ciudadano['nivel']):?>
+        <?php if(!$ciudadano['contrasenia']) :?>
             <div class="form-group col-md-2">
                 <label for="nivel">Nivel</label>
-                <?php if($ciudadano['nivel']):?>
-                    <select class="form-control" id="nivel" name="nivel">
-                        <option <?php if ($ciudadano['nivel'] == 10 ) echo 'selected' ;?> value="">Ninguno</option>
-                        <option <?php if ($ciudadano['nivel'] == 9 ) echo 'selected' ;?> value=9>Capturista</option>
-                        <option <?php if ($ciudadano['nivel'] == 8 ) echo 'selected' ;?> value=8>Promotor</option>
-                    </select>
-                <?php endif ?>
-                <?php if(!$ciudadano['nivel']) :?>
-                    <select class="form-control" name="nivel" id="nivel">
-                        <option value=10>Ninguno</option>
-                        <option value=9>Capturista</option>
-                        <option value=8>Promotor</option>
-                    </select>
-                <?php endif ?>
+                <select id="nivel" name="nivel" class="form-control">
+                    <?php
+                        $query = $mysqli->query("SELECT * FROM permisos");
+                        while ($permiso = mysqli_fetch_array($query)) {
+                            echo '<option value="9">Definir</option>';
+                            echo '<option value="'.$permiso['numero'].'">'.$permiso['nombre'].'</option>';
+                    }?>
+                </select>
             </div>
+        <?php endif ?>
+        
         <div class="form-group col-md-2">
-
-        <?php endif;
+        <?php
         if ($ciudadano['contrasenia']) {
             echo '<button class="btn btn-primary mt-4" type="submit" name="actualizar" id="actualizar"> <i class="fas fa-user-edit"></i> Actualizar</button>';
         }else{
@@ -84,8 +82,24 @@ if($_SESSION['user']['nivel'] >= 2 ){
     </div> 
 </form>
 
+<br>
 
-        
-    
-
-       
+<form action="controlador/permisossql.php" method="post">
+<input type="hidden" name="id" value="<?=$ciudadano['id_ciudadano']?>">
+<?php 
+if($_SESSION['user']['nivel'] < 3):
+    if($ciudadano['contrasenia']):?>
+        <h4>Modificar nivel</h4>
+        <div class="form-group col-md-2">
+            <label for="nivel_mod">Nivel</label>
+            <select id="nivel_mod" name="nivel_mod" class="form-control">
+            <?php
+                $query = $mysqli->query("SELECT * FROM permisos");
+                while ($permiso = mysqli_fetch_array($query)) {
+                    echo '<option ' . ($selected = ($permiso['numero'] == $ciudadano['nivel']) ? "selected" : "") . ' value="'.$permiso['numero'].'">'.$permiso['nombre'].'</option>';
+            }?>
+            </select>
+            <button class="btn btn-primary mt-4" type="submit" name="nivel" id="nivel"> <i class="fas fa-user-edit"></i> Modificar Nivel</button>
+<?php endif;
+endif?>
+</form>
