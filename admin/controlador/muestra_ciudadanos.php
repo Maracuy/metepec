@@ -1,4 +1,33 @@
 <?php
+
+
+
+
+
+$sentencia = "SELECT  c.id_ciudadano, c.nombres, c.apellido_p, c.apellido_m, c.telefono, c.seccion_electoral
+FROM puestos_defensa d
+INNER JOIN ciudadanos c ON c.id_ciudadano = d.id_ciudadano $extra ";
+$sql_query = $con->prepare($sentencia);
+$sql_query->execute();
+$ciudadanos = $sql_query->fetchALL();
+
+
+//Ahora extraemos los datos desde los ciudadanos
+$sql_query = $con->prepare("SELECT id_ciudadano, nombres, apellido_p, apellido_m, telefono, seccion_electoral FROM ciudadanos $extra2");
+$sql_query->execute();
+$ciudadanos2 = $sql_query->fetchALL();
+
+foreach($ciudadanos2 as $n){
+  array_push($ciudadanos, $n);
+}
+
+
+
+
+
+
+
+
 if (empty($_SESSION['user'])){
     echo "no estas registrado";
     die();

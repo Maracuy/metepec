@@ -1,7 +1,36 @@
 <?php 
-$sql_query = $con->prepare("SELECT * FROM ciudadanos WHERE id_ciudadano NOT IN (SELECT id_ciudadano FROM puestos_defensa WHERE id_ciudadano != '')");
+$nivel = $_SESSION['user']['nivel'];
+$id = $_SESSION['user']['id_ciudadano'];
+
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = 10");
+$data_usuario = $stm->fetch(PDO::FETCH_ASSOC);
+
+
+if ($nivel > 3) {
+	if(!$data_usuario){
+	echo 'Silicita a un administrador que te asigne una posicion en defensa';
+	die();
+	}
+
+	if($nivel == 5){ // Quiere decir que es CZ
+    $sentencia = "SELECT * FROM ciudadanos WHERE id_registrante = $id";
+
+	}
+	if($nivel == 6){ // Quiere decir que es RG
+    $sentencia = "SELECT * FROM ciudadanos WHERE id_registrante = $id";
+	}
+	if($nivel > 6){ // Quiere decir que es RG
+		echo "Este usuario no tiene permisos para esta seccion";
+	}
+}else{
+  $sentencia = "SELECT * FROM ciudadanos WHERE id_ciudadano NOT IN (SELECT id_ciudadano FROM puestos_defensa WHERE id_ciudadano != '')";
+}
+
+
+$sql_query = $con->prepare($sentencia);
 $sql_query->execute();
 $ciudadanos = $sql_query->fetchALL();
+
 ?>
 
 <table class="table table-striped" id="myTables">
@@ -31,7 +60,7 @@ $ciudadanos = $sql_query->fetchALL();
             <td> <?php echo $dato['nombres'] . " " . $dato['apellido_p'] . " " . $dato['apellido_m'] ?> </td>
                         
             <td scope='row'> <?php echo $dato['telefono'] ?>  </td>
-            <td scope='row'> <?php echo $dato['zona'] ?>  </td>
+            <td scope='row'> <?php echo $dato['seccion_electoral'] ?>  </td>
             <td scope='row'> <button class="btn btn-primary btn-sm" onclick="AgregarCiudadano(<?php echo $dato['id_ciudadano']?>)"> <i class="fas fa-plus"></i> </button></td>
 
         </tr>
