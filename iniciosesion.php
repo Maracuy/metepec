@@ -31,5 +31,5 @@ if($contador > 0){
     $_SESSION['user'] = $usuario;
     header('Location: admin/');
 }else{
-    header('Location: /?fail=1');
+    header('Location: index.php?fail=1');
 }

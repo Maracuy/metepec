@@ -13,7 +13,7 @@
             <a href="../admin/elecciones.php" class="d-block text-light p-3"> <i class="fas fa-vote-yea mr-2"></i> Electoral </a>
         <?php endif?>
         
-        <?php if($_SESSION['user']['nivel'] < 4 ): // Solo los ENCARGADOS para arriba pueden ver esto?> 
+        <?php if($_SESSION['user']['nivel'] < 7 ): // Solo los ENCARGADOS para arriba pueden ver esto?> 
             <a href="../admin/defensa.php" class="d-block text-light p-3 ml-3"> <i class="fas fa-user-shield mr-2"></i> Defensa </a>
         <?php endif?>
 

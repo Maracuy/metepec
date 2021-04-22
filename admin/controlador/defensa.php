@@ -1,16 +1,50 @@
 <?php
-$sentencia = 'SELECT p.*, 
+$nivel = $_SESSION['user']['nivel'];
+$id = $_SESSION['user']['id_ciudadano'];
+
+include 'DefensaC.php';
+$ciudadano = New Defensa;
+
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = 10");
+$data_usuario = $stm->fetch(PDO::FETCH_ASSOC);
+
+
+if ($nivel > 3) {
+	if(!$data_usuario){
+	echo 'Silicita a un administrador que te asigne una posicion en defensa';
+	die();
+	}
+
+	if($nivel == 5){ // Quiere decir que es CZ
+		$extra = "WHERE p.zona = " . $data_usuario['zona'];
+	}
+	if($nivel == 6){ // Quiere decir que es RG
+		$extra = "WHERE p.rg = " . $data_usuario['rg'];
+	}
+	if($nivel > 6){ // Quiere decir que es RG
+		echo "Este usuario no tiene permisos para esta seccion";
+	}
+}else{
+	$extra ='';
+}
+
+
+
+
+
+
+
+$sentencia = "SELECT p.*, 
 c.id_ciudadano as id, c.nombres, c.apellido_p, c.apellido_m, c.id_colonia, c.seccion_electoral, c.id_registrante, c.origen, c.telefono, 
-l.abreviatura, l.nombre_colonia
+l.abreviatura, l.nombre_colonia 
 FROM puestos_defensa p
-LEFT JOIN ciudadanos c ON p.id_ciudadano = c.id_ciudadano
-LEFT JOIN colonias l ON c.id_colonia = l.id';
+LEFT JOIN ciudadanos c ON p.id_ciudadano = c.id_ciudadano 
+LEFT JOIN colonias l ON c.id_colonia = l.id $extra";
 
 $stm = $con->query($sentencia);
 $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-include 'DefensaC.php';
-$ciudadano = New Defensa;
+
 
 
 
@@ -107,7 +141,7 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<?php endif?>
 		</td>
 <!-- 		La estructura para el metodo es: VarToda, El campo, color si TRUE, Color False, Icono, Tooltip TRUE, Tooltip False-->
-		<td><?= $ciudadano->ElementoBoton($puesto, 'inamovible', 'danger', 'secondary', '<i class="fas fa-lock"></i>', 'Bloqueado', 'Desbloqueado')?>
+		<td><?= $ciudadano->ElementoBoton($puesto, 'inamovible', 'danger', 'success', '<i class="fas fa-lock"></i>', 'Bloqueado', 'Desbloqueado')?>
 		<td><?= $ciudadano->ElementoBoton($puesto, 'confirmacion', 'success', 'secondary', '<i class="fas fa-dot-circle"></i>', 'Confirmado', 'Sin Confirmacion')?>
 <!-- 		La estructura para el metodo es: VarToda, El campo, IconoTrue, IconoFalse, Tooltip TRUE, Tooltip False-->
 		<td><?= $ciudadano->ConfBotonIco($puesto, 'previo', '<i class="fas fa-backward"> </i>', '<i class="fas fa-bell"> </i>', 'Previo', 'Nuevo')?></td>

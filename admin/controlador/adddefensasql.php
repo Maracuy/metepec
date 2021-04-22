@@ -81,19 +81,15 @@ if (isset($_GET['inamovible']) && $_GET['inamovible'] != ''){
 }
 
 
-if (isset($_GET['capacitaciones'])){
+if (isset($_GET['capacitacion1']) || isset($_GET['capacitacion2'])){
     $id = $_GET['id'];
-    $actual = $_GET['capacitaciones'];
-    if($_GET['capacitaciones'] == 0){
-        $actual++;
-    }else{
-        $actual--;
+    if(isset($_GET['capacitacion1'])){
+        $actual = ($_GET['capacitacion1'] == 1) ? 0 : 1;
+        $capacitacion = 'capacitacion1';
     }
-
-    if($_GET['numero'] == 1){
-        $capacitacion = "capacitacion1";
-    }else{
-        $capacitacion = "capacitacion2";
+    if(isset($_GET['capacitacion2'])){
+        $actual = ($_GET['capacitacion2'] == 1) ? 0 : 1;
+        $capacitacion = 'capacitacion2';
     }
     Capacitaciones($con, $id, $capacitacion, $actual);
 }
