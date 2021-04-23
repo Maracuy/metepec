@@ -1,16 +1,29 @@
 <?php
+if (empty($_SESSION['user'])){
+    echo "no estas registrado";
+    die();
+}
+$nivel_admin = $_SESSION['user']['nivel'];
+$id_admin = $_SESSION['user']['id_ciudadano'];
 
 
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = 10");
+$data_usuario = $stm->fetch(PDO::FETCH_ASSOC);
 
+if($nivel_admin > 3){
+	if($nivel_admin == 5){ // Quiere decir que es CZ
+		$zona = $data_usuario['zona'];
+		$extra = "WHERE d.zona = " . $zona;
+		$extra2 = "WHERE id_registrante = $id_admin";
+	}
+}
 
-
-$sentencia = "SELECT  c.id_ciudadano, c.nombres, c.apellido_p, c.apellido_m, c.telefono, c.seccion_electoral
+$sentencia = "SELECT c.id_ciudadano, c.nombres, c.apellido_p, c.apellido_m, c.telefono, c.seccion_electoral
 FROM puestos_defensa d
-INNER JOIN ciudadanos c ON c.id_ciudadano = d.id_ciudadano $extra ";
+INNER JOIN ciudadanos c ON c.id_ciudadano = d.id_ciudadano $extra AND c.borrado != 1 ";
 $sql_query = $con->prepare($sentencia);
 $sql_query->execute();
 $ciudadanos = $sql_query->fetchALL();
-
 
 //Ahora extraemos los datos desde los ciudadanos
 $sql_query = $con->prepare("SELECT id_ciudadano, nombres, apellido_p, apellido_m, telefono, seccion_electoral FROM ciudadanos $extra2");
@@ -21,18 +34,7 @@ foreach($ciudadanos2 as $n){
   array_push($ciudadanos, $n);
 }
 
-
-
-
-
-
-
-
-if (empty($_SESSION['user'])){
-    echo "no estas registrado";
-    die();
-}
-
+/* 					Esto es lo anterior
 $orden = '';
 $ordent = '';
 if(isset($_GET['orden'])){
@@ -59,7 +61,7 @@ $ciudadanos = $sql_query_ciudadanos->fetchALL();
 $sql_colonias = $con->prepare("SELECT * FROM colonias");
 $sql_colonias->execute();
 $colonias = $sql_colonias->fetchALL();
-array_unshift($colonias, 0);
+array_unshift($colonias, 0); */
 
 ?>
 

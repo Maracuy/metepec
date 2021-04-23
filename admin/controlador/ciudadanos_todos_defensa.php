@@ -13,17 +13,17 @@ if ($nivel > 3) {
 	}
 
 	if($nivel == 5){ // Quiere decir que es CZ
-    $sentencia = "SELECT * FROM ciudadanos WHERE id_registrante = $id";
+    $sentencia = "SELECT * FROM ciudadanos WHERE id_registrante = $id AND borrado != 1 AND id_ciudadano NOT IN (SELECT id_ciudadano FROM puestos_defensa WHERE id_ciudadano != '')";
 
 	}
 	if($nivel == 6){ // Quiere decir que es RG
-    $sentencia = "SELECT * FROM ciudadanos WHERE id_registrante = $id";
+    $sentencia = "SELECT * FROM ciudadanos WHERE id_registrante = $id AND borrado != 1 AND id_ciudadano NOT IN (SELECT id_ciudadano FROM puestos_defensa WHERE id_ciudadano != '')";
 	}
 	if($nivel > 6){ // Quiere decir que es RG
 		echo "Este usuario no tiene permisos para esta seccion";
 	}
 }else{
-  $sentencia = "SELECT * FROM ciudadanos WHERE id_ciudadano NOT IN (SELECT id_ciudadano FROM puestos_defensa WHERE id_ciudadano != '')";
+  $sentencia = "SELECT * FROM ciudadanos WHERE borrado != 1 AND id_ciudadano NOT IN (SELECT id_ciudadano FROM puestos_defensa WHERE id_ciudadano != '')";
 }
 
 
