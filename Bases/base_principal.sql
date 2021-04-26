@@ -20,68 +20,6 @@ INSERT INTO permisos VALUES
 (10, 'SIN PERMISOS');
 
 
-
-DROP TABLE IF EXISTS programas_municipales;
-CREATE TABLE IF NOT EXISTS programas_municipales(
-    id_programa_municipal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(45) NOT NULL,
-    abreviatura VARCHAR(10),
-    descripcion TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO programas_municipales VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
-
-
-
-DROP TABLE IF EXISTS programas_estatales;
-CREATE TABLE IF NOT EXISTS programas_estatales(
-    id_programa_estatal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(45) NOT NULL,
-    abreviatura VARCHAR(10),
-    descripcion TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO programas_estatales VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
-
-
-
-DROP TABLE IF EXISTS programas_federales;
-CREATE TABLE IF NOT EXISTS programas_federales(
-    id_programa_federal INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(45) NOT NULL,
-    abreviatura VARCHAR(10),
-    descripcion TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO programas_federales VALUES(NULL, "Sin programa", "SPGM", "Se elige esta opcion por defecto");
-INSERT INTO programas_municipales VALUES(NULL, "Adulto Mayor", "ADMY", "Programa Federal de Apoyo al Adulto Mayor");
-
-
-
-DROP TABLE IF EXISTS programas_internos;
-CREATE TABLE IF NOT EXISTS programas_internos(
-    id_programa INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(45) NOT NULL,
-    abreviatura VARCHAR(10),
-    nivel VARCHAR(255),
-    descripcion TEXT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-INSERT INTO programas_internos VALUES(NULL, "Sin programa", "SPGM", "Sin Nivel", "Se elige esta opcion por defecto");
-
-
-
-DROP TABLE IF EXISTS departamentos;
-CREATE TABLE IF NOT EXISTS departamentos(
-    id_departamento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(45) NOT NULL,
-    abreviaruta VARCHAR(45) NOT NULL,
-    descripcion VARCHAR(255)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO departamentos VALUES(NULL, "Sin Depto.", "SnDP", "Se usa por defecto o cuando no se conoce el departaento");
-
-
-
 DROP TABLE IF EXISTS origenes;
 CREATE TABLE IF NOT EXISTS origenes (
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -167,7 +105,6 @@ COLLATE = utf8_unicode_ci;
 
 INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES(0,'Goder','170390','Germán', 'Guillen', 'Sanchez');
 INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES(0,'roku','123456789','Angel', 'Tapia', 'Madero');
-INSERT INTO ciudadanos(nivel,usuario_sistema,contrasenia,nombres,apellido_p,apellido_m) VALUES(0,'AndAO','1197','Andres', 'Albarran', 'Ortiz');
 
 
 DROP TABLE IF EXISTS galaxias;
@@ -270,18 +207,11 @@ CREATE TABLE IF NOT EXISTS tareas(
     fecha_limite DATE,
     tarea_titulo VARCHAR(255),
     tarea_descripcion TEXT,
-    proceso INT,
-    id_origen INT,
-    id_beneficiario INT,
-    id_beneficiario_int INT,
-    id_programa_int INT,
-    id_programa_ciud INT,
     vista INT,
     estatus INT,
     prioridad INT,
     avance INT,
-    realizada INT,
-    aceptada INT
+    realizada INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
