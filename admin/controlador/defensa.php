@@ -141,7 +141,7 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<?php endif?>
 		</td>
 <!-- 		La estructura para el metodo es: VarToda, El campo, color si TRUE, Color False, Icono, Tooltip TRUE, Tooltip False-->
-		<td><?= $ciudadano->ElementoBoton($puesto, 'inamovible', 'danger', 'success', '<i class="fas fa-lock"></i>', 'Bloqueado', 'Desbloqueado')?>
+		<td><?= $ciudadano->ElementoBoton($puesto, 'inamovible', 'danger', 'secondary', '<i class="fas fa-lock"></i>', 'Bloqueado', 'Desbloqueado')?>
 		<td><?= $ciudadano->ElementoBoton($puesto, 'confirmacion', 'success', 'secondary', '<i class="fas fa-dot-circle"></i>', 'Confirmado', 'Sin Confirmacion')?>
 <!-- 		La estructura para el metodo es: VarToda, El campo, IconoTrue, IconoFalse, Tooltip TRUE, Tooltip False-->
 		<td><?= $ciudadano->ConfBotonIco($puesto, 'previo', '<i class="fas fa-backward"> </i>', '<i class="fas fa-bell"> </i>', 'Previo', 'Nuevo')?></td>

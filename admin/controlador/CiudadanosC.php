@@ -35,8 +35,30 @@ class Datos{
         }
     
     }
+
+    function posicion($puesto){
+        if (isset($puesto['casilla'])) { //
+            if ($puesto['puesto'] == 0) {
+                return 'RC';
+            }
+            if ($puesto['puesto'] == 1) {
+                return 'S1';
+            }
+            if ($puesto['puesto'] == 2) {
+                return 'S2';
+            }
+            if ($puesto['puesto'] == 3) {
+                return 'S3';
+            }
+        }else {
+            if(isset($puesto['rg'])) {
+                return 'RG';
+            }
+            if(isset($puesto['zona']) && !isset($puesto['rg']) && !isset($puesto['casilla'])) {
+                return 'CZ';
+            }
+        }
+    }
+
 }
-
-
-
 ?>
