@@ -377,9 +377,16 @@ CREATE TABLE IF NOT EXISTS puestos_defensa(
     cubre INT,
     up INT,
     confirmacion INT,
-    inamovible INT NOT NULL DEFAULT 0
-    capacitacion1 INT NOT NULL DEFAULT 0,
-    capacitacion2 INT NOT NULL DEFAULT 0,
+    inamovible INT NOT NULL DEFAULT 0,
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS capacitaciones_defensa;
+CREATE TABLE IF NOT EXISTS capacitaciones_defensa(
+    id_capacitacion INT AUTO_INCREMENT PRIMARY KEY,
+    capacitacion1 INT,
+    capacitacion2 INT,
+    id_ciudadano INT    
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

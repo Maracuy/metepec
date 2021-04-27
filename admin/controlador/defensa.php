@@ -36,9 +36,10 @@ if ($nivel > 3) {
 
 $sentencia = "SELECT p.*, 
 c.id_ciudadano as id, c.nombres, c.apellido_p, c.apellido_m, c.id_colonia, c.seccion_electoral, c.id_registrante, c.origen, c.telefono, 
-l.abreviatura, l.nombre_colonia 
+l.abreviatura, l.nombre_colonia, z.capacitacion1 AS cap1, z.capacitacion2 AS cap2
 FROM puestos_defensa p
 LEFT JOIN ciudadanos c ON p.id_ciudadano = c.id_ciudadano 
+LEFT JOIN capacitaciones_defensa z ON z.id_ciudadano = c.id_ciudadano
 LEFT JOIN colonias l ON c.id_colonia = l.id $extra";
 
 $stm = $con->query($sentencia);
@@ -128,7 +129,6 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 		?>
 		
 	<tr class="<?=$color?>">  								<!--  Aqui comienza el body de la tabla -->
-		
 <!-- Aqui van los botones de agregar o de borrar al ciudadano -->
 		<td> 
 			<!-- Aqui van el indice -->
@@ -157,8 +157,8 @@ $color_zonas = $stm->fetchAll(PDO::FETCH_ASSOC);
 		<td><?=$ciudadano->DatoConfigurable($puesto, 'telefono')?></td>
 		<td><?=$ciudadano->DatoConfigurable($puesto, 'compromiso')?></td>
 		<td><?=$ciudadano->DatoConfigurable($puesto, 'afiliacion')?></td>
-		<td><?=$ciudadano->ConfBotonIco($puesto, 'capacitacion1', '<i class="far fa-check-square";"></i>', '<i class="far fa-square mr-0 ml-0";"></i>', 'Capacitada', 'Falta Capacitar')?></td>
-		<td><?=$ciudadano->ConfBotonIco($puesto, 'capacitacion2', '<i class="far fa-check-square";"></i>', '<i class="far fa-square mr-0 ml-0";"></i>', 'Capacitada', 'Falta Capacitar')?></td>
+		<td><?=$ciudadano->Capacitacion($puesto, 'cap1', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
+		<td><?=$ciudadano->Capacitacion($puesto, 'cap2', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
 		<td><?=$ciudadano->Flechas($puesto)?></td>
 </tr>
 	<?php 

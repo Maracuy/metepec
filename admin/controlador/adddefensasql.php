@@ -13,10 +13,19 @@ require_once '../../conection/conexion.php';
 $id_ciudadano = $_GET['id'];
 $up = $_SESSION['user']['id_ciudadano'];
 
-function Capacitaciones($con, $id, $capacitacion, $actual){
-    $nrows = $con->exec("UPDATE puestos_defensa SET $capacitacion = $actual WHERE id_defensa = $id");
-    $nid = $id-4;
-    header("Location: ../defensa.php#$nid");
+function Capacitaciones($con, $id, $capacitacion, $actual, $def){
+    $stm = $con->query("SELECT * FROM capacitaciones_defensa WHERE id_ciudadano = $id");
+    $capacitaciones = $stm->fetch(PDO::FETCH_ASSOC);
+    $nid = $def-4;
+
+
+    if($capacitaciones){
+        $nrows = $con->exec("UPDATE capacitaciones_defensa SET $capacitacion = $actual WHERE id_ciudadano = $id");
+        header("Location: ../defensa.php#$nid");
+    }else{
+        $nrows = $con->exec("INSERT INTO capacitaciones_defensa ($capacitacion, id_ciudadano) VALUES($actual, $id)");
+        header("Location: ../defensa.php#$nid");
+    }
 }
 
 
@@ -81,17 +90,18 @@ if (isset($_GET['inamovible']) && $_GET['inamovible'] != ''){
 }
 
 
-if (isset($_GET['capacitacion1']) || isset($_GET['capacitacion2'])){
+if (isset($_GET['cap1']) || isset($_GET['cap2'])){
     $id = $_GET['id'];
-    if(isset($_GET['capacitacion1'])){
-        $actual = ($_GET['capacitacion1'] == 1) ? 0 : 1;
+    $def = $_GET['def'];
+    if(isset($_GET['cap1'])){
+        $actual = ($_GET['cap1'] == 1) ? 0 : 1;
         $capacitacion = 'capacitacion1';
     }
-    if(isset($_GET['capacitacion2'])){
-        $actual = ($_GET['capacitacion2'] == 1) ? 0 : 1;
+    if(isset($_GET['cap2'])){
+        $actual = ($_GET['cap2'] == 1) ? 0 : 1;
         $capacitacion = 'capacitacion2';
     }
-    Capacitaciones($con, $id, $capacitacion, $actual);
+    Capacitaciones($con, $id, $capacitacion, $actual, $def);
 }
 
 $con=null;

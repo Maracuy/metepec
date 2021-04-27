@@ -85,6 +85,25 @@ class Defensa{
         }
     }
 
+
+    function Capacitacion($puesto, $nombre, $colortrue, $colorfalse, $ico, $tooltipTrue, $tooltipFalse){
+        if($puesto['id_ciudadano']){
+            $status = $puesto[$nombre];
+            $color = ($puesto[$nombre]) ? $colortrue : $colorfalse;
+            $tooltip = ($puesto[$nombre]) ? $tooltipTrue : $tooltipFalse;
+            $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $puesto['id_ciudadano'] . '&def=' . $puesto['id_defensa'] . '">';
+            if($puesto[$nombre] != 0){
+                if($puesto[$nombre] == 1){
+                    return $fulllink . $ico . '</a>';
+                }
+            }else{
+                return $fulllink . $ico . '</a>';
+            }
+        }
+    }
+
+
+
     //Esta funcion regresa un Boton con Icono True o icono False, Ademas de un Tooltop True o False.
     function ConfBotonIco($puesto, $nombre, $icoTrue, $icoFalse, $tooltipTrue, $tooltipFalse){
         if($puesto['id_ciudadano']){
