@@ -1,37 +1,6 @@
 <?php
 
-$empleado = $_SESSION['user']['id_ciudadano'];
-
-    if($_GET){       // Primero verificamos si existe el ciudadano
-        if($_GET['id']){
-            $id = $_GET['id'];
-            
-            $sql_query_ciudadano = $con->prepare('SELECT * FROM ciudadanos WHERE id_ciudadano = ? AND borrado != 1');
-            $sql_query_ciudadano->execute(array($id));
-            $ciudadano = $sql_query_ciudadano->fetch();
-
-                        
-            $empleado_nivel = $_SESSION['user']['nivel'];
-
-        
-            if(!$ciudadano){
-                echo "Este ciudadano no existe";
-                die();
-            }
-            
-            if($empleado_nivel > 4){
-                if(!$ciudadano['id_registrante'] == $empleado){
-                    echo "Este ciudadano no corresponde a esta cuenta, Puede pedir a un administrador asignarle este ciudadano o solicitar modificaciones";
-                    die();
-                }
-            }else{
-                include 'menu_proceso.php';
-            }
-
-        }
-    }
-
-
+require_once 'ciudadanoSQL.php';
 //Area de condiciones para niveles limitados
 
 
