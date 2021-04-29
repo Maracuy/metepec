@@ -2,7 +2,7 @@
 $nivel = $_SESSION['user']['nivel'];
 $id = $_SESSION['user']['id_ciudadano'];
 
-$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = 10");
+$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = $id");
 $data_usuario = $stm->fetch(PDO::FETCH_ASSOC);
 
 

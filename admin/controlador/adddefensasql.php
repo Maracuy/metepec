@@ -29,7 +29,7 @@ function Capacitaciones($con, $id, $capacitacion, $actual, $def){
 }
 
 
-function changeStatus($con, $id, $status){
+function confirmacion($con, $id, $status){
     $nid = $id - 4;
     $status = ($status == 1) ? 0 : 1;
     $nrows = $con->exec("UPDATE puestos_defensa SET confirmacion = $status WHERE id_defensa = $id");
@@ -71,10 +71,10 @@ if (isset($_GET['borrar']) && $_GET['borrar'] != 0) {
 }
 
 
-if (isset($_GET['status']) && $_GET['status'] != '') {
+if (isset($_GET['confirmacion']) && $_GET['confirmacion'] != '') {
     $id = $_GET['id'];
     $status = (isset($_GET['status']) && $_GET['status'] != '') ? $_GET['status'] : '';
-    changeStatus($con, $id, $status);
+    confirmacion($con, $id, $status);
 }
 
 if (isset($_GET['nuevo']) && $_GET['nuevo'] == '1'){

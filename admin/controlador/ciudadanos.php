@@ -11,46 +11,9 @@ $nivel_admin = $_SESSION['user']['nivel'];
 $id_admin = $_SESSION['user']['id_ciudadano'];
 
 
-$stm = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = 10");
-$data_usuario = $stm->fetch(PDO::FETCH_ASSOC);
+require_once 'sql_ciudadanos.php';
 
-if($nivel_admin > 3){
-	if($nivel_admin == 5){ // Quiere decir que es CZ
-		$zona = $data_usuario['zona'];
-		$extra = "WHERE d.zona = " . $zona;
-		$extra2 = "WHERE id_registrante = $id_admin";
-		$extra3 = "AND c.nivel != 0";
-	}
-	if($nivel_admin == 6){ // Quiere decir que es RG
-		$zona = $data_usuario['rg'];
-		$extra = "WHERE d.zona = " . $zona;
-		$extra2 = "WHERE id_registrante = $id_admin";
-		$extra3 = "AND c.nivel != 0";
-	}
 
-}else{
-	$extra = '';
-	$extra2 = '';
-	$extra3 = "";
-}
-
-$sentencia = "SELECT 
-c.id_ciudadano, c.nombres, c.apellido_p, c.apellido_m, c.telefono, c.seccion_electoral, c.zona, c.manzana, c.vulnerable, c.genero, c.fecha_nacimiento, c.simpatia,
-d.casilla, d.puesto, d.rg
-FROM puestos_defensa d
-INNER JOIN ciudadanos c ON c.id_ciudadano = d.id_ciudadano $extra AND c.borrado != 1 $extra3";
-$sql_query = $con->prepare($sentencia);
-$sql_query->execute();
-$ciudadanos = $sql_query->fetchALL();
-
-//Ahora extraemos los datos desde los ciudadanos
-$sql_query = $con->prepare("SELECT c.id_ciudadano, c.nombres, c.apellido_p, c.apellido_m, c.telefono, c.seccion_electoral, c.zona, c.manzana, c.vulnerable, c.genero, c.fecha_nacimiento, c.simpatia FROM ciudadanos c $extra2 $extra3");
-$sql_query->execute();
-$ciudadanos2 = $sql_query->fetchALL();
-
-foreach($ciudadanos2 as $n){
-  array_push($ciudadanos, $n);
-}
 ?>
 
 <div class="row">
@@ -75,6 +38,8 @@ foreach($ciudadanos2 as $n){
 			<th>Edad</th>
 			<th>Ref</th>
 			<th>Simp</th>
+			<th>c1</th>
+			<th>c2</th>
 		</tr>
 	</thead>
 
@@ -87,13 +52,15 @@ foreach($ciudadanos2 as $n){
 				<tr>
 					<td><?= $datos->DatoConfigurable($ciudadano, 'seccion_electoral')?></td>
 					<td><?= $datos->DatoConfigurable($ciudadano, 'manzana')?></td>
+					<td><?= $datos->DatoConfigurable($ciudadano, 'manzana')?></td>
 					<td><?= $datos->DatosConfigurable($ciudadano, 'vulnerable', '<i class="fas fa-wheelchair"></i>', '<i class="fas fa-user-alt"></i>')?></td>
 					<td><?= $datos->Posicion($ciudadano) ?></td>
 					<td><?php echo $ciudadano['nombres'] . " " . $ciudadano['apellido_p'] . " " . $ciudadano['apellido_m'] ?></td>
 					<td><a href="<?php echo 'alta_ciudadano.php?id=' . $ciudadano['id_ciudadano'] ?>"><i class="fas fa-user-edit"></i></a></td>
 					<td><?= $datos->DatosConfigurable($ciudadano, 'genero', '<i class="fas fa-venus"></i>', '<i class="fas fa-mars"></i>')?></td>
 					<td><?= $datos->Edad($ciudadano, 'fecha_nacimiento')?></td>
-					<td><?= $datos->DatoConfigurable($ciudadano, 'simpatia')?></td>
+					<td><?= $datos->Capacitacion($ciudadano, 'capacitacion1', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
+					<td><?= $datos->Capacitacion($ciudadano, 'capacitacion2', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
 				</tr>
 			<?php endforeach;
 		endif ?>

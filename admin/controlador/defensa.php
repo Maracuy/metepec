@@ -9,6 +9,9 @@ $stm = $con->query("SELECT * FROM puestos_defensa WHERE id_ciudadano = 10");
 $data_usuario = $stm->fetch(PDO::FETCH_ASSOC);
 
 
+
+
+
 if ($nivel > 3) {
 	if(!$data_usuario){
 	echo 'Silicita a un administrador que te asigne una posicion en defensa';

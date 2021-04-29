@@ -36,6 +36,23 @@ class Datos{
     
     }
 
+    function Capacitacion($ciudadano, $nombre, $colortrue, $colorfalse, $ico, $tooltipTrue, $tooltipFalse){
+        if($ciudadano['id_ciudadano']){
+            $status = $ciudadano[$nombre];
+            $color = ($ciudadano[$nombre]) ? $colortrue : $colorfalse;
+            $tooltip = ($ciudadano[$nombre]) ? $tooltipTrue : $tooltipFalse;
+            $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $ciudadano['id_ciudadano'].'">';
+            if($ciudadano[$nombre] != 0){
+                if($ciudadano[$nombre] == 1){
+                    return $fulllink . $ico . '</a>';
+                }
+            }else{
+                return $fulllink . $ico . '</a>';
+            }
+        }
+    }
+
+
     function posicion($puesto){
         if (isset($puesto['casilla'])) { //
             if ($puesto['puesto'] == 0) {
