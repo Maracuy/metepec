@@ -91,7 +91,7 @@ class Defensa{
             $status = $puesto[$nombre];
             $color = ($puesto[$nombre]) ? $colortrue : $colorfalse;
             $tooltip = ($puesto[$nombre]) ? $tooltipTrue : $tooltipFalse;
-            $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $puesto['id_ciudadano'] . '&def=' . $puesto['id_defensa'] . '">';
+            $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $puesto['id_ciudadano'] . '&def=' . $puesto['id_defensa'] . '&origen=defensa">';
             if($puesto[$nombre] != 0){
                 if($puesto[$nombre] == 1){
                     return $fulllink . $ico . '</a>';

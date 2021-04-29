@@ -59,8 +59,8 @@ require_once 'sql_ciudadanos.php';
 					<td><a href="<?php echo 'alta_ciudadano.php?id=' . $ciudadano['id_ciudadano'] ?>"><i class="fas fa-user-edit"></i></a></td>
 					<td><?= $datos->DatosConfigurable($ciudadano, 'genero', '<i class="fas fa-venus"></i>', '<i class="fas fa-mars"></i>')?></td>
 					<td><?= $datos->Edad($ciudadano, 'fecha_nacimiento')?></td>
-					<td><?= $datos->Capacitacion($ciudadano, 'capacitacion1', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
-					<td><?= $datos->Capacitacion($ciudadano, 'capacitacion2', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
+					<td><?= $datos->Capacitacion($ciudadano, 'cap1', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
+					<td><?= $datos->Capacitacion($ciudadano, 'cap2', 'success', 'secondary', '<i class="fas fa-chalkboard-teacher"></i>', 'Capacitada', 'Falta Capacitar')?></td>
 				</tr>
 			<?php endforeach;
 		endif ?>

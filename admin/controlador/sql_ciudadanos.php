@@ -6,7 +6,7 @@ $de_ciudadanos = "c.id_ciudadano, c.nombres, c.apellido_p, c.apellido_m, c.telef
 
 if ($nivel_admin <= 3) {
     $sentencia2 = "SELECT $de_ciudadanos , $admins,
-    d.casilla, d.puesto, d.zona, d.rg, z.capacitacion1, z.capacitacion2
+    d.casilla, d.puesto, d.zona, d.rg, z.capacitacion1 AS cap1, z.capacitacion2 AS cap2
     FROM ciudadanos c
     LEFT JOIN puestos_defensa d ON c.id_ciudadano = d.id_ciudadano
     LEFT JOIN capacitaciones_defensa z ON z.id_ciudadano = c.id_ciudadano";

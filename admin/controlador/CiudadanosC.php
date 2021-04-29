@@ -41,7 +41,7 @@ class Datos{
             $status = $ciudadano[$nombre];
             $color = ($ciudadano[$nombre]) ? $colortrue : $colorfalse;
             $tooltip = ($ciudadano[$nombre]) ? $tooltipTrue : $tooltipFalse;
-            $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $ciudadano['id_ciudadano'].'">';
+            $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $ciudadano['id_ciudadano'].'&origen=ciudadanos">';
             if($ciudadano[$nombre] != 0){
                 if($ciudadano[$nombre] == 1){
                     return $fulllink . $ico . '</a>';
