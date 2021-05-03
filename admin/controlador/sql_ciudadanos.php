@@ -9,7 +9,8 @@ if ($nivel_admin <= 3) {
     d.casilla, d.puesto, d.zona, d.rg, z.capacitacion1 AS cap1, z.capacitacion2 AS cap2
     FROM ciudadanos c
     LEFT JOIN puestos_defensa d ON c.id_ciudadano = d.id_ciudadano
-    LEFT JOIN capacitaciones_defensa z ON z.id_ciudadano = c.id_ciudadano";
+    LEFT JOIN capacitaciones_defensa z ON z.id_ciudadano = c.id_ciudadano
+    ORDER BY c.id_ciudadano";
     $sql_query = $con->prepare($sentencia2);
     $sql_query->execute();
     $ciudadanos = $sql_query->fetchALL();
@@ -29,7 +30,7 @@ if($nivel_admin > 4){
 
 if ($nivel_admin == 5) {
     $sentencia = "SELECT $de_ciudadanos ,
-    z.capacitacion1, z.capacitacion2,
+    z.capacitacion1 AS cap1, z.capacitacion2 AS cap2,
     d.casilla, d.puesto, d.rg, d.zona
     FROM puestos_defensa d
     INNER JOIN ciudadanos c ON c.id_ciudadano = d.id_ciudadano 

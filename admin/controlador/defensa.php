@@ -34,16 +34,14 @@ if ($nivel > 3) {
 
 
 
-
-
-
 $sentencia = "SELECT p.*, 
 c.id_ciudadano as id, c.nombres, c.apellido_p, c.apellido_m, c.id_colonia, c.seccion_electoral, c.id_registrante, c.origen, c.telefono, 
 l.abreviatura, l.nombre_colonia, z.capacitacion1 AS cap1, z.capacitacion2 AS cap2
 FROM puestos_defensa p
 LEFT JOIN ciudadanos c ON p.id_ciudadano = c.id_ciudadano 
 LEFT JOIN capacitaciones_defensa z ON z.id_ciudadano = c.id_ciudadano
-LEFT JOIN colonias l ON c.id_colonia = l.id $extra";
+LEFT JOIN colonias l ON c.id_colonia = l.id $extra
+ORDER BY p.id_defensa";
 
 $stm = $con->query($sentencia);
 $puestos = $stm->fetchAll(PDO::FETCH_ASSOC);

@@ -10,6 +10,10 @@ class Datos{
         }
     }
 
+    function Estadistica(){
+        
+    }
+
 
     function DatosConfigurable($puesto, $nombre, $icotrue, $icofalse){
         $fulllink = '<a class="btn btn-secondary btn-sm" href="alta_ciudadano.php?id=' . $puesto['id_ciudadano'] . '">';
@@ -54,7 +58,10 @@ class Datos{
 
 
     function posicion($puesto){
-        if (isset($puesto['casilla'])) { //
+        if(isset($puesto['zona'])){
+            echo "Z " . $puesto['zona'] . " - ";
+        }
+        if (isset($puesto['casilla']) && $puesto['casilla'] != '') { //
             if ($puesto['puesto'] == 0) {
                 return 'RC';
             }
@@ -68,10 +75,10 @@ class Datos{
                 return 'S3';
             }
         }else {
-            if(isset($puesto['rg'])) {
+            if(isset($puesto['rg']) && $puesto['rg'] != '') {
                 return 'RG';
             }
-            if(isset($puesto['zona']) && !isset($puesto['rg']) && !isset($puesto['casilla'])) {
+            if($puesto['rg'] == '' && (isset($puesto['casilla']) && $puesto['casilla'] == '')) {
                 return 'CZ';
             }
         }

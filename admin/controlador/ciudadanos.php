@@ -30,13 +30,11 @@ require_once 'sql_ciudadanos.php';
 		<tr>
 			<th>Seccion</th>
 			<th>Col</th>
-			<th>Mz</th>
-			<th>Pos</th>
 			<th>Vul</th>
+			<th>Pos</th>
 			<th>Nombres</th>
 			<th>Edit</th>
-			<th>Edad</th>
-			<th>Ref</th>
+			<th>Genero</th>
 			<th>Simp</th>
 			<th>c1</th>
 			<th>c2</th>
@@ -51,7 +49,6 @@ require_once 'sql_ciudadanos.php';
 				?>
 				<tr>
 					<td><?= $datos->DatoConfigurable($ciudadano, 'seccion_electoral')?></td>
-					<td><?= $datos->DatoConfigurable($ciudadano, 'manzana')?></td>
 					<td><?= $datos->DatoConfigurable($ciudadano, 'manzana')?></td>
 					<td><?= $datos->DatosConfigurable($ciudadano, 'vulnerable', '<i class="fas fa-wheelchair"></i>', '<i class="fas fa-user-alt"></i>')?></td>
 					<td><?= $datos->Posicion($ciudadano) ?></td>
