@@ -22,7 +22,7 @@ if($_GET){       // Primero verificamos si existe el ciudadano
 
 
 
-        $sql_query_ciudadano = $con->prepare("SELECT * FROM puestos_defensa WHERE id_ciudadano = ? $borrado");
+        $sql_query_ciudadano = $con->prepare("SELECT * FROM puestos_defensa WHERE id_ciudadano = ?");
         $sql_query_ciudadano->execute(array($empleado));
         $datos_defensa_ciudadano = $sql_query_ciudadano->fetch();
 
@@ -44,7 +44,6 @@ if($_GET){       // Primero verificamos si existe el ciudadano
             }
 
             if($ciudadano['id_registrante'] != $empleado){       
-                echo 'Es diferente';         
                 if(!$datos_defensa_ciudadano){
                     echo 'Este ciudadano no te corresponde';
                     die();

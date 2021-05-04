@@ -42,17 +42,17 @@ class Datos{
 
     function Capacitacion($ciudadano, $nombre, $colortrue, $colorfalse, $ico, $tooltipTrue, $tooltipFalse){
         if($ciudadano['id_ciudadano']){
-            $status = $ciudadano[$nombre];
-            $color = ($ciudadano[$nombre]) ? $colortrue : $colorfalse;
-            $tooltip = ($ciudadano[$nombre]) ? $tooltipTrue : $tooltipFalse;
+            $status = (isset($ciudadano[$nombre])) ? $ciudadano[$nombre] : '';
+            $color = (isset($ciudadano[$nombre])) ? $colortrue : $colorfalse;
+            $tooltip = (isset($ciudadano[$nombre])) ? $tooltipTrue : $tooltipFalse;
             $fulllink = '<a class="btn btn-' . $color .' btn-sm" title="'. $tooltip . '" href="controlador/adddefensasql.php?' . $nombre .  '=' . $status .'&id=' . $ciudadano['id_ciudadano'].'&origen=ciudadanos">';
-            if($ciudadano[$nombre] != 0){
-                if($ciudadano[$nombre] == 1){
+                if(isset($ciudadano[$nombre]) && $ciudadano[$nombre] != 0){
+                    if($ciudadano[$nombre] == 1){
+                        return $fulllink . $ico . '</a>';
+                    }
+                }else{
                     return $fulllink . $ico . '</a>';
                 }
-            }else{
-                return $fulllink . $ico . '</a>';
-            }
         }
     }
 
@@ -78,7 +78,7 @@ class Datos{
             if(isset($puesto['rg']) && $puesto['rg'] != '') {
                 return 'RG';
             }
-            if($puesto['rg'] == '' && (isset($puesto['casilla']) && $puesto['casilla'] == '')) {
+            if((empty($puesto['rg']) || $puesto['rg'] == '') && (isset($puesto['casilla']) && $puesto['casilla'] == '')) {
                 return 'CZ';
             }
         }

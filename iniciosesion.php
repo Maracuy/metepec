@@ -21,6 +21,7 @@ if ($usuarios){
         $uppass = $usuario['contrasenia'];
         if (password_verify($password, $uppass)){
             $contador++;
+            $usuario = $usuario;
         }
     }
 }else{
@@ -29,6 +30,8 @@ if ($usuarios){
 
 if($contador > 0){
     $_SESSION['user'] = $usuario;
+    $id = $usuario['id_ciudadano'];
+    $nrows = $con->exec("INSERT INTO logins (id_ciudadano) VALUES ($id)");
     header('Location: admin/');
 }else{
     header('Location: index.php?fail=1');

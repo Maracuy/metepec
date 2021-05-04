@@ -57,6 +57,8 @@ $myuser = $_SESSION['user']['id_ciudadano'];
                     <th>Titulo</th>
                     <th>Envio</th>
                     <th>Vence</th>
+                    <th>Done!</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,12 +66,14 @@ $myuser = $_SESSION['user']['id_ciudadano'];
                     $tareas = new ConsultaTareas();
                     $tareas = $tareas->MuestraTareas($myuser);
 
-                    var_dump($tareas);
                     foreach($tareas as $tarea):?>
                         <tr>
-                            <td><?= $tarea['nombres'] ?></td>
-                            <td><?= $tarea['nombres'] ?></td>
-                        
+                            <td><?= $tarea['manda'] ?></td>
+                            <td><?= $tarea['recibe'] ?></td>
+                            <td><?= $tarea['tarea_titulo'] ?></td>
+                            <td><?= $tarea['creada_date'] ?></td>     
+                            <td><?= $tarea['fecha_limite'] ?></td>
+                            <td><button class="btn btn-primary"> Done </button></td>
                         </tr>
                     <?php endforeach?>
             </tbody>
