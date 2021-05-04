@@ -31,7 +31,7 @@ require_once '../conection/conexioni.php';
 
 
 
-    <?php include_once 'controlador/captura_ciudadano.php'?>
+    <?php include_once 'controlador/ciudadano.php'?>
 
 
 
