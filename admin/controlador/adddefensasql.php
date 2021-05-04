@@ -57,9 +57,9 @@ function nuevo($con, $id_ciudadano, $puesto, $up){
     $sentencia_puestos = $con->prepare($sql_puestos);
     try{  
         $sentencia_puestos->execute();
-        header("Location: ../defensa.php#'.$npuesto);
+        header("Location: ../defensa.php#$npuesto");
     }catch(Exception $e){
-        echo 'Error al agregar un nuevo: ',  $e->getMessage(), "\n";
+        echo 'Error al agregar un nuevo: '.  $e->getMessage(). "\n";
         die();
     }  
 

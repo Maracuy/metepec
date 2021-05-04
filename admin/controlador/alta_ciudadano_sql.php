@@ -18,6 +18,19 @@ $datos = $_POST;
 $id = (isset($datos['id']) && $datos['id'] != '' ) ? intval($datos['id']) : NULL ;
 
 
+function ifexists($con, $clave){
+    if($clave != ''){
+        $stm = $con->query("SELECT id_ciudadano FROM ciudadanos WHERE numero_identificacion = '$clave'");
+        $rows = $stm->fetch(PDO::FETCH_ASSOC);
+        if($rows){
+            $id = $rows['id_ciudadano'];
+            header("Location: ../alta_ciudadano.php?id=$id&exists=1");
+            die();
+        }
+    }
+}
+
+
 if($id){
     unset($datos['id']);
     unset($datos['fecha_captura']);
@@ -41,6 +54,8 @@ $keysString = implode(",", $keys);
 
 
 function alta_ciudadano($con, $values, $keysString, $signos){
+
+    ifexists($con, $values[8]);
  
     $sql_agregar = "INSERT INTO ciudadanos(" . $keysString . ") VALUES(" . $signos . ")";
     $sentencia_agregar = $con->prepare($sql_agregar);

@@ -1,12 +1,12 @@
 <?php
 
     $myuser = $_SESSION['user']['id_ciudadano'];
-    $sql_query = $con->prepare('SELECT *, ciudadanos.usuario_sistema, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, ciudadanos WHERE tareas.id_ciudadano_asigna_tarea = ciudadanos.id_ciudadano AND id_ciudadano_asigna_tarea =? AND tareas.realizada =0');
+    $sql_query = $con->prepare('SELECT *, ciudadanos.usuario_sistema, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, ciudadanos WHERE tareas.id_ciudadano_crea_tarea = ciudadanos.id_ciudadano AND id_ciudadano_crea_tarea =? AND tareas.realizada =0');
     $sql_query->execute(array($myuser));
     $tareas = $sql_query->fetchALL();
 
 
-    $sql_yo_asigno = $con->prepare('SELECT *, ciudadanos.usuario_sistema, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, ciudadanos WHERE tareas.id_ciudadano_crea_tarea = ? AND id_ciudadano_asigna_tarea = ciudadanos.id_ciudadano AND tareas.realizada =0 ORDER BY creada_date DESC');
+    $sql_yo_asigno = $con->prepare('SELECT *, ciudadanos.usuario_sistema, DATEDIFF(tareas.fecha_limite, CURDATE()) AS "dias" FROM tareas, ciudadanos WHERE tareas.id_ciudadano_crea_tarea = ? AND id_ciudadano_crea_tarea = ciudadanos.id_ciudadano AND tareas.realizada =0 ORDER BY creada_date DESC');
     $sql_yo_asigno->execute(array($myuser));
     $yo_asigno = $sql_yo_asigno->fetchALL();
 

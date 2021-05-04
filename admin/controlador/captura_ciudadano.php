@@ -3,6 +3,33 @@
 require_once 'ciudadanoSQL.php';
 //Area de condiciones para niveles limitados
 
+if(isset($_GET['exists']) && $_GET['exists'] ==1){
+    echo '
+   <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h3>Ciudadano Duplicado</h3>
+           </div>
+                <div class="modal-body">
+                    Se encontró la misma CLAVE DE ELECTOR en la base de datos, a continuación se muestran los datos capturados anteriormente
+                </div>
+           <div class="modal-footer">
+          <a href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
+           </div>
+      </div>
+   </div>
+</div>
+
+
+<script>
+      $(document).ready(function()
+      {
+        $("#mostrarmodal").modal("show");
+      });
+    </script>
+';
+    }
 
 ?>
 

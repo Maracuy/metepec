@@ -1,39 +1,44 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-  </head>
-  <body>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Mostrar Ventane Modal de forma Automático</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   
+</head>
+<body>
 
 
-  <a href="#" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top"> Hola </a>
+<?php
+if($_GET['TEST']){
+  echo '
+  <div class="modal fade" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+              <h3>Cabecera de la ventana</h3>
+              </div>
+              <div class="modal-body">
+              <h4>Texto de la ventana</h4>
+              Mas texto en la ventana.
+              </div>
+              <div class="modal-footer">
+              <a href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
+           </div>
+           </div>
+           </div>
+           </div>
 
-<br><br>
-
-<div class="tooltip bs-tooltip-top" role="tooltip">
-  <div class="arrow"></div>
-    <div class="tooltip-inner">
-      Some tooltip text!
-    </div>
-  </div>
-</div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script>
-    $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-</script>
-  </body>
+           
+           <script>
+           $(document).ready(function()
+           {
+             $("#mostrarmodal").modal("show");
+            });
+            </script>
+            ';
+          }
+            ?>
+</body>
 </html>
