@@ -263,25 +263,15 @@ CREATE TABLE IF NOT EXISTS documentos(
 DROP TABLE IF EXISTS tareas;
 CREATE TABLE IF NOT EXISTS tareas(
     id_tarea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    tipo INT,
     id_ciudadano_crea_tarea INT NOT NULL,
-    id_ciudadano_asigna_tarea INT NOT NULL,
-    creada_date DATE,
+    id_ciudadano_recibe_tarea INT NOT NULL,
+    creada_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     fecha_limite DATE,
     tarea_titulo VARCHAR(255),
     tarea_descripcion TEXT,
-    proceso INT,
-    id_origen INT,
-    id_beneficiario INT,
-    id_beneficiario_int INT,
-    id_programa_int INT,
-    id_programa_ciud INT,
     vista INT,
-    estatus INT,
     prioridad INT,
-    avance INT,
-    realizada INT,
-    aceptada INT
+    realizada INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

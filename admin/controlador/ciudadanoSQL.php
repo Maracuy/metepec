@@ -6,7 +6,7 @@ if($_GET){       // Primero verificamos si existe el ciudadano
         $id = $_GET['id'];
 
         $empleado_nivel = $_SESSION['user']['nivel'];
-        if($empleado_nivel > 3){
+        if($empleado_nivel < 3){
             $borrado = '';
         }else{
             $borrado = 'AND c.borrado != 1';

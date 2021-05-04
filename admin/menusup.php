@@ -1,6 +1,6 @@
 <?php 
     $myuser = $_SESSION['user']['id_ciudadano'];
-    $sql_notif = $con->prepare('SELECT COUNT(id_tarea) FROM tareas WHERE id_ciudadano_asigna_tarea =? AND tareas.realizada = 0 AND tareas.aceptada = 0');
+    $sql_notif = $con->prepare('SELECT COUNT(id_tarea) FROM tareas WHERE id_ciudadano_recibe_tarea =? AND tareas.realizada = 0');
     $sql_notif->execute(array($myuser));
     $total = $sql_notif->fetch();
 ?>
