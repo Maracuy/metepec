@@ -307,9 +307,9 @@ CREATE TABLE IF NOT EXISTS puestos_defensa(
     cubre INT,
     up INT,
     confirmacion INT,
-    inamovible INT NOT NULL DEFAULT 0
-    capacitacion1 INT NOT NULL DEFAULT 0,
-    capacitacion2 INT NOT NULL DEFAULT 0,
+    inamovible INT NOT NULL DEFAULT 0,
+    capacitacion1 INT,
+    capacitacion2 INT
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

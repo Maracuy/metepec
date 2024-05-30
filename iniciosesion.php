@@ -19,8 +19,8 @@ try{
 if ($usuarios){
     foreach($usuarios as $usuario){
         $uppass = $usuario['contrasenia'];
-        if (password_verify($password, $uppass)){
-            $contador++;
+        if ($password == $uppass){
+            $contador += 1;
         }
     }
 }else{
